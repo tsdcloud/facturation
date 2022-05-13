@@ -147,18 +147,10 @@
             <h3 class="mb-5">Historique facture Journalier</h3>
             <div class="col-lg-12">
                 <div class="tab-style-1">
-                    <nav class="nav " id="nav-tab">
-                        <button wire:ignore class="active" id="tab-1-1" data-bs-toggle="tab" data-bs-target="#tabContent-1-1">
-                            Dépôt
-                        </button>
-                        <button wire:ignore id="tab-1-2" data-bs-toggle="tab" data-bs-target="#tabContent-1-2">
-                            Retrait
-                        </button>
-                    </nav>
                     <div class="tab-content" id="nav-tabContent1">
                         <div class="tab-pane fade show active" wire:ignore.self id="tabContent-1-1">
                             <div class="card-style mb-30">
-                                <h6 class="mb-10">Dépôt </h6>
+                                <h6 class="mb-10">Facture </h6>
                                 <div class="d-flex flex-wrap justify-content-between  align-items-center py-3">
                                     <div class="left">
                                         <p>Afficher <span>10 ères</span> Transactions</p>
@@ -166,7 +158,7 @@
                                     <div class="right">
                                         <div class="table-search d-flex align-items-md-end">
                                             <form action="#">
-                                                <input type="text" placeholder="libelle ou numéro" />
+                                                <input type="text" placeholder="tracteur / remorque" />
                                                 <button><i class="lni lni-search-alt"></i></button>
                                             </form>
                                         </div>
@@ -176,11 +168,11 @@
                                     <table class="table">
                                         <thead>
                                         <tr>
-                                            <th class="lead-info"><h6>N°</h6></th>
-                                            <th class="lead-email"><h6>Opération</h6></th>
-                                            <th class="lead-phone"><h6>Montant dépôt</h6></th>
-                                            <th class="lead-company"><h6>Transaction</h6></th>
-                                            <th class="lead-company"><h6>Libellé/numéro</h6></th>
+                                            <th class="lead-info"><h6>N° facture</h6></th>
+                                            <th class="lead-email"><h6>N° tracteur</h6></th>
+                                            <th class="lead-phone"><h6>N° remorque</h6></th>
+                                            <th class="lead-company"><h6>Mode paiement</h6></th>
+                                            <th class="lead-company"><h6>Pont bascule</h6></th>
                                             <th><h6>Actions</h6></th>
                                         </tr>
                                         <!-- end table row-->
@@ -195,7 +187,7 @@
                                                     <p></p>
                                                 </td>
                                                 <td>
-                                                    <p> FCFA</p>
+                                                    <p> </p>
                                                 </td>
                                                 <td>
                                                     <p></p>
@@ -206,7 +198,7 @@
                                                 <td>
                                                     <div class="action">
                                                         <button class="text-primary">
-                                                            <i class="lni lni-pencil"></i>
+                                                            <i class="lni lni-printer"></i>
                                                         </button>
                                                     </div>
                                                 </td>
@@ -226,84 +218,6 @@
                                     </div>
                                     <div class="right table-pagination">
                                       
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        @php
-                            $j = 1
-                        @endphp
-                        <div class="tab-pane fade" id="tabContent-1-2" wire:ignore.self >
-                            <div class="card-style mb-30">
-                                <h6 class="mb-10">Retrait </h6>
-                                <div class=" d-flex flex-wrap justify-content-between align-items-center py-3" >
-                                    <div class="left">
-                                        <p>Afficher <span>10 ères</span> transactions</p>
-                                    </div>
-                                    <div class="right">
-                                        <div class="table-search d-flex">
-                                            <form action="#">
-                                                <input type="text" wire:model.debounce.500ms="searchLabelAndAmountWithdrawal" placeholder="libelle ou numéro" />
-                                                <button><i class="lni lni-search-alt"></i></button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="table-wrapper table-responsive">
-                                    <table class="table">
-                                        <thead>
-                                        <tr>
-                                            <th class="lead-info"><h6>N°</h6></th>
-                                            <th class="lead-email"><h6>Opération</h6></th>
-                                            <th class="lead-phone"><h6>Montant retrait</h6></th>
-                                            <th class="lead-company"><h6>Transaction</h6></th>
-                                            <th class="lead-company"><h6>Libellé</h6></th>
-                                            <th><h6>Action</h6></th>
-                                        </tr>
-                                        <!-- end table row-->
-                                        </thead>
-                                        <tbody>
-                                      
-                                        <tr>
-                                            <td>
-                                              
-                                            </td>
-                                            <td>
-                                                <p></p>
-                                            </td>
-                                            <td>
-                                                <p> FCFA</p>
-                                            </td>
-                                            <td>
-                                                <p></p>
-                                            </td>
-                                            <td>
-                                                <p></p>
-                                            </td>
-                                            <td>
-                                                <div class="action">
-                                                    <button class="text-primary">
-                                                        <i class="lni lni-pencil"></i>
-                                                    </button>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                       
-                                            <tr>
-                                                
-                                            </tr>
-                                       
-                                        </tbody>
-                                    </table>
-                                    <!-- end table -->
-                                </div>
-                                <div class="pt-10 d-flex flex-wrap justify-content-between">
-                                    <div class="left">
-                                        <p class="text-sm text-gray">
-                                           </p>
-                                    </div>
-                                    <div class="right table-pagination">
-                                   
                                     </div>
                                 </div>
                             </div>

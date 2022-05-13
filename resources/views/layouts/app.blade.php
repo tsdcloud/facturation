@@ -7,10 +7,10 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link
       rel="shortcut icon"
-      href="assets/images/favicon.svg"
+      href="assets/images/logo-dpws.ico"
       type="image/x-icon"
     />
-    <title>Moanè</title>
+    <title>Accueil</title>
 
     <!-- ========== All CSS files linkup ========= -->
     <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
@@ -27,7 +27,7 @@
     <aside class="sidebar-nav-wrapper">
       <div class="navbar-logo">
         <a href="index.html">
-          <img src="assets/images/logo/logo.svg" alt="logo" />
+          <img src="assets/images/logo/logo-dpws.png" alt="logo" />
         </a>
       </div>
      @include('layouts._sidebar')
@@ -38,70 +38,7 @@
     <!-- ======== main-wrapper start =========== -->
     <main class="main-wrapper">
       <!-- ========== header start ========== -->
-      <header class="header">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-lg-5 col-md-5 col-6">
-              <div class="header-left d-flex align-items-center">
-                <div class="menu-toggle-btn mr-20">
-                  <button
-                    id="menu-toggle"
-                    class="main-btn primary-btn btn-hover">
-                    <i class="lni lni-chevron-left me-2"></i> Menu
-                  </button>
-                </div>
-                <!-- search -->
-                <div class="header-search d-none d-md-flex"></div>
-              </div>
-            </div>
-            <div class="col-lg-7 col-md-7 col-6">
-              <div class="header-right">
-                <!-- profile start -->
-                <div class="profile-box ml-15">
-                  <button
-                    class="dropdown-toggle bg-transparent border-0"
-                    type="button"
-                    id="profile"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    <div class="profile-info">
-                      <div class="info">
-                        <h6>Alex GOBE</h6>
-                        <div class="image">
-                          <img
-                            src="assets/images/profile/profile-image.png"
-                            alt=""
-                          />
-                          <span class="status"></span>
-                        </div>
-                      </div>
-                    </div>
-                    <i class="lni lni-chevron-down"></i>
-                  </button>
-                  <ul
-                    class="dropdown-menu dropdown-menu-end"
-                    aria-labelledby="profile"
-                  >
-                    <li>
-                      <a href="#0">
-                        <i class="lni lni-user"></i> Votre Profil
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#0"> <i class="lni lni-cog"></i> Paramètre </a>
-                    </li>
-                    <li>
-                      <a href="#0"> <i class="lni lni-exit"></i> Se déconnecter </a>
-                    </li>
-                  </ul>
-                </div>
-                <!-- profile end -->
-              </div>
-            </div>
-          </div>
-        </div>
-      </header>
+      @include('layouts._header')
       <!-- ========== header end ========== -->
 
       <!-- ========== section start ========== -->
@@ -121,22 +58,22 @@
       <footer class="footer">
         <div class="container-fluid">
           <div class="row">
-            <div class="col-md-6 order-last order-md-first">
+            {{-- <div class="col-md-6 order-last order-md-first">
               <div class="copyright text-center text-md-start">
                 <p class="text-sm">
-                  Designed and Developed by
+                 
                   <a
-                    href="https://plainadmin.com"
+                    href=""
                     rel="nofollow"
                     target="_blank"
                   >
-                    Oloumie
+                    
                   </a>
                 </p>
               </div>
-            </div>
+            </div> --}}
             <!-- end col-->
-            <div class="col-md-6">
+            {{-- <div class="col-md-6">
               <div
                 class="
                   terms
@@ -147,7 +84,7 @@
                 <a href="#0" class="text-sm">Term & Conditions</a>
                 <a href="#0" class="text-sm ml-15">Privacy & Policy</a>
               </div>
-            </div>
+            </div> --}}
           </div>
           <!-- end row -->
         </div>
