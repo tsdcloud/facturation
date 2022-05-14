@@ -27,7 +27,7 @@
             >
               <div class="profile-info">
                 <div class="info">
-                  <h6>Alex GOBE</h6>
+                  <h6>{{Auth::user()->name}}</h6>
                   <div class="image">
                     <img
                       src="assets/images/profile/profile-image.png"
@@ -44,7 +44,12 @@
               <li>
               </li>
               <li>
-                <a href="#0"> <i class="lni lni-exit"></i> Se déconnecter </a>
+                <a href="{{route('logout') }}" onclick="event.preventDefault(); document. getElementById('logout-form').submit();"> 
+                  <i class="lni lni-exit">
+                </i> Se déconnecter </a>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST">
+                  @csrf
+               </form>
               </li>
             </ul>
           </div>
