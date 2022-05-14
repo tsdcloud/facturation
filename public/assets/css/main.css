@@ -5,6 +5,23 @@
 html {
   scroll-behavior: smooth; }
 
+  .lotecs{
+    width: 150px; 
+    height: 100px;
+    position: absolute;
+    top: 70%;
+  }
+
+  .maligne{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    flex: 1;
+    padding-bottom: 05px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+
 body {
   font-family: "Inter", sans-serif;
   font-weight: normal;
@@ -877,6 +894,7 @@ h6,
 .table > :not(caption) > * > * {
   padding: 15px 0;
   border-bottom-color: #efefef;
+  border-bottom-width: 0px !important;
   vertical-align: middle; }
 
 .table > :not(:last-child) > :last-child > * {
@@ -1843,13 +1861,16 @@ h6,
       height: 100%; }
 
 /* =========== Invoice Css ============= */
+
+
 .invoice-card .invoice-header {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   flex: 1;
   padding-bottom: 30px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1); }
+  /* border-bottom: 1px solid rgba(0, 0, 0, 0.1); */
+ }
   @media (max-width: 767px) {
     .invoice-card .invoice-header {
       flex-direction: column; } }
@@ -1882,7 +1903,7 @@ h6,
     .invoice-card .invoice-address {
       display: block; } }
   .invoice-card .invoice-address .address-item {
-    margin-right: 30px;
+    margin-right: 290px;
     min-width: 250px; }
     .invoice-card .invoice-address .address-item h5 {
       margin-bottom: 15px; }

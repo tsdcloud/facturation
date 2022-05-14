@@ -22,3 +22,6 @@ Route::get('home', function () {
 Route::get('billing', function () {
     return view('invoice');
 });
+Route::get('pdf', function () {
+    return view('viewPdf');
+});
