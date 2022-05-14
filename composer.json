@@ -12,6 +12,7 @@
         "laravel/framework": "^9.11",
         "laravel/sanctum": "^2.14.1",
         "laravel/tinker": "^2.7",
+        "laravolt/avatar": "^4.1",
         "livewire/livewire": "^2.10",
         "setasign/tfpdf": "^1.32"
     },

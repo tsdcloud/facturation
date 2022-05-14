@@ -30,7 +30,7 @@
                   <h6>{{Auth::user()->name}}</h6>
                   <div class="image">
                     <img
-                      src="assets/images/profile/profile-image.png"
+                      src="{{ Avatar::create(Auth::user()->name)->toBase64() }}"
                       alt=""/>
                     <span class="status"></span>
                   </div>
