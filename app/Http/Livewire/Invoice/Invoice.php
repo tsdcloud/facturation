@@ -2,10 +2,12 @@
 
 namespace App\Http\Livewire\Invoice;
 
-use App\Models\invoice as ModelsInvoice;
+use Livewire\Component;
 use App\Models\ModePayment;
 use App\Models\Weighbridge;
-use Livewire\Component;
+use Illuminate\Support\Facades\App;
+use App\Models\invoice as ModelsInvoice;
+use App\Http\Controllers\InvoiceController;
 
 class Invoice extends Component
 {
@@ -38,12 +40,12 @@ class Invoice extends Component
         'amountPaid.require' => 'veuillez entrer le montant',
     ];
 
-    public function store(): void {
-        dd($this->remains);
+    public function store() {
+       // dd($this->remains);
 
         $this->validate();
         
-        ModelsInvoice::create([
+        $data = ModelsInvoice::create([
             'name'=> $this->name,
             'invoice_no' => '001',
             'tractor'=> $this->tractor,
@@ -54,7 +56,12 @@ class Invoice extends Component
             'remains'=> $this->remains ?? 0 ,
         ]);
         //'user_id'=> "Alex GOBE",
+        
+
 
         $this->reset(['name','tractor','trailer','modePaymentId','weighbridgeId','amountPaid','weighbridgeId','userId','remains']);
+
+        return redirect()->action([InvoiceController::class, 'pdf']);
+      
     }
 }

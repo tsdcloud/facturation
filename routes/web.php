@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\InvoiceController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,3 +26,5 @@ Route::get('billing', function () {
 Route::get('pdf', function () {
     return view('viewPdf');
 });
+
+Route::get('ok',[InvoiceController::class, 'pdf']);
