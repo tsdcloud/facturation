@@ -12,4 +12,9 @@ class InvoiceController extends Controller
         $pdf = Pdf::loadView('viewPdf');
         return $pdf->download();
     }
+
+    public function index(){
+
+        return view('invoice');
+    }
 }

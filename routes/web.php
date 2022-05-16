@@ -1,7 +1,8 @@
 <?php
 
-use App\Http\Controllers\InvoiceController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\InvoiceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,7 +21,14 @@ Route::get('/', function () {
 Route::middleware(['auth'])->group(function(){
    
     Route::get('home', function () {
-        return view('home');
+        if (Auth::check()) {
+          //  dd("ok");
+            if(Auth::user()->role == "user"){
+                return view('invoice');
+            }else{
+                return view('home');
+            }
+        }
     });
     Route::get('billing', function () {
         return view('invoice');
