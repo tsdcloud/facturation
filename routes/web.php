@@ -17,14 +17,17 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('auth.login');
 });
-Route::get('home', function () {
-    return view('home');
-});
-Route::get('billing', function () {
-    return view('invoice');
-});
-Route::get('pdf', function () {
-    return view('viewPdf');
+Route::middleware(['auth'])->group(function(){
+   
+    Route::get('home', function () {
+        return view('home');
+    });
+    Route::get('billing', function () {
+        return view('invoice');
+    });
+    Route::get('pdf', function () {
+        return view('viewPdf');
+    });
+    Route::get('ok',[InvoiceController::class, 'pdf']);
 });
 
-Route::get('ok',[InvoiceController::class, 'pdf']);
