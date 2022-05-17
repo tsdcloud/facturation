@@ -167,7 +167,7 @@
                                 <h6 class="mb-10">Facture </h6>
                                 <div class="d-flex flex-wrap justify-content-between  align-items-center py-3">
                                     <div class="left">
-                                        <p>Afficher <span> les 10 premiers</span> reçus</p>
+                                        <p> Les 10 premiers reçus</p>
                                     </div>
                                     <div class="right">
                                         <div class="table-search d-flex align-items-md-end">

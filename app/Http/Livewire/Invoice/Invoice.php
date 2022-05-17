@@ -49,8 +49,7 @@ class Invoice extends Component
     ];
 
     public function store() {
-       // dd($this->remains);
-
+      
         $this->validate();
         
         $data = ModelsInvoice::create([
@@ -64,9 +63,6 @@ class Invoice extends Component
             'remains'=> $this->remains ?? 0 ,
             'user_id'=> auth()->id(),
         ]);
-        
-
-
         $this->reset(['name','tractor','trailer','modePaymentId','weighbridgeId','amountPaid','weighbridgeId','remains']);
         session()->flash('message', 'Transaction enregistreé avec succès.');
         $this->dispatchBrowserEvent('closeAlert');
