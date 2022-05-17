@@ -20,15 +20,8 @@ Route::get('/', function () {
 });
 Route::middleware(['auth'])->group(function(){
    
-    Route::get('home', function () {
-        if (Auth::check()) {
-          //  dd("ok");
-            if(Auth::user()->role == "user"){
-                return view('invoice');
-            }else{
+    Route::get('home', function () {  
                 return view('home');
-            }
-        }
     });
     Route::get('billing', function () {
         return view('invoice');

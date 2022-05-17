@@ -51,7 +51,7 @@
             </div>
         </div> --}}
         <div class="row">
-            @if(session()->has('message'))
+            {{-- @if(session()->has('message'))
                 <div id="alert-message" class="alert alert-success alert-dismissible fade show" role="alert">
                     <strong>{{session('message')}} </strong>
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -62,7 +62,7 @@
                     <strong>{{session('error')}} </strong>
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
-            @endif
+            @endif --}}
             <div class="col-lg-12">
                 <!-- input style start -->
                 <div class="card-style mb-30">
@@ -125,14 +125,29 @@
                     </div>
                     <div class="input-style-1">
                         <label>Reste à rembourser</label>
-                        <input type="number"  min="0" placeholder="saisir le montant" wire:model.defer="remains"/>
+                        <input type="number"  min="0" placeholder="saisir le montant à rembourser" wire:model.defer="remains"/>
                     </div>
+                    text
                     <div class="text-center">
-                        <button wire:click="store" class="main-btn active-btn-outline rounded-md btn-hover">Enregistrer
+                        <button wire:click="store" 
+                        class="main-btn active-btn-outline rounded-md btn-hover">Enregistrer
                         </button>
                     </div>
                 </div>
                 <!-- end card -->
+
+                @if(session()->has('message'))
+                <div id="alert-message" class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>{{session('message')}} </strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
+            @if(session()->has('error'))
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>{{session('error')}} </strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
             </div>
             <!-- end col  -->
 
@@ -153,12 +168,13 @@
                                 <h6 class="mb-10">Facture </h6>
                                 <div class="d-flex flex-wrap justify-content-between  align-items-center py-3">
                                     <div class="left">
-                                        <p>Afficher <span>10 ères</span> Transactions</p>
+                                        <p>Afficher <span> les 10 premiers</span> reçus</p>
                                     </div>
                                     <div class="right">
                                         <div class="table-search d-flex align-items-md-end">
                                             <form action="#">
-                                                <input type="text" placeholder="tracteur / remorque" />
+                                                <input type="text" wire:model.debounce.500ms="searchTrailerandTractorNumFac" 
+                                                 placeholder="Tracteur / Remorque / N° Fact" />
                                                 <button><i class="lni lni-search-alt"></i></button>
                                             </form>
                                         </div>
@@ -178,35 +194,35 @@
                                         <!-- end table row-->
                                         </thead>
                                         <tbody>
-                                     
-                                            <tr>
-                                                <td class="text-sm" >
-                                                   
-                                                </td>
-                                                <td>
-                                                    <p></p>
-                                                </td>
-                                                <td>
-                                                    <p> </p>
-                                                </td>
-                                                <td>
-                                                    <p></p>
-                                                </td>
-                                                <td>
-                                                    <p></p>
-                                                </td>
-                                                <td>
-                                                    <div class="action">
-                                                        <button class="text-primary">
-                                                            <i class="lni lni-printer"></i>
-                                                        </button>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                          
-                                                <tr>
-                                                    
-                                                </tr>
+                                     @forelse ($dailyInvoices as $invoice)
+                                     <tr>
+                                        <td class="text-sm" >
+                                           {{$invoice->invoice_no}}
+                                        </td>
+                                        <td>
+                                            <p> {{$invoice->tractor}}</p>
+                                        </td>
+                                        <td>
+                                            <p>{{$invoice->trailer}} </p>
+                                        </td>
+                                        <td>
+                                            <p>{{$invoice->mode_payment_id}}</p>
+                                        </td>
+                                        <td>
+                                            <p>{{$invoice->weighbridge->label}}</p>
+                                        </td>
+                                        <td>
+                                            <div class="action">
+                                                <button class="text-primary">
+                                                    <i class="lni lni-printer"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                     @empty
+                                         
+                                     @endforelse
+                                            
                                            
                                         </tbody>
                                     </table>
@@ -214,10 +230,10 @@
                                 </div>
                                 <div class="pt-10 d-flex flex-wrap justify-content-between">
                                     <div class="left">
-                                        <p class="text-sm text-gray">   </p>
+                                        <p class="text-sm text-gray">   {{$dailyInvoices->total() > 10 ? 'Afficher 10 /'.$dailyInvoices->total() . 'Dépôts' : '' }}  </p>
                                     </div>
                                     <div class="right table-pagination">
-                                      
+                                        {{$dailyInvoices->links()}}
                                     </div>
                                 </div>
                             </div>
@@ -230,3 +246,15 @@
         <!-- end row -->
     </div>
 </div>
+@push('scripts')
+    <script>
+        document.addEventListener('closeAlert',closeAlert);
+        function closeAlert(){
+            setTimeout(()=>{
+                let alertNode = document.querySelector('#alert-message');
+                let alert = new bootstrap.Alert(alertNode);
+                alert.close()
+            },3000)
+        }
+    </script>
+@endpush

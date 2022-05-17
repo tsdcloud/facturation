@@ -11,8 +11,8 @@ use App\Http\Controllers\InvoiceController;
 
 class Invoice extends Component
 {
-    public ?string $name = null, $tractor = null, $trailer = null;
-
+    public ?string $name = null, $tractor = null, $trailer = null, $searchTrailerandTractorNumFac = null;
+    public bool $isDisabled = false;
     public ?int $modePaymentId = null, $weighbridgeId = null,$userId = null, $amountPaid = null, $remains =null;
     // public ?int $remains = null;
     public function render()
@@ -20,6 +20,14 @@ class Invoice extends Component
         return view('livewire.invoice.invoice',[
             'modePayments' => ModePayment::all(),
             'weighbridges' => Weighbridge::all(),
+            'invoices' => ModelsInvoice::all(),
+            'dailyInvoices' => ModelsInvoice::whereDay('created_at',date('d'))
+                                           ->where(function($query){
+                                               $query->where('tractor','LIKE',"%{$this->searchTrailerandTractorNumFac}%");
+                                               $query->orWhere('trailer','LIKE',"%{$this->searchTrailerandTractorNumFac}%");
+                                               $query->orWhere('invoice_no','LIKE',"%{$this->searchTrailerandTractorNumFac}%");
+                                           })
+                                           ->orderBy('created_at', 'DESC')->paginate(10),
         ]);
     }
 
@@ -60,8 +68,18 @@ class Invoice extends Component
 
 
         $this->reset(['name','tractor','trailer','modePaymentId','weighbridgeId','amountPaid','weighbridgeId','userId','remains']);
-
-        return redirect()->action([InvoiceController::class, 'pdf']);
+        session()->flash('message', 'Transaction enregistreé avec succès.');
+        $this->dispatchBrowserEvent('closeAlert');
+        // return redirect()->action([InvoiceController::class, 'pdf']);
       
+    }
+
+    public function disabledBouton(): bool {
+        if ($this->amountPaid && $this->weighbridgeId 
+           && $this->modePaymentId && $this->tractor && 
+           $this->trailer) {
+            return true;
+        }
+            return false;
     }
 }

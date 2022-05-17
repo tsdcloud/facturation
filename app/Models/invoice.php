@@ -22,4 +22,12 @@ class invoice extends Model
         'weighbridge_id',
         'user_id'
     ];
+
+    public function weighbridge(){
+        return $this->belongsTo(Weighbridge::class);
+    }
+
+    public function modePayement(){
+        return $this->belongsTo(ModePayment::class);
+    }
 }
