@@ -30,4 +30,8 @@ class invoice extends Model
     public function modePayement(){
         return $this->belongsTo(ModePayment::class);
     }
+
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
 }

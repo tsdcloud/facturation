@@ -13,7 +13,7 @@ class Invoice extends Component
 {
     public ?string $name = null, $tractor = null, $trailer = null, $searchTrailerandTractorNumFac = null;
     public bool $isDisabled = false;
-    public ?int $modePaymentId = null, $weighbridgeId = null,$userId = null, $amountPaid = null, $remains =null;
+    public ?int $modePaymentId = null, $weighbridgeId = null, $amountPaid = null, $remains =null;
     // public ?int $remains = null;
     public function render()
     {
@@ -62,12 +62,12 @@ class Invoice extends Component
             'weighbridge_id'=> $this->weighbridgeId,
             'amount_paid'=> $this->amountPaid,
             'remains'=> $this->remains ?? 0 ,
+            'user_id'=> auth()->id(),
         ]);
-        //'user_id'=> "Alex GOBE",
         
 
 
-        $this->reset(['name','tractor','trailer','modePaymentId','weighbridgeId','amountPaid','weighbridgeId','userId','remains']);
+        $this->reset(['name','tractor','trailer','modePaymentId','weighbridgeId','amountPaid','weighbridgeId','remains']);
         session()->flash('message', 'Transaction enregistreé avec succès.');
         $this->dispatchBrowserEvent('closeAlert');
         // return redirect()->action([InvoiceController::class, 'pdf']);

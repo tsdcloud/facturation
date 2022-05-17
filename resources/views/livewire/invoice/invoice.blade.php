@@ -127,7 +127,6 @@
                         <label>Reste à rembourser</label>
                         <input type="number"  min="0" placeholder="saisir le montant à rembourser" wire:model.defer="remains"/>
                     </div>
-                    text
                     <div class="text-center">
                         <button wire:click="store" 
                         class="main-btn active-btn-outline rounded-md btn-hover">Enregistrer
