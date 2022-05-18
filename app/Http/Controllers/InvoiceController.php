@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\InvoiceService;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\App;
@@ -9,8 +10,8 @@ use Illuminate\Support\Facades\App;
 class InvoiceController extends Controller
 {
     public function pdf(){
-        $pdf = Pdf::loadView('viewPdf');
-        return $pdf->download();
+
+        InvoiceService::invoiceBuilder();
     }
 
     public function index(){
