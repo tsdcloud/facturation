@@ -70,7 +70,7 @@ class Invoice extends Component
         session()->flash('message', 'Transaction enregistreé avec succès.');
         $this->dispatchBrowserEvent('closeAlert');
 
-//        InvoiceService::invoiceBuilder($data);
+      // InvoiceService::invoiceBuilder($data, 'preview');
 
     }
 
@@ -86,7 +86,7 @@ class Invoice extends Component
     public function downloadPDF($id){
 
         $data = ModelsInvoice::where('id',$id)->first();
-        InvoiceService::invoiceBuilder($data);
+        InvoiceService::invoiceBuilder($data,'preview');
     }
     public function previewPDF($id){
 
