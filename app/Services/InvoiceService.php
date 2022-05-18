@@ -17,9 +17,9 @@ class InvoiceService extends Fpdi
         $pdf->SetMargins(05,02,1); // starting margin
         $pdf->AddPage();
         $pdf->SetFont('Arial','',11);
-        $pdf->Cell(200 ,5,utf8_decode('FACTURE ACQUITTEE N° 000001'),0,0,'R');
+        $pdf->Cell(200 ,5,utf8_decode('FACTURE ACQUITTEE N° '.$data->invoice_no),0,0,'R');
         $pdf->Ln(10);
-        $pdf->Cell(200 ,5,utf8_decode('Pont bascule N°'.$data->weighbridge->label),0,0,'R');
+        $pdf->Cell(200 ,5,utf8_decode('Pont bascule '.$data->weighbridge->label),0,0,'R');
         $pdf->Cell(-173 ,10,utf8_decode('www.dpws.cm'),0,0,'R');
         $pdf->SetFont('Arial','',10);
         $pdf->Ln(20);

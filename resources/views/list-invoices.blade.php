@@ -55,7 +55,7 @@
                                 </td>
                                 <td>
                                     <div class="action">
-                                        <button class="text-primary" wire:click="downloadPDF({{$invoice->id}})">
+                                        <a class="link-primary" href="{{url('pdf',$invoice->id)}}" >
                                             <i class="lni lni-printer"></i>
                                         </button>
                                     </div>

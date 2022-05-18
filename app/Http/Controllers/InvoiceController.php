@@ -10,9 +10,9 @@ use Illuminate\Support\Facades\App;
 
 class InvoiceController extends Controller
 {
-    public function pdf(){
-
-       // InvoiceService::invoiceBuilder();
+    public function pdf($id){
+        $data = invoice::where('id',$id)->first();
+       InvoiceService::invoiceBuilder($data,'preview');
     }
 
     public function index()

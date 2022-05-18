@@ -1,8 +1,10 @@
 <?php
 
-use App\Http\Controllers\HomeController;
+use App\Services\InvoiceService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Models\Invoice;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InvoiceController;
 
 /*
@@ -23,8 +25,11 @@ Route::middleware(['auth'])->group(function(){
    
     Route::get('home',[HomeController::class, 'index']);
     Route::get('billing',[InvoiceController::class,'index']);
-    Route::get('pdf', function () {
-        return view('viewPdf');
+
+    Route::get('pdf/{id}', function ($id) {
+        $data = Invoice::where('id',$id)->first();
+        //dd($data);
+        return InvoiceService::invoiceBuilder($data,'preview');
     });
     Route::get('ok',[InvoiceController::class, 'pdf']);
     Route::get('invoices',[InvoiceController::class, 'myInvoice'])->name('invoices');
