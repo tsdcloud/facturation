@@ -27,7 +27,7 @@ class invoice extends Model
         return $this->belongsTo(Weighbridge::class);
     }
 
-    public function modePayement(){
+    public function modePayment()  {
         return $this->belongsTo(ModePayment::class);
     }
 

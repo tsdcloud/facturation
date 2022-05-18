@@ -2,6 +2,8 @@
 
 namespace App\Http\Livewire\Invoice;
 
+use App\Services\InvoiceService;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use App\Models\ModePayment;
 use App\Models\Weighbridge;
@@ -22,6 +24,7 @@ class Invoice extends Component
             'weighbridges' => Weighbridge::all(),
             'invoices' => ModelsInvoice::all(),
             'dailyInvoices' => ModelsInvoice::whereDay('created_at',date('d'))
+                                              ->where('user_id',Auth::user()->id)
                                            ->where(function($query){
                                                $query->where('tractor','LIKE',"%{$this->searchTrailerandTractorNumFac}%");
                                                $query->orWhere('trailer','LIKE',"%{$this->searchTrailerandTractorNumFac}%");
@@ -49,9 +52,9 @@ class Invoice extends Component
     ];
 
     public function store() {
-      
+
         $this->validate();
-        
+
         $data = ModelsInvoice::create([
             'name'=> $this->name,
             'invoice_no' => '001',
@@ -66,16 +69,23 @@ class Invoice extends Component
         $this->reset(['name','tractor','trailer','modePaymentId','weighbridgeId','amountPaid','weighbridgeId','remains']);
         session()->flash('message', 'Transaction enregistreé avec succès.');
         $this->dispatchBrowserEvent('closeAlert');
-        // return redirect()->action([InvoiceController::class, 'pdf']);
-      
+
+        InvoiceService::invoiceBuilder($data);
+
     }
 
     public function disabledBouton(): bool {
-        if ($this->amountPaid && $this->weighbridgeId 
-           && $this->modePaymentId && $this->tractor && 
+        if ($this->amountPaid && $this->weighbridgeId
+           && $this->modePaymentId && $this->tractor &&
            $this->trailer) {
             return true;
         }
             return false;
+    }
+
+    public function displayPDF($id){
+
+        $data = ModelsInvoice::where('id',$id)->first();
+        InvoiceService::invoiceBuilder($data);
     }
 }

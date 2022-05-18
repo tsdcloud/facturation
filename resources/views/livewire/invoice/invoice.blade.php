@@ -109,7 +109,7 @@
                                     <select  wire:model.defer ="weighbridgeId" >
                                         <option value="" selected disabled>selectionner votre pont</option>
                                         @foreach ($weighbridges as $weighbridge )
-                                           <option value="{{$weighbridge->id}}">{{$weighbridge->label}}</option> 
+                                           <option value="{{$weighbridge->id}}">{{$weighbridge->label}}</option>
                                         @endforeach
                                         </select>
                                         @error('weighbridgeId') <span class="text-danger">{{ $message }}</span> @enderror
@@ -128,7 +128,7 @@
                         <input type="number"  min="0" placeholder="saisir le montant à rembourser" wire:model.defer="remains"/>
                     </div>
                     <div class="text-center">
-                        <button wire:click="store" 
+                        <button wire:click="store"
                         class="main-btn active-btn-outline rounded-md btn-hover">Enregistrer
                         </button>
                     </div>
@@ -172,7 +172,7 @@
                                     <div class="right">
                                         <div class="table-search d-flex align-items-md-end">
                                             <form action="#">
-                                                <input type="text" wire:model.debounce.500ms="searchTrailerandTractorNumFac" 
+                                                <input type="text" wire:model.debounce.500ms="searchTrailerandTractorNumFac"
                                                  placeholder="Tracteur / Remorque / N° Fact" />
                                                 <button><i class="lni lni-search-alt"></i></button>
                                             </form>
@@ -205,24 +205,24 @@
                                             <p>{{$invoice->trailer}} </p>
                                         </td>
                                         <td>
-                                            <p>{{$invoice->mode_payment_id}}</p>
+                                            <p>{{$invoice->modePayment->label}}</p>
                                         </td>
                                         <td>
                                             <p>{{$invoice->weighbridge->label}}</p>
                                         </td>
                                         <td>
                                             <div class="action">
-                                                <button class="text-primary">
+                                                <button class="text-primary" wire:click="displayPDF({{$invoice->id}})">
                                                     <i class="lni lni-printer"></i>
                                                 </button>
                                             </div>
                                         </td>
                                     </tr>
                                      @empty
-                                         
+
                                      @endforelse
-                                            
-                                           
+
+
                                         </tbody>
                                     </table>
                                     <!-- end table -->
