@@ -9,7 +9,18 @@ class InvoiceService extends Fpdi
         $this->Image(public_path('assets\images\logo\logo-dpws.png'),05,05,30);
         $this->Ln(3);
 
+        $this->Image(public_path('\assets\images\logo\lotecs.png'),15,105,20);
+
+        // $this->Image(public_path('assets\images\logo\logo-dpws.png'),65,90,60);
     }
+
+//     function RotatedImage($file,$x,$y,$w,$h,$angle)
+// {
+//     //Image rotated around its upper-left corner
+//     $this->Rotate($angle,$x,$y);
+//     $this->Image($file,$x,$y,$w,$h);
+//     $this->Rotate(0);
+// }
 
     public static function invoiceBuilder($data,$type){
 
@@ -19,8 +30,10 @@ class InvoiceService extends Fpdi
         $pdf->SetFont('Arial','',11);
         $pdf->Cell(200 ,5,utf8_decode('FACTURE ACQUITTEE N° '.$data->invoice_no),0,0,'R');
         $pdf->Ln(10);
-        $pdf->Cell(200 ,5,utf8_decode('Pont bascule '.$data->weighbridge->label),0,0,'R');
+        $pdf->Cell(200 ,5,utf8_decode('Date :'.$data->created_at->format('d/m/y h:m:s')),0,0,'R');
         $pdf->Cell(-173 ,10,utf8_decode('www.dpws.cm'),0,0,'R');
+        $pdf->Ln(10);
+        $pdf->Cell(200 ,5,utf8_decode('Pont bascule '.$data->weighbridge->label),0,0,'R');
         $pdf->SetFont('Arial','',10);
         $pdf->Ln(20);
         $pdf->Cell(20,10,utf8_decode('Reçu de '),0,0,'L');
@@ -33,15 +46,16 @@ class InvoiceService extends Fpdi
         $pdf->Cell(80,10,utf8_decode($data->modePayment->label),0,0,'L');
         $pdf->Ln(10);
         $pdf->Cell(138,10,utf8_decode('Chef de Guerite'),0,0,'L');
-        $pdf->text(06,81,utf8_decode($data->user->name));
-        $pdf->Cell(80,10,utf8_decode('Montant HT :  FCFA '),0,0,'L');
-
-        $pdf->text(144,81,utf8_decode('TVA 19.25% :  FCFA'));
-        $pdf->text(144,91,utf8_decode('Montant TTC :  FCFA'));
-        $pdf->text(144,101,utf8_decode('Montant versé : '.$data->amount_paid.' FCFA'));
-        $pdf->text(144,111,utf8_decode('Montant à rembourser : '.$data->remains.' FCFA'));
+        // $pdf->Cell(400,10,utf8_decode($data->user->name),0,0,'L'); 
+        $pdf->text(41,81,utf8_decode($data->user->name));
+        // $pdf->Cell(80,10,utf8_decode('Montant HT :  FCFA '),0,0,'L');
+        $pdf->Ln(10);
+        $pdf->text(144,85,utf8_decode('TVA 19.25% :  FCFA'));
+        $pdf->text(144,95,utf8_decode('Montant TTC :  FCFA'));
+        $pdf->text(144,105,utf8_decode('Montant versé : '.$data->amount_paid.' FCFA'));
+        $pdf->text(05,90,utf8_decode('Signature et cachet'));
+        $pdf->text(144,115,utf8_decode('Montant à rembourser : '.$data->remains.' FCFA'));
         $pdf->Ln(50);
-        $pdf->Cell(138,10,utf8_decode('Douale le '.$data->created_at),0,0,'L');
         $pdf->Line(2,125,205,125);
         $pdf->SetFont('Arial','',9);
         $pdf->text(05,130,utf8_decode('Douala Port Weighing Services SAS CAPITAL VARIABLE DE 50 000 000 XAF RCCM RC / DLA / 2019 / b / 5453 NUI M121914355936 L'));
