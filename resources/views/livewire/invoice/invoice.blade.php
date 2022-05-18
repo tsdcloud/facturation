@@ -129,7 +129,7 @@
                     </div>
                     <div class="text-center">
                         <button wire:click="store"
-                        class="main-btn active-btn-outline rounded-md btn-hover">Enregistrer
+                        class="main-btn active-btn-outline rounded-md btn-hover">Imprimer
                         </button>
                     </div>
                 </div>
@@ -154,7 +154,7 @@
         </div>
 
         <!-- Historique de transaction journalière -->
-        @php
+        {{-- @php
             $i = 1
         @endphp
         <div class="row">
@@ -212,7 +212,7 @@
                                         </td>
                                         <td>
                                             <div class="action">
-                                                <button class="text-primary" wire:click="displayPDF({{$invoice->id}})">
+                                                <button class="text-primary" wire:click="downloadPDF({{$invoice->id}})">
                                                     <i class="lni lni-printer"></i>
                                                 </button>
                                             </div>
@@ -241,7 +241,7 @@
                 </div>
             </div>
             <!-- end col -->
-        </div>
+        </div> --}}
         <!-- end row -->
     </div>
 </div>

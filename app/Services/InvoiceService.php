@@ -11,7 +11,7 @@ class InvoiceService extends Fpdi
 
     }
 
-    public static function invoiceBuilder($data){
+    public static function invoiceBuilder($data,$type){
 
         $pdf = new InvoiceService('P','mm','A4');
         $pdf->SetMargins(05,02,1); // starting margin
@@ -48,6 +48,7 @@ class InvoiceService extends Fpdi
         $pdf->text(05,135,utf8_decode('Siège Social : Bonapriso, Lieu dit Ancien dépôt Guinness - Douala B.P 12209 00237 650 911 000/ 695 502 502 contact@dpws.cm dpws.cm'));
         $pdf->text(05,140,utf8_decode('Compte Afriland First Bank réf : 10005 00002 06463841002 52 swift : cceicmcx iban : cm21 100005 0000206463841002 52'));
 
-        $pdf->Output();
+        if ($type == "preview")
+          return $pdf->Output('','Facture '.$data->created_at.'.pdf','I');
     }
 }

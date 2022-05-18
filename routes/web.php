@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\InvoiceController;
@@ -20,15 +21,12 @@ Route::get('/', function () {
 });
 Route::middleware(['auth'])->group(function(){
    
-    Route::get('home', function () {  
-                return view('home');
-    });
-    Route::get('billing', function () {
-        return view('invoice');
-    });
+    Route::get('home',[HomeController::class, 'index']);
+    Route::get('billing',[InvoiceController::class,'index']);
     Route::get('pdf', function () {
         return view('viewPdf');
     });
     Route::get('ok',[InvoiceController::class, 'pdf']);
+    Route::get('invoices',[InvoiceController::class, 'myInvoice'])->name('invoices');
 });
 

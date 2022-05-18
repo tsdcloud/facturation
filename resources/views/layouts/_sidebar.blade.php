@@ -1,7 +1,7 @@
 <nav class="sidebar-nav">
         <ul>
-          <li class="nav-item">
-            <a href="">
+          <li class="nav-item {{ Request::is('home') ? 'active' : '' }}">
+            <a href="{{url('home')}}">
               <span class="icon">
                 <svg width="22" height="22" viewBox="0 0 22 22">
                   <path
@@ -12,7 +12,7 @@
               <span class="text">Dashboard</span>
             </a>
           </li>
-          <li class="nav-item ">
+          <li class="nav-item {{ Request::is('billing') ? 'active' : '' }}">
             <a href="{{url('billing')}}">
             <span class="icon">
                 <svg
@@ -30,8 +30,8 @@
               <span class="text">Facturation</span>
             </a>
           </li>
-          <li class="nav-item ">
-            <a href="">
+          <li class="nav-item {{ Request::is('invoices') ? 'active' : '' }} ">
+            <a href="{{route('invoices')}}">
             <span class="icon">
                 <svg
                         width="22"
