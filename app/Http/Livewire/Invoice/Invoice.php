@@ -37,7 +37,7 @@ class Invoice extends Component
     protected $rules = [
         'name' => 'required',
         'tractor' => 'required',
-        'trailer' => 'required',
+       // 'trailer' => 'required',
         'modePaymentId' => 'required',
         'weighbridgeId' => 'required',
         'amountPaid' => 'required',
@@ -45,7 +45,7 @@ class Invoice extends Component
     protected $messages =[
         'name.require' => 'le nom est obligatoire',
         'tractor.require' => 'le tracteur est obligatoire',
-        'trailer.require' => 'la remorque est obligatoire',
+        // 'trailer.require' => 'la remorque est obligatoire',
         'modePaymentId.require' => 'choisissez le mode de paiement',
         'weighbridgeId.require' => 'choisissez le pont bascule',
         'amountPaid.require' => 'veuillez entrer le montant',
@@ -54,16 +54,17 @@ class Invoice extends Component
     public function store() {
 
         $this->validate();
-
+       $lastId = ModelsInvoice::latest('id')->first();
+       //dd($lastId);
         $data = ModelsInvoice::create([
             'name'=> $this->name,
-            'invoice_no' => '001',
+            'invoice_no' => '00'.$lastId->id,
             'tractor'=> $this->tractor,
-            'trailer'=> $this->trailer,
+            'trailer'=> $this->trailer ,
             'mode_payment_id'=> $this->modePaymentId,
             'weighbridge_id'=> $this->weighbridgeId,
             'amount_paid'=> $this->amountPaid,
-            'remains'=> $this->remains ?? 0 ,
+            'remains'=> $this->remains ? $this->remains: 0 ,
             'user_id'=> auth()->id(),
         ]);
         $this->reset(['name','tractor','trailer','modePaymentId','weighbridgeId','amountPaid','weighbridgeId','remains']);

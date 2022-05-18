@@ -92,7 +92,7 @@
                                 <label>Mode paiement</label>
                                 <div class="select-position">
                                     <select wire:model.defer="modePaymentId" >
-                                        <option value="" selected disabled>Selectionner le mode</option>
+                                        <option value="" selected >Selectionner le mode</option>
                                         @foreach ($modePayments as $modePayment )
                                             <option value="{{$modePayment->id}}">{{$modePayment->label}}</option>
                                         @endforeach
@@ -107,7 +107,7 @@
                                 <label>Pont bascule</label>
                                 <div class="select-position">
                                     <select  wire:model.defer ="weighbridgeId" >
-                                        <option value="" selected disabled>selectionner votre pont</option>
+                                        <option value="" selected>selectionner votre pont</option>
                                         @foreach ($weighbridges as $weighbridge )
                                            <option value="{{$weighbridge->id}}">{{$weighbridge->label}}</option>
                                         @endforeach
