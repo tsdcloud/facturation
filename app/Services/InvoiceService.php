@@ -9,7 +9,8 @@ class InvoiceService extends Fpdi
         $this->Image(public_path('assets\images\logo\logo-dpws.png'),05,05,30);
         $this->Ln(3);
 
-        $this->Image(public_path('\assets\images\logo\lotecs.png'),15,105,20);
+        $this->Image(public_path('\assets\images\logo\lotecs.png'),15,109,17);
+        $this->Image(public_path('\assets\images\signature.png'),05,92,38);
 
         // $this->Image(public_path('assets\images\logo\logo-dpws.png'),65,90,60);
     }
@@ -49,12 +50,12 @@ class InvoiceService extends Fpdi
         // $pdf->Cell(400,10,utf8_decode($data->user->name),0,0,'L'); 
         $pdf->text(41,81,utf8_decode($data->user->name));
         // $pdf->Cell(80,10,utf8_decode('Montant HT :  FCFA '),0,0,'L');
-        $pdf->Ln(10);
-        $pdf->text(144,85,utf8_decode('TVA 19.25% :  FCFA'));
-        $pdf->text(144,95,utf8_decode('Montant TTC :  FCFA'));
-        $pdf->text(144,105,utf8_decode('Montant versé : '.$data->amount_paid.' FCFA'));
-        $pdf->text(05,90,utf8_decode('Signature et cachet'));
-        $pdf->text(144,115,utf8_decode('Montant à rembourser : '.$data->remains.' FCFA'));
+       // $pdf->Ln(10);
+        $pdf->text(144,98,utf8_decode('TVA 19.25% :  FCFA'));
+        $pdf->text(144,104,utf8_decode('Montant TTC :  FCFA'));
+        $pdf->text(144,110,utf8_decode('Montant versé : '.$data->amount_paid.' FCFA'));
+        $pdf->text(06,90,utf8_decode('Signature et cachet'));
+        $pdf->text(144,116,utf8_decode('Montant à rembourser : '.$data->remains.' FCFA'));
         $pdf->Ln(50);
         $pdf->Line(2,125,205,125);
         $pdf->SetFont('Arial','',9);

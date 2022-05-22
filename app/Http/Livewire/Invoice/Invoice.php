@@ -56,17 +56,36 @@ class Invoice extends Component
         $this->validate();
        $lastId = ModelsInvoice::latest('id')->first();
        
-        $data = ModelsInvoice::create([
-            'name'=> $this->name,
-            'invoice_no' => str_pad($lastId->id,10,0,STR_PAD_LEFT),
-            'tractor'=> $this->tractor,
-            'trailer'=> $this->trailer ,
-            'mode_payment_id'=> $this->modePaymentId,
-            'weighbridge_id'=> $this->weighbridgeId,
-            'amount_paid'=> $this->amountPaid,
-            'remains'=> $this->remains ? $this->remains: 0 ,
-            'user_id'=> auth()->id(),
-        ]);
+       if (is_null($lastId)){
+       $data = ModelsInvoice::create([
+           'name'=> $this->name,
+           'invoice_no' => str_pad(1,10,0,STR_PAD_LEFT),
+           'tractor'=> $this->tractor,
+           'trailer'=> $this->trailer ,
+           'mode_payment_id'=> $this->modePaymentId,
+           'weighbridge_id'=> $this->weighbridgeId,
+           'amount_paid'=> $this->amountPaid,
+           'remains'=> $this->remains ? $this->remains: 0 ,
+           'user_id'=> auth()->id(),
+       ]);
+   }
+
+       if (!is_null($lastId)){
+           $data = ModelsInvoice::create([
+               'name'=> $this->name,
+               'invoice_no' => str_pad($lastId->id + 1,10,0,STR_PAD_LEFT),
+               'tractor'=> $this->tractor,
+               'trailer'=> $this->trailer ,
+               'mode_payment_id'=> $this->modePaymentId,
+               'weighbridge_id'=> $this->weighbridgeId,
+               'amount_paid'=> $this->amountPaid,
+               'remains'=> $this->remains ? $this->remains: 0 ,
+               'user_id'=> auth()->id(),
+           ]);
+       }
+
+     
+
         $this->reset(['name','tractor','trailer','modePaymentId','weighbridgeId','amountPaid','weighbridgeId','remains']);
         session()->flash('message', 'Transaction enregistreé avec succès.');
         $this->dispatchBrowserEvent('closeAlert');
