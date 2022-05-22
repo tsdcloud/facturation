@@ -1,3 +1,6 @@
+@push('styles')
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js">
+@endpush
 <div>
     <div class="form-elements-wrapper">
         {{-- <div class="row">
@@ -246,6 +249,8 @@
     </div>
 </div>
 @push('scripts')
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.js" ></script>
     <script>
         document.addEventListener('closeAlert',closeAlert);
         function closeAlert(){

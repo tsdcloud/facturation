@@ -2,12 +2,13 @@
 
 namespace App\Http\Livewire\Invoice;
 
-use App\Services\InvoiceService;
-use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use App\Models\ModePayment;
 use App\Models\Weighbridge;
+use App\Services\InvoiceService;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 use App\Models\invoice as ModelsInvoice;
 use App\Http\Controllers\InvoiceController;
 
