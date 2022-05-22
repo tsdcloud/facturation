@@ -55,10 +55,10 @@ class Invoice extends Component
 
         $this->validate();
        $lastId = ModelsInvoice::latest('id')->first();
-       //dd($lastId);
+       
         $data = ModelsInvoice::create([
             'name'=> $this->name,
-            'invoice_no' => '00'.$lastId->id,
+            'invoice_no' => str_pad($lastId->id,10,0,STR_PAD_LEFT),
             'tractor'=> $this->tractor,
             'trailer'=> $this->trailer ,
             'mode_payment_id'=> $this->modePaymentId,
