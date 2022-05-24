@@ -14,7 +14,7 @@ use App\Http\Controllers\InvoiceController;
 
 class Invoice extends Component
 {
-    public ?string $name = null, $tractor = null, $trailer = null, $searchTrailerandTractorNumFac = null;
+    public ?string $name = null, $tractor = null, $trailer = null, $searchTrailerandTractorNumFac = null, $url= null;
     public bool $isDisabled = false;
     public ?int $modePaymentId = null, $weighbridgeId = null, $amountPaid = null, $remains =null;
     // public ?int $remains = null;
@@ -56,7 +56,7 @@ class Invoice extends Component
 
         $this->validate();
        $lastId = ModelsInvoice::latest('id')->first();
-       
+dd($this->remains);
        if (is_null($lastId)){
        $data = ModelsInvoice::create([
            'name'=> $this->name,
@@ -66,7 +66,7 @@ class Invoice extends Component
            'mode_payment_id'=> $this->modePaymentId,
            'weighbridge_id'=> $this->weighbridgeId,
            'amount_paid'=> $this->amountPaid,
-           'remains'=> $this->remains ? $this->remains: 0 ,
+           'remains'=> !is_null($this->remains) ? $this->remains: 1,
            'user_id'=> auth()->id(),
        ]);
    }
@@ -85,13 +85,17 @@ class Invoice extends Component
            ]);
        }
 
-     
+
 
         $this->reset(['name','tractor','trailer','modePaymentId','weighbridgeId','amountPaid','weighbridgeId','remains']);
         session()->flash('message', 'Transaction enregistreé avec succès.');
         $this->dispatchBrowserEvent('closeAlert');
+       // $this->dispatchBrowserEvent('show-modal');
 
-      // InvoiceService::invoiceBuilder($data, 'preview');
+     //  $this->url = action([InvoiceController::class, 'pdf'], ['id' => $data->id]);
+
+     // dd( redirect()->route('show-pdf', ['id' => 1]));
+       // dd($this->url);
 
     }
 

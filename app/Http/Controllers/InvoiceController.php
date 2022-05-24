@@ -25,6 +25,6 @@ class InvoiceController extends Controller
         $breadcrumb = "Factures";
         $invoices = invoice::paginate(10);
 
-        return view('list-invoices',compact('invoices','breadcrumb'));
+        return view('list-invoice',compact('invoices','breadcrumb'));
     }
 }

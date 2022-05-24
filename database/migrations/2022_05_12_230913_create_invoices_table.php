@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->text('invoice_no');
             $table->string('tractor');
-            $table->string('trailer');
+            $table->string('trailer')->nullable();
             $table->string('amount_ht')->nullable();
             $table->string('vat')->nullable();
             $table->decimal('amount_paid',8,2);

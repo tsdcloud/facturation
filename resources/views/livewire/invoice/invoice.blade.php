@@ -1,6 +1,4 @@
-@push('styles')
-<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js">
-@endpush
+
 <div>
     <div class="form-elements-wrapper">
         {{-- <div class="row">
@@ -246,19 +244,48 @@
             <!-- end col -->
         </div> --}}
         <!-- end row -->
+
+        <div class="warning-modal" >
+            <div wire:ignore.self id="myModal" class="modal fade mod" data-bs-backdrop="static" data-bs-keyboard="false"
+                 id="ModalTwo" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog  modal-xl">
+                    <div class="modal-content card-style">
+                        <div class="modal-header px-0 border-0 d-flex justify-content-end ">
+                            <button class="border-0 bg-transparent h2"  data-bs-dismiss="modal">
+                                <i class="lni lni-cross-circle"></i>
+                            </button>
+                        </div>
+                        <div class="modal-body px-0">
+
+
+
+{{--                                <iframe src="{{$url}}"  width="100%" height="500px"></iframe>--}}
+{{--                            <a href="{{$url}}" target="iframe_a">afficher</a>--}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
 @push('scripts')
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.js" ></script>
     <script>
-        document.addEventListener('closeAlert',closeAlert);
+
+        document.addEventListener('closeAlert', closeAlert);
+
         function closeAlert(){
+
             setTimeout(()=>{
                 let alertNode = document.querySelector('#alert-message');
                 let alert = new bootstrap.Alert(alertNode);
                 alert.close()
             },3000)
+
+            const myModal = new bootstrap.Modal(document.getElementById('myModal'));
+            myModal.show();
         }
     </script>
 @endpush

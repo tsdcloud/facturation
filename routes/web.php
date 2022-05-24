@@ -22,15 +22,17 @@ Route::get('/', function () {
     return view('auth.login');
 });
 Route::middleware(['auth'])->group(function(){
-   
+
     Route::get('home',[HomeController::class, 'index']);
     Route::get('billing',[InvoiceController::class,'index']);
 
-    Route::get('pdf/{id}', function ($id) {
-        $data = Invoice::where('id',$id)->first();
-        //dd($data);
-        return InvoiceService::invoiceBuilder($data,'preview');
-    });
+//    Route::get('pdf/{id}', function ($id) {
+//        $data = Invoice::where('id',$id)->first();
+//        //dd($data);
+//        return InvoiceService::invoiceBuilder($data,'preview');
+//    });
+
+    Route::get('pdf/{id}',[InvoiceController::class,'pdf'])->name('show-pdf');
     Route::get('ok',[InvoiceController::class, 'pdf']);
     Route::get('invoices',[InvoiceController::class, 'myInvoice'])->name('invoices');
 });
