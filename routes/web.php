@@ -32,7 +32,7 @@ Route::middleware(['auth'])->group(function(){
 //        return InvoiceService::invoiceBuilder($data,'preview');
 //    });
 
-    Route::get('pdf/{id}',[InvoiceController::class,'pdf'])->name('show-pdf');
+    Route::get('pdf/{id?}',[InvoiceController::class,'pdf'])->name('show-pdf');
     Route::get('ok',[InvoiceController::class, 'pdf']);
     Route::get('invoices',[InvoiceController::class, 'myInvoice'])->name('invoices');
 });

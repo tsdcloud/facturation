@@ -11,15 +11,17 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Models\invoice as ModelsInvoice;
 use App\Http\Controllers\InvoiceController;
+use SebastianBergmann\Type\NullType;
 
 class Invoice extends Component
 {
-    public ?string $name = null, $tractor = null, $trailer = null, $searchTrailerandTractorNumFac = null, $url= null;
+    public ?string $name = null, $tractor = null, $trailer = null, $searchTrailerandTractorNumFac = null;
     public bool $isDisabled = false;
-    public ?int $modePaymentId = null, $weighbridgeId = null, $amountPaid = null, $remains =null;
-    // public ?int $remains = null;
+    public ?int $modePaymentId = null, $weighbridgeId = null;
+    public $amountPaid = null ,$remains = 0, $weighedTest = false, $url= null;
     public function render()
     {
+       
         return view('livewire.invoice.invoice',[
             'modePayments' => ModePayment::all(),
             'weighbridges' => Weighbridge::all(),
@@ -35,6 +37,17 @@ class Invoice extends Component
         ]);
     }
 
+    public function updated(){
+        if ($this->amountPaid != "" && $this->weighedTest == false)
+           $this->remains = 11925 - $this->amountPaid;
+
+        if ($this->amountPaid != "" && $this->weighedTest == true)
+           $this->remains = 5962.5 - $this->amountPaid;
+
+        if ($this->amountPaid =="")
+           $this->remains = 0;
+        
+    }
     protected $rules = [
         'name' => 'required',
         'tractor' => 'required',
@@ -56,7 +69,6 @@ class Invoice extends Component
 
         $this->validate();
        $lastId = ModelsInvoice::latest('id')->first();
-dd($this->remains);
        if (is_null($lastId)){
        $data = ModelsInvoice::create([
            'name'=> $this->name,
@@ -74,7 +86,7 @@ dd($this->remains);
        if (!is_null($lastId)){
            $data = ModelsInvoice::create([
                'name'=> $this->name,
-               'invoice_no' => str_pad($lastId->id + 1,10,0,STR_PAD_LEFT),
+               'invoice_no' => str_pad($lastId->id + 1,7,0,STR_PAD_LEFT),
                'tractor'=> $this->tractor,
                'trailer'=> $this->trailer ,
                'mode_payment_id'=> $this->modePaymentId,
@@ -85,7 +97,7 @@ dd($this->remains);
            ]);
        }
 
-
+    $this->url = $data->id;
 
         $this->reset(['name','tractor','trailer','modePaymentId','weighbridgeId','amountPaid','weighbridgeId','remains']);
         session()->flash('message', 'Transaction enregistreé avec succès.');
@@ -94,7 +106,7 @@ dd($this->remains);
 
      //  $this->url = action([InvoiceController::class, 'pdf'], ['id' => $data->id]);
 
-     // dd( redirect()->route('show-pdf', ['id' => 1]));
+      // redirect()->route('show-pdf', ['id' => $data->id]);
        // dd($this->url);
 
     }
@@ -118,4 +130,8 @@ dd($this->remains);
         $data = ModelsInvoice::where('id',$id)->first();
         InvoiceService::invoiceBuilder($data, 'preview');
     }
+
+    // public function getRemainsProperty(){
+    //     return $this->amountPaid - 11925;
+    // }
 }

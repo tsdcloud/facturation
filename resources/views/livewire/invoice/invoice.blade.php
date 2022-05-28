@@ -121,17 +121,27 @@
                     <!-- end input -->
                     <div class="input-style-1">
                         <label>Montant versé</label>
-                        <input type="number"  min="0" placeholder="Montant versé" wire:model.defer ="amountPaid"/>
-                        @error('amountPaid') <span class="text-danger">{{ $message }}</span> @enderror
+                        {{-- <input type="number"  min="0" placeholder="Montant versé" wire:model.defer ="amountPaid"/>
+                        @error('amountPaid') <span class="text-danger">{{ $message }}</span> @enderror --}}
+                        <div class="input-group mb-3">
+                            <div style="background: gray !important" class="input-group-text">
+                              <input data-bs-toggle="tooltip" data-bs-placement="top"
+                              data-bs-custom-class="custom-tooltip"
+                              title="Cliquer ici pour activer la pesé test "  class="form-check-input mt-0" type="checkbox" wire:model="weighedTest" aria-label="Checkbox for following text input">
+                            </div>
+                            <input type="number" min="0" wire:model ="amountPaid" class="form-control" aria-label="Text input with checkbox">
+                          </div>
+                          @error('amountPaid') <span class="text-danger">{{ $message }}</span> @enderror
                     </div>
                     <div class="input-style-1">
                         <label>Reste à rembourser</label>
-                        <input type="number"  min="0" placeholder="saisir le montant à rembourser" wire:model.defer="remains"/>
+                        <input type="number" disabled  min="0" placeholder="saisir le montant à rembourser" wire:model="remains"/>
                     </div>
                     <div class="text-center">
                         <button wire:click="store"
                         class="main-btn active-btn-outline rounded-md btn-hover">Imprimer
                         </button>
+                      
                     </div>
                 </div>
                 <!-- end card -->
@@ -256,10 +266,7 @@
                             </button>
                         </div>
                         <div class="modal-body px-0">
-
-
-
-{{--                                <iframe src="{{$url}}"  width="100%" height="500px"></iframe>--}}
+                               <iframe src="{{route('show-pdf',$url)}}"  width="100%" height="500px"></iframe>
 {{--                            <a href="{{$url}}" target="iframe_a">afficher</a>--}}
                         </div>
                     </div>
@@ -286,6 +293,7 @@
 
             const myModal = new bootstrap.Modal(document.getElementById('myModal'));
             myModal.show();
+          // window.open('".$url."', '_blank')
         }
     </script>
 @endpush
