@@ -74,14 +74,15 @@
                             <input type="text" wire:model.defer="name" />
                             @error('name') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
-                        <div class="col-md-6" >
+                        <div class="col-md-5" >
                             <div class="input-style-1">
-                                <label>N° Tracteur </label>
+                                <label>N° Tracteur <a href=""  data-bs-toggle="modal" data-bs-target="#ModalTree"> Ajouter un tracteur</a> </label>
                                 <input type="text" wire:model.defer="tractor" />
                                 @error('tractor') <span class="text-danger">{{ $message }}</span> @enderror
                             </div>
                         </div>
-                        <div class="col-md-6" >
+                       
+                        <div class="col-md-5" >
                             <div class="input-style-1">
                             <label>N° Remorque </label>
                                 <input type="text" wire:model.defer="trailer" />
@@ -267,13 +268,40 @@
                         </div>
                         <div class="modal-body px-0">
                                <iframe src="{{route('show-pdf',$url)}}"  width="100%" height="500px"></iframe>
-{{--                            <a href="{{$url}}" target="iframe_a">afficher</a>--}}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
+        {{-- nouveau tracteur --}}
+        <div class="warning-modal">
+            <div  wire:ignore.self class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" id="ModalTree" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content card-style warning-card">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Nouveau tracteur</h5>
+                                                      </div>
+                        <div class="modal-body">
+                            <div class="input-style-1">
+                                <label>Tracteur</label>
+                                <input type="text" wire:model.defer="newTractor" placeholder="" />
+                                @error('newTractor') <span class="text-danger">{{ $message }}</span> @enderror
+                            </div>
+                            <div class="text-center">
+                                <button class="main-btn danger-btn-outline rounded-md btn-hover" data-bs-dismiss="modal"
+                                        wire:click="cancel">Annuler
+                                </button>
+                                <button class="main-btn active-btn-outline rounded-md btn-hover"
+                                        wire:click="storeTractor">Ajouter
+                                </button>
+                            
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 @push('scripts')

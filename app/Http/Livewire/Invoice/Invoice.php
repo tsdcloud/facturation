@@ -18,7 +18,7 @@ class Invoice extends Component
     public ?string $name = null, $tractor = null, $trailer = null, $searchTrailerandTractorNumFac = null;
     public bool $isDisabled = false;
     public ?int $modePaymentId = null, $weighbridgeId = null;
-    public $amountPaid = null ,$remains = 0, $weighedTest = false, $url= null;
+    public $amountPaid = null ,$remains = 0, $weighedTest = false, $url= null, $newTractor;
     public function render()
     {
        
@@ -131,7 +131,11 @@ class Invoice extends Component
         InvoiceService::invoiceBuilder($data, 'preview');
     }
 
-    // public function getRemainsProperty(){
-    //     return $this->amountPaid - 11925;
-    // }
+    public function cancel(){
+        $this->newTractor = "";
+    }
+
+    public function storeTractor(){
+        
+    }
 }
