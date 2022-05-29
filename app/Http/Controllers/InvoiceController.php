@@ -7,6 +7,7 @@ use App\Services\InvoiceService;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
 
 class InvoiceController extends Controller
 {
@@ -23,7 +24,7 @@ class InvoiceController extends Controller
 
     public function myInvoice(){
         $breadcrumb = "Factures";
-        $invoices = invoice::paginate(10);
+        $invoices = invoice::where('id', Auth::user()->id)->paginate(10);
 
         return view('list-invoice',compact('invoices','breadcrumb'));
     }

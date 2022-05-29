@@ -81,7 +81,7 @@
                                 @error('tractor') <span class="text-danger">{{ $message }}</span> @enderror
                             </div>
                         </div>
-                       
+
                         <div class="col-md-5" >
                             <div class="input-style-1">
                             <label>N° Remorque </label>
@@ -135,14 +135,17 @@
                           @error('amountPaid') <span class="text-danger">{{ $message }}</span> @enderror
                     </div>
                     <div class="input-style-1">
+                        <label>Montant TTC</label>
+                        <input type="number" disabled wire:model="total_amount"/>
+                    </div>
+                    <div class="input-style-1">
                         <label>Reste à rembourser</label>
-                        <input type="number" disabled  min="0" placeholder="saisir le montant à rembourser" wire:model="remains"/>
+                        <input type="number" disabled wire:model="remains"/>
                     </div>
                     <div class="text-center">
                         <button wire:click="store"
                         class="main-btn active-btn-outline rounded-md btn-hover">Imprimer
                         </button>
-                      
                     </div>
                 </div>
                 <!-- end card -->
@@ -262,12 +265,14 @@
                 <div class="modal-dialog  modal-xl">
                     <div class="modal-content card-style">
                         <div class="modal-header px-0 border-0 d-flex justify-content-end ">
-                            <button class="border-0 bg-transparent h2"  data-bs-dismiss="modal">
+                            <button class="border-0 bg-transparent h2" wire:click="cancel"  data-bs-dismiss="modal">
                                 <i class="lni lni-cross-circle"></i>
                             </button>
                         </div>
                         <div class="modal-body px-0">
+                            @if(!is_null($url))
                                <iframe src="{{route('show-pdf',$url)}}"  width="100%" height="500px"></iframe>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -295,7 +300,7 @@
                                 <button class="main-btn active-btn-outline rounded-md btn-hover"
                                         wire:click="storeTractor">Ajouter
                                 </button>
-                            
+
                         </div>
                         </div>
                     </div>

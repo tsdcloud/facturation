@@ -17,11 +17,12 @@ class Invoice extends Component
 {
     public ?string $name = null, $tractor = null, $trailer = null, $searchTrailerandTractorNumFac = null;
     public bool $isDisabled = false;
-    public ?int $modePaymentId = null, $weighbridgeId = null;
-    public $amountPaid = null ,$remains = 0, $weighedTest = false, $url= null, $newTractor;
+    public ?int $modePaymentId = null, $weighbridgeId = null, $tax_amount = 1925, $subtotal = 10000, $total_amount = 11925;
+    public $amountPaid = null ,$remains = 0, $weighedTest = false, $url= null, $newTractor = null;
     public function render()
     {
-       
+
+
         return view('livewire.invoice.invoice',[
             'modePayments' => ModePayment::all(),
             'weighbridges' => Weighbridge::all(),
@@ -39,14 +40,29 @@ class Invoice extends Component
 
     public function updated(){
         if ($this->amountPaid != "" && $this->weighedTest == false)
-           $this->remains = 11925 - $this->amountPaid;
+           $this->remains =  $this->amountPaid - 11925;
 
         if ($this->amountPaid != "" && $this->weighedTest == true)
-           $this->remains = 5962.5 - $this->amountPaid;
+           $this->remains =  $this->amountPaid - 5962 ;
 
-        if ($this->amountPaid =="")
+        if ($this->amountPaid == "")
            $this->remains = 0;
-        
+
+        if ($this->weighedTest){
+
+            $this->subtotal = 5000;
+            $this->tax_amount = 962;
+            $this->total_amount = 5962;
+
+        }
+
+        if (!$this->weighedTest){
+
+            $this->subtotal = 10000;
+            $this->tax_amount = 1925;
+            $this->total_amount = 11925;
+        }
+
     }
     protected $rules = [
         'name' => 'required',
@@ -67,40 +83,50 @@ class Invoice extends Component
 
     public function store() {
 
-        $this->validate();
+       $this->validate();
        $lastId = ModelsInvoice::latest('id')->first();
+
        if (is_null($lastId)){
        $data = ModelsInvoice::create([
-           'name'=> $this->name,
-           'invoice_no' => str_pad(1,10,0,STR_PAD_LEFT),
-           'tractor'=> $this->tractor,
-           'trailer'=> $this->trailer ,
+           'name'=> strtoupper($this->name),
+           'invoice_no' => str_pad(1,7,0,STR_PAD_LEFT),
+           'tractor'=> strtoupper($this->tractor),
+           'trailer'=> strtoupper($this->trailer) ,
+           'subtotal' => $this->subtotal,
+           'tax_amount' => $this->tax_amount,
+           'total_amount' => $this->total_amount,
            'mode_payment_id'=> $this->modePaymentId,
            'weighbridge_id'=> $this->weighbridgeId,
            'amount_paid'=> $this->amountPaid,
-           'remains'=> !is_null($this->remains) ? $this->remains: 1,
+           'remains'=> $this->remains,
            'user_id'=> auth()->id(),
        ]);
    }
 
        if (!is_null($lastId)){
            $data = ModelsInvoice::create([
-               'name'=> $this->name,
+               'name'=> strtoupper($this->name),
                'invoice_no' => str_pad($lastId->id + 1,7,0,STR_PAD_LEFT),
-               'tractor'=> $this->tractor,
-               'trailer'=> $this->trailer ,
+               'tractor'=> strtoupper($this->tractor),
+               'trailer'=> strtoupper($this->trailer),
+               'subtotal' => $this->subtotal,
+               'tax_amount' => $this->tax_amount,
+               'total_amount' => $this->total_amount,
                'mode_payment_id'=> $this->modePaymentId,
                'weighbridge_id'=> $this->weighbridgeId,
                'amount_paid'=> $this->amountPaid,
-               'remains'=> $this->remains ? $this->remains: 0 ,
+               'remains'=> $this->remains,
                'user_id'=> auth()->id(),
            ]);
        }
 
     $this->url = $data->id;
 
-        $this->reset(['name','tractor','trailer','modePaymentId','weighbridgeId','amountPaid','weighbridgeId','remains']);
+        $this->reset(['name','tractor','trailer','modePaymentId','weighbridgeId','amountPaid',
+                     'weighbridgeId','remains','tax_amount','subtotal']);
+
         session()->flash('message', 'Transaction enregistreé avec succès.');
+
         $this->dispatchBrowserEvent('closeAlert');
        // $this->dispatchBrowserEvent('show-modal');
 
@@ -133,9 +159,10 @@ class Invoice extends Component
 
     public function cancel(){
         $this->newTractor = "";
+        $this->url= null;
     }
 
     public function storeTractor(){
-        
+
     }
 }

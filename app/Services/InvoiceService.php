@@ -31,7 +31,7 @@ class InvoiceService extends Fpdi
         $pdf->SetFont('Arial','',11);
         $pdf->Cell(200 ,5,utf8_decode('FACTURE ACQUITTEE N° '.$data->invoice_no),0,0,'R');
         $pdf->Ln(10);
-        $pdf->Cell(200 ,5,utf8_decode('Date :'.$data->created_at->format('d/m/y h:m:s')),0,0,'R');
+        $pdf->Cell(200 ,5,utf8_decode('Date : '.$data->created_at->format('d/m/y h:m:s')),0,0,'R');
         $pdf->Cell(-173 ,10,utf8_decode('www.dpws.cm'),0,0,'R');
         $pdf->Ln(10);
         $pdf->Cell(200 ,5,utf8_decode('Pont bascule '.$data->weighbridge->label),0,0,'R');
@@ -47,15 +47,15 @@ class InvoiceService extends Fpdi
         $pdf->Cell(80,10,utf8_decode($data->modePayment->label),0,0,'L');
         $pdf->Ln(10);
         $pdf->Cell(138,10,utf8_decode('Chef de Guerite'),0,0,'L');
-        // $pdf->Cell(400,10,utf8_decode($data->user->name),0,0,'L'); 
+        // $pdf->Cell(400,10,utf8_decode($data->user->name),0,0,'L');
         $pdf->text(41,81,utf8_decode($data->user->name));
-        // $pdf->Cell(80,10,utf8_decode('Montant HT :  FCFA '),0,0,'L');
-       // $pdf->Ln(10);
-        $pdf->text(144,98,utf8_decode('TVA 19.25% :  FCFA'));
-        $pdf->text(144,104,utf8_decode('Montant TTC :  FCFA'));
-        $pdf->text(144,110,utf8_decode('Montant versé : '.$data->amount_paid.' FCFA'));
+
+        $pdf->text(144,99,utf8_decode('Montant HT : '.$data->subtotal.' FCFA'),0,0,'L');
+        $pdf->text(144,104,utf8_decode('TVA 19.25% : '. $data->tax_amount.' FCFA'));
+        $pdf->text(144,109,utf8_decode('Montant TTC : '.$data->total_amount.' FCFA'));
+        $pdf->text(144,114,utf8_decode('Montant versé : '.$data->amount_paid.' FCFA'));
         $pdf->text(06,90,utf8_decode('Signature et cachet'));
-        $pdf->text(144,116,utf8_decode('Montant à rembourser : '.$data->remains.' FCFA'));
+        $pdf->text(144,119,utf8_decode('Montant à rembourser : '.$data->remains.' FCFA'));
         $pdf->Ln(50);
         $pdf->Line(2,125,205,125);
         $pdf->SetFont('Arial','',9);

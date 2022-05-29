@@ -19,10 +19,11 @@ return new class extends Migration
             $table->text('invoice_no');
             $table->string('tractor');
             $table->string('trailer')->nullable();
-            $table->string('amount_ht')->nullable();
-            $table->string('vat')->nullable();
-            $table->decimal('amount_paid',8,2);
-            $table->decimal('remains',8,2);
+            $table->decimal('subtotal',6,0);
+            $table->decimal('tax_amount',8,0);
+            $table->decimal('total_amount',6,0);
+            $table->decimal('amount_paid',8,0);
+            $table->decimal('remains',8,0);
             $table->foreignId('mode_payment_id')->constrained();
             $table->foreignId('weighbridge_id')->constrained();
             $table->foreignId('user_id')->constrained();
