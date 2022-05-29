@@ -9,6 +9,8 @@ class Tractor extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['label'];
+
     public function invoices(){
 
         return $this->hasMany(invoice::class);

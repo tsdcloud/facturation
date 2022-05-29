@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Invoice;
 
+use App\Models\Tractor;
 use Livewire\Component;
 use App\Models\ModePayment;
 use App\Models\Weighbridge;
@@ -117,6 +118,7 @@ class Invoice extends Component
                'amount_paid'=> $this->amountPaid,
                'remains'=> $this->remains,
                'user_id'=> auth()->id(),
+               
            ]);
        }
 
@@ -125,7 +127,7 @@ class Invoice extends Component
         $this->reset(['name','tractor','trailer','modePaymentId','weighbridgeId','amountPaid',
                      'weighbridgeId','remains','tax_amount','subtotal']);
 
-        session()->flash('message', 'Transaction enregistreé avec succès.');
+        session()->flash('message', 'facture enregistreé avec succès.');
 
         $this->dispatchBrowserEvent('closeAlert');
        // $this->dispatchBrowserEvent('show-modal');
@@ -164,5 +166,13 @@ class Invoice extends Component
 
     public function storeTractor(){
 
+        if ($this->newTractor == "")
+            return 0;
+
+        Tractor::create(['label' => strtoupper($this->newTractor)]);
+
+        $this->newTractor = "";
+
+        session()->flash('new-tractor', 'Tracteur enregistré avec succès.');
     }
 }

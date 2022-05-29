@@ -284,9 +284,21 @@
             <div  wire:ignore.self class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" id="ModalTree" tabindex="-1" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content card-style warning-card">
+                        @if(session()->has('new-tractor'))
+                            <div id="alert-message" class="alert alert-success alert-dismissible fade show" role="alert">
+                                <strong>{{session('new-tractor')}} </strong>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        @endif
+                        @if(session()->has('error'))
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <strong>{{session('error')}} </strong>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        @endif
                         <div class="modal-header">
                             <h5 class="modal-title">Nouveau tracteur</h5>
-                                                      </div>
+                        </div>
                         <div class="modal-body">
                             <div class="input-style-1">
                                 <label>Tracteur</label>
@@ -295,7 +307,7 @@
                             </div>
                             <div class="text-center">
                                 <button class="main-btn danger-btn-outline rounded-md btn-hover" data-bs-dismiss="modal"
-                                        wire:click="cancel">Annuler
+                                        wire:click="cancel">Fermer
                                 </button>
                                 <button class="main-btn active-btn-outline rounded-md btn-hover"
                                         wire:click="storeTractor">Ajouter
