@@ -27,6 +27,7 @@ return new class extends Migration
             $table->foreignId('mode_payment_id')->constrained();
             $table->foreignId('weighbridge_id')->constrained();
             $table->foreignId('user_id')->constrained();
+            $table->foreignId('tractor_id')->constrained();
             $table->timestamps();
         });
     }

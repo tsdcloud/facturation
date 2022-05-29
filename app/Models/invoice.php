@@ -21,7 +21,8 @@ class invoice extends Model
         'remains',
         'mode_payment_id',
         'weighbridge_id',
-        'user_id'
+        'user_id',
+        'tractor_id'
     ];
 
     public function weighbridge(){
@@ -34,5 +35,9 @@ class invoice extends Model
 
     public function user(){
         return $this->belongsTo(User::class);
+    }
+
+    public function tractor(){
+        return $this->belongsTo(Tractor::class);
     }
 }
