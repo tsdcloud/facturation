@@ -6751,7 +6751,7 @@ var FullCalendar = (function (exports) {
         var endMarker = framingRange.end;
         var instanceStarts = [];
         while (dayMarker < endMarker) {
-            var instanceStart 
+            var instanceStart
             // if everyday, or this particular day-of-week
             = void 0;
             // if everyday, or this particular day-of-week
@@ -8497,7 +8497,7 @@ var FullCalendar = (function (exports) {
                 return false;
             }
             // testing scrollWidth>clientWidth is unreliable cross-browser when pixel heights aren't integers.
-            // much more reliable to see if children are taller than the scroller, even tho doesn't account for
+            // much more reliable to see if children are taller than the scroller, even tho doesn't accounting for
             // inner-child margins and absolute positioning
             var el = this.el;
             var realClientWidth = this.el.getBoundingClientRect().width - this.getYScrollbarWidth();
@@ -8515,7 +8515,7 @@ var FullCalendar = (function (exports) {
                 return false;
             }
             // testing scrollHeight>clientHeight is unreliable cross-browser when pixel heights aren't integers.
-            // much more reliable to see if children are taller than the scroller, even tho doesn't account for
+            // much more reliable to see if children are taller than the scroller, even tho doesn't accounting for
             // inner-child margins and absolute positioning
             var el = this.el;
             var realClientHeight = this.el.getBoundingClientRect().height - this.getXScrollbarWidth();
@@ -11930,7 +11930,7 @@ var FullCalendar = (function (exports) {
                     /*
                     known bug: events that are force to be list-item but span multiple days still take up space in later columns
                     */
-                    nodes.push(createElement("div", { className: 'fc-daygrid-event-harness' + (isAbsolute ? ' fc-daygrid-event-harness-abs' : ''), key: instanceId, 
+                    nodes.push(createElement("div", { className: 'fc-daygrid-event-harness' + (isAbsolute ? ' fc-daygrid-event-harness-abs' : ''), key: instanceId,
                         // in print mode when in mult cols, could collide
                         ref: isMirror ? null : this.segHarnessRefs.createRef(instanceId + ':' + seg.firstCol), style: {
                             visibility: isInvisible ? 'hidden' : '',
@@ -13237,7 +13237,7 @@ var FullCalendar = (function (exports) {
             if (!slatCoords) {
                 return null;
             }
-            return segs.map(function (seg, i) { return (createElement(NowIndicatorRoot, { isAxis: false, date: date, 
+            return segs.map(function (seg, i) { return (createElement(NowIndicatorRoot, { isAxis: false, date: date,
                 // key doesn't matter. will only ever be one
                 key: i }, function (rootElRef, classNames, innerElRef, innerContent) { return (createElement("div", { ref: rootElRef, className: ['fc-timegrid-now-indicator-line'].concat(classNames).join(' '), style: { top: slatCoords.computeDateTop(seg.start, date) } }, innerContent)); })); });
         };

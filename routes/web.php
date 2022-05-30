@@ -35,5 +35,6 @@ Route::middleware(['auth'])->group(function(){
     Route::get('ok',[InvoiceController::class, 'pdf']);
     Route::get('invoices',[InvoiceController::class, 'myInvoice'])->name('invoices');
     Route::get('bill-pending',[AccountingController::class,'billPending'])->name('bill-pending');
+    Route::get('index',[\App\Http\Controllers\ManagingUsers::class,'index'])->name('account.index');
 });
 

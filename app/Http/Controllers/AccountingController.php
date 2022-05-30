@@ -13,7 +13,7 @@ class AccountingController extends Controller
         $breadcrumb = "Facture en attente";
         $invoices = invoice::where('approved', 'pending')->get();
 
-        return view('account.bill-pending',compact('invoices','breadcrumb'));
+        return view('accounting.bill-pending',compact('invoices','breadcrumb'));
     }
 
 }

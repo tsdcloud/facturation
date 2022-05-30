@@ -227,7 +227,7 @@ return array(
          * $dompdf = new DOMPDF(, $dompdf->load_html(...,
          * This allows anonymous users to download legally doubtful internet content which on
          * tracing back appears to being downloaded by your server, or allows malicious php code
-         * in remote html pages to be executed by your server with your account privileges.
+         * in remote html pages to be executed by your server with your accounting privileges.
          *
          * @var bool
          */
