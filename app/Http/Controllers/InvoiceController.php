@@ -12,7 +12,9 @@ use Illuminate\Support\Facades\Auth;
 class InvoiceController extends Controller
 {
     public function pdf($id){
+
         $data = invoice::where('id',$id)->first();
+      //  dd($data);
        InvoiceService::invoiceBuilder($data,'preview');
     }
 
@@ -23,6 +25,7 @@ class InvoiceController extends Controller
     }
 
     public function myInvoice(){
+
         $breadcrumb = "Factures";
         $invoices = invoice::where('id', Auth::user()->id)->paginate(10);
 

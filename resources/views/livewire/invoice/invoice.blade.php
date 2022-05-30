@@ -76,8 +76,33 @@
                         </div>
                         <div class="col-md-6" >
                             <div class="input-style-1">
-                                <label>N° Tracteur <a href=""  data-bs-toggle="modal" data-bs-target="#ModalTree"> Ajouter un tracteur</a> </label>
-                                <input type="text" wire:model.defer="tractor" />
+                                <label>N° Tracteur <a href="javascript:void(0)"  data-bs-toggle="modal" data-bs-target="#ModalTree"> Ajouter un tracteur</a> </label>
+                                <input type="text"
+                                       placeholder="Rechercher le tracteur..."
+                                       wire:model="query"
+                                       wire:click="reset"
+                                       wire:keydown.escape="hideDropdown"
+                                       wire:keydown.tab="hideDropdown"
+                                       wire:keydown.Arrow-Up="decrementHighlight"
+                                       wire:keydown.Arrow-Down="incrementHighlight"
+                                       wire:keydown.enter.prevent="selectAccount"
+                                />
+                                <input type="hidden" name="account" id="account" wire:model="selectedAccountID">
+
+                                @if(!empty($query) && $selectedAccount == 0 && $showDropdown)
+                                    <div class="absolute z-10 bg-white mt-1 w-full border border-gray-300 rounded-md shadow-lg overflow-auto">
+                                        @if (!empty($accounts))
+                                            @foreach($accounts as $i => $account)
+                                                <a role="button"
+                                                    wire:click="selectAccount({{ $i }})"
+                                                    class="block py-1 px-2 text-sm cursor-pointer hover:bg-blue-50 {{ $highlightIndex === $i ? 'bg-blue-50' : '' }}"
+                                                >{{ $account['label'] }}</a>
+                                            @endforeach
+                                        @else
+                                            <span class="block py-1 px-2 text-sm">Pas de résultat</span>
+                                        @endif
+                                    </div>
+                                @endif
                                 @error('tractor') <span class="text-danger">{{ $message }}</span> @enderror
                             </div>
                         </div>

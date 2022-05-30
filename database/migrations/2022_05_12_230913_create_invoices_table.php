@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->text('invoice_no');
-            $table->string('tractor');
+            $table->string('tractor')->nullable();
             $table->string('trailer')->nullable();
             $table->decimal('subtotal',6,0);
             $table->decimal('tax_amount',8,0);

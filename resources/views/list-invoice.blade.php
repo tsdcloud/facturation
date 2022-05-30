@@ -57,7 +57,7 @@
                                                 <div class="action">
                                                     <a class="link-primary" target="_blank" href="{{route('show-pdf',$invoice->id)}}" >
                                                         <i class="lni lni-printer"></i>
-                                                        </button>
+                                                        </a>
                                                 </div>
                                             </td>
                                         </tr>

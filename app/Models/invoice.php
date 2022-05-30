@@ -37,7 +37,7 @@ class invoice extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function tractor(){
-        return $this->belongsTo(Tractor::class);
+    public function myTractor(){
+        return $this->belongsTo(Tractor::class,'tractor_id');
     }
 }

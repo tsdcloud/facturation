@@ -40,7 +40,7 @@ class InvoiceService extends Fpdi
         $pdf->Cell(20,10,utf8_decode('Reçu de '),0,0,'L');
         $pdf->Cell(60,10,utf8_decode($data->name),0,0,'L');
         $pdf->Ln(10);
-        $pdf->Cell(99,10,utf8_decode('Droit de pesage attelage : N° Tracteur '.$data->tractor),0,0,'L');
+        $pdf->Cell(99,10,utf8_decode('Droit de pesage attelage : N° Tracteur '.$data->myTractor->label),0,0,'L');
         $pdf->Cell(85,10,utf8_decode('N° Remorque '.$data->trailer),0,0,'L');
         $pdf->Ln(10);
         $pdf->Cell(35,10,utf8_decode('Mode de paiment : '),0,0,'L');
