@@ -22,7 +22,8 @@ class invoice extends Model
         'mode_payment_id',
         'weighbridge_id',
         'user_id',
-        'tractor_id'
+        'tractor_id',
+        'approved',
     ];
 
     public function weighbridge(){

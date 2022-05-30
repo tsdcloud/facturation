@@ -1,11 +1,10 @@
 <?php
 
-use App\Services\InvoiceService;
-use Illuminate\Support\Facades\Auth;
+
 use Illuminate\Support\Facades\Route;
-use App\Models\Invoice;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\AccountingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,5 +34,6 @@ Route::middleware(['auth'])->group(function(){
     Route::get('pdf/{id?}',[InvoiceController::class,'pdf'])->name('show-pdf');
     Route::get('ok',[InvoiceController::class, 'pdf']);
     Route::get('invoices',[InvoiceController::class, 'myInvoice'])->name('invoices');
+    Route::get('bill-pending',[AccountingController::class,'billPending'])->name('bill-pending');
 });
 

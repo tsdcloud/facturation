@@ -161,6 +161,7 @@ class Invoice extends Component
            'weighbridge_id'=> $this->weighbridgeId,
            'amount_paid'=> $this->amountPaid,
            'remains'=> $this->remains,
+           'approved' => 'validated',
            'user_id'=> auth()->id(),
            'tractor_id'=> $this->selectedAccount,
        ]);
@@ -178,6 +179,7 @@ class Invoice extends Component
                'weighbridge_id'=> $this->weighbridgeId,
                'amount_paid'=> $this->amountPaid,
                'remains'=> $this->remains,
+               'approved' => 'validated',
                'user_id'=> auth()->id(),
                'tractor_id'=> $this->selectedAccount,
            ]);
