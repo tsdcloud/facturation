@@ -183,21 +183,15 @@ class Invoice extends Component
            ]);
        }
 
-    $this->url = $data->id;
+        $this->url = $data->id;
 
-     //  dd($data->tractor->label);
+
         $this->reset(['name','tractor','trailer','modePaymentId','weighbridgeId','amountPaid',
                      'weighbridgeId','remains','tax_amount','subtotal']);
 
         session()->flash('message', 'facture enregistreé avec succès.');
 
         $this->dispatchBrowserEvent('closeAlert');
-       // $this->dispatchBrowserEvent('show-modal');
-
-     //  $this->url = action([InvoiceController::class, 'pdf'], ['id' => $data->id]);
-
-      // redirect()->route('show-pdf', ['id' => $data->id]);
-       // dd($this->url);
 
     }
 
@@ -224,6 +218,22 @@ class Invoice extends Component
     public function cancel(){
         $this->newTractor = "";
         $this->url= null;
+        $this->amountPaid = null;
+        $this->tractor = null;
+        $this->modePaymentId = null;
+        $this->weighbridgeId = null;
+        $this->remains = null;
+        $this->weighedTest = false;
+        $this->name = null;
+
+        if (!$this->weighedTest){
+
+            $this->subtotal = 10000;
+            $this->tax_amount = 1925;
+            $this->total_amount = 11925;
+        }
+
+
     }
 
     public function storeTractor(){

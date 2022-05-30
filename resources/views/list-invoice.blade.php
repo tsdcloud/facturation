@@ -42,7 +42,7 @@
                                                 {{$invoice->invoice_no}}
                                             </td>
                                             <td>
-                                                <p> {{$invoice->tractor}}</p>
+                                                <p> {{$invoice->myTractor->label}}</p>
                                             </td>
                                             <td>
                                                 <p>{{$invoice->trailer}} </p>

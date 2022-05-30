@@ -27,8 +27,7 @@ class InvoiceController extends Controller
     public function myInvoice(){
 
         $breadcrumb = "Factures";
-        $invoices = invoice::where('id', Auth::user()->id)->paginate(10);
-
+        $invoices = invoice::where('user_id', Auth::user()->id)->paginate(10);
         return view('list-invoice',compact('invoices','breadcrumb'));
     }
 }
