@@ -118,7 +118,7 @@ class Invoice extends Component
                'amount_paid'=> $this->amountPaid,
                'remains'=> $this->remains,
                'user_id'=> auth()->id(),
-               
+
            ]);
        }
 
