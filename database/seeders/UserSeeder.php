@@ -20,6 +20,7 @@ class UserSeeder extends Seeder
            'name' => 'admin',
            'email' => 'admin@admin.com',
            'role' => 'admin',
+           'status' => 'activé',
            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
            'created_at' => now(),
            'updated_at' => now()
@@ -29,6 +30,7 @@ class UserSeeder extends Seeder
            'name' => 'user',
            'email' => 'user@user.com',
            'role' => 'user',
+           'status'=>'activé',
            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
            'created_at' => now(),
            'updated_at' => now()
