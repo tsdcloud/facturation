@@ -74,7 +74,7 @@
                             <input type="text" wire:model.defer="name" />
                             @error('name') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
-                        <div class="col-md-5" >
+                        <div class="col-md-6" >
                             <div class="input-style-1">
                                 <label>N° Tracteur <a href=""  data-bs-toggle="modal" data-bs-target="#ModalTree"> Ajouter un tracteur</a> </label>
                                 <input type="text" wire:model.defer="tractor" />
@@ -82,7 +82,7 @@
                             </div>
                         </div>
 
-                        <div class="col-md-5" >
+                        <div class="col-md-6" >
                             <div class="input-style-1">
                             <label>N° Remorque </label>
                                 <input type="text" wire:model.defer="trailer" />
