@@ -204,6 +204,10 @@
                           @error('amountPaid') <span class="text-danger">{{ $message }}</span> @enderror
                        </div>
                     <div class="input-style-1">
+                        <label>Montant HT</label>
+                        <input type="number" disabled wire:model="subtotal"/>
+                    </div>
+                    <div class="input-style-1">
                         <label>Montant TTC</label>
                         <input type="number" disabled wire:model="total_amount"/>
                     </div>
