@@ -202,7 +202,7 @@
                             <input type="number" min="0" wire:model ="amountPaid" class="form-control" aria-label="Text input with checkbox">
                           </div>
                           @error('amountPaid') <span class="text-danger">{{ $message }}</span> @enderror
-                    </div>
+                       </div>
                     <div class="input-style-1">
                         <label>Montant TTC</label>
                         <input type="number" disabled wire:model="total_amount"/>
