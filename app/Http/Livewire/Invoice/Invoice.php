@@ -76,7 +76,7 @@ class Invoice extends Component
 
     public function updatedQuery()
     {
-        $this->accounts = Tractor::where('label', 'like', '%' . $this->query. '%')
+        $this->accounts = Tractor::where('label', 'like', '%' . strtoupper($this->query). '%')
             ->take(5)
             ->get()
             ->toArray();
