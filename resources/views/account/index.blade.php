@@ -9,6 +9,7 @@
                     <thead>
                     <tr>
                         <th> <h6>Nom</h6> </th>
+                        <th> <h6>Identifiant</h6> </th>
                         <th><h6>Rôle</h6></th>
                         <th><h6>Statut</h6></th>
 {{--                        <th><h6>Mode Paiement</h6></th>--}}
@@ -23,6 +24,9 @@
                         <tr>
                             <td>
                                 <p>{{$user->name}}</p>
+                            </td>
+                            <td>
+                                <h6 class="text-sm">{{$user->email}}</h6>
                             </td>
                             <td>
                                 <h6 class="text-sm">{{$user->role}}</h6>
