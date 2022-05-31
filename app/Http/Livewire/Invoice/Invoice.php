@@ -243,14 +243,14 @@ class Invoice extends Component
 
 
     }
-//    protected $rules = [
+    protected $rules = [
 ////        'name' => 'required',
 //        'query' => 'required',
 //       // 'trailer' => 'required',
-//        'modePaymentId' => 'required',
-//        'weighbridgeId' => 'required',
+        'modePaymentId' => 'required',
+        'weighbridgeId' => 'required',
 //        'amountPaid' => 'required',
-//    ];
+    ];
 //    protected $messages =[
 ////        'name.require' => 'le nom est obligatoire',
 ////        'tractor.require' => 'le tracteur est obligatoire',

@@ -25,16 +25,11 @@ Route::middleware(['auth'])->group(function(){
     Route::get('home',[HomeController::class, 'index']);
     Route::get('billing',[InvoiceController::class,'index']);
 
-//    Route::get('pdf/{id}', function ($id) {
-//        $data = Invoice::where('id',$id)->first();
-//        //dd($data);
-//        return InvoiceService::invoiceBuilder($data,'preview');
-//    });
-
     Route::get('pdf/{id?}',[InvoiceController::class,'pdf'])->name('show-pdf');
     Route::get('ok',[InvoiceController::class, 'pdf']);
     Route::get('invoices',[InvoiceController::class, 'myInvoice'])->name('invoices');
     Route::get('bill-pending',[AccountingController::class,'billPending'])->name('bill-pending');
     Route::get('index',[\App\Http\Controllers\ManagingUsers::class,'index'])->name('account.index');
+    Route::get('customer-support', [\App\Http\Livewire\Invoice\CustomerSupport::class, 'index'])->name('customer-support');
 });
 

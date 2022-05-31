@@ -14,7 +14,7 @@ class InvoiceController extends Controller
     public function pdf($id){
 
         $data = invoice::where('id',$id)->first();
-      //  dd($data);
+
        InvoiceService::invoiceBuilder($data,'preview');
     }
 
