@@ -29,6 +29,8 @@ return new class extends Migration
             $table->foreignId('weighbridge_id')->constrained();
             $table->foreignId('user_id')->constrained();
             $table->foreignId('tractor_id')->constrained();
+            $table->foreignId('trailer_id')->constrained();
+            $table->foreignId('customer_id')->constrained();
             $table->timestamps();
         });
     }

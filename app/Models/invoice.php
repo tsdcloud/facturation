@@ -24,6 +24,8 @@ class invoice extends Model
         'user_id',
         'tractor_id',
         'approved',
+        'trailer_id',
+        'customer_id',
     ];
 
     public function weighbridge(){
@@ -40,5 +42,15 @@ class invoice extends Model
 
     public function myTractor(){
         return $this->belongsTo(Tractor::class,'tractor_id');
+    }
+
+    public function trailer(){
+
+        return $this->belongsTo(Trailer::class);
+    }
+
+    public function customer(){
+
+        return $this->belongsTo(Customer::class);
     }
 }

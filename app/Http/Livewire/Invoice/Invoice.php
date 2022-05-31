@@ -82,6 +82,7 @@ class Invoice extends Component
             ->toArray();
     }
 
+
     public function render()
     {
 
