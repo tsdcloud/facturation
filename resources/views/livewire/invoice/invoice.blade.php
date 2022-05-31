@@ -389,7 +389,7 @@
 
         {{-- nouvelle remorque --}}
         <div class="warning-modal">
-            <div  wire:ignore.self class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" id="Modalfive" tabindex="-1" aria-hidden="true">
+            <div  wire:ignore.self class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" id="Modalfour" tabindex="-1" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content card-style warning-card">
                         @if(session()->has('new-trailer'))
@@ -424,7 +424,7 @@
 
         {{-- nouveau client --}}
         <div class="warning-modal">
-            <div  wire:ignore.self class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" id="Modalfour" tabindex="-1" aria-hidden="true">
+            <div  wire:ignore.self class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" id="Modalfive" tabindex="-1" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content card-style warning-card">
                         @if(session()->has('new-customer'))

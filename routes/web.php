@@ -29,7 +29,7 @@ Route::middleware(['auth'])->group(function(){
     Route::get('ok',[InvoiceController::class, 'pdf']);
     Route::get('invoices',[InvoiceController::class, 'myInvoice'])->name('invoices');
     Route::get('bill-pending',[AccountingController::class,'billPending'])->name('bill-pending');
-    Route::get('index',[\App\Http\Controllers\ManagingUsers::class,'index'])->name('account.index');
-    Route::get('customer-support', [\App\Http\Livewire\Invoice\CustomerSupport::class, 'index'])->name('customer-support');
+    Route::get('index',[\App\Http\Controllers\ManagingUserController::class, 'index'])->name('account.index');
+    Route::get('customer-support', [\App\Http\Controllers\CustomerSupportController::class, 'create'])->name('customer-support');
 });
 

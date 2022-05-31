@@ -202,7 +202,8 @@ class Invoice extends Component
 
 
         return view('livewire.invoice.invoice',[
-            'modePayments' => ModePayment::all(),
+            'modePayments' => ModePayment::all()->reject(function($mode){
+                return $mode->label == "Virement Bancaire";}),
             'weighbridges' => Weighbridge::all(),
             'invoices' => ModelsInvoice::all(),
             'dailyInvoices' => ModelsInvoice::whereDay('created_at',date('d'))

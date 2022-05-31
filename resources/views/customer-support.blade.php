@@ -1,5 +1,5 @@
 @extends('layouts.app')
 
 @section('content')
-ok
+    <livewire:invoice.customer-support/>
 @stop
