@@ -70,8 +70,31 @@
                     <h6 class="mb-25" >Facturation</h6>
                     <div class="row">
                         <div class="input-style-1">
-                            <label>Reçu de </label>
-                            <input type="text" wire:model.defer="name" />
+                            <label>Reçu de  <a href="javascript:void(0)"  data-bs-toggle="modal" data-bs-target="#Modalfive"> Ajouter un client</a> </label>
+                            <input type="text"
+                                   placeholder="Rechercher un client..."
+                                   wire:model="customer"
+                                   wire:keydown.escape="hideDropdown3"
+                                   wire:keydown.tab="hideDropdown3"
+                                   wire:keydown.Arrow-Up="decrementHighlightCustomer"
+                                   wire:keydown.Arrow-Down="incrementHighlightCustomer"
+                                   wire:keydown.enter.prevent="selectCustomer"
+                            />
+
+                            @if(!empty($customer) && $selectedCustomer == 0 && $showDropdown3)
+                                <div class="absolute z-10 bg-white mt-1 w-full border border-gray-300 rounded-md shadow-lg overflow-auto">
+                                    @if (!empty($customer))
+                                        @foreach($customers as $i => $customer)
+                                            <a role="button"
+                                               wire:click="selectCustomer({{ $i }})"
+                                               class="block py-1 px-2 text-sm cursor-pointer hover:bg-blue-50 {{ $highlightIndexCustomer === $i ? 'bg-blue-50' : '' }}"
+                                            >{{ $customer['label'] }}</a>
+                                        @endforeach
+                                    @else
+                                        <span class="block py-1 px-2 text-sm">Pas de résultat</span>
+                                    @endif
+                                </div>
+                            @endif
                             @error('name') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
                         <div class="col-md-6" >
@@ -80,7 +103,6 @@
                                 <input type="text"
                                        placeholder="Rechercher le tracteur..."
                                        wire:model="query"
-                                       wire:click="reset"
                                        wire:keydown.escape="hideDropdown"
                                        wire:keydown.tab="hideDropdown"
                                        wire:keydown.Arrow-Up="decrementHighlight"
@@ -109,8 +131,30 @@
 
                         <div class="col-md-6" >
                             <div class="input-style-1">
-                            <label>N° Remorque </label>
-                                <input type="text" wire:model.defer="trailer" />
+                            <label>N° Remorque <a href="javascript:void(0)"  data-bs-toggle="modal" data-bs-target="#Modalfour"> Ajouter une remorque</a> </label>
+                                <input type="text" wire:model.defer="trailer"
+                                       placeholder="Rechercher la remorque..."
+                                       wire:model="trailer"
+                                       wire:keydown.escape="hideDropdown2"
+                                       wire:keydown.tab="hideDropdown2"
+                                       wire:keydown.Arrow-Up="decrementHighlight"
+                                       wire:keydown.Arrow-Down="incrementHighlightTrailer"
+                                       wire:keydown.enter.prevent="selectTrailer"
+                                />
+                                @if(!empty($trailer) && $selectedTrailer == 0 && $showDropdown2)
+                                    <div class="absolute z-10 bg-white mt-1 w-full border border-gray-300 rounded-md shadow-lg overflow-auto">
+                                        @if (!empty($trailers))
+                                            @foreach($trailers as $i => $trailer)
+                                                <a role="button"
+                                                   wire:click="selectTrailer({{ $i }})"
+                                                   class="block py-1 px-2 text-sm cursor-pointer hover:bg-blue-50 {{ $highlightIndexTrailer === $i ? 'bg-blue-50' : '' }}"
+                                                >{{ $trailer['label'] }}</a>
+                                            @endforeach
+                                        @else
+                                            <span class="block py-1 px-2 text-sm">Pas de résultat</span>
+                                        @endif
+                                    </div>
+                                @endif
                                 @error('trailer') <span class="text-danger">{{ $message }}</span> @enderror
                             </div>
                         </div>
@@ -315,12 +359,6 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                             </div>
                         @endif
-                        @if(session()->has('error'))
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <strong>{{session('error')}} </strong>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                            </div>
-                        @endif
                         <div class="modal-header">
                             <h5 class="modal-title">Nouveau tracteur</h5>
                         </div>
@@ -344,6 +382,76 @@
                 </div>
             </div>
         </div>
+
+        {{-- nouvelle remorque --}}
+        <div class="warning-modal">
+            <div  wire:ignore.self class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" id="Modalfive" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content card-style warning-card">
+                        @if(session()->has('new-trailer'))
+                            <div id="alert-message" class="alert alert-success alert-dismissible fade show" role="alert">
+                                <strong>{{session('new-trailer')}} </strong>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        @endif
+                        <div class="modal-header">
+                            <h5 class="modal-title">Nouvelle remorque</h5>
+                        </div>
+                        <div class="modal-body">
+                            <div class="input-style-1">
+                                <label>Remorque</label>
+                                <input type="text" wire:model.defer="newTrailer" placeholder="" />
+                                @error('new-trailer') <span class="text-danger">{{ $message }}</span> @enderror
+                            </div>
+                            <div class="text-center">
+                                <button class="main-btn danger-btn-outline rounded-md btn-hover" data-bs-dismiss="modal"
+                                        wire:click="cancel">Fermer
+                                </button>
+                                <button class="main-btn active-btn-outline rounded-md btn-hover"
+                                        wire:click="storeTrailer">Ajouter
+                                </button>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{-- nouveau client --}}
+        <div class="warning-modal">
+            <div  wire:ignore.self class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" id="Modalfour" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content card-style warning-card">
+                        @if(session()->has('new-customer'))
+                            <div id="alert-message" class="alert alert-success alert-dismissible fade show" role="alert">
+                                <strong>{{session('new-customer')}} </strong>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        @endif
+                        <div class="modal-header">
+                            <h5 class="modal-title">Nouveau client</h5>
+                        </div>
+                        <div class="modal-body">
+                            <div class="input-style-1">
+                                <label>Client</label>
+                                <input type="text" wire:model.defer="newCustomer" placeholder="" />
+                                @error('new-customer') <span class="text-danger">{{ $message }}</span> @enderror
+                            </div>
+                            <div class="text-center">
+                                <button class="main-btn danger-btn-outline rounded-md btn-hover" data-bs-dismiss="modal"
+                                        wire:click="cancel">Fermer
+                                </button>
+                                <button class="main-btn active-btn-outline rounded-md btn-hover"
+                                        wire:click="storeCustomer">Ajouter
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
 @push('scripts')

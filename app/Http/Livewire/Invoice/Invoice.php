@@ -2,44 +2,71 @@
 
 namespace App\Http\Livewire\Invoice;
 
+use App\Models\Customer;
 use App\Models\Tractor;
+use App\Models\Trailer;
 use Livewire\Component;
 use App\Models\ModePayment;
 use App\Models\Weighbridge;
 use App\Services\InvoiceService;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Route;
 use App\Models\invoice as ModelsInvoice;
-use App\Http\Controllers\InvoiceController;
-use SebastianBergmann\Type\NullType;
+
 
 class Invoice extends Component
 {
-    public ?string $name = null, $tractor = null, $trailer = null, $searchTrailerandTractorNumFac = null;
+    public ?string $name = null, $tractor = null, $searchTrailerandTractorNumFac = null;
     public bool $isDisabled = false;
     public ?int $modePaymentId = null, $weighbridgeId = null, $tax_amount = 1925, $subtotal = 10000, $total_amount = 11925;
-    public $amountPaid = null ,$remains = 0, $weighedTest = false, $url= null, $newTractor = null;
+    public $amountPaid = null ,$remains = 0, $weighedTest = false, $url= null, $newTractor = null, $newTrailer = null,
+           $newCustomer = null;
 
     public $query= '';
+    public $trailer = '';
+    public $customer = '';
     public array $accounts = [];
+    public array $trailers = [];
+    public array $customers = [];
     public int $selectedAccount = 0;
+    public int $selectedTrailer = 0;
+    public int $selectedCustomer = 0;
     public int $highlightIndex = 0;
-    public bool $showDropdown;
+    public int $highlightIndexTrailer = 0;
+    public int $highlightIndexCustomer = 0;
+    public bool $showDropdown = true;
+    public bool $showDropdown2 = true;
+    public bool $showDropdown3 = true;
 
-    public function reset(...$properties)
-    {
-        $this->accounts = [];
-        $this->highlightIndex = 0;
-        $this->query = '';
-        $this->selectedAccount = 0;
-        $this->showDropdown = true;
-    }
+//    public function reset(...$properties)
+//    {
+//        $this->accounts = [];
+//        $this->trailers = [];
+//        $this->highlightIndex = 0;
+//        $this->highlightIndexTrailer = 0;
+//        $this->highlightIndexCustomer = 0;
+//        $this->query = '';
+//        $this->trailer = '';
+//        $this->selectedAccount = 0;
+//        $this->selectedTrailer = 0;
+//        $this->showDropdown = true;
+//        $this->showDropdown2 = true;
+//        $this->showDropdown3 = true;
+//    }
 
     public function hideDropdown()
     {
         $this->showDropdown = false;
     }
+   public function hideDropdown2()
+    {
+        $this->showDropdown2 = false;
+    }
+
+    public function hideDropdown3()
+    {
+        $this->showDropdown3 = false;
+    }
+
 
     public function incrementHighlight()
     {
@@ -47,9 +74,27 @@ class Invoice extends Component
             $this->highlightIndex = 0;
             return;
         }
-
         $this->highlightIndex++;
     }
+    public function incrementHighlightTrailer()
+    {
+        if ($this->highlightIndexTrailer === count($this->trailers) - 1) {
+            $this->highlightIndexTrailer = 0;
+            return;
+        }
+        $this->highlightIndexTrailer++;
+    }
+
+    public function incrementHighlightCustomer()
+    {
+        if ($this->highlightIndexCustomer === count($this->customers) - 1) {
+            $this->highlightIndexCustomer = 0;
+            return;
+        }
+        $this->highlightIndexCustomer++;
+    }
+
+
 
     public function decrementHighlight()
     {
@@ -60,6 +105,28 @@ class Invoice extends Component
 
         $this->highlightIndex--;
     }
+
+ public function decrementHighlightTrailer()
+    {
+        if ($this->highlightIndexTrailer === 0) {
+            $this->highlightIndexTrailer = count($this->trailers) - 1;
+            return;
+        }
+
+        $this->highlightIndexTrailer--;
+    }
+
+
+    public function decrementHighlightCustomer()
+    {
+        if ($this->highlightIndexCustomer === 0) {
+            $this->highlightIndexCustomer = count($this->customers) - 1;
+            return;
+        }
+
+        $this->highlightIndexCustomer--;
+    }
+
 
     public function selectAccount($id = null)
     {
@@ -73,14 +140,61 @@ class Invoice extends Component
             $this->selectedAccount = $account['id'];
         }
     }
+    public function selectTrailer($id = null)
+    {
+        $id = $id ?: $this->highlightIndexTrailer;
+
+        $trailer = $this->trailers[$id] ?? null;
+
+        if ($trailer) {
+            $this->showDropdown2 = true;
+            $this->trailer = $trailer['label'];
+            $this->selectedTrailer = $trailer['id'];
+        }
+    }
+
+    public function selectCustomer($id = null)
+    {
+        $id = $id ?: $this->highlightIndexCustomer;
+
+        $customer = $this->customers[$id] ?? null;
+
+        if ($customer) {
+            $this->showDropdown3 = true;
+            $this->customer = $customer['label'];
+            $this->selectedCustomer = $customer['id'];
+        }
+    }
 
     public function updatedQuery()
     {
         $this->accounts = Tractor::where('label', 'like', '%' . strtoupper($this->query). '%')
+                ->take(5)
+                ->get()
+                ->toArray();
+
+    }
+
+    public function updatedTrailer()
+    {
+        $this->trailers = Trailer::where('label', 'like', '%' . strtoupper($this->trailer). '%')
             ->take(5)
             ->get()
             ->toArray();
+
     }
+
+    public function updatedCustomer()
+    {
+        $this->customers = Customer::where('label', 'like', '%' . strtoupper($this->customer). '%')
+            ->take(5)
+            ->get()
+            ->toArray();
+
+    }
+
+
+
 
 
     public function render()
@@ -127,32 +241,33 @@ class Invoice extends Component
             $this->total_amount = 11925;
         }
 
+
     }
-    protected $rules = [
-        'name' => 'required',
-        'query' => 'required',
-       // 'trailer' => 'required',
-        'modePaymentId' => 'required',
-        'weighbridgeId' => 'required',
-        'amountPaid' => 'required',
-    ];
-    protected $messages =[
-        'name.require' => 'le nom est obligatoire',
-//        'tractor.require' => 'le tracteur est obligatoire',
-        // 'trailer.require' => 'la remorque est obligatoire',
-        'modePaymentId.require' => 'choisissez le mode de paiement',
-        'weighbridgeId.require' => 'choisissez le pont bascule',
-        'amountPaid.require' => 'veuillez entrer le montant',
-    ];
+//    protected $rules = [
+////        'name' => 'required',
+//        'query' => 'required',
+//       // 'trailer' => 'required',
+//        'modePaymentId' => 'required',
+//        'weighbridgeId' => 'required',
+//        'amountPaid' => 'required',
+//    ];
+//    protected $messages =[
+////        'name.require' => 'le nom est obligatoire',
+////        'tractor.require' => 'le tracteur est obligatoire',
+//        // 'trailer.require' => 'la remorque est obligatoire',
+//        'modePaymentId.require' => 'choisissez le mode de paiement',
+//        'weighbridgeId.require' => 'choisissez le pont bascule',
+//        'amountPaid.require' => 'veuillez entrer le montant',
+//    ];
 
     public function store() {
 
-       $this->validate();
+      // $this->validate();
        $lastId = ModelsInvoice::latest('id')->first();
 
        if (is_null($lastId)){
        $data = ModelsInvoice::create([
-           'name'=> strtoupper($this->name),
+//           'name'=> strtoupper($this->name),
            'invoice_no' => str_pad(1,7,0,STR_PAD_LEFT),
            'trailer'=> strtoupper($this->query) ,
            'subtotal' => $this->subtotal,
@@ -165,12 +280,14 @@ class Invoice extends Component
            'approved' => 'validated',
            'user_id'=> auth()->id(),
            'tractor_id'=> $this->selectedAccount,
+           'trailer_id' => $this->selectedTrailer,
+           'customer_id' => $this->selectedCustomer,
        ]);
    }
 
        if (!is_null($lastId)){
            $data = ModelsInvoice::create([
-               'name'=> strtoupper($this->name),
+//               'name'=> strtoupper($this->name),
                'invoice_no' => str_pad($lastId->id + 1,7,0,STR_PAD_LEFT),
                'trailer'=> strtoupper($this->trailer),
                'subtotal' => $this->subtotal,
@@ -183,6 +300,8 @@ class Invoice extends Component
                'approved' => 'validated',
                'user_id'=> auth()->id(),
                'tractor_id'=> $this->selectedAccount,
+               'trailer_id' => $this->selectedTrailer,
+               'customer_id' => $this->selectedCustomer,
            ]);
        }
 
@@ -192,9 +311,26 @@ class Invoice extends Component
         $this->reset(['name','tractor','trailer','modePaymentId','weighbridgeId','amountPaid',
                      'weighbridgeId','remains','tax_amount','subtotal']);
 
+        $this->accounts = [];
+        $this->customers = [];
+        $this->trailers = [];
+        $this->highlightIndex = 0;
+        $this->highlightIndexTrailer = 0;
+        $this->highlightIndexCustomer = 0;
+        $this->query = '';
+        $this->trailer = '';
+        $this->customer = '';
+        $this->selectedAccount = 0;
+        $this->selectedTrailer = 0;
+        $this->selectedCustomer = 0;
+        $this->showDropdown = true;
+        $this->showDropdown2 = true;
+        $this->showDropdown3 = true;
+
         session()->flash('message', 'facture enregistreé avec succès.');
 
         $this->dispatchBrowserEvent('closeAlert');
+
 
     }
 
@@ -220,6 +356,8 @@ class Invoice extends Component
 
     public function cancel(){
         $this->newTractor = "";
+        $this->newTrailer = "";
+        $this->newCustomer = "";
         $this->url= null;
         $this->amountPaid = null;
         $this->tractor = null;
@@ -249,5 +387,25 @@ class Invoice extends Component
         $this->newTractor = "";
 
         session()->flash('new-tractor', 'Tracteur enregistré avec succès.');
+    }
+
+    public function storeTrailer(){
+
+        if ($this->newTrailer == "")
+            return 0;
+
+        Trailer::create(['label'=> strtoupper($this->newTrailer)]);
+        $this->newTrailer = "";
+        session()->flash('new-trailer', 'remorque enregistré avec succès.');
+    }
+
+    public function storeCustomer(){
+
+        if ($this->newCustomer == "")
+            return 0;
+
+        Customer::create(['label'=> strtoupper($this->newCustomer)]);
+        $this->newCustomer = "";
+        session()->flash('new-customer', 'client enregistré avec succès.');
     }
 }

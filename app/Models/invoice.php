@@ -44,9 +44,9 @@ class invoice extends Model
         return $this->belongsTo(Tractor::class,'tractor_id');
     }
 
-    public function trailer(){
+    public function myTrailer(){
 
-        return $this->belongsTo(Trailer::class);
+        return $this->belongsTo(Trailer::class, 'trailer_id');
     }
 
     public function customer(){
