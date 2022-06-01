@@ -81,5 +81,11 @@ class WeighBridgeSeeder extends Seeder
             'created_at' => now(),
             'updated_at' => now()
         ]);
+        ModelsWeighbridge::create([
+            'id' => 12,
+            'label' => 'Direction',
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
     }
 }

@@ -174,8 +174,8 @@
                         <!-- end input -->
                         <div class="col-md-6">
                             <div class="input-style-1">
-                                <label>Pont bascule</label>
-                                <input type="number" disabled wire:model="total_amount" placeholder="Direction"/>
+                                <label>Point de paiement</label>
+                                <input type="text" disabled placeholder="Direction" />
                             </div>
                         </div>
                     </div>
@@ -188,7 +188,7 @@
                             <div style="background: gray !important" class="input-group-text">
                                 <input data-bs-toggle="tooltip" data-bs-placement="top"
                                        data-bs-custom-class="custom-tooltip"
-                                       title="Cliquer ici pour activer la pesé test "  class="form-check-input mt-0" type="checkbox" wire:model="weighedTest" aria-label="Checkbox for following text input">
+                                       title="Cliquer ici pour activer la pesé test "  class="form-check-input mt-0" type="checkbox" wire:model="weighedTransit" aria-label="Checkbox for following text input">
                             </div>
                             <input type="number" min="0" wire:model ="amountPaid" class="form-control" aria-label="Text input with checkbox">
                         </div>
@@ -208,7 +208,7 @@
                     </div>
                     <div class="text-center">
                         <button wire:click="store"
-                                class="main-btn active-btn-outline rounded-md btn-hover">Imprimer
+                                class="main-btn active-btn-outline rounded-md btn-hover">Valider
                         </button>
                     </div>
                 </div>
@@ -358,3 +358,20 @@
 
     </div>
 </div>
+@push('scripts')
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.js" ></script>
+    <script>
+
+        document.addEventListener('closeAlert', closeAlert);
+
+        function closeAlert(){
+
+            setTimeout(()=>{
+                let alertNode = document.querySelector('#alert-message');
+                let alert = new bootstrap.Alert(alertNode);
+                alert.close()
+            },5000)
+        }
+    </script>
+@endpush

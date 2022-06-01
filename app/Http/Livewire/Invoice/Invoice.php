@@ -52,8 +52,7 @@ class Invoice extends Component
 //        $this->showDropdown2 = true;
 //        $this->showDropdown3 = true;
 //    }
-
-    public function hideDropdown()
+   public function hideDropdown()
     {
         $this->showDropdown = false;
     }
@@ -62,7 +61,7 @@ class Invoice extends Component
         $this->showDropdown2 = false;
     }
 
-    public function hideDropdown3()
+   public function hideDropdown3()
     {
         $this->showDropdown3 = false;
     }
@@ -106,7 +105,7 @@ class Invoice extends Component
         $this->highlightIndex--;
     }
 
- public function decrementHighlightTrailer()
+    public function decrementHighlightTrailer()
     {
         if ($this->highlightIndexTrailer === 0) {
             $this->highlightIndexTrailer = count($this->trailers) - 1;
@@ -309,7 +308,7 @@ class Invoice extends Component
         $this->url = $data->id;
 
 
-        $this->reset(['name','tractor','trailer','modePaymentId','weighbridgeId','amountPaid',
+        $this->reset(['modePaymentId','weighbridgeId','amountPaid',
                      'weighbridgeId','remains','tax_amount','subtotal']);
 
         $this->accounts = [];
