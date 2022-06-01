@@ -4,7 +4,7 @@
     <div class="col-lg-12">
         @if(session()->has('succès'))
             <div id="alert-message" class="alert alert-success alert-dismissible fade show" role="alert">
-                <strong>{{session('message')}} </strong>
+                <strong>{{session('succès')}} </strong>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         @endif

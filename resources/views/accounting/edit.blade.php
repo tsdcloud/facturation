@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="card-style mb-30">
-        <form method="POST" action="{{route('accounting.update', $bill)}}">
+        <form method="POST" action="{{route('accounting.update', $bill->id)}}">
             @csrf
             @method('PATCH')
             <div class="row mt-3">

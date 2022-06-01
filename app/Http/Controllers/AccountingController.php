@@ -25,7 +25,11 @@ class AccountingController extends Controller
         return view('accounting.edit',compact('breadcrumb','bill'));
     }
 
-    public function update(Request $request, invoice $invoice){
+    public function update(Request $request,  $id){
+
+       // dd($request->approved);
+
+        $invoice = invoice::where('id',$id)->first();
 
         $invoice->update(['approved' => $request->approved]);
 
