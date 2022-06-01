@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
             ModePaymentSeeder::class,
             UserSeeder::class,
             WeighBridgeSeeder::class,
-            TractorSeeder::class,
+//            TractorSeeder::class,
         ]);
     }
 }
