@@ -10,9 +10,6 @@ class invoice extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name',
-        'trailer',
-        'tractor',
         'invoice_no',
         'subtotal',
         'tax_amount',

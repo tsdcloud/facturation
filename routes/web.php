@@ -29,6 +29,8 @@ Route::middleware(['auth'])->group(function(){
     Route::get('ok',[InvoiceController::class, 'pdf']);
     Route::get('invoices',[InvoiceController::class, 'myInvoice'])->name('invoices');
     Route::get('bill-pending',[AccountingController::class,'billPending'])->name('bill-pending');
+    Route::get('bill/edit/{id}',[AccountingController::class,'edit'])->name('accounting.edit');
+    Route::patch('bill/edit/{id}',[AccountingController::class,'update'])->name('accounting.update');
     Route::get('index',[\App\Http\Controllers\ManagingUserController::class, 'index'])->name('account.index');
     Route::get('customer-support', [\App\Http\Controllers\CustomerSupportController::class, 'create'])->name('customer-support');
 });

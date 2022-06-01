@@ -226,7 +226,6 @@ class CustomerSupport extends Component
         if (is_null($lastId)){
             $data = ModelsInvoice::create([
                 'invoice_no' => str_pad(1,7,0,STR_PAD_LEFT),
-                'trailer'=> strtoupper($this->query) ,
                 'subtotal' => $this->subtotal,
                 'tax_amount' => $this->tax_amount,
                 'total_amount' => $this->total_amount,
@@ -245,7 +244,6 @@ class CustomerSupport extends Component
         if (!is_null($lastId)){
             $data = ModelsInvoice::create([
                 'invoice_no' => str_pad($lastId->id + 1,7,0,STR_PAD_LEFT),
-                'trailer'=> strtoupper($this->trailer),
                 'subtotal' => $this->subtotal,
                 'tax_amount' => $this->tax_amount,
                 'total_amount' => $this->total_amount,

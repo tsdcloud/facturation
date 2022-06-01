@@ -269,7 +269,6 @@ class Invoice extends Component
        $data = ModelsInvoice::create([
 //           'name'=> strtoupper($this->name),
            'invoice_no' => str_pad(1,7,0,STR_PAD_LEFT),
-           'trailer'=> strtoupper($this->query) ,
            'subtotal' => $this->subtotal,
            'tax_amount' => $this->tax_amount,
            'total_amount' => $this->total_amount,
@@ -289,7 +288,6 @@ class Invoice extends Component
            $data = ModelsInvoice::create([
 //               'name'=> strtoupper($this->name),
                'invoice_no' => str_pad($lastId->id + 1,7,0,STR_PAD_LEFT),
-               'trailer'=> strtoupper($this->trailer),
                'subtotal' => $this->subtotal,
                'tax_amount' => $this->tax_amount,
                'total_amount' => $this->total_amount,

@@ -16,8 +16,6 @@ return new class extends Migration
         Schema::create('invoices', function (Blueprint $table) {
             $table->id();
             $table->text('invoice_no');
-            $table->string('tractor')->nullable();
-            $table->string('trailer')->nullable();
             $table->decimal('subtotal',6,0);
             $table->decimal('tax_amount',8,0);
             $table->decimal('total_amount',6,0);

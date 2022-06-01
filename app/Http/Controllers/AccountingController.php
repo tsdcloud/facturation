@@ -11,9 +11,26 @@ class AccountingController extends Controller
     public function billPending(){
 
         $breadcrumb = "Facture en attente";
-        $invoices = invoice::where('approved', 'pending')->get();
+        $invoices = invoice::all()->reject(function($invoice){
+            return $invoice->approved == "validated";
+        });
 
         return view('accounting.bill-pending',compact('invoices','breadcrumb'));
+    }
+
+    public function edit($id){
+
+        $breadcrumb = "editer facture";
+        $bill = invoice::where('id',$id)->first();
+        return view('accounting.edit',compact('breadcrumb','bill'));
+    }
+
+    public function update(Request $request, invoice $invoice){
+
+        $invoice->update(['approved' => $request->approved]);
+
+        return to_route('bill-pending')->with('succès','facture approuvé avec succès');
+
     }
 
 }
