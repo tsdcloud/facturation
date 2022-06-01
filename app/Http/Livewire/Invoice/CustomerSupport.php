@@ -192,16 +192,16 @@ class CustomerSupport extends Component
             $this->remains =  $this->amountPaid - 11925;
 
         if ($this->amountPaid != "" && $this->weighedTransit == true)
-            $this->remains =  $this->amountPaid - 9845 ;
+            $this->remains =  $this->amountPaid - 8945 ;
 
         if ($this->amountPaid == "")
             $this->remains = 0;
 
         if ($this->weighedTransit){
 
-            $this->subtotal = 5000;
-            $this->tax_amount = 962;
-            $this->total_amount = 5962;
+            $this->subtotal = 7501;
+            $this->tax_amount = 1443;
+            $this->total_amount = 8945;
 
         }
 
