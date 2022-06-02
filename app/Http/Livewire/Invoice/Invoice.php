@@ -297,17 +297,17 @@ class Invoice extends Component
 
         $this->url = $data->id;
 
-        $path = action([InvoiceController::class, 'pdf'], ['id' => $data->id]);
-        $p = \SimpleSoftwareIO\QrCode\Facades\QrCode::format('png')->size(100)->generate($path);
-        $output_file = '/img/img-' . time() . '.png';
+//        $path = action([InvoiceController::class, 'pdf'], ['id' => $data->id]);
+//        $p = \SimpleSoftwareIO\QrCode\Facades\QrCode::format('png')->size(100)->generate($path);
+//        $output_file = '/img/img-' . time() . '.png';
 
       //$path = Storage::putFile('qrcode', $p);
 
-        Storage::disk('public')->put($output_file, $p);
+//        Storage::disk('public')->put($output_file, $p);
        // dd(asset($output_file));
-        $recup = asset($output_file);
+//        $recup = asset($output_file);
        // dd($recup);
-        tap($data)->update(['path_qrcode'=> $output_file]);
+//        tap($data)->update(['path_qrcode'=> $output_file]);
       //  dd($path);
 
         $this->reset(['modePaymentId','weighbridgeId','amountPaid',
