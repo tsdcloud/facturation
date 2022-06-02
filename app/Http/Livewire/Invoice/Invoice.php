@@ -311,7 +311,7 @@ class Invoice extends Component
 
         $path = action([InvoiceController::class, 'pdf'], ['id' => $data->id]);
         $p = \SimpleSoftwareIO\QrCode\Facades\QrCode::format('png')->size(100)->generate($path);
-        $output_file = '/img/qr-code/img-' . time() . '.png';
+        $output_file = '/img/img-' . time() . '.png';
 
       //$path = Storage::putFile('qrcode', $p);
 
