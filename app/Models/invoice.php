@@ -23,6 +23,7 @@ class invoice extends Model
         'approved',
         'trailer_id',
         'customer_id',
+        'path_qrcode',
     ];
 
     public function weighbridge(){

@@ -2,6 +2,8 @@
 
 namespace App\Services;
 use setasign\Fpdi\Fpdi;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
+
 class InvoiceService extends Fpdi
 {
 
@@ -11,6 +13,7 @@ class InvoiceService extends Fpdi
 
         $this->Image(public_path('\assets\images\logo\lotecs.png'),15,109,17);
         $this->Image(public_path('\assets\images\signature.png'),05,92,38);
+
 
         // $this->Image(public_path('assets\images\logo\logo-dpws.png'),65,90,60);
     }
@@ -23,12 +26,13 @@ class InvoiceService extends Fpdi
 //     $this->Rotate(0);
 // }
 
-    public static function invoiceBuilder($data,$type){
+    public static function invoiceBuilder($data,$type, $qrcode){
 
         $pdf = new InvoiceService('P','mm','A4');
         $pdf->SetMargins(05,02,1); // starting margin
         $pdf->AddPage();
         $pdf->SetFont('Arial','',11);
+//       $pdf->Image('storage\app\public\'.$qrcode,85,23,20);
         $pdf->Cell(200 ,5,utf8_decode('FACTURE ACQUITTEE N° '.$data->invoice_no),0,0,'R');
         $pdf->Ln(10);
         $pdf->Cell(200 ,5,utf8_decode('Date : '.$data->created_at->format('d/m/y h:m:s')),0,0,'R');

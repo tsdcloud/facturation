@@ -15,7 +15,7 @@ class InvoiceController extends Controller
 
         $data = invoice::where('id',$id)->first();
 
-       InvoiceService::invoiceBuilder($data,'preview');
+       InvoiceService::invoiceBuilder($data,'preview',$data->path_qrcode);
     }
 
     public function index()

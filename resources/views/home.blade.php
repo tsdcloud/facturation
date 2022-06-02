@@ -42,4 +42,6 @@
                 <!-- End Icon Cart -->
             </div> --}}
         </div>
+ {!! QrCode::size(100)->generate(Request::url())!!}
+{{-- {{QrCode::format('png')->size(120)->generate('https://postsrc.com')}}--}}
 @stop
