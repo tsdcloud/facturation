@@ -197,26 +197,14 @@ class Invoice extends Component
     }
 
 
-
-
-
     public function render()
     {
-
 
         return view('livewire.invoice.invoice',[
             'modePayments' => ModePayment::all()->reject(function($mode){
                 return $mode->label == "Virement Bancaire";}),
             'weighbridges' => Weighbridge::all(),
             'invoices' => ModelsInvoice::all(),
-            'dailyInvoices' => ModelsInvoice::whereDay('created_at',date('d'))
-                                              ->where('user_id',Auth::user()->id)
-                                           ->where(function($query){
-                                               $query->where('tractor','LIKE',"%{$this->searchTrailerandTractorNumFac}%");
-                                               $query->orWhere('trailer','LIKE',"%{$this->searchTrailerandTractorNumFac}%");
-                                               $query->orWhere('invoice_no','LIKE',"%{$this->searchTrailerandTractorNumFac}%");
-                                           })
-                                           ->orderBy('created_at', 'DESC')->paginate(10),
         ]);
     }
 
