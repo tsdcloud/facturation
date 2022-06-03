@@ -21,6 +21,7 @@ use App\Http\Controllers\AccountingController;
 Route::get('/', function () {
     return view('auth.login');
 });
+Route::get('ok',[InvoiceController::class, 'pdf']);
 Route::middleware(['auth'])->group(function(){
 
     Route::get('home',[HomeController::class, 'index']);
@@ -37,7 +38,7 @@ Route::middleware(['auth'])->group(function(){
     Route::get('billing',[InvoiceController::class,'index']);
 
     Route::get('pdf/{id?}',[InvoiceController::class,'pdf'])->name('show-pdf');
-    Route::get('ok',[InvoiceController::class, 'pdf']);
+
     Route::get('invoices',[InvoiceController::class, 'myInvoice'])->name('invoices');
     Route::get('bill-pending',[AccountingController::class,'billPending'])->name('bill-pending');
     Route::get('bill/edit/{id}',[AccountingController::class,'edit'])->name('accounting.edit');

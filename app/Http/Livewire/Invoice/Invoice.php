@@ -301,7 +301,8 @@ class Invoice extends Component
 
             $this->url = $data->id;
 
-            $path = action([InvoiceController::class, 'pdf'], ['id' => $data->id]);
+        //    $path = action([InvoiceController::class, 'pdf'], ['id' => $data->id]);
+            $path = 'http://billingdpws.bfclimited.com:8080/'.'ok?id='.$data->id;
             $picture = QrCode::format('png')->size(100)->generate($path);
             $output_file = '/Qrcode/'.$data->id.'/'. time() . '.png';
 
