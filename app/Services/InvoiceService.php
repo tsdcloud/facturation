@@ -26,13 +26,13 @@ class InvoiceService extends Fpdi
 //     $this->Rotate(0);
 // }
 
-    public static function invoiceBuilder($data,$type, $qrcode){
+    public static function invoiceBuilder($data,$type){
 
         $pdf = new InvoiceService('P','mm','A4');
         $pdf->SetMargins(05,02,1); // starting margin
         $pdf->AddPage();
         $pdf->SetFont('Arial','',11);
-        $pdf->Image(public_path( 'storage'.$qrcode),85,23,20);
+        $pdf->Image(public_path( 'storage'.$data->path_qrcode),85,23,20);
         $pdf->Cell(200 ,5,utf8_decode('FACTURE ACQUITTEE N° '.$data->invoice_no),0,0,'R');
         $pdf->Ln(10);
         $pdf->Cell(200 ,5,utf8_decode('Date : '.$data->created_at->format('d/m/y h:m:s')),0,0,'R');
