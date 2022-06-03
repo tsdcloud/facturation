@@ -1,6 +1,7 @@
 <?php
 
 
+use App\Models\Weighbridge;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InvoiceController;
@@ -23,6 +24,16 @@ Route::get('/', function () {
 Route::middleware(['auth'])->group(function(){
 
     Route::get('home',[HomeController::class, 'index']);
+
+    Route::get('which-bridge', function (){
+        $weighbridges = Weighbridge::all()->reject(function($bridge){
+
+            return $bridge->label == "Direction";
+        });
+
+        return view('which-bridge', compact('weighbridges'));
+    })->name('bridge');
+   // Route::get('which-bridge',[HomeController::class, 'bridge'])->name('bridge');
     Route::get('billing',[InvoiceController::class,'index']);
 
     Route::get('pdf/{id?}',[InvoiceController::class,'pdf'])->name('show-pdf');

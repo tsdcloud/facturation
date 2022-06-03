@@ -3,15 +3,17 @@
 namespace App\Http\Livewire\Invoice;
 
 
+use App\Http\Controllers\InvoiceController;
 use App\Models\Customer;
 use App\Models\Tractor;
 use App\Models\Trailer;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use App\Models\ModePayment;
 use App\Models\Weighbridge;
-use App\Services\InvoiceService;
 use App\Models\invoice as ModelsInvoice;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 
 class Invoice extends Component
@@ -299,17 +301,13 @@ class Invoice extends Component
 
             $this->url = $data->id;
 
-//        $path = action([InvoiceController::class, 'pdf'], ['id' => $data->id]);
-//        $p = \SimpleSoftwareIO\QrCode\Facades\QrCode::format('png')->size(100)->generate($path);
-//        $output_file = '/img/img-' . time() . '.png';
-//
-//        $path = Storage::putFile('qrcode', $p);
-//
-//        Storage::disk('public')->put($output_file, $p);
-//
-//        $recup = asset($output_file);
-//
-//        tap($data)->update(['path_qrcode'=> $output_file]);
+            $path = action([InvoiceController::class, 'pdf'], ['id' => $data->id]);
+            $picture = QrCode::format('png')->size(100)->generate($path);
+            $output_file = '/Qrcode/'.$data->id.'/'. time() . '.png';
+
+            Storage::disk('public')->put($output_file, $picture);
+
+            tap($data)->update(['path_qrcode'=> $output_file]);
 
 
             session()->flash('message', 'facture enregistreé avec succès.');
