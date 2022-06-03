@@ -6,6 +6,7 @@ namespace App\Http\Livewire\Invoice;
 use App\Models\Customer;
 use App\Models\Tractor;
 use App\Models\Trailer;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use App\Models\ModePayment;
 use App\Models\Weighbridge;
@@ -168,7 +169,7 @@ class Invoice extends Component
     public function updatedTractor()
     {
         $this->tractors = Tractor::where('label', 'like', '%' . strtoupper($this->tractor). '%')
-                ->take(5)
+                ->take(4)
                 ->get()
                 ->toArray();
 
@@ -177,7 +178,7 @@ class Invoice extends Component
     public function updatedTrailer()
     {
         $this->trailers = Trailer::where('label', 'like', '%' . strtoupper($this->trailer). '%')
-            ->take(5)
+            ->take(4)
             ->get()
             ->toArray();
 
@@ -186,7 +187,7 @@ class Invoice extends Component
     public function updatedCustomer()
     {
         $this->customers = Customer::where('label', 'like', '%' . strtoupper($this->customer). '%')
-            ->take(5)
+            ->take(7)
             ->get()
             ->toArray();
 
@@ -205,14 +206,15 @@ class Invoice extends Component
     }
 
     public function updated(){
+
         if ($this->amountPaid != "" && $this->weighedTest == false)
-           $this->remains =  $this->amountPaid - 11925;
+             $this->remains =  $this->amountPaid - 11925;
 
         if ($this->amountPaid != "" && $this->weighedTest == true)
-           $this->remains =  $this->amountPaid - 5962 ;
+             $this->remains =  $this->amountPaid - 5962 ;
 
         if ($this->amountPaid == "")
-           $this->remains = 0;
+             $this->remains = 0;
 
         if ($this->weighedTest){
 
@@ -252,91 +254,78 @@ class Invoice extends Component
 
     public function store() {
 
-//        $this->validate(
-//            ['customer' => 'required'],
-//            [
-//                'customer.required' => 'le nom du champs est requis.',
-//            ],
-//
-//        );
-
         $this->validate();
        $lastId = ModelsInvoice::latest('id')->first();
 
-       if (is_null($lastId)){
-       $data = ModelsInvoice::create([
-           'invoice_no' => str_pad(1,7,0,STR_PAD_LEFT),
-           'subtotal' => $this->subtotal,
-           'tax_amount' => $this->tax_amount,
-           'total_amount' => $this->total_amount,
-           'mode_payment_id'=> $this->modePaymentId,
-           'weighbridge_id'=> $this->weighbridgeId,
-           'amount_paid'=> $this->amountPaid,
-           'remains'=> $this->remains,
-           'approved' => 'validated',
-           'user_id'=> auth()->id(),
-           'tractor_id'=> $this->selectedTractor,
-           'trailer_id' => $this->selectedTrailer,
-           'customer_id' => $this->selectedCustomer,
-       ]);
-   }
+        try {
 
-       if (!is_null($lastId)){
-           $data = ModelsInvoice::create([
-               'invoice_no' => str_pad($lastId->id + 1,7,0,STR_PAD_LEFT),
-               'subtotal' => $this->subtotal,
-               'tax_amount' => $this->tax_amount,
-               'total_amount' => $this->total_amount,
-               'mode_payment_id'=> $this->modePaymentId,
-               'weighbridge_id'=> $this->weighbridgeId,
-               'amount_paid'=> $this->amountPaid,
-               'remains'=> $this->remains,
-               'approved' => 'validated',
-               'user_id'=> auth()->id(),
-               'tractor_id'=> $this->selectedTractor,
-               'trailer_id' => $this->selectedTrailer,
-               'customer_id' => $this->selectedCustomer,
-           ]);
-       }
+            DB::beginTransaction();
 
-        $this->url = $data->id;
+            if (is_null($lastId)){
+                $data = ModelsInvoice::create([
+                    'invoice_no' => str_pad(1,7,0,STR_PAD_LEFT),
+                    'subtotal' => $this->subtotal,
+                    'tax_amount' => $this->tax_amount,
+                    'total_amount' => $this->total_amount,
+                    'mode_payment_id'=> $this->modePaymentId,
+                    'weighbridge_id'=> $this->weighbridgeId,
+                    'amount_paid'=> $this->amountPaid,
+                    'remains'=> $this->remains,
+                    'approved' => 'validated',
+                    'user_id'=> auth()->id(),
+                    'tractor_id'=> $this->selectedTractor,
+                    'trailer_id' => $this->selectedTrailer,
+                    'customer_id' => $this->selectedCustomer,
+                ]);
+            }
+
+            if (!is_null($lastId)){
+                $data = ModelsInvoice::create([
+                    'invoice_no' => str_pad($lastId->id + 1,7,0,STR_PAD_LEFT),
+                    'subtotal' => $this->subtotal,
+                    'tax_amount' => $this->tax_amount,
+                    'total_amount' => $this->total_amount,
+                    'mode_payment_id'=> $this->modePaymentId,
+                    'weighbridge_id'=> $this->weighbridgeId,
+                    'amount_paid'=> $this->amountPaid,
+                    'remains'=> $this->remains,
+                    'approved' => 'validated',
+                    'user_id'=> auth()->id(),
+                    'tractor_id'=> $this->selectedTractor,
+                    'trailer_id' => $this->selectedTrailer,
+                    'customer_id' => $this->selectedCustomer,
+                ]);
+            }
+
+            $this->url = $data->id;
 
 //        $path = action([InvoiceController::class, 'pdf'], ['id' => $data->id]);
 //        $p = \SimpleSoftwareIO\QrCode\Facades\QrCode::format('png')->size(100)->generate($path);
 //        $output_file = '/img/img-' . time() . '.png';
-
-      //$path = Storage::putFile('qrcode', $p);
-
+//
+//        $path = Storage::putFile('qrcode', $p);
+//
 //        Storage::disk('public')->put($output_file, $p);
-       // dd(asset($output_file));
+//
 //        $recup = asset($output_file);
-       // dd($recup);
+//
 //        tap($data)->update(['path_qrcode'=> $output_file]);
-      //  dd($path);
 
-        $this->reset(['modePaymentId','weighbridgeId','amountPaid',
-                     'weighbridgeId','remains','tax_amount','subtotal']);
 
-        $this->tractors = [];
-        $this->customers = [];
-        $this->trailers = [];
-        $this->highlightIndex = 0;
-        $this->highlightIndexTrailer = 0;
-        $this->highlightIndexCustomer = 0;
-        $this->tractor = '';
-        $this->trailer = '';
-        $this->customer = '';
-        $this->selectedTractor = 0;
-        $this->selectedTrailer = 0;
-        $this->selectedCustomer = 0;
-        $this->showDropdown = true;
-        $this->showDropdown2 = true;
-        $this->showDropdown3 = true;
+            session()->flash('message', 'facture enregistreé avec succès.');
 
-        session()->flash('message', 'facture enregistreé avec succès.');
+            $this->dispatchBrowserEvent('closeAlert');
+            $this->emptyField();
+            DB::commit();
 
-        $this->dispatchBrowserEvent('closeAlert');
+        }catch (\Exception $e){
 
+            $e->getMessage();
+            session()->flash('error', 'Une erreur c\'est produite, veuillez actualiser le navigateur et essayer à nouveau.
+            Rapprochez vous d\'un IT en service si necessaire.');
+            DB::rollBack();
+
+        }
 
     }
 
@@ -368,10 +357,10 @@ class Invoice extends Component
         if ($this->newTractor == "")
             return 0;
 
-        Tractor::create(['label' => strtoupper($this->newTractor)]);
+       $data = Tractor::create(['label' => strtoupper($this->newTractor)]);
 
         $this->newTractor = "";
-        $this->tractors = [];
+        $this->tractors[] = $data;
 
         session()->flash('new-tractor', 'Tracteur enregistré avec succès.');
     }
@@ -381,9 +370,9 @@ class Invoice extends Component
         if ($this->newTrailer == "")
             return 0;
 
-        Trailer::create(['label'=> strtoupper($this->newTrailer)]);
+        $data = Trailer::create(['label'=> strtoupper($this->newTrailer)]);
         $this->newTrailer = "";
-        $this->trailers = [];
+        $this->trailers[] = $data;
         session()->flash('new-trailer', 'remorque enregistré avec succès.');
     }
 
@@ -392,9 +381,34 @@ class Invoice extends Component
         if ($this->newCustomer == "")
             return 0;
 
-        Customer::create(['label'=> strtoupper($this->newCustomer)]);
+        $data = Customer::create(['label'=> strtoupper($this->newCustomer)]);
         $this->newCustomer = "";
-        $this->tractors = [];
+        $this->customers[] = $data;
         session()->flash('new-customer', 'client enregistré avec succès.');
+    }
+
+    protected function emptyField(){
+
+        $this->reset(['tax_amount','subtotal']);
+
+        $this->modePaymentId = null;
+        $this->weighbridgeId = null;
+        $this->amountPaid = null;
+        $this->remains = null;
+        $this->tractors = [];
+        $this->customers = [];
+        $this->trailers = [];
+        $this->highlightIndex = 0;
+        $this->highlightIndexTrailer = 0;
+        $this->highlightIndexCustomer = 0;
+        $this->tractor = '';
+        $this->trailer = '';
+        $this->customer = '';
+        $this->selectedTractor = 0;
+        $this->selectedTrailer = 0;
+        $this->selectedCustomer = 0;
+        $this->showDropdown = true;
+        $this->showDropdown2 = true;
+        $this->showDropdown3 = true;
     }
 }
