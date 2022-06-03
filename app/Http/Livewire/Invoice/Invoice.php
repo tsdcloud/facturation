@@ -17,25 +17,40 @@ class Invoice extends Component
 {
 
 
-    public ?int $modePaymentId = null, $weighbridgeId = null, $tax_amount = 1925, $subtotal = 10000, $total_amount = 11925;
-    public $amountPaid = null ,$remains = 0, $weighedTest = false, $url= null, $newTractor = null, $newTrailer = null,
-           $newCustomer = null;
+    public ?int
+            $modePaymentId = null,
+            $weighbridgeId = null,
+            $tax_amount = 1925,
+            $subtotal = 10000,
+            $total_amount = 11925;
 
-    public $tractor = '';
-    public $trailer = '';
-    public $customer = '';
-    public array $tractors = [];
-    public array $trailers = [];
-    public array $customers = [];
-    public int $selectedTractor = 0;
-    public int $selectedTrailer = 0;
-    public int $selectedCustomer = 0;
-    public int $highlightIndex = 0;
-    public int $highlightIndexTrailer = 0;
-    public int $highlightIndexCustomer = 0;
-    public bool $showDropdown = true;
-    public bool $showDropdown2 = true;
-    public bool $showDropdown3 = true;
+
+    public $amountPaid = null ,
+           $remains = 0,
+           $weighedTest = false,
+           $url= null,
+           $newTractor = null,
+           $newTrailer = null,
+           $newCustomer = null,
+           $tractor = '',
+           $trailer = '',
+           $customer = '';
+
+    public array $tractors = [],
+                 $trailers = [],
+                 $customers = [];
+
+    public int   $selectedTractor = 0,
+                 $selectedTrailer = 0,
+                 $selectedCustomer = 0,
+                 $highlightIndex = 0,
+                 $highlightIndexTrailer = 0,
+                 $highlightIndexCustomer = 0;
+
+    public bool  $showDropdown = true,
+                 $showDropdown2 = true,
+                 $showDropdown3 = true;
+
 
    public function hideDropdown()
     {
@@ -356,6 +371,7 @@ class Invoice extends Component
         Tractor::create(['label' => strtoupper($this->newTractor)]);
 
         $this->newTractor = "";
+        $this->tractors = [];
 
         session()->flash('new-tractor', 'Tracteur enregistré avec succès.');
     }
@@ -367,6 +383,7 @@ class Invoice extends Component
 
         Trailer::create(['label'=> strtoupper($this->newTrailer)]);
         $this->newTrailer = "";
+        $this->trailers = [];
         session()->flash('new-trailer', 'remorque enregistré avec succès.');
     }
 
@@ -377,6 +394,7 @@ class Invoice extends Component
 
         Customer::create(['label'=> strtoupper($this->newCustomer)]);
         $this->newCustomer = "";
+        $this->tractors = [];
         session()->flash('new-customer', 'client enregistré avec succès.');
     }
 }
