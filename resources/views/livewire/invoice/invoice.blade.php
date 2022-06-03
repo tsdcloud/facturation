@@ -95,30 +95,29 @@
                                     @endif
                                 </div>
                             @endif
-                            @error('name') <span class="text-danger">{{ $message }}</span> @enderror
+                            @error('customer') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
                         <div class="col-md-6" >
                             <div class="input-style-1">
                                 <label>N° Tracteur <a href="javascript:void(0)"  data-bs-toggle="modal" data-bs-target="#ModalTree"> Ajouter un tracteur</a> </label>
                                 <input type="text"
                                        placeholder="Rechercher le tracteur..."
-                                       wire:model="query"
+                                       wire:model="tractor"
                                        wire:keydown.escape="hideDropdown"
                                        wire:keydown.tab="hideDropdown"
                                        wire:keydown.Arrow-Up="decrementHighlight"
                                        wire:keydown.Arrow-Down="incrementHighlight"
-                                       wire:keydown.enter.prevent="selectAccount"
+                                       wire:keydown.enter.prevent="selectTractor"
                                 />
-                                <input type="hidden" name="account" id="account" wire:model="selectedAccountID">
 
-                                @if(!empty($query) && $selectedAccount == 0 && $showDropdown)
+                                @if(!empty($tractor) && $selectedTractor == 0 && $showDropdown)
                                     <div class="absolute z-10 bg-white mt-1 w-full border border-gray-300 rounded-md shadow-lg overflow-auto">
-                                        @if (!empty($accounts))
-                                            @foreach($accounts as $i => $account)
+                                        @if (!empty($tractors))
+                                            @foreach($tractors as $i => $tractor)
                                                 <a role="button"
-                                                    wire:click="selectAccount({{ $i }})"
+                                                    wire:click="selectTractor({{ $i }})"
                                                     class="block py-1 px-2 text-sm cursor-pointer hover:bg-blue-50 {{ $highlightIndex === $i ? 'bg-blue-50' : '' }}"
-                                                >{{ $account['label'] }}</a>
+                                                >{{ $tractor['label'] }}</a>
                                             @endforeach
                                         @else
                                             <span class="block py-1 px-2 text-sm">Pas de résultat</span>
@@ -191,8 +190,6 @@
                     <!-- end input -->
                     <div class="input-style-1">
                         <label>Montant versé</label>
-                        {{-- <input type="number"  min="0" placeholder="Montant versé" wire:model.defer ="amountPaid"/>
-                        @error('amountPaid') <span class="text-danger">{{ $message }}</span> @enderror --}}
                         <div class="input-group mb-3">
                             <div style="background: gray !important" class="input-group-text">
                               <input data-bs-toggle="tooltip" data-bs-placement="top"
@@ -203,14 +200,22 @@
                           </div>
                           @error('amountPaid') <span class="text-danger">{{ $message }}</span> @enderror
                        </div>
-                    <div class="input-style-1">
-                        <label>Montant HT</label>
-                        <input type="number" disabled wire:model="subtotal"/>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="input-style-1">
+                                <label>Montant HT</label>
+                                <input type="number" disabled wire:model="subtotal"/>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="input-style-1">
+                                <label>Montant TTC</label>
+                                <input type="number" disabled wire:model="total_amount"/>
+                            </div>
+                        </div>
                     </div>
-                    <div class="input-style-1">
-                        <label>Montant TTC</label>
-                        <input type="number" disabled wire:model="total_amount"/>
-                    </div>
+
                     <div class="input-style-1">
                         <label>Reste à rembourser</label>
                         <input type="number" disabled wire:model="remains"/>

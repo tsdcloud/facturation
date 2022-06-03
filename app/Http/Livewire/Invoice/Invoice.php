@@ -2,36 +2,32 @@
 
 namespace App\Http\Livewire\Invoice;
 
-use App\Http\Controllers\InvoiceController;
+
 use App\Models\Customer;
 use App\Models\Tractor;
 use App\Models\Trailer;
-use BaconQrCode\Encoder\QrCode;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use App\Models\ModePayment;
 use App\Models\Weighbridge;
 use App\Services\InvoiceService;
-use Illuminate\Support\Facades\Auth;
 use App\Models\invoice as ModelsInvoice;
 
 
 class Invoice extends Component
 {
-    public ?string $name = null, $tractor = null, $searchTrailerandTractorNumFac = null;
-    public bool $isDisabled = false;
+
+
     public ?int $modePaymentId = null, $weighbridgeId = null, $tax_amount = 1925, $subtotal = 10000, $total_amount = 11925;
     public $amountPaid = null ,$remains = 0, $weighedTest = false, $url= null, $newTractor = null, $newTrailer = null,
            $newCustomer = null;
 
-    public $query= '';
+    public $tractor = '';
     public $trailer = '';
     public $customer = '';
-    public array $accounts = [];
+    public array $tractors = [];
     public array $trailers = [];
     public array $customers = [];
-    public int $selectedAccount = 0;
+    public int $selectedTractor = 0;
     public int $selectedTrailer = 0;
     public int $selectedCustomer = 0;
     public int $highlightIndex = 0;
@@ -41,21 +37,6 @@ class Invoice extends Component
     public bool $showDropdown2 = true;
     public bool $showDropdown3 = true;
 
-//    public function reset(...$properties)
-//    {
-//        $this->accounts = [];
-//        $this->trailers = [];
-//        $this->highlightIndex = 0;
-//        $this->highlightIndexTrailer = 0;
-//        $this->highlightIndexCustomer = 0;
-//        $this->query = '';
-//        $this->trailer = '';
-//        $this->selectedAccount = 0;
-//        $this->selectedTrailer = 0;
-//        $this->showDropdown = true;
-//        $this->showDropdown2 = true;
-//        $this->showDropdown3 = true;
-//    }
    public function hideDropdown()
     {
         $this->showDropdown = false;
@@ -73,7 +54,7 @@ class Invoice extends Component
 
     public function incrementHighlight()
     {
-        if ($this->highlightIndex === count($this->accounts) - 1) {
+        if ($this->highlightIndex === count($this->tractors) - 1) {
             $this->highlightIndex = 0;
             return;
         }
@@ -102,7 +83,7 @@ class Invoice extends Component
     public function decrementHighlight()
     {
         if ($this->highlightIndex === 0) {
-            $this->highlightIndex = count($this->accounts) - 1;
+            $this->highlightIndex = count($this->tractors) - 1;
             return;
         }
 
@@ -131,16 +112,16 @@ class Invoice extends Component
     }
 
 
-    public function selectAccount($id = null)
+    public function selectTractor($id = null)
     {
         $id = $id ?: $this->highlightIndex;
 
-        $account = $this->accounts[$id] ?? null;
+        $tractor = $this->tractors[$id] ?? null;
 
-        if ($account) {
+        if ($tractor) {
             $this->showDropdown = true;
-            $this->query = $account['label'];
-            $this->selectedAccount = $account['id'];
+            $this->tractor = $tractor['label'];
+            $this->selectedTractor = $tractor['id'];
         }
     }
     public function selectTrailer($id = null)
@@ -169,9 +150,9 @@ class Invoice extends Component
         }
     }
 
-    public function updatedQuery()
+    public function updatedTractor()
     {
-        $this->accounts = Tractor::where('label', 'like', '%' . strtoupper($this->query). '%')
+        $this->tractors = Tractor::where('label', 'like', '%' . strtoupper($this->tractor). '%')
                 ->take(5)
                 ->get()
                 ->toArray();
@@ -235,31 +216,40 @@ class Invoice extends Component
 
 
     }
+
+
     protected $rules = [
-////        'name' => 'required',
-//        'query' => 'required',
-//       // 'trailer' => 'required',
+        'customer' => 'required',
+        'tractor' => 'required',
+        'trailer' => 'required',
         'modePaymentId' => 'required',
-        'weighbridgeId' => 'required',
-//        'amountPaid' => 'required',
+        'amountPaid' => 'required',
     ];
-//    protected $messages =[
-////        'name.require' => 'le nom est obligatoire',
-////        'tractor.require' => 'le tracteur est obligatoire',
-//        // 'trailer.require' => 'la remorque est obligatoire',
-//        'modePaymentId.require' => 'choisissez le mode de paiement',
-//        'weighbridgeId.require' => 'choisissez le pont bascule',
-//        'amountPaid.require' => 'veuillez entrer le montant',
-//    ];
+
+    protected $messages = [
+        'customer.required' => 'veuillez saisir le nom du client',
+        'tractor.required' => 'veuillez saisir le numero du tracteur',
+        'trailer.required' => 'veuillez saisir le numero de la remorque',
+        'modePaymentId.required' => 'veuillez selectionner le mode de paiment',
+        'amountPaid.required' => 'veuillez saisir le montant',
+    ];
+
 
     public function store() {
 
-      // $this->validate();
+//        $this->validate(
+//            ['customer' => 'required'],
+//            [
+//                'customer.required' => 'le nom du champs est requis.',
+//            ],
+//
+//        );
+
+        $this->validate();
        $lastId = ModelsInvoice::latest('id')->first();
 
        if (is_null($lastId)){
        $data = ModelsInvoice::create([
-//           'name'=> strtoupper($this->name),
            'invoice_no' => str_pad(1,7,0,STR_PAD_LEFT),
            'subtotal' => $this->subtotal,
            'tax_amount' => $this->tax_amount,
@@ -270,7 +260,7 @@ class Invoice extends Component
            'remains'=> $this->remains,
            'approved' => 'validated',
            'user_id'=> auth()->id(),
-           'tractor_id'=> $this->selectedAccount,
+           'tractor_id'=> $this->selectedTractor,
            'trailer_id' => $this->selectedTrailer,
            'customer_id' => $this->selectedCustomer,
        ]);
@@ -278,7 +268,6 @@ class Invoice extends Component
 
        if (!is_null($lastId)){
            $data = ModelsInvoice::create([
-//               'name'=> strtoupper($this->name),
                'invoice_no' => str_pad($lastId->id + 1,7,0,STR_PAD_LEFT),
                'subtotal' => $this->subtotal,
                'tax_amount' => $this->tax_amount,
@@ -289,7 +278,7 @@ class Invoice extends Component
                'remains'=> $this->remains,
                'approved' => 'validated',
                'user_id'=> auth()->id(),
-               'tractor_id'=> $this->selectedAccount,
+               'tractor_id'=> $this->selectedTractor,
                'trailer_id' => $this->selectedTrailer,
                'customer_id' => $this->selectedCustomer,
            ]);
@@ -313,16 +302,16 @@ class Invoice extends Component
         $this->reset(['modePaymentId','weighbridgeId','amountPaid',
                      'weighbridgeId','remains','tax_amount','subtotal']);
 
-        $this->accounts = [];
+        $this->tractors = [];
         $this->customers = [];
         $this->trailers = [];
         $this->highlightIndex = 0;
         $this->highlightIndexTrailer = 0;
         $this->highlightIndexCustomer = 0;
-        $this->query = '';
+        $this->tractor = '';
         $this->trailer = '';
         $this->customer = '';
-        $this->selectedAccount = 0;
+        $this->selectedTractor = 0;
         $this->selectedTrailer = 0;
         $this->selectedCustomer = 0;
         $this->showDropdown = true;
@@ -334,26 +323,6 @@ class Invoice extends Component
         $this->dispatchBrowserEvent('closeAlert');
 
 
-    }
-
-    public function disabledBouton(): bool {
-        if ($this->amountPaid && $this->weighbridgeId
-           && $this->modePaymentId && $this->tractor &&
-           $this->trailer) {
-            return true;
-        }
-            return false;
-    }
-
-    public function downloadPDF($id){
-
-        $data = ModelsInvoice::where('id',$id)->first();
-        InvoiceService::invoiceBuilder($data,'preview');
-    }
-    public function previewPDF($id){
-
-        $data = ModelsInvoice::where('id',$id)->first();
-        InvoiceService::invoiceBuilder($data, 'preview');
     }
 
     public function cancel(){
