@@ -259,9 +259,9 @@ class Invoice extends Component
         $this->validate();
        $lastId = ModelsInvoice::latest('id')->first();
 
-        try {
-
-            DB::beginTransaction();
+//        try {
+//
+//            DB::beginTransaction();
 
             if (is_null($lastId)){
                 $data = ModelsInvoice::create([
@@ -278,6 +278,7 @@ class Invoice extends Component
                     'tractor_id'=> $this->selectedTractor,
                     'trailer_id' => $this->selectedTrailer,
                     'customer_id' => $this->selectedCustomer,
+                    'path_qrcode' => '',
                 ]);
             }
 
@@ -296,6 +297,7 @@ class Invoice extends Component
                     'tractor_id'=> $this->selectedTractor,
                     'trailer_id' => $this->selectedTrailer,
                     'customer_id' => $this->selectedCustomer,
+                    'path_qrcode' => '',
                 ]);
             }
 
@@ -308,6 +310,7 @@ class Invoice extends Component
 
             Storage::disk('public')->put($output_file, $picture);
 
+
             tap($data)->update(['path_qrcode'=> $output_file]);
 
 
@@ -315,16 +318,16 @@ class Invoice extends Component
 
             $this->dispatchBrowserEvent('closeAlert');
             $this->emptyField();
-            DB::commit();
-
-        }catch (\Exception $e){
-
-            $e->getMessage();
-            session()->flash('error', 'Une erreur c\'est produite, veuillez actualiser le navigateur et essayer à nouveau.
-            Rapprochez vous d\'un IT en service si necessaire.');
-            DB::rollBack();
-
-        }
+//            DB::commit();
+//
+//        }catch (\Exception $e){
+//
+//            $e->getMessage();
+//            session()->flash('error', 'Une erreur c\'est produite, veuillez actualiser le navigateur et essayer à nouveau.
+//            Rapprochez vous d\'un IT en service si necessaire.');
+//            DB::rollBack();
+//
+//        }
 
     }
 
