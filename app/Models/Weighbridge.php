@@ -11,8 +11,13 @@ class Weighbridge extends Model
     use HasFactory;
 
     protected $fillable = ['label'];
-    
+
     public function invoices(){
         return $this->hasMany(Invoice::class);
+    }
+
+    public function stamp(){
+
+        return $this->hasOne(Stamp::class);
     }
 }
