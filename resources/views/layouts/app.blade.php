@@ -7,7 +7,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link
       rel="shortcut icon"
-      href="assets/images/logo-dpws.ico"
+      href="/assets/images/logo-dpws.ico"
       type="image/x-icon"
     />
     <title>Facturation</title>
@@ -25,7 +25,7 @@
     <aside class="sidebar-nav-wrapper">
       <div class="navbar-logo">
         <a href="index.html">
-          <img src="assets/images/logo/logo-dpws.png" alt="logo" />
+          <img src="/assets/images/logo/logo-dpws.png" alt="logo" />
         </a>
       </div>
      @include('layouts._sidebar')

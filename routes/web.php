@@ -1,6 +1,7 @@
 <?php
 
 
+use App\Http\Controllers\StampController;
 use App\Models\Weighbridge;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -47,5 +48,11 @@ Route::middleware(['auth'])->group(function(){
     Route::patch('bill/edit/{id}',[AccountingController::class,'update'])->name('accounting.update');
     Route::get('index',[\App\Http\Controllers\ManagingUserController::class, 'index'])->name('account.index');
     Route::get('customer-support', [\App\Http\Controllers\CustomerSupportController::class, 'create'])->name('customer-support');
+
+    //route add stamp
+
+    Route::get('stamp/index',[StampController::class, 'index'])->name('stamp.index');
+    Route::get('stamp/create',[StampController::class, 'create'])->name('stamp.create');
+    Route::post('stamp/store',[StampController::class, 'store'])->name('stamp.store');
 });
 
