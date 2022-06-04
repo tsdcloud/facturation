@@ -13,9 +13,8 @@
         </div>
     @endif
     <div class="row">
+        @foreach($stamps as $stamp)
         <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
-
-            @foreach($stamps as $stamp)
                 <div class="card-style-2 mb-30">
                     <div class="card-image">
                         <a href="#0">
@@ -26,8 +25,7 @@
                         <h4><a href="#0">Cachet du {{$stamp->weighbridge->label}} </a></h4>
                     </div>
                 </div>
-            @endforeach
         </div>
-
+        @endforeach
     </div>
 @stop

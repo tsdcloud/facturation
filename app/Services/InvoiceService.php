@@ -33,6 +33,7 @@ class InvoiceService extends Fpdi
         $pdf->AddPage();
         $pdf->SetFont('Arial','',11);
         $pdf->Image(public_path( 'storage'.$data->path_qrcode),85,23,20);
+        $pdf->Image(public_path( 'storage/'.$data->weighbridge->stamp->path),65,75,63);
         $pdf->Cell(200 ,5,utf8_decode('FACTURE ACQUITTEE N° '.$data->invoice_no),0,0,'R');
         $pdf->Ln(10);
         $pdf->Cell(200 ,5,utf8_decode('Date : '.$data->created_at->format('d/m/y h:m:s')),0,0,'R');
