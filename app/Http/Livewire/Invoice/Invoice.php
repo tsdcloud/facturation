@@ -259,10 +259,10 @@ class Invoice extends Component
         $this->validate();
        $lastId = ModelsInvoice::latest('id')->first();
 
-//        try {
-//
-//            DB::beginTransaction();
 
+            try {
+
+                DB::beginTransaction();
             if (is_null($lastId)){
                 $data = ModelsInvoice::create([
                     'invoice_no' => str_pad(1,7,0,STR_PAD_LEFT),
@@ -318,16 +318,16 @@ class Invoice extends Component
 
             $this->dispatchBrowserEvent('closeAlert');
             $this->emptyField();
-//            DB::commit();
-//
-//        }catch (\Exception $e){
-//
-//            $e->getMessage();
-//            session()->flash('error', 'Une erreur c\'est produite, veuillez actualiser le navigateur et essayer à nouveau.
-//            Rapprochez vous d\'un IT en service si necessaire.');
-//            DB::rollBack();
-//
-//        }
+            DB::commit();
+
+        }catch (\Exception $e){
+
+            $e->getMessage();
+            session()->flash('error', 'Une erreur c\'est produite, veuillez actualiser le navigateur et essayer à nouveau.
+            Rapprochez vous d\'un IT en service si necessaire.');
+            DB::rollBack();
+
+        }
 
     }
 
