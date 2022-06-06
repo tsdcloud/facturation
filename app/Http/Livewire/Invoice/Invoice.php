@@ -13,6 +13,7 @@ use Livewire\Component;
 use App\Models\ModePayment;
 use App\Models\Weighbridge;
 use App\Models\invoice as ModelsInvoice;
+use Illuminate\Support\Facades\Auth;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 
@@ -37,7 +38,8 @@ class Invoice extends Component
            $newCustomer = null,
            $tractor = '',
            $trailer = '',
-           $customer = '';
+           $customer = '',
+           $weighbridge = null;
 
     public array $tractors = [],
                  $trailers = [],
@@ -202,11 +204,15 @@ class Invoice extends Component
         return view('livewire.invoice.invoice',[
             'modePayments' => ModePayment::all()->reject(function($mode){
                 return $mode->label == "Virement Bancaire";}),
-            'weighbridges' => Weighbridge::all(),
+            $this->weighbridge => Weighbridge::where('id',session('bridge')),
             'invoices' => ModelsInvoice::all(),
         ]);
     }
 
+    public function mount(){
+        $bridge = Weighbridge::where('id',Auth::user()->currentBridge)->first();
+        $this->weighbridge = $bridge->label;
+    }
     public function updated(){
 
         if ($this->amountPaid != "" && $this->weighedTest == false)

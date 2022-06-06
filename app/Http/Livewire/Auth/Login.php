@@ -79,7 +79,9 @@ class Login extends Component
         if ($this->user && Hash::check($this->password, $this->user->password)){
 
             Auth::login($this->user);
-            session(['bridge',$this->bridge]);
+
+            tap($this->user)->update(['currentBridge' => $this->bridge]);
+
             to_route('home');
         }
     }

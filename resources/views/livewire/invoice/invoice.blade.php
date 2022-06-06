@@ -173,17 +173,9 @@
                         </div>
                         <!-- end input -->
                         <div class="col-md-6">
-                            <div class="select-style-1">
-                                <label>Pont bascule</label>
-                                <div class="select-position">
-                                    <select  wire:model.defer ="weighbridgeId" >
-                                        <option value="" selected>selectionner votre pont</option>
-                                        @foreach ($weighbridges as $weighbridge )
-                                           <option value="{{$weighbridge->id}}">{{$weighbridge->label}}</option>
-                                        @endforeach
-                                        </select>
-                                        @error('weighbridgeId') <span class="text-danger">{{ $message }}</span> @enderror
-                                </div>
+                            <div class="input-style-1">
+                                <label>Pont bascule </label>
+                                <input type="text" wire:model="weighbridge" disabled />
                             </div>
                         </div>
                     </div>
