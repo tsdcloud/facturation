@@ -50,7 +50,7 @@
             <div class="text-center"><button wire:click="threeStepRole" class="btn btn-primary px-5 mb-5 w-100">Se connecter</button></div>
         @endif
 
-        @if($currentStep == 4)
+        @if($currentStep == 1)
         <div class="mb-3">
             <label class="form-label">Mot de passe</label>
             <input wire:model="password" name="password" type="password" class="form-control"
@@ -59,7 +59,7 @@
         </div>
 
         <div class="mb-3">
-            <label class="form-label">Confirmer mot de passe</label>
+            <label class="form-label">Confirmer mot le de passe</label>
             <input type="password" wire:model="password_confirmation" name="password_confirmation" class="form-control" placeholder="recommencer"  />
                 @error('password') <span class="text-danger">{{ $message }}</span> @enderror
         </div>
