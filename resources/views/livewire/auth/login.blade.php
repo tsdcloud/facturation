@@ -52,12 +52,14 @@
 
         @if($currentStep == 4)
         <div class="mb-3">
+            <label class="form-label">Mot de passe</label>
             <input wire:model="password" name="password" type="password" class="form-control"
                        placeholder="votre mot de passe" />
                 @error('password') <span class="text-danger">{{ $message }}</span> @enderror
         </div>
 
         <div class="mb-3">
+            <label class="form-label">Confirmer mot de passe</label>
             <input type="password" wire:model="password_confirmation" name="password_confirmation" class="form-control" placeholder="recommencer"  />
                 @error('password') <span class="text-danger">{{ $message }}</span> @enderror
         </div>

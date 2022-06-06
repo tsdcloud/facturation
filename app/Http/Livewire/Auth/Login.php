@@ -93,6 +93,8 @@ class Login extends Component
             'password' => Hash::make($this->password),
             'firstLogin' => true,
         ]);
+        $this->password = '';
+        $this->password_confirmation = '';
          $this->currentStep = 2;
     }
 
