@@ -50,7 +50,7 @@
             <div class="text-center"><button wire:click="threeStepRole" class="btn btn-primary px-5 mb-5 w-100">Se connecter</button></div>
         @endif
 
-        @if($currentStep == 1)
+        @if($currentStep == 4)
         <div class="mb-3">
             <label class="form-label">Mot de passe</label>
             <input wire:model="password" name="password" type="password" class="form-control"
