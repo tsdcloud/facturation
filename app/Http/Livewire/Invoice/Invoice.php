@@ -3,17 +3,18 @@
 namespace App\Http\Livewire\Invoice;
 
 
-use App\Http\Controllers\InvoiceController;
-use App\Models\Customer;
 use App\Models\Tractor;
 use App\Models\Trailer;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
+use App\Models\Customer;
 use App\Models\ModePayment;
 use App\Models\Weighbridge;
-use App\Models\invoice as ModelsInvoice;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use App\Models\invoice as ModelsInvoice;
+use App\Http\Controllers\InvoiceController;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 
@@ -276,7 +277,7 @@ class Invoice extends Component
                     'tax_amount' => $this->tax_amount,
                     'total_amount' => $this->total_amount,
                     'mode_payment_id'=> $this->modePaymentId,
-                    'weighbridge_id'=> $this->weighbridgeId,
+                    'weighbridge_id'=> Auth::user()->currentBridge,
                     'amount_paid'=> $this->amountPaid,
                     'remains'=> $this->remains,
                     'approved' => 'validated',
@@ -295,7 +296,7 @@ class Invoice extends Component
                     'tax_amount' => $this->tax_amount,
                     'total_amount' => $this->total_amount,
                     'mode_payment_id'=> $this->modePaymentId,
-                    'weighbridge_id'=> $this->weighbridgeId,
+                    'weighbridge_id'=> Auth::user()->currentBridge,
                     'amount_paid'=> $this->amountPaid,
                     'remains'=> $this->remains,
                     'approved' => 'validated',
@@ -326,8 +327,7 @@ class Invoice extends Component
             DB::commit();
 
         }catch (\Exception $e){
-
-            $e->getMessage();
+            Log::error(sprintf('%d'.$e->getMessage(), __METHOD__));
             session()->flash('error', 'Une erreur c\'est produite, veuillez actualiser le navigateur et essayer à nouveau.
             Rapprochez vous d\'un IT en service si necessaire.');
             DB::rollBack();

@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('password')->nullable();
             $table->string('role');
             $table->string('status');
-            $table->boolean('firstLogin')->default('true');
+            $table->boolean('firstLogin')->default('false');
             $table->string('currentBridge',10)->nullable();
             $table->rememberToken();
             $table->timestamps();
