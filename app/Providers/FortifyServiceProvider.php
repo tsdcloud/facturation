@@ -15,7 +15,7 @@ use App\Actions\Fortify\UpdateUserPassword;
 use Illuminate\Support\Facades\RateLimiter;
 use App\Actions\Fortify\UpdateUserProfileInformation;
 
-class FortifyServiceProvider extends ServiceProvider
+class   FortifyServiceProvider extends ServiceProvider
 {
     /**
      * Register any application services.
@@ -54,7 +54,7 @@ class FortifyServiceProvider extends ServiceProvider
 
         Fortify::authenticateUsing(function (Request $request) {
             $user = User::where('email', $request->email)->first();
-     
+
             if ($user &&
                 Hash::check($request->password, $user->password)) {
                 return $user;

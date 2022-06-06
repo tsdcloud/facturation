@@ -22,12 +22,12 @@ use App\Http\Controllers\AccountingController;
 Route::get('/', function () {
     return view('auth.login');
 });
-Route::get('pdf/{id?}',[InvoiceController::class,'pdf'])->name('show-pdf');
-Route::get('ok',[InvoiceController::class, 'pdf']);
+Route::get('display/{id?}',[InvoiceController::class,'pdf'])->name('show-pdf');
+Route::get('print/receipt',[InvoiceController::class, 'pdf']);
 
 Route::middleware(['auth'])->group(function(){
 
-    Route::get('home',[HomeController::class, 'index']);
+    Route::get('home',[HomeController::class, 'index'])->name('home');
 
     Route::get('which-bridge', function (){
         $weighbridges = Weighbridge::all()->reject(function($bridge){

@@ -8,7 +8,7 @@
     <!-- ========== All CSS files linkup ========= -->
     <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
     <link rel="stylesheet" href="assets/css/main.css" />
-
+    @livewireStyles
     <style>
         .btn-color {
             background-color: #0e1c36;
@@ -35,36 +35,16 @@
     </style>
 </head>
 <body>
-    <div class="container my-auto">
-        <div class="row">
-            <div class="col-md-6 offset-md-3">
-                <div class="card my-5">
-                    <form method="POST" action="{{ route('login') }}" class="card-body cardbody-color p-lg-5">
-                        @csrf
-                        <div class="text-center mb-3">
-                            <img src="assets/images/logo/logo-dpws.png" alt="profile">
-                        </div>
-                        <div class="mb-3">
-                            <input type="email" value="{{ old('email') }}" name="email" class="form-control @error('email') is-invalid @enderror"  placeholder="votre nom" />
-                            @error('email')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                            @enderror
-                        </div>
-                        <div class="mb-3">
-                            <input type="password" class="form-control  @error('password') is-invalid @enderror" name="password" placeholder="mot de passe" />
-                            @error('password')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                            @enderror
-                        </div>
-                        <div class="text-center"><button type="submit" class="btn btn-primary px-5 mb-5 w-100">Se connecter</button></div>
-                    </form>
-                </div>
+<div class="container my-auto">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="card my-5">
+                <livewire:auth.login/>
             </div>
         </div>
     </div>
+</div>
+@livewireScripts
+
 </body>
 </html>
