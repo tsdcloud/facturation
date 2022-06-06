@@ -22,8 +22,6 @@ class Login extends Component
     }
 
     public function firstStepEmail(){
-
-
          $this->validate(
             ['email' => 'required|email'],
             [
@@ -35,7 +33,6 @@ class Login extends Component
             $this->user = User::where('email', $this->email)->first();
             $this->currentStep = 2;
         }else{
-
             $this->addError('email', 'email invalide');
         }
 
@@ -58,7 +55,6 @@ class Login extends Component
             if ($this->user->role =="user")
                  return $this->currentStep = 3;
 
-            dd('ok');
             Auth::login($this->user);
             to_route('home');
         }else{

@@ -47,4 +47,32 @@ class User extends Authenticatable
     public function invoices(){
         return $this->hasMany(invoice::class);
     }
+
+    public function isAdmin()
+    {
+        return $this->role === 'admin';
+    }
+
+    public function isChefGuerite()
+    {
+        return $this->role === 'user';
+    }
+
+    public function isSupport()
+    {
+        return $this->role === 'support';
+    }
+
+    public function isAccount()
+    {
+        return $this->role === 'account';
+    }
+    public function isCoordo()
+    {
+        return $this->role === 'coordo';
+    }
+    public function isAdministration()
+    {
+        return $this->role === 'adminnistration';
+    }
 }
