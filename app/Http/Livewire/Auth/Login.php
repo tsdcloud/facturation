@@ -10,7 +10,8 @@ use Livewire\Component;
 
 class Login extends Component
 {
-    public $currentStep = 1, $email = null, $password = null, $user = null, $bridge = null;
+    public $currentStep = 1, $email = null, $password = null, $user = null, $bridge = null,
+    $password_confirmation = null;
 
     public function render()
     {
@@ -21,6 +22,7 @@ class Login extends Component
         ]);
     }
 
+    //étape de validation de l'email
     public function firstStepEmail(){
          $this->validate(
             ['email' => 'required|email'],
@@ -28,17 +30,21 @@ class Login extends Component
                 'email.required' => 'veuillez saisir votre email',
             ],
         );
-
+       
         if (User::where('email',$this->email)->exists()){
+
             $this->user = User::where('email', $this->email)->first();
+
+            if (!$this->user->firstLogin)
+                 return $this->currentStep = 4;
+
             $this->currentStep = 2;
         }else{
             $this->addError('email', 'email invalide');
         }
-
-
     }
 
+    // validation du mot de passe 
     public function twoStepPassword(){
 
         $this->validate(
@@ -48,12 +54,10 @@ class Login extends Component
             ],
         );
 
-        //if ($this->)
-
         if ($this->user && Hash::check($this->password, $this->user->password)){
 
             if ($this->user->role =="user")
-                 return $this->currentStep = 3;
+                return $this->currentStep = 3;
 
             Auth::login($this->user);
             to_route('home');
@@ -61,13 +65,10 @@ class Login extends Component
 
             $this->addError('password','mot de passe incorrect');
         }
-
-
     }
 
+    // selection du pont
     public function threeStepRole(){
-
-
         $this->validate(
             ['bridge' => 'required'],
             [
@@ -83,10 +84,20 @@ class Login extends Component
         }
     }
 
+    public function resetPassword(){
+        $this->validate(
+            ['password' => 'required|confirmed'],
+            ['password.required' => 'mot de passe non identique',]
+            );
+        tap($this->user)->update([
+            'password' => Hash::make($this->password),
+            'firstLogin' => true,
+        ]);
+         $this->currentStep = 2;
+    }
 
     public function back($step)
     {
         $this->currentStep = $step;
     }
-
 }

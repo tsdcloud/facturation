@@ -1,8 +1,6 @@
 <div>
 
 <div class="card-body cardbody-color p-lg-5">
-
-
         <div class="text-center mb-3">
             <img src="assets/images/logo/logo-dpws.png" alt="profile">
         </div>
@@ -51,6 +49,22 @@
             </div>
             <div class="text-center"><button wire:click="threeStepRole" class="btn btn-primary px-5 mb-5 w-100">Se connecter</button></div>
         @endif
+
+        @if($currentStep == 4)
+        <div class="mb-3">
+            <input wire:model="password" name="password" type="password" class="form-control"
+                       placeholder="votre mot de passe" />
+                @error('password') <span class="text-danger">{{ $message }}</span> @enderror
+        </div>
+
+        <div class="mb-3">
+            <input type="password" wire:model="password_confirmation" name="password_confirmation" class="form-control" placeholder="recommencer"  />
+                @error('password') <span class="text-danger">{{ $message }}</span> @enderror
+        </div>
+
+        <div class="text-center"><button wire:click="resetPassword" class="btn btn-primary px-5 mb-5 w-100">Se connecter</button></div>
+    @endif
+    
 </div>
 
 </div>
