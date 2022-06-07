@@ -182,7 +182,7 @@
                     <!-- end input -->
                     <div class="input-style-1">
                         <label>Montant versé</label>
-                        <div class="input-group mb-3">
+                        <div class="input-group ">
                             <div style="background: gray !important" class="input-group-text">
                               <input data-bs-toggle="tooltip" data-bs-placement="top"
                               data-bs-custom-class="custom-tooltip"
@@ -190,6 +190,12 @@
                             </div>
                             <input type="number" min="0" wire:model ="amountPaid" class="form-control" aria-label="Text input with checkbox">
                           </div>
+                          @if ($weighedTest)
+                            <small style="color: green" >Pesé test activé</small>
+                          @else
+                            <span><small>pour activer la pesé test cliquer sur le carré gris</small></span>
+                          @endif
+
                           @error('amountPaid') <span class="text-danger">{{ $message }}</span> @enderror
                        </div>
                     <div class="row">

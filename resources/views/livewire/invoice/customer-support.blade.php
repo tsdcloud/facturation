@@ -181,10 +181,8 @@
                     </div>
                     <!-- end input -->
                     <div class="input-style-1">
-                        <label>Montant versé</label>
-                        {{-- <input type="number"  min="0" placeholder="Montant versé" wire:model.defer ="amountPaid"/>
-                        @error('amountPaid') <span class="text-danger">{{ $message }}</span> @enderror --}}
-                        <div class="input-group mb-3">
+                        <label>Montant versé </label>
+                        <div class="input-group">
                             <div style="background: gray !important" class="input-group-text">
                                 <input data-bs-toggle="tooltip" data-bs-placement="top"
                                        data-bs-custom-class="custom-tooltip"
@@ -192,6 +190,12 @@
                             </div>
                             <input type="number" min="0" wire:model ="amountPaid" class="form-control" aria-label="Text input with checkbox">
                         </div>
+                        @if ($weighedTransit)
+                           <small style="color: green" >Pesé en transit activé</small>
+                           @else
+                           <span><small>pour activer la pesé en transit cliqué sur le carré gris</small></span>
+                        @endif
+
                         @error('amountPaid') <span class="text-danger">{{ $message }}</span> @enderror
                     </div>
                     <div class="input-style-1">
@@ -206,9 +210,17 @@
                         <label>Reste à rembourser</label>
                         <input type="number" disabled wire:model="remains"/>
                     </div>
+                    @if (Auth::user()->isSupport())
+                        <div class="text-center">
+                            <button wire:click="store"
+                                    class="main-btn active-btn-outline rounded-md btn-hover">Imprimer
+                            </button>
+                        </div>
+                    @endif
+                    
                     <div class="text-center">
                         <button wire:click="store"
-                                class="main-btn active-btn-outline rounded-md btn-hover">Valider
+                                class="main-btn active-btn-outline rounded-md btn-hover">Imprimer
                         </button>
                     </div>
                 </div>

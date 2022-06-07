@@ -28,6 +28,12 @@ class InvoiceController extends Controller
 
         $breadcrumb = "Factures";
         $invoices = invoice::where('user_id', Auth::user()->id)->paginate(10);
+
+        if(Auth::user()->isAdmin() || Auth::user()->isAdministration() ){
+            $invoices = invoice::paginate(10);
+            return view('list-invoice',compact('invoices','breadcrumb'));   
+        }
+
         return view('list-invoice',compact('invoices','breadcrumb'));
     }
 }

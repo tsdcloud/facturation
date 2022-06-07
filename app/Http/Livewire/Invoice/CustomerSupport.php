@@ -2,13 +2,15 @@
 
 namespace App\Http\Livewire\Invoice;
 
-use App\Models\Customer;
-use App\Models\invoice as ModelsInvoice;
-use App\Models\ModePayment;
 use App\Models\Tractor;
 use App\Models\Trailer;
-use App\Models\Weighbridge;
 use Livewire\Component;
+use App\Models\Customer;
+use App\Models\ModePayment;
+use App\Models\Weighbridge;
+use Illuminate\Support\Facades\Storage;
+use App\Models\invoice as ModelsInvoice;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class CustomerSupport extends Component
 {
@@ -233,11 +235,12 @@ class CustomerSupport extends Component
                 'weighbridge_id'=> $weighbridgeId->id,
                 'amount_paid'=> $this->amountPaid,
                 'remains'=> $this->remains,
-                'approved' => 'pending',
+                'approved' => 'valited',
                 'user_id'=> auth()->id(),
                 'tractor_id'=> $this->selectedAccount,
                 'trailer_id' => $this->selectedTrailer,
                 'customer_id' => $this->selectedCustomer,
+                'path_qrcode' => '',
             ]);
         }
 
@@ -251,16 +254,24 @@ class CustomerSupport extends Component
                 'weighbridge_id'=> $weighbridgeId->id,
                 'amount_paid'=> $this->amountPaid,
                 'remains'=> $this->remains,
-                'approved' => 'pending',
+                'approved' => 'valited',
                 'user_id'=> auth()->id(),
                 'tractor_id'=> $this->selectedAccount,
                 'trailer_id' => $this->selectedTrailer,
                 'customer_id' => $this->selectedCustomer,
+                'path_qrcode' => '',
             ]);
         }
 
         $this->url = $data->id;
+        $path = 'http://billingdpws.bfclimited.com:8080/display/'.$data->id;
+        $picture = QrCode::format('png')->size(100)->generate($path);
+        $output_file = '/Qrcode/'.$data->id.'/'. time() . '.png';
 
+        Storage::disk('public')->put($output_file, $picture);
+
+
+        tap($data)->update(['path_qrcode'=> $output_file]);
 
         $this->reset(['modePaymentId','weighbridgeId','amountPaid',
             'weighbridgeId','remains','tax_amount','subtotal']);
@@ -281,7 +292,7 @@ class CustomerSupport extends Component
         $this->showDropdown2 = true;
         $this->showDropdown3 = true;
 
-        session()->flash('message', 'Enregistreé avec succès, En attente de validation');
+        session()->flash('message', 'Enregistré avec succès');
 
         $this->dispatchBrowserEvent('closeAlert');
 
