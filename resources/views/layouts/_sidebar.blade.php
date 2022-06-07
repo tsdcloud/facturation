@@ -13,7 +13,7 @@
             </a>
           </li>
 
-           @if (Auth::user()->isChefGeurite() || Auth::user()->isAdmin() 
+           @if (Auth::user()->isChefGuerite() || Auth::user()->isAdmin() 
            || Auth::user()->isAdministration())
               <li class="nav-item {{ Request::is('billing') ? 'active' : '' }}">
                 <a href="{{url('billing')}}">
