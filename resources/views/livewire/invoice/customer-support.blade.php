@@ -210,18 +210,10 @@
                         <label>Reste à rembourser</label>
                         <input type="number" disabled wire:model="remains"/>
                     </div>
-                    @if (Auth::user()->isSupport())
-                        <div class="text-center">
-                            <button wire:click="store"
-                                    class="main-btn active-btn-outline rounded-md btn-hover">Imprimer
-                            </button>
-                        </div>
-                    @endif
-                    
                     @if (Auth::user()->isSupport() || Auth::user()->isAccount())
                         <div class="text-center">
                             <button wire:click="store"
-                                    class="main-btn active-btn-outline rounded-md btn-hover">Imprimer
+                                class="main-btn active-btn-outline rounded-md btn-hover">Imprimer
                             </button>
                         </div>
                     @endif
