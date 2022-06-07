@@ -11,7 +11,7 @@
                 <div class="right">
                   <div class="table-search d-flex">
                     <form action="#">
-                      <input type="text" placeholder="Tracteur / Remorque / N° Fact" />
+                      <input type="text" placeholder="Tracteur / Remorque / N° Fact"/>
                       <button><i class="lni lni-search-alt"></i></button>
                     </form> 
                   </div>

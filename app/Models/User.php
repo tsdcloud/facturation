@@ -49,6 +49,10 @@ class User extends Authenticatable
     public function invoices(){
         return $this->hasMany(invoice::class);
     }
+    
+    public function signature(){
+        return $this->hasONE(Signature::class);
+    }
 
     public function isAdmin()
     {

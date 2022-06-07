@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\AccountingController;
+use App\Http\Controllers\SignatureController;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,5 +55,10 @@ Route::middleware(['auth'])->group(function(){
     Route::get('stamp/index',[StampController::class, 'index'])->name('stamp.index');
     Route::get('stamp/create',[StampController::class, 'create'])->name('stamp.create');
     Route::post('stamp/store',[StampController::class, 'store'])->name('stamp.store');
+
+    //route add signature
+    Route::get('signature/index',[SignatureController::class, 'index'])->name('signature.index');
+    Route::get('signature/create',[SignatureController::class, 'create'])->name('signature.create');
+    Route::post('signature/store',[SignatureController::class, 'store'])->name('signature.store');
 });
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Stamp;
 use App\Models\Weighbridge;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
 class StampController extends Controller
