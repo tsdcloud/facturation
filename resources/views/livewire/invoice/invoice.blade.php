@@ -213,9 +213,11 @@
                         <input type="number" disabled wire:model="remains"/>
                     </div>
                     <div class="text-center">
-                        <button wire:click="store"
-                        class="main-btn active-btn-outline rounded-md btn-hover">Imprimer
-                        </button>
+                        @if (Auth::user()->isChefGuerite())
+                            <button wire:click="store"
+                            class="main-btn active-btn-outline rounded-md btn-hover">Imprimer
+                            </button>
+                        @endif
                     </div>
                 </div>
                 <!-- end card -->

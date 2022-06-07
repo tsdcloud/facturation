@@ -205,12 +205,15 @@ class Invoice extends Component
         return view('livewire.invoice.invoice',[
             'modePayments' => ModePayment::all()->reject(function($mode){
                 return $mode->label == "Virement Bancaire";}),
-            $this->weighbridge => Weighbridge::where('id',session('bridge')),
             'invoices' => ModelsInvoice::all(),
         ]);
     }
 
-    public function mount(){
+    public function mount()
+    {
+        if(Auth::user()->isAdmin())
+           return $this->weighbridge = '';
+          
         $bridge = Weighbridge::where('id',Auth::user()->currentBridge)->first();
         $this->weighbridge = $bridge->label;
     }

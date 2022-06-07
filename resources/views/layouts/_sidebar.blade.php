@@ -54,7 +54,7 @@
             </a>
           </li>
             
-
+           {{-- 
             @if (Auth::user()->isAdmin())
               <li class="nav-item {{ Request::is('bill-pending') ? 'active' : '' }} ">
                 <a href="{{route('bill-pending')}}">
@@ -74,7 +74,7 @@
                     <span class="text">Factures en attentes</span>
                 </a>
             </li>
-            @endif
+            @endif --}}
             
 
             @if (Auth::user()->isSupport() || Auth::user()->isAdmin())
