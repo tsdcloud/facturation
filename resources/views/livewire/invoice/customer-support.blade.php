@@ -218,11 +218,13 @@
                         </div>
                     @endif
                     
-                    <div class="text-center">
-                        <button wire:click="store"
-                                class="main-btn active-btn-outline rounded-md btn-hover">Imprimer
-                        </button>
-                    </div>
+                    @if (Auth::user()->isSupport() || Auth::user()->isAccount())
+                        <div class="text-center">
+                            <button wire:click="store"
+                                    class="main-btn active-btn-outline rounded-md btn-hover">Imprimer
+                            </button>
+                        </div>
+                    @endif
                 </div>
                 <!-- end card -->
 

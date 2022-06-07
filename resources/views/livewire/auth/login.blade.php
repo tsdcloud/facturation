@@ -26,7 +26,7 @@
                        placeholder="votre mot de passe" />
                 @error('password') <span class="text-danger">{{ $message }}</span> @enderror
             </div>
-                @if($user->role == "admin")
+                @if($user->role == "admin" || $user->role == "support" || $user->role == "administration" || $user->role == "account")
             <div class="text-center"><button wire:click="twoStepPassword" class="btn btn-primary px-5 mb-5 w-100">Se connecter</button></div>
                 @endif
                 @if($user->role == "user")
