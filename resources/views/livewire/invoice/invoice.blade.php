@@ -337,6 +337,7 @@
         </div> --}}
         <!-- end row -->
 
+        {{-- afficher la facture --}}
         <div class="warning-modal" >
             <div wire:ignore.self id="myModal" class="modal fade mod" data-bs-backdrop="static" data-bs-keyboard="false"
                  id="ModalTwo" tabindex="-1" aria-hidden="true">
