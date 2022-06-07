@@ -26,7 +26,7 @@ class InvoiceController extends Controller
 
     public function myInvoice(){
 
-        $breadcrumb = "Factures";
+        $breadcrumb = "liste factures";
         $invoices = invoice::where('user_id', Auth::user()->id)->paginate(10);
 
         if(Auth::user()->isAdmin() || Auth::user()->isAdministration() ){

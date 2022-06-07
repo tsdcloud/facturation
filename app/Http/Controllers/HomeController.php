@@ -12,7 +12,7 @@ class HomeController extends Controller
      public function index(){
         $breadcrumb = "Dashboard";
         $total_amount_month = invoice::sum('total_amount'); 
-        //dd($total_amount_month);
+        
         return view('home',compact('breadcrumb','total_amount_month'));
      }
 
