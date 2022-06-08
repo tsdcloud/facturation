@@ -18,14 +18,6 @@ class InvoiceService extends Fpdi
         // $this->Image(public_path('assets\images\logo\logo-dpws.png'),65,90,60);
     }
 
-//     function RotatedImage($file,$x,$y,$w,$h,$angle)
-// {
-//     //Image rotated around its upper-left corner
-//     $this->Rotate($angle,$x,$y);
-//     $this->Image($file,$x,$y,$w,$h);
-//     $this->Rotate(0);
-// }
-
     public static function invoiceBuilder($data,$type){
 
         $pdf = new InvoiceService('P','mm','A4');

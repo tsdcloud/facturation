@@ -219,7 +219,7 @@ class CustomerSupport extends Component
 
     protected $rules = [
         'customer' => 'required',
-        'tractor' => 'required',
+        'query' => 'required',
         'trailer' => 'required',
         'modePaymentId' => 'required',
         'amountPaid' => 'required',
@@ -227,7 +227,7 @@ class CustomerSupport extends Component
 
     protected $messages = [
         'customer.required' => 'veuillez saisir le nom du client',
-        'tractor.required' => 'veuillez saisir le numero du tracteur',
+        'query.required' => 'veuillez saisir le numero du tracteur',
         'trailer.required' => 'veuillez saisir le numero de la remorque',
         'modePaymentId.required' => 'veuillez selectionner le mode de paiment',
         'amountPaid.required' => 'veuillez saisir le montant',
@@ -279,15 +279,15 @@ class CustomerSupport extends Component
             ]);
         }
 
-        $this->url = $data->id;
-        $path = 'http://billingdpws.bfclimited.com:8080/display/'.$data->id;
-        $picture = QrCode::format('png')->size(100)->generate($path);
-        $output_file = '/Qrcode/'.$data->id.'/'. time() . '.png';
+        // $this->url = $data->id;
+        // $path = 'http://billingdpws.bfclimited.com:8080/display/'.$data->id;
+        // $picture = QrCode::format('png')->size(100)->generate($path);
+        // $output_file = '/Qrcode/'.$data->id.'/'. time() . '.png';
 
-        Storage::disk('public')->put($output_file, $picture);
+        // Storage::disk('public')->put($output_file, $picture);
 
 
-        tap($data)->update(['path_qrcode'=> $output_file]);
+        // tap($data)->update(['path_qrcode'=> $output_file]);
 
         $this->reset(['modePaymentId','weighbridgeId','amountPaid',
             'weighbridgeId','remains','tax_amount','subtotal']);
