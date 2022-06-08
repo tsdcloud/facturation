@@ -12,7 +12,7 @@ class InvoiceService extends Fpdi
         $this->Ln(3);
 
         $this->Image(public_path('\assets\images\logo\lotecs.png'),15,109,17);
-        $this->Image(public_path('\assets\images\signature.png'),05,92,38);
+        
 
 
         // $this->Image(public_path('assets\images\logo\logo-dpws.png'),65,90,60);
@@ -26,6 +26,7 @@ class InvoiceService extends Fpdi
         $pdf->SetFont('Arial','',11);
         $pdf->Image(public_path( 'storage'.$data->path_qrcode),85,23,20);
         $pdf->Image(public_path( 'storage/'.$data->weighbridge->stamp->path),65,80,55);
+        $pdf->Image(public_path('storage/'.$data->signature->user->path),05,92,38);
         $pdf->Cell(200 ,5,utf8_decode('FACTURE ACQUITTEE N° '.$data->invoice_no),0,0,'R');
         $pdf->Ln(10);
         $pdf->Cell(200 ,5,utf8_decode('Date : '.$data->created_at->format('d/m/y h:m:s')),0,0,'R');
@@ -65,6 +66,6 @@ class InvoiceService extends Fpdi
         $pdf->text(05,140,utf8_decode('Compte Afriland First Bank réf : 10005 00002 06463841002 52 swift : cceicmcx iban : cm21 100005 0000206463841002 52'));
 
         if ($type == "preview")
-          return $pdf->Output('','Facture '.$data->created_at.'.pdf','I');
+          return $pdf->Output('','Facture du '.$data->created_at.'.pdf','I');
     }
 }
