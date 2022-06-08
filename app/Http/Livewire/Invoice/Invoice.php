@@ -213,7 +213,7 @@ class Invoice extends Component
     {
         if(Auth::user()->isAdmin())
            return $this->weighbridge = '';
-          
+
         $bridge = Weighbridge::where('id',Auth::user()->currentBridge)->first();
         $this->weighbridge = $bridge->label;
     }
@@ -314,7 +314,7 @@ class Invoice extends Component
             $this->url = $data->id;
         //  $path = action([InvoiceController::class, 'pdf'], ['id' => $data->id]);
             $path = 'http://billingdpws.bfclimited.com:8080/display/'.$data->id;
-            $picture = QrCode::format('png')->size(100)->generate($path);
+            $picture = QrCode::format('png')->style('square')->size(120)->generate($path);
             $output_file = '/Qrcode/'.$data->id.'/'. time() . '.png';
 
             Storage::disk('public')->put($output_file, $picture);
