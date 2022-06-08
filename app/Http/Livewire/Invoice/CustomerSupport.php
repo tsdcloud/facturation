@@ -8,6 +8,8 @@ use Livewire\Component;
 use App\Models\Customer;
 use App\Models\ModePayment;
 use App\Models\Weighbridge;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use App\Models\invoice as ModelsInvoice;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
@@ -238,7 +240,11 @@ class CustomerSupport extends Component
     public function store() {
 
          $this->validate();
-        $lastId = ModelsInvoice::latest('id')->first();
+
+         try{
+             DB::beginTransaction();
+             
+             $lastId = ModelsInvoice::latest('id')->first();
         $weighbridgeId =  Weighbridge::where('label', 'Direction')->first();
 
         if (is_null($lastId)){
@@ -311,6 +317,14 @@ class CustomerSupport extends Component
         session()->flash('message', 'Enregistré avec succès');
 
         $this->dispatchBrowserEvent('closeAlert');
+        DB::commit();
+         }catch(\Exception $e){
+            Log::error(sprintf('%d'.$e->getMessage(), __METHOD__));
+            session()->flash('error', 'Une erreur c\'est produite, veuillez actualiser le navigateur et essayer à nouveau.
+            Rapprochez vous d\'un IT en service si necessaire.');
+            DB::rollBack();
+         }
+        
 
     }
 
