@@ -211,7 +211,7 @@ class Invoice extends Component
 
     public function mount()
     {
-        if(Auth::user()->isAdmin())
+        if(Auth::user()->isAdmin() || Auth::user()->isAdministration())
            return $this->weighbridge = '';
 
         $bridge = Weighbridge::where('id',Auth::user()->currentBridge)->first();
