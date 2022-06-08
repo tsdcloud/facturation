@@ -217,11 +217,27 @@ class CustomerSupport extends Component
 
     }
 
+    protected $rules = [
+        'customer' => 'required',
+        'tractor' => 'required',
+        'trailer' => 'required',
+        'modePaymentId' => 'required',
+        'amountPaid' => 'required',
+    ];
+
+    protected $messages = [
+        'customer.required' => 'veuillez saisir le nom du client',
+        'tractor.required' => 'veuillez saisir le numero du tracteur',
+        'trailer.required' => 'veuillez saisir le numero de la remorque',
+        'modePaymentId.required' => 'veuillez selectionner le mode de paiment',
+        'amountPaid.required' => 'veuillez saisir le montant',
+    ];
+
 
 
     public function store() {
 
-        // $this->validate();
+         $this->validate();
         $lastId = ModelsInvoice::latest('id')->first();
         $weighbridgeId =  Weighbridge::where('label', 'Direction')->first();
 
