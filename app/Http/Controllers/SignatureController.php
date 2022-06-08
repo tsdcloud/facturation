@@ -26,10 +26,10 @@ class SignatureController extends Controller
 
     public function store(Request $request){
 
-        $request->validate([
-            'user_id' => 'required',
-            'path' => 'require',
-        ]);
+            $request->validate([
+                'user_id' => 'required',
+                'path' => 'required'
+            ]);
 
         $signature = Signature::create([
             'path' => '',
