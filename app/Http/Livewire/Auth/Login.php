@@ -35,8 +35,8 @@ class Login extends Component
 
             $this->user = User::where('email', $this->email)->first();
 
-            if (!$this->user->firstLogin)
-                 return $this->currentStep = 4;
+                if (!$this->user->firstLogin)
+                    return $this->currentStep = 4;
 
             $this->currentStep = 2;
         }else{
@@ -59,8 +59,8 @@ class Login extends Component
             if ($this->user->role =="user")
                 return $this->currentStep = 3;
 
-            Auth::login($this->user);
-            to_route('home');
+                Auth::login($this->user);
+                to_route('home');
         }else{
 
             $this->addError('password','mot de passe incorrect');
@@ -97,7 +97,7 @@ class Login extends Component
         ]);
         $this->password = '';
         $this->password_confirmation = '';
-         $this->currentStep = 2;
+        $this->currentStep = 2;
     }
 
     public function back($step)

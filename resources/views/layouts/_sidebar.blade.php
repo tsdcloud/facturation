@@ -80,7 +80,7 @@
             
 
             @if (Auth::user()->isSupport() || Auth::user()->isAdmin() 
-                 || Auth::user()->isAdministration())
+                 || Auth::user()->isAdministration() || Auth::user()->isAccount())
                 <li class="nav-item {{ Request::is('customer-support') ? 'active' : '' }} ">
                   <a href="{{route('customer-support')}}">
                 <span class="icon">
