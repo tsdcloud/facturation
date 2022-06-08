@@ -79,6 +79,6 @@ class User extends Authenticatable
     }
     public function isAdministration()
     {
-        return $this->role === 'adminnistration';
+        return $this->role === 'administration';
     }
 }
