@@ -279,15 +279,15 @@ class CustomerSupport extends Component
             ]);
         }
 
-        // $this->url = $data->id;
-        // $path = 'http://billingdpws.bfclimited.com:8080/display/'.$data->id;
-        // $picture = QrCode::format('png')->size(100)->generate($path);
-        // $output_file = '/Qrcode/'.$data->id.'/'. time() . '.png';
+        $this->url = $data->id;
+        $path = 'http://billingdpws.bfclimited.com:8080/display/'.$data->id;
+        $picture = QrCode::format('png')->size(100)->generate($path);
+        $output_file = '/Qrcode/'.$data->id.'/'. time() . '.png';
 
-        // Storage::disk('public')->put($output_file, $picture);
+        Storage::disk('public')->put($output_file, $picture);
 
 
-        // tap($data)->update(['path_qrcode'=> $output_file]);
+        tap($data)->update(['path_qrcode'=> $output_file]);
 
         $this->reset(['modePaymentId','weighbridgeId','amountPaid',
             'weighbridgeId','remains','tax_amount','subtotal']);
