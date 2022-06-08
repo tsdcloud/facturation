@@ -39,7 +39,11 @@ class InvoiceService extends Fpdi
         $pdf->Cell(200 ,5,utf8_decode('Date : '.$data->created_at->format('d/m/y h:m:s')),0,0,'R');
         $pdf->Cell(-173 ,10,utf8_decode('www.dpws.cm'),0,0,'R');
         $pdf->Ln(10);
-        $pdf->Cell(200 ,5,utf8_decode('Pont bascule '.$data->weighbridge->label),0,0,'R');
+        if($data->weighbridge->label =="Direction"){
+            $pdf->Cell(200 ,5,utf8_decode($data->weighbridge->label),0,0,'R');
+        }else{
+            $pdf->Cell(200 ,5,utf8_decode('Pont bascule '.$data->weighbridge->label),0,0,'R');
+        }
         $pdf->SetFont('Arial','',10);
         $pdf->Ln(20);
         $pdf->Cell(20,10,utf8_decode('Reçu de '),0,0,'L');
