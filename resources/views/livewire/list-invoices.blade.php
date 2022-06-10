@@ -11,7 +11,7 @@
                 <div class="right">
                   <div class="table-search d-flex">
                     <form action="#">
-                      <input type="text" placeholder="Tracteur / Remorque / N° Fact"/>
+                      <input type="text" wire:model.debounce.500ms="search_invoice_no_tractor_trailer" placeholder="Entrer le n° facture"/>
                       <button><i class="lni lni-search-alt"></i></button>
                     </form> 
                   </div>
@@ -64,30 +64,14 @@
                 </table>
                 <!-- end table -->
               </div>
-              <div class="pt-10 d-flex flex-wrap justify-content-between">
+              <div class="pt-10 d-flex flex-wrap justify-content-between ">
                 <div class="left">
-                  <p class="text-sm text-gray">Montrer 10/30 factures</p>
+                    <p class="text-sm text-gray">
                 </div>
-                <div class="right table-pagination">
-                  <ul class="d-flex justify-content-end align-items-center">
-                    <li class="ms-2">
-                      <a href="#0">
-                        <i class="lni lni-angle-double-left"></i>
-                      </a>
-                    </li>
-                 
-                    <li class="ms-2">
-                      <a href="#0"> 1 </a>
-                    </li>
-
-                    <li class="ms-2">
-                      <a href="#0">
-                        <i class="lni lni-angle-double-right"></i>
-                      </a>
-                    </li>
-                  </ul>
+                <div class="" >
+                  {{$invoices->links()}}
                 </div>
-              </div>
+            </div>
             </div>
             <!-- end card -->
           </div>

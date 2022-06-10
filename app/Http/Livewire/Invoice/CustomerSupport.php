@@ -276,7 +276,7 @@ class CustomerSupport extends Component
                 'weighbridge_id'=> $weighbridgeId->id,
                 'amount_paid'=> $this->amountPaid,
                 'remains'=> $this->remains,
-                'approved' => 'valited',
+                'status_invoice' => 'valited',
                 'user_id'=> auth()->id(),
                 'tractor_id'=> $this->selectedAccount,
                 'trailer_id' => $this->selectedTrailer,

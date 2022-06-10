@@ -21,7 +21,7 @@ return new class extends Migration
             $table->decimal('total_amount',6,0);
             $table->decimal('amount_paid',8,0);
             $table->decimal('remains',8,0);
-            $table->string('approved');
+            $table->string('status_invoice');
             $table->string('path_qrcode',255);
             $table->foreignId('mode_payment_id')->constrained();
             $table->foreignId('weighbridge_id')->constrained();

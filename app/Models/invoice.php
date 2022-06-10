@@ -20,7 +20,7 @@ class invoice extends Model
         'weighbridge_id',
         'user_id',
         'tractor_id',
-        'approved',
+        'status_invoice',
         'trailer_id',
         'customer_id',
         'path_qrcode',
