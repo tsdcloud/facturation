@@ -52,7 +52,7 @@
                         <p>{{$invoice->myTractor->label}}</p>
                       </td>
                       <td>
-                        <p>{{$invoice->trailer}}</p>
+                        <p>{{$invoice->myTrailer->label}}</p>
                       </td>
                       <td>
                         <p>{{$invoice->modePayment->label}}</p>
