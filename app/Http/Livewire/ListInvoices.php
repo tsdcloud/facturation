@@ -19,7 +19,7 @@ class ListInvoices extends Component
                 $query->where('invoice_no','LIKE',"%{$this->search_invoice_no_tractor_trailer}%");
                 $query->where('user_id', auth()->user()->id);
                 $query->where('status_invoice','validated');
-            })->orderBy('created_at','DESC')->paginate(2),
+            })->orderBy('created_at','DESC')->paginate(10),
         ]);
     }
 
