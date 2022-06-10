@@ -311,16 +311,16 @@ class Invoice extends Component
                 ]);
             }
 
-        //     $this->url = $data->id;
-        // //  $path = action([InvoiceController::class, 'pdf'], ['id' => $data->id]);
-        //     $path = 'http://billingdpws.bfclimited.com:8080/display/'.$data->id;
-        //     $picture = QrCode::format('png')->style('square')->size(120)->generate($path);
-        //     $output_file = '/Qrcode/'.$data->id.'/'. time() . '.png';
+            $this->url = $data->id;
+        //  $path = action([InvoiceController::class, 'pdf'], ['id' => $data->id]);
+            $path = 'http://billingdpws.bfclimited.com:8080/display/'.$data->id;
+            $picture = QrCode::format('png')->style('square')->size(120)->generate($path);
+            $output_file = '/Qrcode/'.$data->id.'/'. time() . '.png';
 
-        //     Storage::disk('public')->put($output_file, $picture);
+            Storage::disk('public')->put($output_file, $picture);
 
 
-        //     tap($data)->update(['path_qrcode'=> $output_file]);
+            tap($data)->update(['path_qrcode'=> $output_file]);
 
 
             session()->flash('message', 'facture enregistreé avec succès.');
