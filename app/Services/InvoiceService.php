@@ -50,9 +50,9 @@ class InvoiceService extends Fpdi
         $pdf->Ln(10);
         if($data->weighbridge->label =="Direction"){
 
-            $pdf->Cell(138,10,utf8_decode('Emise par'),0,0,'L');
+            $pdf->Cell(138,10,utf8_decode('Emise par :'),0,0,'L');
         }else{
-            $pdf->Cell(138,10,utf8_decode('Chef de Guerite'),0,0,'L');
+            $pdf->Cell(138,10,utf8_decode('Chef de Guerite :'),0,0,'L');
         }
         // $pdf->Cell(400,10,utf8_decode($data->user->name),0,0,'L');
         $pdf->text(41,81,utf8_decode($data->user->name));
