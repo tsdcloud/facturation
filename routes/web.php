@@ -38,7 +38,7 @@ Route::middleware(['auth'])->group(function(){
 
         return view('which-bridge', compact('weighbridges'));
     })->name('bridge');
-   // Route::get('which-bridge',[HomeController::class, 'bridge'])->name('bridge');
+    Route::get('report',[HomeController::class, 'report'])->name('report');
     Route::get('billing',[InvoiceController::class,'index']);
 
 
