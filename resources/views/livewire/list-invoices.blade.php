@@ -111,48 +111,48 @@
 </div>
 
 {{-- modale d'annulation d'une facture --}}
-<div class="warning-modal">
-  <div  wire:ignore.self class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" id="ModalTree" tabindex="-1" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content card-style warning-card text-center">
-              <div class="modal-header px-0 border-0 d-flex justify-content-end ">
-                  <button class="border-0 bg-transparent h1" data-bs-dismiss="modal">
-                      <i class="lni lni-cross-circle"></i>
-                  </button>
-              </div>
-              <div class="modal-body">
-                  <div class="icon text-danger mb-20">
-                      <i class="lni lni-warning"></i>
-                  </div>
-                  <div class="content mb-30">
-                      <h2 class="mb-15">Attentions !</h2>
-                      <p class="text-sm text-medium">
-                          Vous êtes sur le point d'annuler cette facture
-                      </p>
-                     {{-- @isset($data)
-                       <p>ok</p>
-                       {{-- <p>Facture N°  {{$data->id}}</p> 
-                     @endisset --}}
-                      {{-- <p>Facture N°  {{$data}}</p> --}}
+  <div class="warning-modal">
+    <div  wire:ignore.self class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" id="ModalTree" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content card-style warning-card text-center">
+                <div class="modal-header px-0 border-0 d-flex justify-content-end ">
+                    <button class="border-0 bg-transparent h1" data-bs-dismiss="modal">
+                        <i class="lni lni-cross-circle"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="icon text-danger mb-20">
+                        <i class="lni lni-warning"></i>
+                    </div>
+                    <div class="content mb-30">
+                        <h2 class="mb-15">Attentions !</h2>
+                        <p class="text-sm text-medium">
+                            Vous êtes sur le point d'annuler cette facture
+                        </p>
+                      {{-- @isset($data)
+                        <p>ok</p>
+                        {{-- <p>Facture N°  {{$data->id}}</p> 
+                      @endisset --}}
+                        {{-- <p>Facture N°  {{$data}}</p> --}}
 
-                      {{-- @empty(!$data)
-                        <p>Facture N°  {{$data['invoice_no'] }}</p> 
-                        {{-- <p>Nom Client {{$data->customer->label}}</p>
-                        <p>N° Tracteur {{$data->myTractor->label}}</p>
-                        <p>N° Remorque {{$data->myTrailer->label}}</p>
-                        <p> Crée par {{$data->user->name}}</p> 
-                      @endempty --}}
-                  </div>
-                  <div class="action d-flex flex-wrap justify-content-center">
-                      <button data-bs-dismiss="modal" class="main-btn danger-btn btn-hover m-1"
-                      > Annuler Facture
-                      </button>
-                  </div>
-              </div>
-          </div>
-      </div>
+                        {{-- @empty(!$data)
+                          <p>Facture N°  {{$data['invoice_no'] }}</p> 
+                          {{-- <p>Nom Client {{$data->customer->label}}</p>
+                          <p>N° Tracteur {{$data->myTractor->label}}</p>
+                          <p>N° Remorque {{$data->myTrailer->label}}</p>
+                          <p> Crée par {{$data->user->name}}</p> 
+                        @endempty --}}
+                    </div>
+                    <div class="action d-flex flex-wrap justify-content-center">
+                        <button data-bs-dismiss="modal" class="main-btn danger-btn btn-hover m-1"
+                        > Annuler Facture
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
   </div>
-</div>
 </div>
 @push('scripts')
     <script>
