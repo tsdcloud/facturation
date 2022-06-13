@@ -13,7 +13,7 @@
             <div class="right">
               <div class="table-search d-flex">
                 <form action="#">
-                  <input type="text" wire:model.debounce.500ms="search_invoice_no_tractor_trailer" placeholder="Entrer le n° facture"/>
+                  <input type="text" placeholder="Entrer le n° facture"/>
                   <button><i class="lni lni-search-alt"></i></button>
                 </form> 
               </div>
