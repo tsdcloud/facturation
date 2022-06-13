@@ -96,7 +96,7 @@
                       />
                   </svg>
                 </span>
-                      <span class="text">Facturation support</span>
+                      <span class="text">Facturation</span>
                   </a>
               </li>
             @endif
