@@ -32,7 +32,7 @@
                   <span class="text">Facturation</span>
                 </a>
               </li>
-           @endif 
+           @endif
             @if (Auth::user()->isChefGuerite())
               <li class="nav-item {{ Request::is('invoices') ? 'active' : '' }} ">
                 <a href="{{route('invoices')}}">
@@ -51,10 +51,10 @@
                   </span>
                   <span class="text">Mes factures</span>
                 </a>
-              </li>      
+              </li>
             @endif
 
-          @if (Auth::user()->isSupport() || Auth::user()->isAdmin() 
+          @if (Auth::user()->isSupport() || Auth::user()->isAdmin()
           || Auth::user()->isAccount() ||Auth::user()->isAdministration())
               <li class="nav-item {{ Request::is('all-invoices') ? 'active' : '' }} ">
                 <a href="{{route('allInvoice')}}">
@@ -75,8 +75,7 @@
                 </a>
               </li>
           @endif
-            
-           {{-- 
+
             @if (Auth::user()->isAdmin())
               <li class="nav-item {{ Request::is('bill-pending') ? 'active' : '' }} ">
                 <a href="{{route('bill-pending')}}">
@@ -93,13 +92,11 @@
                       />
                     </svg>
                   </span>
-                    <span class="text">Factures en attentes</span>
+                    <span class="text">Etat factures</span>
                 </a>
             </li>
-            @endif --}}
-            
 
-            @if (Auth::user()->isSupport() || Auth::user()->isAdmin() 
+            @if (Auth::user()->isSupport() || Auth::user()->isAdmin()
                  || Auth::user()->isAccount())
                 <li class="nav-item {{ Request::is('customer-support') ? 'active' : '' }} ">
                   <a href="{{route('customer-support')}}">
@@ -120,8 +117,8 @@
                   </a>
               </li>
             @endif
-                
-            
+
+
                 @if (Auth::user()->isAdmin())
                     <li class="nav-item {{ Request::is('indxe') ? 'active' : '' }} ">
                       <a href="{{route('account.index')}}">
@@ -140,9 +137,9 @@
                     </span>
                           <span class="text">Utilisateur</span>
                       </a>
-                  </li>  
+                  </li>
                 @endif
-          
+
             @if (Auth::user()->isAdmin())
             <li class="nav-item {{ Request::is('stamp/index') ? 'active' : '' }} ">
               <a href="{{route('stamp.index')}}">

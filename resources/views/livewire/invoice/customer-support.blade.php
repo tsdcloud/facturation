@@ -186,14 +186,14 @@
                             <div style="background: gray !important" class="input-group-text">
                                 <input data-bs-toggle="tooltip" data-bs-placement="top"
                                        data-bs-custom-class="custom-tooltip"
-                                       title="Cliquer ici pour activer la pesé en transit"  class="form-check-input mt-0" type="checkbox" wire:model="weighedTransit" aria-label="Checkbox for following text input">
+                                       title="Cliquer ici pour activer la pesée en transit"  class="form-check-input mt-0" type="checkbox" wire:model="weighedTransit" aria-label="Checkbox for following text input">
                             </div>
                             <input type="number" min="0" wire:model ="amountPaid" class="form-control" aria-label="Text input with checkbox">
                         </div>
                         @if ($weighedTransit)
-                           <small style="color: green" >Pesé en transit activé</small>
+                           <small style="color: green" >Pesée en transit activée</small>
                            @else
-                           <span><small>pour activer la pesé en transit cliqué sur le carré gris</small></span>
+                           <span><small>pour activer la pesée en transit cliquer sur le carré gris</small></span>
                         @endif
 
                         @error('amountPaid') <span class="text-danger">{{ $message }}</span> @enderror

@@ -186,14 +186,14 @@
                             <div style="background: gray !important" class="input-group-text">
                               <input data-bs-toggle="tooltip" data-bs-placement="top"
                               data-bs-custom-class="custom-tooltip"
-                              title="Cliquer ici pour activer la pesé test "  class="form-check-input mt-0" type="checkbox" wire:model="weighedTest" aria-label="Checkbox for following text input">
+                              title="Cliquer ici pour activer la pesée test "  class="form-check-input mt-0" type="checkbox" wire:model="weighedTest" aria-label="Checkbox for following text input">
                             </div>
                             <input type="number" min="0" wire:model ="amountPaid" class="form-control" aria-label="Text input with checkbox">
                           </div>
                           @if ($weighedTest)
-                            <small style="color: green" >Pesé test activé</small>
+                            <small style="color: green" >Pesée test activée</small>
                           @else
-                            <span><small>pour activer la pesé test cliquer sur le carré gris</small></span>
+                            <span><small>pour activer la pesée test cliquer sur le carré gris</small></span>
                           @endif
 
                           @error('amountPaid') <span class="text-danger">{{ $message }}</span> @enderror
@@ -244,7 +244,7 @@
             <!-- end col  -->
 
             {{-- Fin depôt --}}
-        </div>  
+        </div>
 
         <!-- Historique de transaction journalière -->
         {{-- @php
