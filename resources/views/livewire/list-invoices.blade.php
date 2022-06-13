@@ -128,7 +128,6 @@
                       <h2 class="mb-15">Attentions !</h2>
                       <p class="text-sm text-medium">
                           Vous êtes sur le point d'annuler cette facture
-                          ok
                       </p>
                      {{-- @isset($data)
                        <p>ok</p>
@@ -146,7 +145,7 @@
                   </div>
                   <div class="action d-flex flex-wrap justify-content-center">
                       <button data-bs-dismiss="modal" class="main-btn danger-btn btn-hover m-1"
-                      > Supprimer
+                      > Annuler Facture
                       </button>
                   </div>
               </div>
