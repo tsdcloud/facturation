@@ -57,9 +57,9 @@
                   <td>
                     <div class="action justify-content-end">
                         <div class="action">
-                            <button class="text-primary" wire:click="downloadPDF({{$invoice->id}})">
+                            <a class="text-primary" target="_blank" href="{{route('show-pdf',$invoice->id)}}">
                                 <i class="lni lni-printer"></i>
-                            </button>
+                            </a>
                         </div>
                     </div>
                   </td>
