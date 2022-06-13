@@ -36,4 +36,10 @@ class InvoiceController extends Controller
 
         return view('list-invoice',compact('invoices','breadcrumb'));
     }
+
+    public function allInvoice(){
+        $breadcrumb = "liste factures";
+        $invoices = invoice::orderBy('created_at','DESC')->paginate(10);
+        return view('list-invoice2',compact('invoices','breadcrumb'));
+    }
 }
