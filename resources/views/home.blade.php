@@ -5,7 +5,7 @@
             <div class="col-xl-3 col-lg-4 col-sm-6">
                 <div class="icon-card mb-30">
                     <div class="content">
-                        <h6 class="mb-10">Nb T de factures / jour</h6>
+                        <h6 class="mb-10">Nombre facture / jour</h6>
                             <h6 class="text-bold mb-10"> 0 </h6>
                     </div>
                 </div>
@@ -33,7 +33,7 @@
                 <div class="icon-card mb-30">
                     <div class="content">
                         <h6 class="mb-10">Factures annulées</h6>
-                        <h6 class="text-bold mb-10"> 0 FCFA</h6>
+                        <h6 class="text-bold mb-10"> 0 </h6>
                     </div>
                 </div>
                 <!-- End Icon Cart -->
