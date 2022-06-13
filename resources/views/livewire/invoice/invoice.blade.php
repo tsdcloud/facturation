@@ -244,7 +244,7 @@
             <!-- end col  -->
 
             {{-- Fin depôt --}}
-        </div>
+        </div>  
 
         <!-- Historique de transaction journalière -->
         {{-- @php

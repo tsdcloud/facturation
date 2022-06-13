@@ -13,8 +13,7 @@
             </a>
           </li>
 
-           @if (Auth::user()->isChefGuerite() || Auth::user()->isAdmin() 
-           || Auth::user()->isAdministration())
+           @if (Auth::user()->isChefGuerite() || Auth::user()->isAdmin())
               <li class="nav-item {{ Request::is('billing') ? 'active' : '' }}">
                 <a href="{{url('billing')}}">
                 <span class="icon">
@@ -34,8 +33,6 @@
                 </a>
               </li>
            @endif 
-            
-
             
           <li class="nav-item {{ Request::is('invoices') ? 'active' : '' }} ">
             <a href="{{route('invoices')}}">
@@ -80,7 +77,7 @@
             
 
             @if (Auth::user()->isSupport() || Auth::user()->isAdmin() 
-                 || Auth::user()->isAdministration() || Auth::user()->isAccount())
+                 || Auth::user()->isAccount())
                 <li class="nav-item {{ Request::is('customer-support') ? 'active' : '' }} ">
                   <a href="{{route('customer-support')}}">
                 <span class="icon">
