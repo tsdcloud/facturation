@@ -283,7 +283,7 @@ class Invoice extends Component
                     'weighbridge_id'=> Auth::user()->currentBridge,
                     'amount_paid'=> $this->amountPaid,
                     'remains'=> $this->remains,
-                    'approved' => 'validated',
+                    'status_invoice' => 'validated',
                     'user_id'=> auth()->id(),
                     'tractor_id'=> $this->selectedTractor,
                     'trailer_id' => $this->selectedTrailer,
