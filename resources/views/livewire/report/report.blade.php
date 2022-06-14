@@ -5,7 +5,7 @@
             <div class="select-style-1">
                 <label>Selectionner le chef de Guerite</label>
                 <div class="select-position">
-                    <select>
+                    <select wire:model="user_id" >
                         <option disabled selected value="" Selectionner le chef de Geurite>...</option>
                         @foreach($users as $user)
                           <option value="{{$user->id}}">{{$user->name}}</option>
@@ -30,17 +30,17 @@
         <div class="col-lg-3">
             <div class="input-style-1">
                 <label>Périodicité du :</label>
-                <input type="date" />
+                <input wire:model="startDate" type="date" />
             </div>
         </div>
         <div class="col-lg-3">
             <div class="input-style-1">
                 <label>Au:</label>
-                <input type="date" />
+                <input type="date" wire:model="endDate" />
             </div>
         </div>
         <div class="col-lg-2 mb-2 justify-content-end">
-            <button class="main-btn active-btn-outline rounded-md btn-hover" type="submit">Filtrer</button>
+            <button wire:click="search" class="main-btn active-btn-outline rounded-md btn-hover" type="submit">Filtrer</button>
         </div>
         <div class="col-lg-2 mb-2 justify-content-end">
             <button class="main-btn dark-btn-outline rounded-md btn-hover" type="submit">Rénitialiser le filtre</button>
@@ -88,39 +88,48 @@
                         </thead>
                         <tbody>
 
-                            <tr>
-                                <td>
-                                    <h6 class="text-sm">{{$i ++}}</h6>
-                                </td>
-                                <td>
-                                    <p> </p>
-                                </td>
-                                {{--<td>
-                                    <p>{{$movement->movement_type === "deposit" ? 'Dépôt' : '' }} </p>
-                                </td>--}}
-                                {{-- <td>
-                                     <p>{{$movement->movement_type === "withdrawal" ? 'Retrait' : '' }} </p>
-                                 </td>--}}
-                                <td>
-                                    <p></p>
-                                </td>
-                                <td>
-                                    <p></p>
-                                </td>
-                                <td>
-                                    <p></p>
-                                </td>
-                                <td>
-                                    <p></p>
-                                </td>
-                                <td>
-                                    <p></p>
-                                </td>
-                            </tr>
+                        @empty(!$invoices)
+
+                            @foreach($invoices as $invoice)
+
+                                <tr>
+                                    <td>
+                                        <h6 class="text-sm">{{$i ++}}</h6>
+                                    </td>
+                                    <td>
+                                        <p>{{$invoice->invoice_no}} </p>
+                                    </td>
+
+                                    <td>
+                                        <p>{{$invoice->user->name}}</p>
+                                    </td>
+                                    <td>
+                                        <p>{{$invoice->status_invoice}}</p>
+                                    </td>
+                                    <td>
+                                        <p>{{$invoice->customer->label}}</p>
+                                    </td>
+                                    <td>
+                                        <p>{{$invoice->myTractor->label}}</p>
+                                    </td>
+                                    <td>
+                                        <p>{{$invoice->myTrailer->label}}</p>
+                                    </td>
+                                    <td>
+                                        <p>{{$invoice->weighbridge->label}}</p>
+                                    </td>
+                                    <td>
+                                        <p>{{$invoice->modePayment->label}}</p>
+                                    </td>
+                                </tr>
+                            @endforeach
+
+                        @endempty
+
 
                         </tbody>
                     </table>
-                 <p>   Montant Total : 500 000 FCFA</p>
+                 <p>   Montant Total : {{$total_amount}} FCFA</p>
                     <!-- end table -->
                 </div>
             </div>

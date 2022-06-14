@@ -12,7 +12,7 @@ class InvoiceService extends Fpdi
         $this->Ln(3);
 
         $this->Image(public_path('\assets\images\logo\lotecs.png'),15,109,17);
-        
+
 
 
         // $this->Image(public_path('assets\images\logo\logo-dpws.png'),65,90,60);

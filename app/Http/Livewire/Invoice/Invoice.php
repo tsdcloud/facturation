@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Invoice;
 
 use App\Models\Tractor;
 use App\Models\Trailer;
+use Carbon\Carbon;
 use Livewire\Component;
 use App\Models\Customer;
 use App\Models\ModePayment;
