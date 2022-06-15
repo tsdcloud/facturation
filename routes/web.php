@@ -58,8 +58,7 @@ Route::middleware(['auth'])->group(function(){
     Route::post('stamp/store',[StampController::class, 'store'])->name('stamp.store');
 
     //route add signature
-    Route::get('signature/index',[SignatureController::class, 'index'])->name('signature.index');
-    Route::get('signature/create',[SignatureController::class, 'create'])->name('signature.create');
-    Route::post('signature/store',[SignatureController::class, 'store'])->name('signature.store');
+
+    Route::resource('signature',SignatureController::class);
 });
 

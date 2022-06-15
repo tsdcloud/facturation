@@ -55,6 +55,7 @@
             <div class="card-style mb-30">
                 <h6 class="mb-10">Etat facturation</h6>
                 <div class="table-wrapper table-responsive">
+                    <p>   Montant Total : {{$total_amount}} FCFA</p>
                     <table class="table striped-table">
                         <thead>
                         <tr>
@@ -129,7 +130,7 @@
 
                         </tbody>
                     </table>
-                 <p>   Montant Total : {{$total_amount}} FCFA</p>
+
                     <!-- end table -->
                 </div>
             </div>

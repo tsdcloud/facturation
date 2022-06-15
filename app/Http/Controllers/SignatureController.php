@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Signature;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
 class SignatureController extends Controller
 {
-    
+
     public function index(){
 
         $breadcrumb = "signature";
@@ -39,5 +40,43 @@ class SignatureController extends Controller
         tap($signature)->update(['path'=> $request->path->store('signature/'.$user,'public')]);
 
         return redirect()->route('signature.index')->with('message','signature enregistré avec succès');
+    }
+
+    public function edit($id){
+
+        $breadcrumb = "Modifier la signature";
+        $signature = Signature::where('id',$id)->first();
+        $users = User::all();
+        return view('signature.edit',compact('signature','breadcrumb','users'));
+    }
+
+    public function update(Request $request, Signature $signature){
+
+        $request->validate([
+            'user_id' => 'required',
+            'path' => 'required'
+        ]);
+
+        $signature = Signature::where('id',$signature->id)->first();
+        // dd($signature->user->name);
+        //on efface l'ancien repertoire
+        $user = Str::substr($signature->user->name,0,15);
+        Storage::deleteDirectory($user);
+
+        // on crée un nouveau repertoire avec le nouveau nom de l'utilisateur choisi
+        $userUpdated = User::firstWhere('id',$request->user_id);
+        $newDirectory = Str::substr($userUpdated->name,0,15);
+
+        $signature->update([
+            'user_id' => $request->user_id,
+            'path' =>  $request->path->store('signature/'.$newDirectory,'public'),
+        ]);
+
+        return redirect()->route('signature.index')->with('message','mise à jour réussi avec succès');
+
+    }
+
+    public function show(){
+
     }
 }

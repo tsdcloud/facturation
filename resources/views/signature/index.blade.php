@@ -23,6 +23,7 @@
                     </div>
                     <div class="card-content">
                         <h4><a href="#0">signature de  {{$signature->user->name}} </a></h4>
+                        <a href="{{route('signature.edit',$signature->id)}}">modifier</a>
                     </div>
                 </div>
         </div>
