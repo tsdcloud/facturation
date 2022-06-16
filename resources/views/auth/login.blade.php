@@ -32,14 +32,20 @@
             text-decoration: none;
         }
 
+        body{
+            background-image: url('/assets/images/douala-main.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
 
     </style>
 </head>
-<body class="im">
-<div class="container my-auto" >
+<body >
+<div class="container" >
     <div class="row">
         <div class="col-md-6 offset-md-3">
-            <div class="card my-5">
+            <div class="card mt-120">
                 <livewire:auth.login/>
             </div>
         </div>
