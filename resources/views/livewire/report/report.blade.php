@@ -6,7 +6,7 @@
                 <label>Selectionner le chef de Guerite</label>
                 <div class="select-position">
                     <select wire:model="user_id" >
-                        <option disabled selected value="" Selectionner le chef de Geurite>...</option>
+                        <option selected value="" Selectionner le chef de Geurite>...</option>
                         @foreach($users as $user)
                           <option value="{{$user->id}}">{{$user->name}}</option>
                         @endforeach
@@ -55,7 +55,7 @@
             <div class="card-style mb-30">
                 <h6 class="mb-10">Etat facturation</h6>
                 <div class="table-wrapper table-responsive">
-                    <h6 >   Montant Total : {{$total_amount}} FCFA</h6>
+                    <h6>   Montant Total : {{$total_amount}} FCFA</h6>
                     <table class="table striped-table">
                         <thead>
                         <tr>
