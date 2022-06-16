@@ -24,6 +24,9 @@ html {
  .im{
 
      background-image: url('/assets/images/douala-main.jpg');
+     background-repeat: no-repeat;
+     background-size: cover;
+     background-position: center;
  }
 body {
   font-family: "Inter", sans-serif;

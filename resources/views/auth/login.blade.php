@@ -36,7 +36,7 @@
     </style>
 </head>
 <body class="im">
-<div class="container my-auto im" >
+<div class="container my-auto" >
     <div class="row">
         <div class="col-md-6 offset-md-3">
             <div class="card my-5">
