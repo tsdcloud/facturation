@@ -34,7 +34,7 @@
 
         body{
             background-image: url('/assets/images/douala-main.jpg');
-            background-size: 100% 100%;
+            background-size: cover;
             background-repeat: no-repeat;
             background-position: center;
             background-attachment: fixed;
