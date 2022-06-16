@@ -23,6 +23,7 @@
                     </div>
                     <div class="card-content">
                         <h4><a href="#0">Cachet du {{$stamp->weighbridge->label}} </a></h4>
+                        <a href="{{route('stamp.edit',$stamp->id)}}">modifier</a>
                     </div>
                 </div>
         </div>

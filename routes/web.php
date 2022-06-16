@@ -52,13 +52,8 @@ Route::middleware(['auth'])->group(function(){
     Route::get('customer-support', [\App\Http\Controllers\CustomerSupportController::class, 'create'])->name('customer-support');
 
     //route add stamp
-
-    Route::get('stamp/index',[StampController::class, 'index'])->name('stamp.index');
-    Route::get('stamp/create',[StampController::class, 'create'])->name('stamp.create');
-    Route::post('stamp/store',[StampController::class, 'store'])->name('stamp.store');
-
+    Route::resource('stamp',StampController::class);
     //route add signature
-
     Route::resource('signature',SignatureController::class);
 });
 
