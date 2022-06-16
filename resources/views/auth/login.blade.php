@@ -34,9 +34,10 @@
 
         body{
             background-image: url('/assets/images/douala-main.jpg');
-            background-size: cover;
+            background-size: 100% 100%;
             background-repeat: no-repeat;
             background-position: center;
+            background-attachment: fixed;
         }
 
     </style>
@@ -45,7 +46,7 @@
 <div class="container" >
     <div class="row">
         <div class="col-md-6 offset-md-3">
-            <div class="card mt-120">
+            <div class="card mt-170">
                 <livewire:auth.login/>
             </div>
         </div>
