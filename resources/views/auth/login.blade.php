@@ -32,10 +32,11 @@
             text-decoration: none;
         }
 
+
     </style>
 </head>
-<body>
-<div class="container my-auto">
+<body class="im">
+<div class="container my-auto im" >
     <div class="row">
         <div class="col-md-6 offset-md-3">
             <div class="card my-5">
