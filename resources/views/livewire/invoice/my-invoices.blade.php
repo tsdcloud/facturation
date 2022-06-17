@@ -15,9 +15,11 @@
                         </div>
                     @endif
                     <div class="card-style mb-30">
+                        <small class=" text-black" >facture annulée en rouge</small>
                         <div
                             class="d-flex flex-wrap justify-content-between align-items-center py-3">
                             <div class="left">
+
                                 <p>Afficher <span>10</span> factures</p>
                             </div>
                             <div class="right">
