@@ -82,12 +82,6 @@
                                                             <a style="color:grey" class="link-primary" target="_blank"
                                                                href="{{route('show-pdf',$invoice->id)}}">Imprimer la facture</a>
                                                         </li>
-                                                        <li class="dropdown-item">
-                                                            <a href="javascript:void(0)"
-                                                               wire:click="getInvoice({{$invoice->id}})"
-                                                               data-bs-toggle="modal" data-bs-target="#ModalTree"
-                                                               class="text-gray">Annuler la facture</a>
-                                                        </li>
                                                     </ul>
                                                 </div>
                                             </td>
