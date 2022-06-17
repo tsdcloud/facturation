@@ -1,5 +1,5 @@
 @extends('layouts.app')
 
 @section('content')
-<livewire:list-invoices/>
+<livewire:invoice.my-invoices/>
 @stop
