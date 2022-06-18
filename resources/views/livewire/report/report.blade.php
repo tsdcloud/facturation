@@ -92,7 +92,11 @@
                                         <p>{{$invoice->user->name}}</p>
                                     </td>
                                     <td>
-                                        <p>{{$invoice->status_invoice}}</p>
+                                        @if($invoice->status_invoice == "validated")
+                                            <p>Valide</p>
+                                        @else
+                                            <p>Annulé</p>
+                                        @endif
                                     </td>
                                     <td>
                                         <p>{{$invoice->customer->label}}</p>
