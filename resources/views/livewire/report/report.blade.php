@@ -41,7 +41,7 @@
         <div class="col-lg-12">
             <div class="card-style mb-30">
                 <div class="table-wrapper table-responsive">
-                    <h6>   Montant Total : {{$total_amount}} FCFA</h6>
+                    <h6>   Montant Total : {{\App\Helpers\Numbers\MoneyHelper::price($total_amount) }}</h6>
                     <small>   Nombre de facture : {{$number_invoice}} </small>
                     <table class="table striped-table">
                         <thead>

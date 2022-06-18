@@ -15,7 +15,7 @@
                 <div class="icon-card mb-30">
                     <div class="content">
                         <h6 class="mb-10">Encaissement</h6>
-                        <h6 class="text-bold mb-10">{{$total_amount_month}} FCFA</h6>
+                        <h6 class="text-bold mb-10">{{\App\Helpers\Numbers\MoneyHelper::price($total_amount_month)}}</h6>
                     </div>
                 </div>
                 <!-- End Icon Cart -->
