@@ -1,7 +1,7 @@
 <div>
     <!-- End Row -->
     <div class="row">
-        <div class="col-lg-3">
+        <div class="col-lg-4">
             <div class="select-style-1">
                 <label>Selectionner le chef de Guerite</label>
                 <div class="select-position">
@@ -14,26 +14,13 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-3">
-            <div class="select-style-1">
-                <label>Selectionner le shift</label>
-                <div class="select-position">
-                    <select>
-                        <option disabled selected value="" >...</option>
-                            <option value="">06h30-14h31</option>
-                            <option value="">14h31-22h31</option>
-                            <option value="">22h31-06h31</option>
-                    </select>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-3">
+        <div class="col-lg-4">
             <div class="input-style-1">
                 <label>Périodicité du :</label>
                 <input wire:model="startDate" type="date" />
             </div>
         </div>
-        <div class="col-lg-3">
+        <div class="col-lg-4">
             <div class="input-style-1">
                 <label>Au:</label>
                 <input type="date" wire:model="endDate" />
@@ -53,9 +40,9 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="card-style mb-30">
-                <h6 class="mb-10">Etat facturation</h6>
                 <div class="table-wrapper table-responsive">
                     <h6>   Montant Total : {{$total_amount}} FCFA</h6>
+                    <small>   Nombre de facture : {{$number_invoice}} </small>
                     <table class="table striped-table">
                         <thead>
                         <tr>

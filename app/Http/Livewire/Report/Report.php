@@ -4,11 +4,13 @@ namespace App\Http\Livewire\Report;
 
 use App\Models\invoice;
 use App\Models\User;
+use Carbon\Carbon;
 use Livewire\Component;
 
 class Report extends Component
 {
-    public $users, $user_id, $startDate, $endDate, $invoices, $total_amount;
+    public $users, $user_id, $startDate = '', $endDate = '', $invoices, $total_amount;
+    public ?int $number_invoice;
     public function render()
     {
         return view('livewire.report.report');
@@ -23,12 +25,22 @@ class Report extends Component
 
     public function search(){
 
-      $this->invoices = invoice::where('user_id',$this->user_id)
-                ->whereBetween('created_at',[$this->startDate, $this->endDate])
-                ->get();
+      if ($this->startDate =='' || $this->endDate == '' ){
 
+          $this->invoices = invoice::where('user_id',$this->user_id)
+                                     ->get();
 
-     //  dd($this->invoices);
-    $this->total_amount = $this->invoices->sum('total_amount');
+      }else{
+          $start = Carbon::createFromFormat('Y-m-d',$this->startDate)->startOfDay();
+          $end = Carbon::createFromFormat('Y-m-d', $this->endDate)->endOfDay();
+
+          $this->invoices = invoice::where('user_id',$this->user_id)
+                                    ->whereBetween('created_at',[$start, $end])
+                                    ->get();
+      }
+
+        $this->total_amount = $this->invoices->sum('total_amount');
+        $this->number_invoice = $this->invoices->count();
+
     }
 }
