@@ -29,9 +29,9 @@
         <div class="col-lg-2 mb-2 justify-content-end">
             <button wire:click="search" class="main-btn active-btn-outline rounded-md btn-hover" type="submit">Filtrer</button>
         </div>
-        <div class="col-lg-2 mb-2 justify-content-end">
-            <button class="main-btn dark-btn-outline rounded-md btn-hover" type="submit">Rénitialiser le filtre</button>
-        </div>
+{{--        <div class="col-lg-2 mb-2 justify-content-end">--}}
+{{--            <button class="main-btn dark-btn-outline rounded-md btn-hover" type="submit">Rénitialiser le filtre</button>--}}
+{{--        </div>--}}
     </div>
 
     @php
