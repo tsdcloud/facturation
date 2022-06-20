@@ -55,7 +55,7 @@
     {{--                            </p>--}}
     {{--                        </td>--}}
                             <td class="text-end">
-                                <p class="text-sm fw-500 text-gray">{{ \Illuminate\Support\Str::sum($weighbridge->invoices) }}</p>
+                                <p class="text-sm fw-500 text-gray"></p>
                             </td>
                         </tr>
                     @endforeach
