@@ -1,7 +1,12 @@
 <?php
 
 namespace App\Services;
+
+use App\Models\Invoice;
 use setasign\Fpdi\Fpdi;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class InvoiceService extends Fpdi
@@ -72,5 +77,35 @@ class InvoiceService extends Fpdi
 
         if ($type == "preview")
           return $pdf->Output('','Facture du '.$data->created_at.'.pdf','I');
+    }
+
+    public static function storeInvoice(float $subtotal, float $tax_amount, float $total_amount, int $mode_payment_id, int $bridge_id, float $amount_paid, float $remains, int $user_id, int $tractor_id, int $trailer_id, int $customer_id){
+
+        $lastId = Invoice::latest('id')->first();
+            $data = Invoice::create([
+                   'invoice_no' => is_null($lastId) ? str_pad(1,7,0,STR_PAD_LEFT) :str_pad($lastId->id + 1,7,0,STR_PAD_LEFT),
+                    'subtotal' => $subtotal,
+                    'tax_amount' => $tax_amount,
+                    'total_amount' => $total_amount,
+                    'mode_payment_id'=> $mode_payment_id,
+                    'weighbridge_id'=> $bridge_id,
+                    'amount_paid'=> $amount_paid,
+                    'remains'=> $remains,
+                    'status_invoice' => 'validated',
+                    'user_id'=> $user_id,
+                    'tractor_id'=> $tractor_id,
+                    'trailer_id' => $trailer_id,
+                    'customer_id' => $customer_id,
+                    'path_qrcode' => '',
+            ]);
+
+        //   (string) $path = 'http://billingdpws.bfclimited.com:8080/display/'.$data->id;
+        //   $picture = QrCode::format('png')->style('square')->size(120)->generate($path);
+        //   $output_file = '/Qrcode/'.$data->id.'/'. time() . '.png';
+
+        //   Storage::disk('public')->put($output_file, $picture);
+        //   tap($data)->update(['path_qrcode'=> $output_file]);
+
+     
     }
 }

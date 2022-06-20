@@ -2,27 +2,20 @@
 
 namespace App\Http\Livewire\Invoice;
 
-
+use App\Models\Invoice;
 use App\Models\Tractor;
 use App\Models\Trailer;
-use Carbon\Carbon;
 use Livewire\Component;
 use App\Models\Customer;
 use App\Models\ModePayment;
 use App\Models\Weighbridge;
+use App\Services\InvoiceService;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
-use App\Models\invoice as ModelsInvoice;
-use App\Http\Controllers\InvoiceController;
-use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
-
-class Invoice extends Component
+class Create extends Component
 {
-
-
     public ?int
             $modePaymentId = null,
             $weighbridgeId = null,
@@ -58,8 +51,15 @@ class Invoice extends Component
                  $showDropdown2 = true,
                  $showDropdown3 = true;
 
+    public function render()
+    {
+        return view('livewire.invoice.create',[
+            'modePayments' => ModePayment::all()->reject(function($mode){
+                return $mode->label == "Virement Bancaire";})
+        ]);
+    }
 
-   public function hideDropdown()
+    public function hideDropdown()
     {
         $this->showDropdown = false;
     }
@@ -199,17 +199,6 @@ class Invoice extends Component
 
     }
 
-
-    public function render()
-    {
-
-        return view('livewire.invoice.invoice',[
-            'modePayments' => ModePayment::all()->reject(function($mode){
-                return $mode->label == "Virement Bancaire";}),
-            'invoices' => ModelsInvoice::all(),
-        ]);
-    }
-
     public function mount()
     {
         if(Auth::user()->isAdmin() || Auth::user()->isAdministration())
@@ -264,82 +253,35 @@ class Invoice extends Component
         'amountPaid.required' => 'veuillez saisir le montant',
     ];
 
-
-    public function store() {
-
+    public function store(){
         $this->validate();
-       $lastId = ModelsInvoice::latest('id')->first();
+        try{
+            
+            DB::beginTransaction();
+        InvoiceService::storeInvoice($this->subtotal,
+                          $this->tax_amount, 
+                         $this->total_amount,
+                       $this->modePaymentId, 
+                       Auth::user()->currentBridge,
+                          $this->amountPaid,
+                             $this->remains,
+                             auth()->id(),
+                           $this->selectedTractor,
+                           $this->selectedTrailer,
+                           $this->selectedCustomer);
 
-dd(is_null($lastId));
-            try {
-
-                DB::beginTransaction();
-            if (is_null($lastId)){
-                $data = ModelsInvoice::create([
-                    'invoice_no' => str_pad(1,7,0,STR_PAD_LEFT),
-                    'subtotal' => $this->subtotal,
-                    'tax_amount' => $this->tax_amount,
-                    'total_amount' => $this->total_amount,
-                    'mode_payment_id'=> $this->modePaymentId,
-                    'weighbridge_id'=> Auth::user()->currentBridge,
-                    'amount_paid'=> $this->amountPaid,
-                    'remains'=> $this->remains,
-                    'status_invoice' => 'validated',
-                    'user_id'=> auth()->id(),
-                    'tractor_id'=> $this->selectedTractor,
-                    'trailer_id' => $this->selectedTrailer,
-                    'customer_id' => $this->selectedCustomer,
-                    'path_qrcode' => '',
-                ]);
-            }
-
-            if (!is_null($lastId)){
-                $data = ModelsInvoice::create([
-                    'invoice_no' => str_pad($lastId->id + 1,7,0,STR_PAD_LEFT),
-                    'subtotal' => $this->subtotal,
-                    'tax_amount' => $this->tax_amount,
-                    'total_amount' => $this->total_amount,
-                    'mode_payment_id'=> $this->modePaymentId,
-                    'weighbridge_id'=> Auth::user()->currentBridge,
-                    'amount_paid'=> $this->amountPaid,
-                    'remains'=> $this->remains,
-                    'status_invoice' => 'validated',
-                    'user_id'=> auth()->id(),
-                    'tractor_id'=> $this->selectedTractor,
-                    'trailer_id' => $this->selectedTrailer,
-                    'customer_id' => $this->selectedCustomer,
-                    'path_qrcode' => '',
-                ]);
-            }
-
-            $this->url = $data->id;
-        //  $path = action([InvoiceController::class, 'pdf'], ['id' => $data->id]);
-            $path = 'http://billingdpws.bfclimited.com:8080/display/'.$data->id;
-            $picture = QrCode::format('png')->style('square')->size(120)->generate($path);
-            $output_file = '/Qrcode/'.$data->id.'/'. time() . '.png';
-
-            Storage::disk('public')->put($output_file, $picture);
-
-
-            tap($data)->update(['path_qrcode'=> $output_file]);
-
-
-            session()->flash('message', 'facture enregistreé avec succès.');
-
-            $this->dispatchBrowserEvent('closeAlert');
-            $this->emptyField();
-            DB::commit();
-
-        }catch (\Exception $e){
-            Log::error(sprintf('%d'.$e->getMessage(), __METHOD__));
-            session()->flash('error', 'Une erreur c\'est produite, veuillez actualiser le navigateur et essayer à nouveau.
-            Rapprochez vous d\'un IT en service si necessaire.');
-            DB::rollBack();
-
-        }
-
+                    session()->flash('message', 'facture enregistreé avec succès.');
+                    $this->dispatchBrowserEvent('closeAlert');
+                    $this->emptyField();
+                    DB::commit();
+                }catch(\Exception $e){
+                    Log::error(sprintf('%d'.$e->getMessage(), __METHOD__));
+                    session()->flash('error', 'Une erreur c\'est produite, veuillez actualiser le navigateur et essayer à nouveau.
+                    Rapprochez vous d\'un IT en service si necessaire.');
+                    DB::rollBack();
+                }
     }
-
+    
     public function cancel(){
         $this->newTractor = "";
         $this->newTrailer = "";
@@ -359,8 +301,6 @@ dd(is_null($lastId));
             $this->tax_amount = 1925;
             $this->total_amount = 11925;
         }
-
-
     }
 
     public function storeTractor(){
