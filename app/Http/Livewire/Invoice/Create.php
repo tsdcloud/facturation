@@ -27,7 +27,7 @@ class Create extends Component
     public $amountPaid = null ,
            $remains = 0,
            $weighedTest = false,
-           $url= null,
+           $id_invoice= null,
            $newTractor = null,
            $newTrailer = null,
            $newCustomer = null,
@@ -256,32 +256,32 @@ class Create extends Component
     public function store(){
         $this->validate();
         try{
-            
+
             DB::beginTransaction();
-        InvoiceService::storeInvoice($this->subtotal,
-                          $this->tax_amount, 
-                         $this->total_amount,
-                       $this->modePaymentId, 
-                       Auth::user()->currentBridge,
-                          $this->amountPaid,
-                             $this->remains,
-                             auth()->id(),
-                           $this->selectedTractor,
-                           $this->selectedTrailer,
-                           $this->selectedCustomer);
+                   $this->id_invoice =  InvoiceService::storeInvoice($this->subtotal,
+                                                     $this->tax_amount,
+                                                     $this->total_amount,
+                                                     $this->modePaymentId,
+                                                     Auth::user()->currentBridge,
+                                                     $this->amountPaid,
+                                                     $this->remains,
+                                                     auth()->id(),
+                                                     $this->selectedTractor,
+                                                     $this->selectedTrailer,
+                                     $this->selectedCustomer);
 
                     session()->flash('message', 'facture enregistreé avec succès.');
                     $this->dispatchBrowserEvent('closeAlert');
                     $this->emptyField();
                     DB::commit();
-                }catch(\Exception $e){
+        }catch(\Exception $e){
                     Log::error(sprintf('%d'.$e->getMessage(), __METHOD__));
                     session()->flash('error', 'Une erreur c\'est produite, veuillez actualiser le navigateur et essayer à nouveau.
                     Rapprochez vous d\'un IT en service si necessaire.');
                     DB::rollBack();
                 }
     }
-    
+
     public function cancel(){
         $this->newTractor = "";
         $this->newTrailer = "";

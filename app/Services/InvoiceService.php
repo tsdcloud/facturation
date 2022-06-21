@@ -79,7 +79,18 @@ class InvoiceService extends Fpdi
           return $pdf->Output('','Facture du '.$data->created_at.'.pdf','I');
     }
 
-    public static function storeInvoice(float $subtotal, float $tax_amount, float $total_amount, int $mode_payment_id, int $bridge_id, float $amount_paid, float $remains, int $user_id, int $tractor_id, int $trailer_id, int $customer_id){
+    public static function storeInvoice(float $subtotal,
+                                        float $tax_amount,
+                                        float $total_amount,
+                                        int $mode_payment_id,
+                                        int $bridge_id,
+                                        float $amount_paid,
+                                        float $remains,
+                                        int $user_id,
+                                        int $tractor_id,
+                                        int $trailer_id,
+                                        int $customer_id): int
+    {
 
         $lastId = Invoice::latest('id')->first();
             $data = Invoice::create([
@@ -99,13 +110,13 @@ class InvoiceService extends Fpdi
                     'path_qrcode' => '',
             ]);
 
-        //   (string) $path = 'http://billingdpws.bfclimited.com:8080/display/'.$data->id;
-        //   $picture = QrCode::format('png')->style('square')->size(120)->generate($path);
-        //   $output_file = '/Qrcode/'.$data->id.'/'. time() . '.png';
+           $path = 'http://billingdpws.bfclimited.com:8080/display/'.$data->id;
+           $picture = QrCode::format('png')->style('square')->size(120)->generate($path);
+           $output_file = '/Qrcode/'.$data->id.'/'. time() . '.png';
 
-        //   Storage::disk('public')->put($output_file, $picture);
-        //   tap($data)->update(['path_qrcode'=> $output_file]);
+           Storage::disk('public')->put($output_file, $picture);
+           tap($data)->update(['path_qrcode'=> $output_file]);
 
-     
+        return $data->id;
     }
 }
