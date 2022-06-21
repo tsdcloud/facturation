@@ -249,8 +249,8 @@
                             </button>
                         </div>
                         <div class="modal-body px-0">
-                            @if(!is_null($url))
-                               <iframe src="{{route('show-pdf',$url)}}"  width="100%" height="500px"></iframe>
+                            @if(!is_null($id_invoice))
+                               <iframe src="{{route('show-pdf',$id_invoice)}}"  width="100%" height="500px"></iframe>
                             @endif
                         </div>
                     </div>

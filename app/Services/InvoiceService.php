@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Invoice;
+use App\Models\Weighbridge;
 use setasign\Fpdi\Fpdi;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -89,8 +90,13 @@ class InvoiceService extends Fpdi
                                         int $user_id,
                                         int $tractor_id,
                                         int $trailer_id,
-                                        int $customer_id): int
+                                        int $customer_id,
+                                        bool $direction= false): int
     {
+
+        $weighbridgeId = '';
+        if ($direction)
+            $weighbridgeId =  Weighbridge::where('label', 'Direction')->first();
 
         $lastId = Invoice::latest('id')->first();
             $data = Invoice::create([
@@ -99,7 +105,7 @@ class InvoiceService extends Fpdi
                     'tax_amount' => $tax_amount,
                     'total_amount' => $total_amount,
                     'mode_payment_id'=> $mode_payment_id,
-                    'weighbridge_id'=> $bridge_id,
+                    'weighbridge_id'=> $direction == true ? $weighbridgeId->id : $bridge_id,
                     'amount_paid'=> $amount_paid,
                     'remains'=> $remains,
                     'status_invoice' => 'validated',

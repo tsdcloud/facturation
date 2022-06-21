@@ -268,7 +268,8 @@ class Create extends Component
                                                      auth()->id(),
                                                      $this->selectedTractor,
                                                      $this->selectedTrailer,
-                                     $this->selectedCustomer);
+                                                     $this->selectedCustomer,
+                                                     false);
 
                     session()->flash('message', 'facture enregistreé avec succès.');
                     $this->dispatchBrowserEvent('closeAlert');

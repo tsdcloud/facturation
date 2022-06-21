@@ -4,6 +4,8 @@ namespace App\Http\Livewire\Invoice;
 
 use App\Models\Tractor;
 use App\Models\Trailer;
+use App\Services\InvoiceService;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use App\Models\Customer;
 use App\Models\ModePayment;
@@ -18,7 +20,7 @@ class CustomerSupport extends Component
 {
     public $newTractor =  null, $newTrailer = null, $newCustomer = null ;
     public ?int $modePaymentId = null, $weighbridgeId = null, $tax_amount = 1925, $subtotal = 10000, $total_amount = 11925;
-    public $amountPaid = null ,$remains = 0, $url= null, $weighedTransit = null;
+    public $amountPaid = null ,$remains = 0, $id_invoice= null, $weighedTransit = null;
 
     public $query= '';
     public $trailer = '';
@@ -243,80 +245,41 @@ class CustomerSupport extends Component
 
          try{
              DB::beginTransaction();
-             
-             $lastId = ModelsInvoice::latest('id')->first();
-        $weighbridgeId =  Weighbridge::where('label', 'Direction')->first();
+                 $this->id_invoice =  InvoiceService::storeInvoice($this->subtotal,
+                                                                  $this->tax_amount,
+                                                                  $this->total_amount,
+                                                                  $this->modePaymentId,
+                                                                  Auth::user()->currentBridge,
+                                                                  $this->amountPaid,
+                                                                  $this->remains,
+                                                                  auth()->id(),
+                                                                  $this->selectedAccount,
+                                                                  $this->selectedTrailer,
+                                                                  $this->selectedCustomer,
+                                                                 true);
 
-        if (is_null($lastId)){
-            $data = ModelsInvoice::create([
-                'invoice_no' => str_pad(1,7,0,STR_PAD_LEFT),
-                'subtotal' => $this->subtotal,
-                'tax_amount' => $this->tax_amount,
-                'total_amount' => $this->total_amount,
-                'mode_payment_id'=> $this->modePaymentId,
-                'weighbridge_id'=> $weighbridgeId->id,
-                'amount_paid'=> $this->amountPaid,
-                'remains'=> $this->remains,
-                'status_invoice' => 'validated',
-                'user_id'=> auth()->id(),
-                'tractor_id'=> $this->selectedAccount,
-                'trailer_id' => $this->selectedTrailer,
-                'customer_id' => $this->selectedCustomer,
-                'path_qrcode' => '',
-            ]);
-        }
+                $this->reset(['modePaymentId','weighbridgeId','amountPaid',
+                    'weighbridgeId','remains','tax_amount','subtotal']);
 
-        if (!is_null($lastId)){
-            $data = ModelsInvoice::create([
-                'invoice_no' => str_pad($lastId->id + 1,7,0,STR_PAD_LEFT),
-                'subtotal' => $this->subtotal,
-                'tax_amount' => $this->tax_amount,
-                'total_amount' => $this->total_amount,
-                'mode_payment_id'=> $this->modePaymentId,
-                'weighbridge_id'=> $weighbridgeId->id,
-                'amount_paid'=> $this->amountPaid,
-                'remains'=> $this->remains,
-                'status_invoice' => 'validated',
-                'user_id'=> auth()->id(),
-                'tractor_id'=> $this->selectedAccount,
-                'trailer_id' => $this->selectedTrailer,
-                'customer_id' => $this->selectedCustomer,
-                'path_qrcode' => '',
-            ]);
-        }
+                $this->accounts = [];
+                $this->customers = [];
+                $this->trailers = [];
+                $this->highlightIndex = 0;
+                $this->highlightIndexTrailer = 0;
+                $this->highlightIndexCustomer = 0;
+                $this->query = '';
+                $this->trailer = '';
+                $this->customer = '';
+                $this->selectedAccount = 0;
+                $this->selectedTrailer = 0;
+                $this->selectedCustomer = 0;
+                $this->showDropdown = true;
+                $this->showDropdown2 = true;
+                $this->showDropdown3 = true;
 
-        $this->url = $data->id;
-        $path = 'http://billingdpws.bfclimited.com:8080/display/'.$data->id;
-        $picture = QrCode::format('png')->size(100)->generate($path);
-        $output_file = '/Qrcode/'.$data->id.'/'. time() . '.png';
+                session()->flash('message', 'Enregistré avec succès');
 
-        Storage::disk('public')->put($output_file, $picture);
-
-
-        tap($data)->update(['path_qrcode'=> $output_file]);
-
-        $this->reset(['modePaymentId','weighbridgeId','amountPaid',
-            'weighbridgeId','remains','tax_amount','subtotal']);
-
-        $this->accounts = [];
-        $this->customers = [];
-        $this->trailers = [];
-        $this->highlightIndex = 0;
-        $this->highlightIndexTrailer = 0;
-        $this->highlightIndexCustomer = 0;
-        $this->query = '';
-        $this->trailer = '';
-        $this->customer = '';
-        $this->selectedAccount = 0;
-        $this->selectedTrailer = 0;
-        $this->selectedCustomer = 0;
-        $this->showDropdown = true;
-        $this->showDropdown2 = true;
-        $this->showDropdown3 = true;
-
-        session()->flash('message', 'Enregistré avec succès');
-
-        $this->dispatchBrowserEvent('closeAlert');
+                $this->dispatchBrowserEvent('closeAlert');
         DB::commit();
          }catch(\Exception $e){
             Log::error(sprintf('%d'.$e->getMessage(), __METHOD__));
@@ -324,7 +287,7 @@ class CustomerSupport extends Component
             Rapprochez vous d\'un IT en service si necessaire.');
             DB::rollBack();
          }
-        
+
 
     }
 
