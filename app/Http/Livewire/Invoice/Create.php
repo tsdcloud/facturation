@@ -299,24 +299,8 @@ class Create extends Component
     }
 
     public function cancel(){
-        $this->newTractor = "";
-        $this->newTrailer = "";
-        $this->newCustomer = "";
-        $this->url= null;
-        $this->amountPaid = null;
-        $this->tractor = null;
-        $this->modePaymentId = null;
-        $this->weighbridgeId = null;
-        $this->remains = null;
-        $this->weighedTest = false;
-        $this->name = null;
 
-        if (!$this->weighedTest){
 
-            $this->subtotal = 10000;
-            $this->tax_amount = 1925;
-            $this->total_amount = 11925;
-        }
     }
 
     public function storeTractor(){
@@ -377,6 +361,6 @@ class Create extends Component
         $this->showDropdown = true;
         $this->showDropdown2 = true;
         $this->showDropdown3 = true;
-       // $this->typeWeighing = null;
+        $this->typeWeighing = null;
     }
 }

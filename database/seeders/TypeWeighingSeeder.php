@@ -24,7 +24,7 @@ class TypeWeighingSeeder extends Seeder
         ]);
         TypeWeighing::create([
             'id' => 2,
-            'label' => 'Pesée test normale',
+            'label' => 'Pesée test',
             'price' => 5000,
             'tax_amount' => 962,
             'total_amount' => 5962,
