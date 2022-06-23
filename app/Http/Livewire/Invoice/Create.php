@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Invoice;
 use App\Models\Invoice;
 use App\Models\Tractor;
 use App\Models\Trailer;
+use App\Models\TypeWeighing;
 use Livewire\Component;
 use App\Models\Customer;
 use App\Models\ModePayment;
@@ -19,9 +20,9 @@ class Create extends Component
     public ?int
             $modePaymentId = null,
             $weighbridgeId = null,
-            $tax_amount = 1925,
-            $subtotal = 10000,
-            $total_amount = 11925;
+            $tax_amount = 0,
+            $subtotal = 0,
+            $total_amount = 0;
 
 
     public $amountPaid = null ,
@@ -34,7 +35,9 @@ class Create extends Component
            $tractor = '',
            $trailer = '',
            $customer = '',
-           $weighbridge = null;
+           $weighbridge = null,
+           $listTypeWeighing = null,
+           $typeWeighing = null;
 
     public array $tractors = [],
                  $trailers = [],
@@ -199,6 +202,7 @@ class Create extends Component
 
     }
 
+
     public function mount()
     {
         if(Auth::user()->isAdmin() || Auth::user()->isAdministration())
@@ -206,33 +210,40 @@ class Create extends Component
 
         $bridge = Weighbridge::where('id',Auth::user()->currentBridge)->first();
         $this->weighbridge = $bridge->label;
+
+        $this->listTypeWeighing = TypeWeighing::all()->reject(function ($type){
+            return $type->label =='Direction';
+        });
+
     }
+
+    public function updatedTypeWeighing()
+    {
+
+
+            $this->typeWeighing = TypeWeighing::where('id',$this->typeWeighing)->first();
+
+            // dd($this->typeWeighing);
+            $this->subtotal = $this->typeWeighing->price;
+            $this->tax_amount = $this->typeWeighing->tax_amount;
+            $this->total_amount = $this->typeWeighing->total_amount;
+
+        if ($this->amountPaid != "" )
+            $this->remains =  $this->amountPaid - $this->total_amount;
+
+    }
+
+    public function updatedAmountPaid(){
+
+        if ($this->amountPaid != "" )
+            $this->remains =  $this->amountPaid - $this->total_amount;
+    }
+
+
     public function updated(){
-
-        if ($this->amountPaid != "" && $this->weighedTest == false)
-             $this->remains =  $this->amountPaid - 11925;
-
-        if ($this->amountPaid != "" && $this->weighedTest == true)
-             $this->remains =  $this->amountPaid - 5962 ;
 
         if ($this->amountPaid == "")
              $this->remains = 0;
-
-        if ($this->weighedTest){
-
-            $this->subtotal = 5000;
-            $this->tax_amount = 962;
-            $this->total_amount = 5962;
-
-        }
-
-        if (!$this->weighedTest){
-
-            $this->subtotal = 10000;
-            $this->tax_amount = 1925;
-            $this->total_amount = 11925;
-        }
-
 
     }
 
@@ -243,6 +254,7 @@ class Create extends Component
         'trailer' => 'required',
         'modePaymentId' => 'required',
         'amountPaid' => 'required',
+        'typeWeighing' => 'required',
     ];
 
     protected $messages = [

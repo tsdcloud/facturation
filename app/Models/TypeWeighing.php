@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class TypeWeighing extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'label',
+        'type',
+        'price',
+        'tax_amount',
+        'total_amount'
+    ];
 }

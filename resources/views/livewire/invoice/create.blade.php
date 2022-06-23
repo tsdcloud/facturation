@@ -179,25 +179,31 @@
                             </div>
                         </div>
                     </div>
-                    <!-- end input -->
-                    <div class="input-style-1">
-                        <label>Montant versé</label>
-                        <div class="input-group ">
-                            <div style="background: gray !important" class="input-group-text">
-                              <input data-bs-toggle="tooltip" data-bs-placement="top"
-                              data-bs-custom-class="custom-tooltip"
-                              title="Cliquer ici pour activer la pesée test "  class="form-check-input mt-0" type="checkbox" wire:model="weighedTest" aria-label="Checkbox for following text input">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="select-style-1">
+                                <label>Type de pesée</label>
+                                <div class="select-position">
+                                    <select wire:model="typeWeighing" >
+                                        <option value="" selected >Selectionner la pesée</option>
+                                        @foreach ($listTypeWeighing as $type_weighing)
+                                            <option value="{{$type_weighing->id}}">{{$type_weighing->label}}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('typeWeighing') <span class="text-danger">{{ $message }}</span> @enderror
+                                </div>
                             </div>
-                            <input type="number" min="0" wire:model ="amountPaid" class="form-control" aria-label="Text input with checkbox">
-                          </div>
-                          @if ($weighedTest)
-                            <small style="color: green" >Pesée test activée</small>
-                          @else
-                            <span><small>pour activer la pesée test cliquer sur le carré gris</small></span>
-                          @endif
+                        </div>
+                        <div class="col-md-6">
+                        <div class="input-style-1">
+                            <label>Montant versé</label>
+                            <input type="number" min="0" wire:model ="amountPaid" class="form-control" aria-label="Text input with checkbox"/>
+                        </div>
+                            @error('amountPaid') <span class="text-danger">{{ $message }}</span> @enderror
+                        </div>
+                    </div>
+                    <!-- end input -->
 
-                          @error('amountPaid') <span class="text-danger">{{ $message }}</span> @enderror
-                       </div>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="input-style-1">
