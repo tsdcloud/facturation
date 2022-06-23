@@ -63,9 +63,9 @@ class InvoiceService extends Fpdi
         // $pdf->Cell(400,10,utf8_decode($data->user->name),0,0,'L');
         $pdf->text(41,81,utf8_decode($data->user->name));
 
-        $pdf->text(144,99,utf8_decode('Montant HT : '.$data->subtotal.' FCFA'),0,0,'L');
-        $pdf->text(144,104,utf8_decode('TVA 19.25% : '. $data->tax_amount.' FCFA'));
-        $pdf->text(144,109,utf8_decode('Montant TTC : '.$data->total_amount.' FCFA'));
+        $pdf->text(144,99,utf8_decode('Montant HT : '.$data->typeWeighing->price.' FCFA'),0,0,'L');
+        $pdf->text(144,104,utf8_decode('TVA 19.25% : '. $data->typeWeighing->tax_amount.' FCFA'));
+        $pdf->text(144,109,utf8_decode('Montant TTC : '.$data->typeWeighing->total_amount.' FCFA'));
         $pdf->text(144,114,utf8_decode('Montant versé : '.$data->amount_paid.' FCFA'));
         $pdf->text(06,90,utf8_decode('Signature et cachet'));
         $pdf->text(144,119,utf8_decode('Montant à rembourser : '.$data->remains.' FCFA'));
@@ -91,6 +91,7 @@ class InvoiceService extends Fpdi
                                         int $tractor_id,
                                         int $trailer_id,
                                         int $customer_id,
+                                        int $price_id,
                                         bool $direction= false): int
     {
 
@@ -113,6 +114,7 @@ class InvoiceService extends Fpdi
                     'tractor_id'=> $tractor_id,
                     'trailer_id' => $trailer_id,
                     'customer_id' => $customer_id,
+                    'type_weighing_id' => $price_id,
                     'path_qrcode' => '',
             ]);
 

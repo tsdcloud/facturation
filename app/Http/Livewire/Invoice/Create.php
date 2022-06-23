@@ -267,6 +267,7 @@ class Create extends Component
 
     public function store(){
         $this->validate();
+     //   dd($this->typeWeighing->id);
         try{
 
             DB::beginTransaction();
@@ -281,7 +282,9 @@ class Create extends Component
                                                      $this->selectedTractor,
                                                      $this->selectedTrailer,
                                                      $this->selectedCustomer,
-                                                     false);
+                                                     $this->typeWeighing->id,
+                                                     false
+                                                    );
 
                     session()->flash('message', 'facture enregistreé avec succès.');
                     $this->dispatchBrowserEvent('closeAlert');
@@ -374,5 +377,6 @@ class Create extends Component
         $this->showDropdown = true;
         $this->showDropdown2 = true;
         $this->showDropdown3 = true;
+       // $this->typeWeighing = null;
     }
 }

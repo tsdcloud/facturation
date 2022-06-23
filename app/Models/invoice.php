@@ -23,6 +23,7 @@ class Invoice extends Model
         'status_invoice',
         'trailer_id',
         'customer_id',
+        'type_weighing_id',
         'path_qrcode',
     ];
 
@@ -50,5 +51,10 @@ class Invoice extends Model
     public function customer(){
 
         return $this->belongsTo(Customer::class);
+    }
+
+    public function typeWeighing(){
+
+        return $this->belongsTo(TypeWeighing::class,'type_weighing_id');
     }
 }

@@ -16,4 +16,9 @@ class TypeWeighing extends Model
         'tax_amount',
         'total_amount'
     ];
+
+    public function invoices(){
+
+        return $this->hasMany(Invoice::class);
+    }
 }
