@@ -71,7 +71,7 @@
                       />
                     </svg>
                   </span>
-                  <span class="text">Factures</span>
+                  <span class="text">Mes factures</span>
                 </a>
               </li>
           @endif

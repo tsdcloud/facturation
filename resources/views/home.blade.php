@@ -40,6 +40,215 @@
             </div>
         </div>
 
+ <!-- End Row -->
+ <div class="row">
+     <div class="col-lg-7">
+         <div class="card-style mb-30">
+             <div class="title d-flex flex-wrap justify-content-between">
+                 <div class="left">
+                     <h6 class="text-medium mb-10">Yearly subscription</h6>
+                     <h3 class="text-bold">$245,479</h3>
+                 </div>
+                 <div class="right">
+                     <div class="select-style-1">
+                         <div class="select-position select-sm">
+                             <select class="light-bg">
+                                 <option value="">Yearly</option>
+                                 <option value="">Monthly</option>
+                                 <option value="">Weekly</option>
+                             </select>
+                         </div>
+                     </div>
+                     <!-- end select -->
+                 </div>
+             </div>
+             <!-- End Title -->
+             <div class="chart">
+                 <canvas
+                     id="Chart1"
+                     style="width: 100%; height: 400px"
+                 ></canvas>
+             </div>
+             <!-- End Chart -->
+         </div>
+     </div>
+     <!-- End Col -->
+     <div class="col-lg-5">
+         <div class="card-style mb-30">
+             <div
+                 class="
+                    title
+                    d-flex
+                    flex-wrap
+                    align-items-center
+                    justify-content-between
+                  "
+             >
+                 <div class="left">
+                     <h6 class="text-medium mb-30">Sales/Revenue</h6>
+                 </div>
+                 <div class="right">
+                     <div class="select-style-1">
+                         <div class="select-position select-sm">
+                             <select class="light-bg">
+                                 <option value="">Yearly</option>
+                                 <option value="">Monthly</option>
+                                 <option value="">Weekly</option>
+                             </select>
+                         </div>
+                     </div>
+                     <!-- end select -->
+                 </div>
+             </div>
+             <!-- End Title -->
+             <div class="chart">
+                 <canvas
+                     id="Chart2"
+                     style="width: 100%; height: 400px"
+                 ></canvas>
+             </div>
+             <!-- End Chart -->
+         </div>
+     </div>
+     <!-- End Col -->
+ </div>
+ <div class="row">
+     <div class="col-lg-7">
+         <div class="card-style mb-30">
+             <div
+                 class="
+                    title
+                    d-flex
+                    flex-wrap
+                    align-items-center
+                    justify-content-between
+                  "
+             >
+                 <div class="left">
+                     <h6 class="text-medium mb-2">Evolution du chiffre d'affaires</h6>
+                 </div>
+{{--                 <div class="right">--}}
+{{--                     <div class="select-style-1 mb-2">--}}
+{{--                         <div class="select-position select-sm">--}}
+{{--                             <select class="light-bg">--}}
+{{--                                 <option value="">Last Month</option>--}}
+{{--                                 <option value="">Last 3 Months</option>--}}
+{{--                                 <option value="">Last Year</option>--}}
+{{--                             </select>--}}
+{{--                         </div>--}}
+{{--                     </div>--}}
+{{--                     <!-- end select -->--}}
+{{--                 </div>--}}
+             </div>
+             <!-- End Title -->
+             <div class="chart">
+                 <div id="legend3">
+                     <ul
+                         class="legend3 d-flex flex-wrap align-items-center mb-30"
+                     >
+                         <li>
+                             <div class="d-flex">
+                                 <span class="bg-color primary-bg"> </span>
+                                 <div class="text">
+                                     <p class="text-sm text-success">
+                                         <span class="text-dark">Mois passé</span> +25.55%
+                                         <i class="lni lni-arrow-up"></i>
+                                     </p>
+                                 </div>
+                             </div>
+                         </li>
+                         <li>
+                             <div class="d-flex">
+                                 <span class="bg-color purple-bg"></span>
+                                 <div class="text">
+                                     <p class="text-sm text-success">
+                                         <span class="text-dark">Mois en cours</span> +45.55%
+                                         <i class="lni lni-arrow-up"></i>
+                                     </p>
+                                 </div>
+                             </div>
+                         </li>
+                     </ul>
+                 </div>
+                 <canvas
+                     id="Chart3"
+                     style="width: 100%; height: 450px"
+                 ></canvas>
+             </div>
+         </div>
+     </div>
+     <!-- End Col -->
+     <div class="col-lg-5">
+         <div class="card-style mb-30">
+             <div
+                 class="
+                    title
+                    d-flex
+                    flex-wrap
+                    align-items-center
+                    justify-content-between
+                  "
+             >
+                 <div class="left">
+                     <h6 class="text-medium mb-2">Traffic</h6>
+                 </div>
+                 <div class="right">
+                     <div class="select-style-1 mb-2">
+                         <div class="select-position select-sm">
+                             <select class="bg-ligh">
+                                 <option value="">Last 6 Months</option>
+                                 <option value="">Last 3 Months</option>
+                                 <option value="">Last Year</option>
+                             </select>
+                         </div>
+                     </div>
+                     <!-- end select -->
+                 </div>
+             </div>
+             <!-- End Title -->
+             <div class="chart">
+                 <div id="legend4">
+                     <ul
+                         class="legend3 d-flex flex-wrap align-items-center mb-30"
+                     >
+                         <li>
+                             <div class="d-flex">
+                                 <span class="bg-color primary-bg"> </span>
+                                 <div class="text">
+                                     <p class="text-sm text-success">
+                                         <span class="text-dark">Store Visits</span>
+                                         +25.55%
+                                         <i class="lni lni-arrow-up"></i>
+                                     </p>
+                                     <h2>3456</h2>
+                                 </div>
+                             </div>
+                         </li>
+                         <li>
+                             <div class="d-flex">
+                                 <span class="bg-color danger-bg"></span>
+                                 <div class="text">
+                                     <p class="text-sm text-danger">
+                                         <span class="text-dark">Visitors</span> -2.05%
+                                         <i class="lni lni-arrow-down"></i>
+                                     </p>
+                                     <h2>3456</h2>
+                                 </div>
+                             </div>
+                         </li>
+                     </ul>
+                 </div>
+                 <canvas
+                     id="Chart4"
+                     style="width: 100%; height: 420px"
+                 ></canvas>
+             </div>
+             <!-- End Chart -->
+         </div>
+     </div>
+     <!-- End Col -->
+ </div>
+
     <div class="row">
       <livewire:dashboard.dashboard/>
     </div>

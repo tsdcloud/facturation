@@ -5,7 +5,7 @@
     <div class="row">
       <div class="col-lg-12">
         <div class="card-style mb-30">
-            <small class=" text-black" >facture annulée en rouge</small>
+            <small class=" text-black" >facture annulée en rouge</small>f
           <div
             class="d-flex flex-wrap justify-content-between align-items-center py-3">
             <div class="left">
