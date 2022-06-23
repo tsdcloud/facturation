@@ -37,7 +37,8 @@ class Create extends Component
            $customer = '',
            $weighbridge = null,
            $listTypeWeighing = null,
-           $typeWeighing = null;
+           $typeWeighing = null,
+           $type = null;
 
     public array $tractors = [],
                  $trailers = [],
@@ -220,13 +221,11 @@ class Create extends Component
     public function updatedTypeWeighing()
     {
 
+            $this->type = TypeWeighing::where('id',$this->typeWeighing)->first();
 
-            $this->typeWeighing = TypeWeighing::where('id',$this->typeWeighing)->first();
-
-            // dd($this->typeWeighing);
-            $this->subtotal = $this->typeWeighing->price;
-            $this->tax_amount = $this->typeWeighing->tax_amount;
-            $this->total_amount = $this->typeWeighing->total_amount;
+            $this->subtotal = $this->type->price;
+            $this->tax_amount = $this->type->tax_amount;
+            $this->total_amount = $this->type->total_amount;
 
         if ($this->amountPaid != "" )
             $this->remains =  $this->amountPaid - $this->total_amount;
@@ -284,7 +283,7 @@ class Create extends Component
                                                      $this->selectedTractor,
                                                      $this->selectedTrailer,
                                                      $this->selectedCustomer,
-                                                     $this->typeWeighing->id,
+                                                     $this->type->id,
                                                      false
                                                     );
 
