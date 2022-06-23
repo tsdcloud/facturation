@@ -80,7 +80,6 @@
                                    wire:keydown.Arrow-Down="incrementHighlightCustomer"
                                    wire:keydown.enter.prevent="selectCustomer"
                             />
-
                             @if(!empty($customer) && $selectedCustomer == 0 && $showDropdown3)
                                 <div class="absolute z-10 bg-white mt-1 w-full border border-gray-300 rounded-md shadow-lg overflow-auto">
                                     @if (!empty($customer))
@@ -88,7 +87,7 @@
                                             <a role="button"
                                                wire:click="selectCustomer({{ $i }})"
                                                class="block py-1 px-2 text-sm cursor-pointer hover:bg-blue-50 {{ $highlightIndexCustomer === $i ? 'bg-blue-50' : '' }}"
-                                            >{{ $customer['label'] }}</a>
+                                            >{{$customer['label']  }}</a>
                                         @endforeach
                                     @else
                                         <span class="block py-1 px-2 text-sm">Pas de résultat</span>

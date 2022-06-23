@@ -263,6 +263,8 @@ class Create extends Component
         'trailer.required' => 'veuillez saisir le numero de la remorque',
         'modePaymentId.required' => 'veuillez selectionner le mode de paiment',
         'amountPaid.required' => 'veuillez saisir le montant',
+        'typeWeighing.required' => 'veuillez selectionner la pesée',
+
     ];
 
     public function store(){
