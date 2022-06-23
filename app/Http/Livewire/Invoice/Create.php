@@ -362,5 +362,6 @@ class Create extends Component
         $this->showDropdown2 = true;
         $this->showDropdown3 = true;
         $this->typeWeighing = null;
+        $this->total_amount = 0;
     }
 }

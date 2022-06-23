@@ -41,15 +41,15 @@ class InvoiceService extends Fpdi
         if($data->weighbridge->label =="Direction"){
             $pdf->Cell(200 ,5,utf8_decode($data->weighbridge->label),0,0,'R');
         }else{
-            $pdf->Cell(200 ,5,utf8_decode('Pont bascule '.$data->weighbridge->label),0,0,'R');
+            $pdf->Cell(200 ,5,utf8_decode('Pont bascule : '.$data->weighbridge->label),0,0,'R');
         }
         $pdf->SetFont('Arial','',10);
         $pdf->Ln(20);
-        $pdf->Cell(20,10,utf8_decode('Reçu de '),0,0,'L');
+        $pdf->Cell(20,10,utf8_decode('Reçu de : '),0,0,'L');
         $pdf->Cell(60,10,utf8_decode($data->customer->label),0,0,'L');
         $pdf->Ln(10);
         $pdf->Cell(99,10,utf8_decode('Droit de pesage attelage : N° Tracteur '.$data->myTractor->label),0,0,'L');
-        $pdf->Cell(85,10,utf8_decode('N° Remorque '.$data->myTrailer->label),0,0,'L');
+        $pdf->Cell(85,10,utf8_decode('N° Remorque : '.$data->myTrailer->label),0,0,'L');
         $pdf->Ln(10);
         $pdf->Cell(35,10,utf8_decode('Mode de paiment : '),0,0,'L');
         $pdf->Cell(80,10,utf8_decode($data->modePayment->label),0,0,'L');
