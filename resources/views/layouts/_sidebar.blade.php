@@ -12,7 +12,7 @@
               <span class="text">Dashboard</span>
             </a>
           </li>
-
+            <span class="divider"></span>
            @if (Auth::user()->isChefGuerite() || Auth::user()->isAdmin())
               <li class="nav-item {{ Request::is('billing') ? 'active' : '' }}">
                 <a href="{{url('billing')}}">
@@ -33,6 +33,7 @@
                 </a>
               </li>
            @endif
+
             @if (Auth::user()->isChefGuerite())
               <li class="nav-item {{ Request::is('invoices') ? 'active' : '' }} ">
                 <a href="{{route('invoices')}}">
@@ -71,11 +72,16 @@
                       />
                     </svg>
                   </span>
-                  <span class="text">Mes factures</span>
+                    @if(Auth::user()->isSupport() || Auth::user()->isAccount() )
+
+                        <span class="text">Mes factures</span>
+                        @else
+                        <span class="text">factures</span>
+                    @endif
                 </a>
               </li>
           @endif
-
+            <span class="divider"></span>
             @if(Auth::user()->isAdmin() || Auth::user()->isSupport() ||  Auth::user()->isAccount() || Auth::user()->isAdministration())
              <li class="nav-item {{ Request::is('report') ? 'active' : '' }} ">
               <a href="{{route('report')}}">
@@ -115,14 +121,18 @@
                       />
                   </svg>
                 </span>
-                      <span class="text">Facturation</span>
+                      @if(Auth::user()->isAdmin())
+                        <span class="text">Facturation(support)</span>
+                      @else
+                        <span class="text">Facturation</span>
+                      @endif
                   </a>
               </li>
             @endif
-
+            <span class="divider"></span>
 
                 @if (Auth::user()->isAdmin())
-                    <li class="nav-item {{ Request::is('indxe') ? 'active' : '' }} ">
+                    <li class="nav-item {{ Request::is('account') ? 'active' : '' }} ">
                       <a href="{{route('account.index')}}">
                   <span class="icon">
                       <svg

@@ -9,7 +9,7 @@
                     <thead>
                     <tr>
                         <th> <h6>Nom</h6> </th>
-                        <th> <h6>email</h6> </th>
+                        <th> <h6>Identifiant</h6> </th>
                         <th><h6>Rôle</h6></th>
                         <th><h6>Statut</h6></th>
 {{--                        <th><h6>Mode Paiement</h6></th>--}}

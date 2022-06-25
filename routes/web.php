@@ -2,6 +2,7 @@
 
 
 use App\Http\Controllers\StampController;
+use App\Http\Controllers\UserController;
 use App\Models\Weighbridge;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -48,12 +49,14 @@ Route::middleware(['auth'])->group(function(){
     Route::get('bill-pending',[AccountingController::class,'billPending'])->name('bill-pending');
     Route::get('bill/edit/{id}',[AccountingController::class,'edit'])->name('accounting.edit');
     Route::patch('bill/edit/{id}',[AccountingController::class,'update'])->name('accounting.update');
-    Route::get('index',[\App\Http\Controllers\ManagingUserController::class, 'index'])->name('account.index');
+  //  Route::get('index',[\App\Http\Controllers\ManagingUserController::class, 'index'])->name('account.index');
     Route::get('customer-support', [\App\Http\Controllers\CustomerSupportController::class, 'create'])->name('customer-support');
 
     //route add stamp
     Route::resource('stamp',StampController::class);
     //route add signature
     Route::resource('signature',SignatureController::class);
+
+    Route::resource('account',UserController::class);
 });
 

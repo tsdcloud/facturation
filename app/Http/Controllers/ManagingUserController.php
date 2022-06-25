@@ -16,4 +16,5 @@ class ManagingUserController extends Controller
             return view('account.index',compact('users','breadcrumb'));
     }
 
+
 }
