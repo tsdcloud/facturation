@@ -299,44 +299,92 @@ class Create extends Component
                 }
     }
 
-    public function cancel(){
+    public function cancelCustomer(){
 
+        $this->customer = '';
+    }
+    public function cancelTractor(){
 
+        $this->newTractor = "";
+    }
+    public function cancelTrailer(){
+
+        $this->newTrailer = "";
     }
 
     public function storeTractor(){
 
-        if ($this->newTractor == "")
-            return 0;
+            if ($this->newTractor == "")
+                return 0;
+        try {
+           $data = Tractor::create(['label' => strtoupper($this->newTractor)]);
+            $this->newTractor = "";
+            $this->tractors[] = $data;
 
-       $data = Tractor::create(['label' => strtoupper($this->newTractor)]);
+            session()->flash('new-tractor', 'Tracteur enregistré avec succès.');
+            dd('ok');
 
-        $this->newTractor = "";
-        $this->tractors[] = $data;
+        }catch (\Illuminate\Database\QueryException $e){
 
-        session()->flash('new-tractor', 'Tracteur enregistré avec succès.');
+            if ($e->getCode() == 23505)
+                session()->flash('error-tractor', 'vous essayez d\'ajouter un client qui existe déjà, si besoin actualiser le navigateur.');
+
+            if ($e->getCode() != 23505)
+                session()->flash('error-tractor', 'une erreur est survenu, veuillez actualiser le navigateur si besoin rapprochez-vous d\'un IT.');
+        }
+        catch(\Exception $e){
+            session()->flash('error-tractor', 'une erreur est survenu, veuillez actualiser le navigateur si besoin rapprochez-vous d\'un IT.');
+        }
+
     }
 
     public function storeTrailer(){
 
-        if ($this->newTrailer == "")
-            return 0;
+        try {
 
-        $data = Trailer::create(['label'=> strtoupper($this->newTrailer)]);
-        $this->newTrailer = "";
-        $this->trailers[] = $data;
-        session()->flash('new-trailer', 'remorque enregistré avec succès.');
+            if ($this->newTrailer == "")
+                return 0;
+
+            $data = Trailer::create(['label'=> strtoupper($this->newTrailer)]);
+            $this->newTrailer = "";
+            $this->trailers[] = $data;
+            session()->flash('new-trailer', 'remorque enregistré avec succès.');
+        }catch (\Illuminate\Database\QueryException $e){
+
+            if ($e->getCode() == 23505)
+                session()->flash('error-trailer', 'vous essayez d\'ajouter un client qui existe déjà, si besoin actualiser le navigateur.');
+
+            if ($e->getCode() != 23505)
+                session()->flash('error-trailer', 'une erreur est survenu, veuillez actualiser le navigateur si besoin rapprochez-vous d\'un IT.');
+        }
+        catch(\Exception $e){
+            session()->flash('error-trailer', 'une erreur est survenu, veuillez actualiser le navigateur si besoin rapprochez-vous d\'un IT.');
+        }
+
     }
 
     public function storeCustomer(){
 
-        if ($this->newCustomer == "")
-            return 0;
+        try {
+            if ($this->newCustomer == "")
+                return 0;
 
-        $data = Customer::create(['label'=> strtoupper($this->newCustomer)]);
-        $this->newCustomer = "";
-        $this->customers[] = $data;
-        session()->flash('new-customer', 'client enregistré avec succès.');
+            $data = Customer::create(['label'=> strtoupper($this->newCustomer)]);
+            $this->newCustomer = "";
+            $this->customers[] = $data;
+            session()->flash('new-customer', 'client enregistré avec succès.');
+
+        }catch (\Illuminate\Database\QueryException $e){
+
+            if ($e->getCode() == 23505)
+                  session()->flash('error-customer', 'vous essayez d\'ajouter un client qui existe déjà, si besoin actualiser le navigateur.');
+
+            if ($e->getCode() != 23505)
+                session()->flash('error-customer', 'une erreur est survenu, veuillez actualiser le navigateur si besoin rapprochez-vous d\'un IT.');
+        }
+        catch(\Exception $e){
+            session()->flash('error-customer', 'une erreur est survenu, veuillez actualiser le navigateur si besoin rapprochez-vous d\'un IT.');
+        }
     }
 
     protected function emptyField(){

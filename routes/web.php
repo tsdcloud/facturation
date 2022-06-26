@@ -58,5 +58,8 @@ Route::middleware(['auth'])->group(function(){
     Route::resource('signature',SignatureController::class);
 
     Route::resource('account',UserController::class);
+
+    //journal d'erreur
+    Route::get('logs', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index'])->name('log');
 });
 

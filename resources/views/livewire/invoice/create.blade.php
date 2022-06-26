@@ -283,6 +283,12 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                             </div>
                         @endif
+                        @if(session()->has('error-tractor'))
+                            <div id="alert-message" class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <strong>{{session('error-tractor')}} </strong>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        @endif
                         <div class="modal-header">
                             <h5 class="modal-title">Nouveau tracteur</h5>
                         </div>
@@ -294,7 +300,7 @@
                             </div>
                             <div class="text-center">
                                 <button class="main-btn danger-btn-outline rounded-md btn-hover" data-bs-dismiss="modal"
-                                        wire:click="cancel">Fermer
+                                        wire:click="storeTractor">Fermer
                                 </button>
                                 <button class="main-btn active-btn-outline rounded-md btn-hover"
                                         wire:click="storeTractor">Ajouter
@@ -318,6 +324,12 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                             </div>
                         @endif
+                        @if(session()->has('error-trailer'))
+                            <div id="alert-message" class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <strong>{{session('error-trailer')}} </strong>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        @endif
                         <div class="modal-header">
                             <h5 class="modal-title">Nouvelle remorque</h5>
                         </div>
@@ -329,7 +341,7 @@
                             </div>
                             <div class="text-center">
                                 <button class="main-btn danger-btn-outline rounded-md btn-hover" data-bs-dismiss="modal"
-                                        wire:click="cancel">Fermer
+                                        wire:click="cancelTrailer">Fermer
                                 </button>
                                 <button class="main-btn active-btn-outline rounded-md btn-hover"
                                         wire:click="storeTrailer">Ajouter
@@ -353,6 +365,12 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                             </div>
                         @endif
+                        @if(session()->has('error-customer'))
+                            <div id="alert-message" class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <strong>{{session('error-customer')}} </strong>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        @endif
                         <div class="modal-header">
                             <h5 class="modal-title">Nouveau client</h5>
                         </div>
@@ -364,7 +382,7 @@
                             </div>
                             <div class="text-center">
                                 <button class="main-btn danger-btn-outline rounded-md btn-hover" data-bs-dismiss="modal"
-                                        wire:click="cancel">Fermer
+                                        wire:click="cancelCustomer">Fermer
                                 </button>
                                 <button class="main-btn active-btn-outline rounded-md btn-hover"
                                         wire:click="storeCustomer">Ajouter
