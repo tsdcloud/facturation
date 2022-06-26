@@ -38,11 +38,13 @@ class Create extends Component
            $weighbridge = null,
            $listTypeWeighing = null,
            $typeWeighing = null,
-           $type = null;
+           $type = null,
+           $test = null;
 
     public array $tractors = [],
                  $trailers = [],
-                 $customers = [];
+                 $customers = []
+                ;
 
     public int   $selectedTractor = 0,
                  $selectedTrailer = 0,
@@ -51,7 +53,7 @@ class Create extends Component
                  $highlightIndexTrailer = 0,
                  $highlightIndexCustomer = 0;
 
-    public bool  $showDropdown = true,
+    public bool  $showDropdown1 = true,
                  $showDropdown2 = true,
                  $showDropdown3 = true;
 
@@ -59,19 +61,24 @@ class Create extends Component
     {
         return view('livewire.invoice.create',[
             'modePayments' => ModePayment::all()->reject(function($mode){
-                return $mode->label == "Virement Bancaire";})
-        ]);
+                return $mode->label == "Virement Bancaire";}),
+
+            'recups' => Customer::where('label','like', '%' . strtoupper($this->trailer). '%')->first()
+
+            ]);
     }
 
-    public function hideDropdown()
+    //customer
+    public function hideDropdown1()
     {
-        $this->showDropdown = false;
+        $this->showDropdown1 = false;
     }
+    //tractor
    public function hideDropdown2()
     {
         $this->showDropdown2 = false;
     }
-
+   //trailer
    public function hideDropdown3()
     {
         $this->showDropdown3 = false;
@@ -145,9 +152,10 @@ class Create extends Component
         $tractor = $this->tractors[$id] ?? null;
 
         if ($tractor) {
-            $this->showDropdown = true;
+            $this->showDropdown2 = true;
             $this->tractor = $tractor['label'];
             $this->selectedTractor = $tractor['id'];
+            $this->tractors = [];
         }
     }
     public function selectTrailer($id = null)
@@ -157,7 +165,7 @@ class Create extends Component
         $trailer = $this->trailers[$id] ?? null;
 
         if ($trailer) {
-            $this->showDropdown2 = true;
+            $this->showDropdown3 = true;
             $this->trailer = $trailer['label'];
             $this->selectedTrailer = $trailer['id'];
         }
@@ -170,7 +178,7 @@ class Create extends Component
         $customer = $this->customers[$id] ?? null;
 
         if ($customer) {
-            $this->showDropdown3 = true;
+            $this->showDropdown1 = true;
             $this->customer = $customer['label'];
             $this->selectedCustomer = $customer['id'];
         }
@@ -178,10 +186,13 @@ class Create extends Component
 
     public function updatedTractor()
     {
-        $this->tractors = Tractor::where('label', 'like', '%' . strtoupper($this->tractor). '%')
-                ->take(4)
-                ->get()
-                ->toArray();
+
+            $this->tractors = Tractor::where('label', 'like', '%' . strtoupper($this->tractor). '%')
+                    ->take(4)
+                    ->get()
+                    ->toArray();
+
+
 
     }
 
@@ -202,6 +213,15 @@ class Create extends Component
             ->toArray();
 
     }
+//    public function updatedTest()
+//    {
+//        dd('ok');
+//        $this->recup = Customer::where('label', 'like', '%' . strtoupper($this->test). '%')
+//            ->take(7)
+//            ->get()
+//            ->toArray();
+//
+//    }
 
 
     public function mount()

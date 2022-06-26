@@ -1,86 +1,40 @@
 
 <div>
     <div class="form-elements-wrapper">
-        {{-- <div class="row">
-            <div class="col-xl-3 col-lg-4 col-sm-6">
-                <div class="icon-card mb-30">
-                    <div class="icon purple">
-                        <i class="lni lni-cart-full"></i>
-                    </div>
-                    <div class="content">
-                        <h6 class="mb-10">Solde veuille</h6>
-                            <h6 class="text-bold mb-10"> 0 FCFA</h6>
-                    </div>
-                </div>
-                <!-- End Icon Cart -->
-            </div>
-            <div class="col-xl-3 col-lg-4 col-sm-6">
-                <div class="icon-card mb-30">
-                    <div class="icon purple">
-                        <i class="lni lni-cart-full"></i>
-                    </div>
-                    <div class="content">
-                        <h6 class="mb-10">Solde actuel</h6>
-                        <h6 class="text-bold mb-10 text-danger">0 FCFA</h6>
-                    </div>
-                </div>
-                <!-- End Icon Cart -->
-            </div>
-            <div class="col-xl-3 col-lg-4 col-sm-6">
-                <div class="icon-card mb-30">
-                    <div class="icon purple">
-                        <i class="lni lni-cart-full"></i>
-                    </div>
-                    <div class="content">
-                        <h6 class="mb-10">Total Dépôt</h6>
-                        <h6 class="text-bold mb-10"> 0 FCFA</h6>
-                    </div>
-                </div>
-                <!-- End Icon Cart -->
-            </div>
-            <div class="col-xl-3 col-lg-4 col-sm-6">
-                <div class="icon-card mb-30">
-                    <div class="icon purple">
-                        <i class="lni lni-cart-full"></i>
-                    </div>
-                    <div class="content">
-                        <h6 class="mb-10">Total Retrait</h6>
-                        <h6 class="text-bold mb-10"> 0 FCFA</h6>
-                    </div>
-                </div>
-                <!-- End Icon Cart -->
-            </div>
-        </div> --}}
         <div class="row">
-            {{-- @if(session()->has('message'))
-                <div id="alert-message" class="alert alert-success alert-dismissible fade show" role="alert">
-                    <strong>{{session('message')}} </strong>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            @endif
-            @if(session()->has('error'))
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <strong>{{session('error')}} </strong>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            @endif --}}
             <div class="col-lg-12">
                 <!-- input style start -->
                 <div class="card-style mb-30">
                     <h6 class="mb-25" >Facturation</h6>
                     <div class="row">
+                        <div class="col-md-6 mb-4">
+                            <h6>Single Select with Label</h6>
+                            <input type="text" wire:model="tractor" class="form-control">
+                            <div class="absolute z-10 mt-1 w-full text-sm overflow-auto px-2">
+                                <ul class="list-group">
+                                    @if (empty($tractors) && $tractor != '' )
+                                        pas de resultat
+                                        @else
+                                            @if (!empty($tractors) && $tractor != '')
+                                                @foreach($tractors as $i => $tractor)
+                                                    <a href="javascript:void(0)"  wire:click="selectTractor({{ $i }})"
+                                                       class="list-group-item list-group-item-action">{{$tractor['label']}}
+                                                    </a>
+                                                @endforeach
+                                            @endif
+                                    @endif
+                                </ul>
+                            </div>
+                        </div>
+
                         <div class="input-style-1">
                             <label>Reçu de  <a href="javascript:void(0)"  data-bs-toggle="modal" data-bs-target="#Modalfive"> Ajouter un client</a> </label>
                             <input type="text"
                                    placeholder="Rechercher un client..."
                                    wire:model="customer"
-                                   wire:keydown.escape="hideDropdown3"
-                                   wire:keydown.tab="hideDropdown3"
-                                   wire:keydown.Arrow-Up="decrementHighlightCustomer"
-                                   wire:keydown.Arrow-Down="incrementHighlightCustomer"
-                                   wire:keydown.enter.prevent="selectCustomer"
+
                             />
-                            @if(!empty($customer) && $selectedCustomer == 0 && $showDropdown3)
+                            @if(!empty($customer) && $selectedCustomer == 0 && $showDropdown1)
                                 <div class="absolute z-10 bg-white mt-1 w-full border border-gray-300 rounded-md shadow-lg overflow-auto">
                                     @if (!empty($customer))
                                         @foreach($customers as $i => $customer)
@@ -102,14 +56,14 @@
                                 <input type="text"
                                        placeholder="Rechercher le tracteur..."
                                        wire:model="tractor"
-                                       wire:keydown.escape="hideDropdown"
-                                       wire:keydown.tab="hideDropdown"
+                                       wire:keydown.escape="hideDropdown2"
+                                       wire:keydown.tab="hideDropdown2"
                                        wire:keydown.Arrow-Up="decrementHighlight"
                                        wire:keydown.Arrow-Down="incrementHighlight"
                                        wire:keydown.enter.prevent="selectTractor"
                                 />
 
-                                @if(!empty($tractor) && $selectedTractor == 0 && $showDropdown)
+                                @if(!empty($tractor) && $selectedTractor == 0 && $showDropdown2)
                                     <div class="absolute z-10 bg-white mt-1 w-full border border-gray-300 rounded-md shadow-lg overflow-auto">
                                         @if (!empty($tractors))
                                             @foreach($tractors as $i => $tractor)
@@ -133,13 +87,13 @@
                                 <input type="text" wire:model.defer="trailer"
                                        placeholder="Rechercher la remorque..."
                                        wire:model="trailer"
-                                       wire:keydown.escape="hideDropdown2"
-                                       wire:keydown.tab="hideDropdown2"
+                                       wire:keydown.escape="hideDropdown3"
+                                       wire:keydown.tab="hideDropdown3"
                                        wire:keydown.Arrow-Up="decrementHighlight"
                                        wire:keydown.Arrow-Down="incrementHighlightTrailer"
                                        wire:keydown.enter.prevent="selectTrailer"
                                 />
-                                @if(!empty($trailer) && $selectedTrailer == 0 && $showDropdown2)
+                                @if(!empty($trailer) && $selectedTrailer == 0 && $showDropdown3)
                                     <div class="absolute z-10 bg-white mt-1 w-full border border-gray-300 rounded-md shadow-lg overflow-auto">
                                         @if (!empty($trailers))
                                             @foreach($trailers as $i => $trailer)
