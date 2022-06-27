@@ -44,6 +44,8 @@ class Create extends Component
            $hiddenTractor = "",
            $hiddenTrailer = "";
 
+    public bool  $isRefunded = false ;
+
     public array $tractors = [],
                  $trailers = [],
                  $customers = []
@@ -284,6 +286,16 @@ class Create extends Component
 
     }
 
+    public function updatedisRefunded(){
+
+        if (!$this->isRefunded){
+
+        }
+        if ($this->isRefunded){
+            $this->remains  = 0;
+        }
+
+    }
 
     protected $rules = [
         'customer' => 'required',

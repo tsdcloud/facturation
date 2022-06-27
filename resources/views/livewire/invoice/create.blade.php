@@ -85,7 +85,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="absolute z-10 mt-1 w-full text-sm overflow-auto px-2"  wire:loading.remove >
+                                <div class="absolute z-10 mt-1 w-full text-sm overflow-auto px-2"  >
                                     <ul class="list-group">
                                         @if (empty($trailers) && $trailer != '' )
                                             pas de resultat
@@ -100,20 +100,6 @@
                                         @endif
                                     </ul>
                                 </div>
-{{--                                @if(!empty($trailer) && $selectedTrailer == 0 && $showDropdown3)--}}
-{{--                                    <div class="absolute z-10 bg-white mt-1 w-full border border-gray-300 rounded-md shadow-lg overflow-auto">--}}
-{{--                                        @if (!empty($trailers))--}}
-{{--                                            @foreach($trailers as $i => $trailer)--}}
-{{--                                                <a role="button"--}}
-{{--                                                   wire:click="selectTrailer({{ $i }})"--}}
-{{--                                                   class="block py-1 px-2 text-sm cursor-pointer hover:bg-blue-50 {{ $highlightIndexTrailer === $i ? 'bg-blue-50' : '' }}"--}}
-{{--                                                >{{ $trailer['label'] }}</a>--}}
-{{--                                            @endforeach--}}
-{{--                                        @else--}}
-{{--                                            <span class="block py-1 px-2 text-sm">Pas de résultat</span>--}}
-{{--                                        @endif--}}
-{{--                                    </div>--}}
-{{--                                @endif--}}
                                 @error('trailer') <span class="text-danger">{{ $message }}</span> @enderror
                             </div>
                         </div>
@@ -184,11 +170,18 @@
                         <label>Reste à rembourser</label>
                         <input type="number" disabled wire:model="remains"/>
                     </div>
+                    <div class="form-check form-switch toggle-switch mb-30">
+                        <input
+                            class="form-check-input"
+                            type="checkbox"
+                            id="toggleSwitch1" />
+
+                        <label class="form-check-label" wire:model="isRefunded" for="toggleSwitch1">Remboursé</label>
+                    </div>
                     <div class="text-center">
                         @if (Auth::user()->isChefGuerite())
                             <button wire:click="store"
-                            class="main-btn active-btn-outline rounded-md btn-hover">Imprimer
-                            </button>
+                            class="main-btn active-btn-outline rounded-md btn-hover">Imprimer</button>
                         @endif
                     </div>
                 </div>
