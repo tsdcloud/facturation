@@ -39,7 +39,10 @@ class Create extends Component
            $listTypeWeighing = null,
            $typeWeighing = null,
            $type = null,
-           $test = null;
+           $test = null,
+           $hiddenCustomer = "",
+           $hiddenTractor = "",
+           $hiddenTrailer = "";
 
     public array $tractors = [],
                  $trailers = [],
@@ -155,7 +158,9 @@ class Create extends Component
             $this->showDropdown2 = true;
             $this->tractor = $tractor['label'];
             $this->selectedTractor = $tractor['id'];
-            $this->tractors = [];
+
+            // on masque la liste group
+            $this->hiddenTractor = "hidden";
         }
     }
     public function selectTrailer($id = null)
@@ -168,6 +173,9 @@ class Create extends Component
             $this->showDropdown3 = true;
             $this->trailer = $trailer['label'];
             $this->selectedTrailer = $trailer['id'];
+
+            // on masque la liste group
+            $this->hiddenTrailer = "hidden";
         }
     }
 
@@ -181,12 +189,16 @@ class Create extends Component
             $this->showDropdown1 = true;
             $this->customer = $customer['label'];
             $this->selectedCustomer = $customer['id'];
+
+            // on masque la liste group
+            $this->hiddenCustomer = "hidden";
         }
     }
 
     public function updatedTractor()
     {
-
+        //en cas de modification on l'affiche
+        $this->hiddenTractor = "";
             $this->tractors = Tractor::where('label', 'like', '%' . strtoupper($this->tractor). '%')
                     ->take(4)
                     ->get()
@@ -198,6 +210,9 @@ class Create extends Component
 
     public function updatedTrailer()
     {
+        //en cas de modification on l'affiche
+        $this->hiddenTrailer = "";
+
         $this->trailers = Trailer::where('label', 'like', '%' . strtoupper($this->trailer). '%')
             ->take(4)
             ->get()
@@ -207,6 +222,9 @@ class Create extends Component
 
     public function updatedCustomer()
     {
+        //en cas de modification on l'affiche
+        $this->hiddenCustomer = "";
+
         $this->customers = Customer::where('label', 'like', '%' . strtoupper($this->customer). '%')
             ->take(7)
             ->get()

@@ -7,47 +7,35 @@
                 <div class="card-style mb-30">
                     <h6 class="mb-25" >Facturation</h6>
                     <div class="row">
-                        <div class="col-md-6 mb-4">
-                            <h6>Single Select with Label</h6>
-                            <input type="text" wire:model="tractor" class="form-control">
-                            <div class="absolute z-10 mt-1 w-full text-sm overflow-auto px-2">
+                        <div class="input-style-1">
+                            <label>Reçu de  <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#Modalfive"> Ajouter un client</a> </label>
+                            <input type="text"
+                                   placeholder="Rechercher un client..."
+                                   wire:model="customer"/>
+
+                            <div wire:loading.flex wire:target="customer">
+                                <div class="d-flex justify-content-center">
+                                    <div class="spinner-border" role="status">
+                                        <span class="visually-hidden">chargement...</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="absolute z-10 mt-1 w-full text-sm overflow-auto px-2"  wire:loading.remove >
                                 <ul class="list-group">
-                                    @if (empty($tractors) && $tractor != '' )
+                                    @if (empty($customers) && $customer != '' )
                                         pas de resultat
-                                        @else
-                                            @if (!empty($tractors) && $tractor != '')
-                                                @foreach($tractors as $i => $tractor)
-                                                    <a href="javascript:void(0)"  wire:click="selectTractor({{ $i }})"
-                                                       class="list-group-item list-group-item-action">{{$tractor['label']}}
-                                                    </a>
-                                                @endforeach
-                                            @endif
+                                    @else
+                                        @if (!empty($customers) && $customer != '')
+                                            @foreach($customers as $i => $customer)
+                                                <a  href="javascript:void(0)"  wire:click="selectCustomer({{ $i }})"
+                                                   class="list-group-item list-group-item-action" {{$hiddenCustomer}}>{{$customer['label']}}
+                                                </a>
+                                            @endforeach
+                                        @endif
                                     @endif
                                 </ul>
                             </div>
-                        </div>
-
-                        <div class="input-style-1">
-                            <label>Reçu de  <a href="javascript:void(0)"  data-bs-toggle="modal" data-bs-target="#Modalfive"> Ajouter un client</a> </label>
-                            <input type="text"
-                                   placeholder="Rechercher un client..."
-                                   wire:model="customer"
-
-                            />
-                            @if(!empty($customer) && $selectedCustomer == 0 && $showDropdown1)
-                                <div class="absolute z-10 bg-white mt-1 w-full border border-gray-300 rounded-md shadow-lg overflow-auto">
-                                    @if (!empty($customer))
-                                        @foreach($customers as $i => $customer)
-                                            <a role="button"
-                                               wire:click="selectCustomer({{ $i }})"
-                                               class="block py-1 px-2 text-sm cursor-pointer hover:bg-blue-50 {{ $highlightIndexCustomer === $i ? 'bg-blue-50' : '' }}"
-                                            >{{$customer['label']  }}</a>
-                                        @endforeach
-                                    @else
-                                        <span class="block py-1 px-2 text-sm">Pas de résultat</span>
-                                    @endif
-                                </div>
-                            @endif
                             @error('customer') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
                         <div class="col-md-6" >
@@ -55,28 +43,30 @@
                                 <label>N° Tracteur <a href="javascript:void(0)"  data-bs-toggle="modal" data-bs-target="#ModalTree"> Ajouter un tracteur</a> </label>
                                 <input type="text"
                                        placeholder="Rechercher le tracteur..."
-                                       wire:model="tractor"
-                                       wire:keydown.escape="hideDropdown2"
-                                       wire:keydown.tab="hideDropdown2"
-                                       wire:keydown.Arrow-Up="decrementHighlight"
-                                       wire:keydown.Arrow-Down="incrementHighlight"
-                                       wire:keydown.enter.prevent="selectTractor"
-                                />
+                                       wire:model="tractor" />
 
-                                @if(!empty($tractor) && $selectedTractor == 0 && $showDropdown2)
-                                    <div class="absolute z-10 bg-white mt-1 w-full border border-gray-300 rounded-md shadow-lg overflow-auto">
-                                        @if (!empty($tractors))
-                                            @foreach($tractors as $i => $tractor)
-                                                <a role="button"
-                                                    wire:click="selectTractor({{ $i }})"
-                                                    class="block py-1 px-2 text-sm cursor-pointer hover:bg-blue-50 {{ $highlightIndex === $i ? 'bg-blue-50' : '' }}"
-                                                >{{ $tractor['label'] }}</a>
-                                            @endforeach
-                                        @else
-                                            <span class="block py-1 px-2 text-sm">Pas de résultat</span>
-                                        @endif
+                                <div wire:loading.flex wire:target="tractor">
+                                    <div class="d-flex justify-content-center">
+                                        <div class="spinner-border" role="status">
+                                            <span class="visually-hidden">chargement...</span>
+                                        </div>
                                     </div>
-                                @endif
+                                </div>
+                                <div class="absolute z-10 mt-1 w-full text-sm overflow-auto px-2"  wire:loading.remove >
+                                    <ul class="list-group">
+                                        @if (empty($tractors) && $tractor != '' )
+                                            pas de resultat
+                                        @else
+                                            @if (!empty($tractors) && $tractor != '')
+                                                @foreach($tractors as $i => $tractor)
+                                                    <a  href="javascript:void(0)"  wire:click="selectTractor({{ $i }})"
+                                                        class="list-group-item list-group-item-action" {{$hiddenTractor}}>{{$tractor['label']}}
+                                                    </a>
+                                                @endforeach
+                                            @endif
+                                        @endif
+                                    </ul>
+                                </div>
                                 @error('tractor') <span class="text-danger">{{ $message }}</span> @enderror
                             </div>
                         </div>
@@ -86,27 +76,44 @@
                             <label>N° Remorque <a href="javascript:void(0)"  data-bs-toggle="modal" data-bs-target="#Modalfour"> Ajouter une remorque</a> </label>
                                 <input type="text" wire:model.defer="trailer"
                                        placeholder="Rechercher la remorque..."
-                                       wire:model="trailer"
-                                       wire:keydown.escape="hideDropdown3"
-                                       wire:keydown.tab="hideDropdown3"
-                                       wire:keydown.Arrow-Up="decrementHighlight"
-                                       wire:keydown.Arrow-Down="incrementHighlightTrailer"
-                                       wire:keydown.enter.prevent="selectTrailer"
-                                />
-                                @if(!empty($trailer) && $selectedTrailer == 0 && $showDropdown3)
-                                    <div class="absolute z-10 bg-white mt-1 w-full border border-gray-300 rounded-md shadow-lg overflow-auto">
-                                        @if (!empty($trailers))
-                                            @foreach($trailers as $i => $trailer)
-                                                <a role="button"
-                                                   wire:click="selectTrailer({{ $i }})"
-                                                   class="block py-1 px-2 text-sm cursor-pointer hover:bg-blue-50 {{ $highlightIndexTrailer === $i ? 'bg-blue-50' : '' }}"
-                                                >{{ $trailer['label'] }}</a>
-                                            @endforeach
-                                        @else
-                                            <span class="block py-1 px-2 text-sm">Pas de résultat</span>
-                                        @endif
+                                       wire:model="trailer" />
+
+                                <div wire:loading.flex wire:target="trailer">
+                                    <div class="d-flex justify-content-center">
+                                        <div class="spinner-border" role="status">
+                                            <span class="visually-hidden">chargement...</span>
+                                        </div>
                                     </div>
-                                @endif
+                                </div>
+                                <div class="absolute z-10 mt-1 w-full text-sm overflow-auto px-2"  wire:loading.remove >
+                                    <ul class="list-group">
+                                        @if (empty($trailers) && $trailer != '' )
+                                            pas de resultat
+                                        @else
+                                            @if (!empty($trailer) && $trailer != '')
+                                                @foreach($trailers as $i => $trailer)
+                                                    <a  href="javascript:void(0)"  wire:click="selectTrailer({{ $i }})"
+                                                        class="list-group-item list-group-item-action" {{$hiddenTrailer}}>{{$trailer['label']}}
+                                                    </a>
+                                                @endforeach
+                                            @endif
+                                        @endif
+                                    </ul>
+                                </div>
+{{--                                @if(!empty($trailer) && $selectedTrailer == 0 && $showDropdown3)--}}
+{{--                                    <div class="absolute z-10 bg-white mt-1 w-full border border-gray-300 rounded-md shadow-lg overflow-auto">--}}
+{{--                                        @if (!empty($trailers))--}}
+{{--                                            @foreach($trailers as $i => $trailer)--}}
+{{--                                                <a role="button"--}}
+{{--                                                   wire:click="selectTrailer({{ $i }})"--}}
+{{--                                                   class="block py-1 px-2 text-sm cursor-pointer hover:bg-blue-50 {{ $highlightIndexTrailer === $i ? 'bg-blue-50' : '' }}"--}}
+{{--                                                >{{ $trailer['label'] }}</a>--}}
+{{--                                            @endforeach--}}
+{{--                                        @else--}}
+{{--                                            <span class="block py-1 px-2 text-sm">Pas de résultat</span>--}}
+{{--                                        @endif--}}
+{{--                                    </div>--}}
+{{--                                @endif--}}
                                 @error('trailer') <span class="text-danger">{{ $message }}</span> @enderror
                             </div>
                         </div>
@@ -212,7 +219,7 @@
                 <div class="modal-dialog  modal-xl">
                     <div class="modal-content card-style">
                         <div class="modal-header px-0 border-0 d-flex justify-content-end ">
-                            <button class="border-0 bg-transparent h2" wire:click="cancel"  data-bs-dismiss="modal">
+                            <button class="border-0 bg-transparent h2" data-bs-dismiss="modal">
                                 <i class="lni lni-cross-circle"></i>
                             </button>
                         </div>
