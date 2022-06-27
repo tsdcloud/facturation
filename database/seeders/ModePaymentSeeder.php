@@ -27,11 +27,5 @@ class ModePaymentSeeder extends Seeder
             'created_at' => now(),
             'updated_at' => now()
         ]);
-        modePay::create([
-            'id' => 3,
-            'label' => 'Virement Bancaire',
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
     }
 }

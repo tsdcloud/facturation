@@ -149,7 +149,7 @@
                         </div>
                     </div>
                     <!-- end input -->
-
+                        
                     <div class="row">
                         <div class="col-md-6">
                             <div class="input-style-1">
@@ -170,14 +170,22 @@
                         <label>Reste à rembourser</label>
                         <input type="number" disabled wire:model="remains"/>
                     </div>
-                    <div class="form-check form-switch toggle-switch mb-30">
+                    <div class="form-check checkbox-style mb-20">
+                        <input class="form-check-input" type="checkbox"
+                        wire:model="isRefunded" id="checkbox-1"
+                        />
+                        <label class="form-check-label" for="checkbox-1">
+                          Rembourser</label
+                        >
+                      </div>
+                    {{-- <div class="form-check form-switch toggle-switch mb-30">
                         <input
                             class="form-check-input"
                             type="checkbox"
                             id="toggleSwitch1" />
 
                         <label class="form-check-label" wire:model="isRefunded" for="toggleSwitch1">Remboursé</label>
-                    </div>
+                    </div> --}}
                     <div class="text-center">
                         @if (Auth::user()->isChefGuerite())
                             <button wire:click="store"

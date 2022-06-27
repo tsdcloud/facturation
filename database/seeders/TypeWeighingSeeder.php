@@ -34,7 +34,7 @@ class TypeWeighingSeeder extends Seeder
             'label' => 'Pesée test RCA/TCHAD',
             'price' => 3750,
             'tax_amount' => 721,
-            'total_amount' => 3721,
+            'total_amount' => 4502,
         ]);
         TypeWeighing::create([
             'id' => 4,

@@ -278,22 +278,17 @@ class Create extends Component
             $this->remains =  $this->amountPaid - $this->total_amount;
     }
 
+        public function updatedisRefunded(){
+            if ($this->isRefunded)
+            $this->remains = 0;
 
+            if (!$this->isRefunded)
+                $this->remains =  $this->amountPaid - $this->total_amount;
+        }
     public function updated(){
 
         if ($this->amountPaid == "")
              $this->remains = 0;
-
-    }
-
-    public function updatedisRefunded(){
-
-        if (!$this->isRefunded){
-
-        }
-        if ($this->isRefunded){
-            $this->remains  = 0;
-        }
 
     }
 
@@ -334,6 +329,7 @@ class Create extends Component
                                                      $this->selectedTrailer,
                                                      $this->selectedCustomer,
                                                      $this->type->id,
+                                                     $this->isRefunded,
                                                      false
                                                     );
 
@@ -462,5 +458,6 @@ class Create extends Component
         $this->showDropdown3 = true;
         $this->typeWeighing = null;
         $this->total_amount = 0;
+        $this->isRefunded = false;
     }
 }

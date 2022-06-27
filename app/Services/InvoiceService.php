@@ -68,7 +68,11 @@ class InvoiceService extends Fpdi
         $pdf->text(144,109,utf8_decode('Montant TTC : '.$data->typeWeighing->total_amount.' FCFA'));
         $pdf->text(144,114,utf8_decode('Montant versé : '.$data->amount_paid.' FCFA'));
         $pdf->text(06,90,utf8_decode('Signature et cachet'));
-        $pdf->text(144,119,utf8_decode('Montant à rembourser : '.$data->remains.' FCFA'));
+        if ($data->isRefunded){
+            $pdf->text(144,119,utf8_decode('Montant à rembourser : 0.00 FCFA'));
+        }else{
+            $pdf->text(144,119,utf8_decode('Montant à rembourser : '.$data->remains.' FCFA'));
+        }
         $pdf->Ln(50);
         $pdf->Line(2,125,205,125);
         $pdf->SetFont('Arial','',9);
@@ -92,6 +96,7 @@ class InvoiceService extends Fpdi
                                         int $trailer_id,
                                         int $customer_id,
                                         int $price_id,
+                                        bool $isRefunded,
                                         bool $direction= false): int
     {
 
@@ -111,6 +116,7 @@ class InvoiceService extends Fpdi
                     'remains'=> $remains,
                     'status_invoice' => 'validated',
                     'user_id'=> $user_id,
+                    'isRefunded'=> $isRefunded,
                     'tractor_id'=> $tractor_id,
                     'trailer_id' => $trailer_id,
                     'customer_id' => $customer_id,
@@ -124,7 +130,6 @@ class InvoiceService extends Fpdi
 
            Storage::disk('public')->put($output_file, $picture);
            tap($data)->update(['path_qrcode'=> $output_file]);
-
         return $data->id;
     }
 }
