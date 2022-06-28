@@ -1,6 +1,7 @@
 <?php
 
 
+use App\Http\Controllers\PaybackController;
 use App\Http\Controllers\StampController;
 use App\Http\Controllers\UserController;
 use App\Models\Weighbridge;
@@ -58,6 +59,9 @@ Route::middleware(['auth'])->group(function(){
     Route::resource('signature',SignatureController::class);
 
     Route::resource('account',UserController::class);
+    Route::get('payback/index',[PaybackController::class,'index'] )->name('payback.index');
+    Route::get('payback/edit',[PaybackController::class,'edit'] )->name('payback.edit');
+    Route::put('payback/update',[PaybackController::class,'update'] )->name('payback.update');
 
     //journal d'erreur
     Route::get('logs', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index'])->name('log');

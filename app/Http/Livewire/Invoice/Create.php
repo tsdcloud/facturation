@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\Invoice;
 
-use App\Models\Invoice;
+use App\Models\invoice;
 use App\Models\Tractor;
 use App\Models\Trailer;
 use App\Models\TypeWeighing;
@@ -251,11 +251,11 @@ class Create extends Component
     public function updatedTypeWeighing()
     {
 
-            $this->type = TypeWeighing::where('id',$this->typeWeighing)->first();
+        $this->type = TypeWeighing::where('id',$this->typeWeighing)->first();
 
-            $this->subtotal = $this->type->price;
-            $this->tax_amount = $this->type->tax_amount;
-            $this->total_amount = $this->type->total_amount;
+        $this->subtotal = $this->type->price;
+        $this->tax_amount = $this->type->tax_amount;
+        $this->total_amount = $this->type->total_amount;
 
         if ($this->amountPaid != "" )
             $this->remains =  $this->amountPaid - $this->total_amount;
@@ -268,7 +268,8 @@ class Create extends Component
             $this->remains =  $this->amountPaid - $this->total_amount;
     }
 
-        public function updatedisRefunded(){
+    public function updatedisRefunded(){
+
             if ($this->isRefunded)
             $this->remains = 0;
 
@@ -303,7 +304,7 @@ class Create extends Component
 
     public function store(){
         $this->validate();
-     //   dd($this->typeWeighing->id);
+
         try{
 
             DB::beginTransaction();

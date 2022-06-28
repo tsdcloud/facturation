@@ -74,8 +74,7 @@
                         <div class="col-md-6" >
                             <div class="input-style-1">
                             <label>N° Remorque <a href="javascript:void(0)"  data-bs-toggle="modal" data-bs-target="#Modalfour"> Ajouter une remorque</a> </label>
-                                <input type="text" wire:model.defer="trailer"
-                                       placeholder="Rechercher la remorque..."
+                                <input type="text" placeholder="Rechercher la remorque..."
                                        wire:model="trailer" />
 
                                 <div wire:loading.flex wire:target="trailer">
@@ -149,7 +148,7 @@
                         </div>
                     </div>
                     <!-- end input -->
-                        
+
                     <div class="row">
                         <div class="col-md-6">
                             <div class="input-style-1">
@@ -194,19 +193,18 @@
                     </div>
                 </div>
                 <!-- end card -->
-
                 @if(session()->has('message'))
-                <div id="alert-message" class="alert alert-success alert-dismissible fade show" role="alert">
-                    <strong>{{session('message')}} </strong>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            @endif
-            @if(session()->has('error'))
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <strong>{{session('error')}} </strong>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            @endif
+                    <div id="alert-message" class="alert alert-success alert-dismissible fade show" role="alert">
+                        <strong>{{session('message')}} </strong>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
+                @if(session()->has('error'))
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <strong>{{session('error')}} </strong>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
             </div>
             <!-- end col  -->
 

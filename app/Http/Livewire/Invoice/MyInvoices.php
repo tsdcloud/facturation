@@ -2,7 +2,8 @@
 
 namespace App\Http\Livewire\Invoice;
 
-use App\Models\invoice;
+
+use App\Models\Invoice;
 use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 
@@ -16,11 +17,11 @@ class MyInvoices extends Component
     public function render()
     {
         return view('livewire.invoice.my-invoices',[
-            'invoices' => invoice::where(function($query){
+            'invoices' => Invoice::where(function($query){
                 $query->where('invoice_no','LIKE',"%{$this->search_invoice_no_tractor_trailer}%");
                 $query->where('user_id', auth()->user()->id);
             })->orderBy('created_at','DESC')->paginate(10),
-            'numberInvoice' => invoice::where('user_id',auth()->user()->id)
+            'numberInvoice' => Invoice::where('user_id',auth()->user()->id)
                                         ->whereDate('created_at',now())
                                         ->count()
         ]);
@@ -32,7 +33,7 @@ class MyInvoices extends Component
     }
     public function getInvoice($id){
 
-        $this->data = invoice::where('id',$id)->first();
+        $this->data = Invoice::where('id',$id)->first();
 
     }
 

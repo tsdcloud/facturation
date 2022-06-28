@@ -2,18 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\invoice;
+
+use App\Models\Invoice;
 use App\Services\InvoiceService;
-use Illuminate\Http\Request;
-use Barryvdh\DomPDF\Facade\Pdf;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 
 class InvoiceController extends Controller
 {
     public function pdf($id){
 
-        $data = invoice::where('id',$id)->first();
+        $data = Invoice::where('id',$id)->first();
 
        InvoiceService::invoiceBuilder($data,'preview');
     }
@@ -27,11 +25,11 @@ class InvoiceController extends Controller
     public function myInvoice(){
 
         $breadcrumb = "liste factures";
-        $invoices = invoice::where('user_id', Auth::user()->id)->paginate(10);
+        $invoices = Invoice::where('user_id', Auth::user()->id)->paginate(10);
 
         if(Auth::user()->isAdmin() || Auth::user()->isAdministration() ){
-            $invoices = invoice::paginate(10);
-            return view('list-invoice',compact('invoices','breadcrumb'));   
+            $invoices = Invoice::paginate(10);
+            return view('list-invoice',compact('invoices','breadcrumb'));
         }
 
         return view('list-invoice',compact('invoices','breadcrumb'));
@@ -39,7 +37,7 @@ class InvoiceController extends Controller
 
     public function allInvoice(){
         $breadcrumb = "liste factures";
-        $invoices = invoice::orderBy('created_at','DESC')->paginate(10);
+        $invoices = Invoice::orderBy('created_at','DESC')->paginate(10);
         return view('list-invoice2',compact('invoices','breadcrumb'));
     }
 }

@@ -2,7 +2,8 @@
 
 namespace App\Http\Livewire\Report;
 
-use App\Models\invoice;
+
+use App\Models\Invoice;
 use App\Models\User;
 use Carbon\Carbon;
 use Livewire\Component;
@@ -27,14 +28,14 @@ class Report extends Component
 
       if ($this->startDate =='' || $this->endDate == '' ){
 
-          $this->invoices = invoice::where('user_id',$this->user_id)
+          $this->invoices = Invoice::where('user_id',$this->user_id)
                                      ->get();
 
       }else{
           $start = Carbon::createFromFormat('Y-m-d',$this->startDate)->startOfDay();
           $end = Carbon::createFromFormat('Y-m-d', $this->endDate)->endOfDay();
 
-          $this->invoices = invoice::where('user_id',$this->user_id)
+          $this->invoices = Invoice::where('user_id',$this->user_id)
                                     ->whereBetween('created_at',[$start, $end])
                                     ->get();
       }

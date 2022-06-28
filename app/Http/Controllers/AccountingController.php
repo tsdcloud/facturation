@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\invoice;
+
+use App\Models\Invoice;
 use Illuminate\Http\Request;
 
 class AccountingController extends Controller
@@ -11,7 +12,7 @@ class AccountingController extends Controller
     public function billPending(){
 
         $breadcrumb = "Facture en attente";
-        $invoices = invoice::all()->reject(function($invoice){
+        $invoices = Invoice::all()->reject(function($invoice){
             return $invoice->approved == "validated";
         });
 
@@ -21,7 +22,7 @@ class AccountingController extends Controller
     public function edit($id){
 
         $breadcrumb = "editer facture";
-        $bill = invoice::where('id',$id)->first();
+        $bill = Invoice::where('id',$id)->first();
         return view('accounting.edit',compact('breadcrumb','bill'));
     }
 
@@ -29,7 +30,7 @@ class AccountingController extends Controller
 
        // dd($request->approved);
 
-        $invoice = invoice::where('id',$id)->first();
+        $invoice = Invoice::where('id',$id)->first();
 
         $invoice->update(['approved' => $request->approved]);
 

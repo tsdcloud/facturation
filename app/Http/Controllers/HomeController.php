@@ -2,16 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\invoice;
-use App\Models\Weighbridge;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+
+use App\Models\Invoice;
+
 
 class HomeController extends Controller
 {
      public function index(){
         $breadcrumb = "Dashboard";
-        $total_amount_month = invoice::sum('total_amount');
+        $total_amount_month = Invoice::sum('total_amount');
 
         return view('home',compact('breadcrumb','total_amount_month'));
      }
