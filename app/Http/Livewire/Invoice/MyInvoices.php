@@ -20,6 +20,9 @@ class MyInvoices extends Component
                 $query->where('invoice_no','LIKE',"%{$this->search_invoice_no_tractor_trailer}%");
                 $query->where('user_id', auth()->user()->id);
             })->orderBy('created_at','DESC')->paginate(10),
+            'numberInvoice' => invoice::where('user_id',auth()->user()->id)
+                                        ->whereDate('created_at',now())
+                                        ->count()
         ]);
     }
 

@@ -1,6 +1,44 @@
 <div>
         <div class="tables-wrapper">
             <div class="row">
+                <div class="col-xl-3 col-lg-4 col-sm-6">
+                    <div class="icon-card mb-30">
+                        <div class="content text-center">
+                            <h6 class="mb-10">Facture emise aujourd'hui</h6>
+                                <span class="text-bold mb-10">{{$numberInvoice}} </span>
+                        </div>
+                    </div>
+                    <!-- End Icon Cart -->
+                </div>
+                <div class="col-xl-3 col-lg-4 col-sm-6">
+                    <div class="icon-card mb-30">
+                        <div class="content text-center">
+                            <h6 class="mb-10">Espèce</h6>
+                            <span class="text-bold mb-10"> FCFA</span>
+                        </div>
+                    </div>
+                    <!-- End Icon Cart -->
+                </div>
+                <div class="col-xl-3 col-lg-4 col-sm-6">
+                    <div class="icon-card mb-30">
+                        <div class="content text-center">
+                            <h6 class="mb-10">Paiement mobile</h6>
+                            <span class="text-bold mb-10"> 0 </span>
+                        </div>
+                    </div>
+                    <!-- End Icon Cart -->
+                </div>
+                <div class="col-xl-3 col-lg-4 col-sm-6">
+                    <div class="icon-card mb-30">
+                        <div class="content text-center">
+                            <h6 class="mb-10">Montant total</h6>
+                            <span  class="text-bold mb-10"> 0 </span>
+                        </div>
+                    </div>
+                    <!-- End Icon Cart -->
+                </div>
+            </div>
+            <div class="row">
                 <div class="col-lg-12">
                     @if(session()->has('message'))
                         <div id="alert-message" class="alert alert-success alert-dismissible fade show" role="alert">
