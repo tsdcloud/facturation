@@ -175,7 +175,7 @@
                         wire:model="isRefunded" id="checkbox-1"
                         />
                         <label class="form-check-label" for="checkbox-1">
-                          Rembourser</label
+                          J'ai remboursé</label
                         >
                       </div>
                     {{-- <div class="form-check form-switch toggle-switch mb-30">

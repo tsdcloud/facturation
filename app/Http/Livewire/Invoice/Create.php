@@ -233,16 +233,6 @@ class Create extends Component
             ->toArray();
 
     }
-//    public function updatedTest()
-//    {
-//        dd('ok');
-//        $this->recup = Customer::where('label', 'like', '%' . strtoupper($this->test). '%')
-//            ->take(7)
-//            ->get()
-//            ->toArray();
-//
-//    }
-
 
     public function mount()
     {
