@@ -34,7 +34,7 @@ class InvoiceService extends Fpdi
         $pdf->Image(public_path('storage/'.$data->user->signature->path),05,92,38);
         $pdf->Cell(200 ,5,utf8_decode('FACTURE ACQUITTEE N° '.$data->invoice_no),0,0,'R');
         $pdf->Ln(10);
-        $pdf->Cell(200 ,5,utf8_decode('Date : '.$data->created_at->format('d/m/y h:m:s')),0,0,'R');
+        $pdf->Cell(200 ,5,utf8_decode('Date : '.$data->created_at->format('d/m/y H:m:s')),0,0,'R');
         $pdf->Cell(-173 ,10,utf8_decode('www.dpws.cm'),0,0,'R');
         $pdf->Ln(10);
         if($data->weighbridge->label =="Direction"){

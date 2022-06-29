@@ -20,10 +20,23 @@ class MyInvoices extends Component
             'invoices' => Invoice::where(function($query){
                 $query->where('invoice_no','LIKE',"%{$this->search_invoice_no_tractor_trailer}%");
                 $query->where('user_id', auth()->user()->id);
+//                $query->where('who_paid_back_id', auth()->user()->id);
             })->orderBy('created_at','DESC')->paginate(10),
             'numberInvoice' => Invoice::where('user_id',auth()->user()->id)
                                         ->whereDate('created_at',now())
-                                        ->count()   
+                                        ->count(),
+            'cashMoney' => Invoice::where('user_id', auth()->user()->id)
+                                    ->where('mode_payment_id',2)
+                                    ->sum('total_amount'),
+            'mobileMoney' => Invoice::where('user_id', auth()->user()->id)
+                                     ->where('mode_payment_id',1)
+                                     ->sum('total_amount'),
+            'cancelledInvoice' => Invoice::where('user_id',auth()->user()->id)
+                                        ->where('status_invoice','cancelling')
+                                         ->count(),
+            'totalAmount' => Invoice::where('user_id',auth()->user()->id)
+                                    ->sum('total_amount'),
+            ''
         ]);
     }
 

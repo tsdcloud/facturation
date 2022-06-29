@@ -1,41 +1,43 @@
 <div>
         <div class="tables-wrapper">
+
             <div class="row">
-                <div class="col-xl-3 col-lg-4 col-sm-6">
-                    <div class="icon-card mb-30">
-                        <div class="content text-center">
-                            <h6 class="mb-10">Facture emise aujourd'hui</h6>
-                                <span class="text-bold mb-10">{{$numberInvoice}} </span>
-                        </div>
+                <div class="col-lg-2">
+                    <div class="select-style-1 text-center">
+                        <label>Factures emises</label>
+                        <span class="text-bold mb-10">{{$numberInvoice}} </span>
                     </div>
-                    <!-- End Icon Cart -->
                 </div>
-                <div class="col-xl-3 col-lg-4 col-sm-6">
-                    <div class="icon-card mb-30">
-                        <div class="content text-center">
-                            <h6 class="mb-10">Espèce</h6>
-                            <span class="text-bold mb-10"> FCFA</span>
-                        </div>
+                <div class="col-lg-2">
+                    <div class="select-style-1 text-center">
+                        <label>Espèce</label>
+                            <span class="text-bold mb-10">{{\App\Helpers\Numbers\MoneyHelper::price($cashMoney)}} </span>
                     </div>
-                    <!-- End Icon Cart -->
                 </div>
-                <div class="col-xl-3 col-lg-4 col-sm-6">
-                    <div class="icon-card mb-30">
-                        <div class="content text-center">
-                            <h6 class="mb-10">Paiement mobile</h6>
-                            <span class="text-bold mb-10"> 0 </span>
-                        </div>
+                <div class="col-lg-2">
+                    <div class="select-style-1 text-center">
+                        <label>Paiement mobile</label>
+                        <span class="text-bold mb-10">{{\App\Helpers\Numbers\MoneyHelper::price($mobileMoney)}} </span>
                     </div>
-                    <!-- End Icon Cart -->
                 </div>
-                <div class="col-xl-3 col-lg-4 col-sm-6">
-                    <div class="icon-card mb-30">
-                        <div class="content text-center">
-                            <h6 class="mb-10">Montant total</h6>
-                            <span  class="text-bold mb-10"> 0 </span>
-                        </div>
+                <div class="col-lg-3">
+                    <div class="input-style-1 text-center">
+                        <label>Remboursement</label>
+                        <span class="text-bold mb-10">{{\App\Helpers\Numbers\MoneyHelper::price($mobileMoney)}} </span>
                     </div>
-                    <!-- End Icon Cart -->
+                </div>
+                <div class="col-lg-3">
+                    <div class="input-style-1 text-center">
+                        <label>Factures annulées</label>
+                    <span class="text-bold mb-10">{{$cancelledInvoice}} </span>
+                    </div>
+                </div>
+                <div class="col-lg-2  justify-content-start text-center">
+                    <label>Montant total</label>
+                    <span class="text-bold mb-10">{{\App\Helpers\Numbers\MoneyHelper::price($totalAmount)}} </span>
+                </div>
+                <div class="col-lg-2 mb-2 justify-content-end">
+                    <button class="main-btn active-btn-outline rounded-md btn-hover" type="submit">Filtrer</button>
                 </div>
             </div>
             <div class="row">
@@ -108,14 +110,12 @@
                                                         class="more-btn ml-10 dropdown-toggle"
                                                         id="moreAction1"
                                                         data-bs-toggle="dropdown"
-                                                        aria-expanded="false"
-                                                    >
+                                                        aria-expanded="false">
                                                         <i class="lni lni-more-alt"></i>
                                                     </button>
                                                     <ul
                                                         class="dropdown-menu dropdown-menu-end"
-                                                        aria-labelledby="moreAction1"
-                                                    >
+                                                        aria-labelledby="moreAction1">
                                                         <li class="dropdown-item">
                                                             <a style="color:grey" class="link-primary" target="_blank"
                                                                href="{{route('show-pdf',$invoice->id)}}">Imprimer la facture</a>

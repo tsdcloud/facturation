@@ -26,6 +26,9 @@ class Invoice extends Model
         'type_weighing_id',
         'path_qrcode',
         'isRefunded',
+        'who_paid_back',
+        'who_paid_back_id',
+
     ];
 
     public function weighbridge(){
