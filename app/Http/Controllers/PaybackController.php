@@ -24,12 +24,12 @@ class PaybackController extends Controller
     }
 
     public function update(Request $request, Invoice $invoice){
-      //  dd($invoice);
+
     if($request->isRefunded == "on"){
         tap($invoice)->update(['isRefunded' => true]);
 
         return to_route('payback.index')->with('succès','facture remboursée : opération reussite');
     }
-    return  to_route('payback.index')->with('succès',"");
+    return  to_route('payback.index');
     }
 }
