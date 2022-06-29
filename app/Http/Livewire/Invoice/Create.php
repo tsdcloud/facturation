@@ -359,7 +359,6 @@ class Create extends Component
             $this->tractors[] = $data;
 
             session()->flash('new-tractor', 'Tracteur enregistré avec succès.');
-            dd('ok');
 
         }catch (\Illuminate\Database\QueryException $e){
 

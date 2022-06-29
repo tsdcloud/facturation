@@ -60,8 +60,8 @@ Route::middleware(['auth'])->group(function(){
 
     Route::resource('account',UserController::class);
     Route::get('payback/index',[PaybackController::class,'index'] )->name('payback.index');
-    Route::get('payback/edit',[PaybackController::class,'edit'] )->name('payback.edit');
-    Route::put('payback/update',[PaybackController::class,'update'] )->name('payback.update');
+    Route::get('payback/edit/{id}',[PaybackController::class,'edit'] )->name('payback.edit');
+    Route::patch('payback/update/{invoice}',[PaybackController::class,'update'] )->name('payback.update');
 
     //journal d'erreur
     Route::get('logs', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index'])->name('log');

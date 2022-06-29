@@ -23,9 +23,13 @@ class PaybackController extends Controller
         return view('payback.edit',compact('breadcrumb','invoice'));
     }
 
-    public function update(Request $request, Invoice $id){
+    public function update(Request $request, Invoice $invoice){
+      //  dd($invoice);
+    if($request->isRefunded == "on"){
+        tap($invoice)->update(['isRefunded' => true]);
 
-
-
+        return to_route('payback.index')->with('succès','facture remboursée : opération reussite');
+    }
+    return  to_route('payback.index')->with('succès',"");
     }
 }

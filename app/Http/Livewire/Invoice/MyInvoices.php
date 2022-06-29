@@ -23,7 +23,7 @@ class MyInvoices extends Component
             })->orderBy('created_at','DESC')->paginate(10),
             'numberInvoice' => Invoice::where('user_id',auth()->user()->id)
                                         ->whereDate('created_at',now())
-                                        ->count()
+                                        ->count()   
         ]);
     }
 

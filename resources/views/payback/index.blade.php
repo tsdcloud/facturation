@@ -4,9 +4,9 @@
     <div class="tables-wrapper">
         <div class="row">
             <div class="col-lg-12">
-                @if(session()->has('message'))
+                @if(session()->has('succès'))
                     <div id="alert-message" class="alert alert-success alert-dismissible fade show" role="alert">
-                        <strong>{{session('message')}} </strong>
+                        <strong>{{session('succès')}} </strong>
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                 @endif
@@ -76,13 +76,9 @@
                                                 </button>
                                                 <ul
                                                     class="dropdown-menu dropdown-menu-end"
-                                                    aria-labelledby="moreAction1"
-                                                >
+                                                    aria-labelledby="moreAction1">
                                                     <li class="dropdown-item">
-                                                        <a href="javascript:void(0)"
-                                                           wire:click=""
-                                                           data-bs-toggle="modal" data-bs-target="#ModalTree"
-                                                           class="text-gray">Rembourser</a>
+                                                        <a href="{{route('payback.edit',$refund->id)}}" class="text-gray">Rembourser</a>
                                                     </li>
                                                 </ul>
                                             </div>
