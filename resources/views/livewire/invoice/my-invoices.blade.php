@@ -32,12 +32,27 @@
                     <span class="text-bold mb-10">{{$cancelledInvoice}} </span>
                     </div>
                 </div>
-                <div class="col-lg-2  justify-content-start text-center">
-                    <label>Montant total</label>
-                    <span class="text-bold mb-10">{{\App\Helpers\Numbers\MoneyHelper::price($totalAmount)}} </span>
+                <div class="col-lg-3">
+                    <div class="input-style-1 text-center">
+                        <label>Factures annulées</label>
+                    <span class="text-bold mb-10">{{$cancelledInvoice}} </span>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <div class="select-style-1">
+                        <label>Shift</label>
+                        <div class="select-position">
+                            <select>
+                                <option value="" selected disabled>...</option>
+                                <option value="">06h30-14h30</option>
+                                <option value="">14h30-22h30</option>
+                                <option value="">22h30-06h30</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-lg-2 mb-2 justify-content-end">
-                    <button class="main-btn active-btn-outline rounded-md btn-hover" type="submit">Filtrer</button>
+                    <button class="main-btn active-btn-outline rounded-md btn-hover" style="margin-top: 1.8rem!important;" type="submit">Filtrer</button>
                 </div>
             </div>
             <div class="row">
