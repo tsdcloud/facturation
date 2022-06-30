@@ -27,14 +27,18 @@ class MyInvoices extends Component
                                         ->count(),
             'cashMoney' => Invoice::where('user_id', auth()->user()->id)
                                     ->where('mode_payment_id',2)
+                                    ->whereDate('created_at',now())
                                     ->sum('total_amount'),
             'mobileMoney' => Invoice::where('user_id', auth()->user()->id)
                                      ->where('mode_payment_id',1)
+                                     ->whereDate('created_at',now())
                                      ->sum('total_amount'),
             'cancelledInvoice' => Invoice::where('user_id',auth()->user()->id)
                                         ->where('status_invoice','cancelling')
+                                        ->whereDate('created_at',now())
                                          ->count(),
             'totalAmount' => Invoice::where('user_id',auth()->user()->id)
+                                    ->whereDate('created_at',now())
                                     ->sum('total_amount'),
             ''
         ]);
