@@ -32,10 +32,10 @@
                     <span class="text-bold mb-10">{{$cancelledInvoice}} </span>
                     </div>
                 </div>
-                <div class="col-lg-3">
-                    <div class="input-style-1 text-center">
-                        <label>Factures annulées</label>
-                    <span class="text-bold mb-10">{{$cancelledInvoice}} </span>
+                <div class="col-lg-2">
+                    <div class="input-style-1">
+                        <label>Montant total</label>
+                    <span class="text-bold mb-10">{{\App\Helpers\Numbers\MoneyHelper::price($totalAmount)}} </span>
                     </div>
                 </div>
                 <div class="col-lg-2">
