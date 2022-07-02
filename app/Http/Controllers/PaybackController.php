@@ -10,7 +10,7 @@ class PaybackController extends Controller
 {
     public function index(){
 
-        $breadcrumb = "Remboursements";
+        $breadcrumb = "Remboursements";  
         $refunds = Invoice::where('isRefunded',false)->paginate(10);
         return view('payback.index',compact('breadcrumb','refunds'));
     }
