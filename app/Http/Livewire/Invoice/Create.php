@@ -286,7 +286,7 @@ class Create extends Component
     protected $rules = [
         'customer' => 'required',
         'tractor' => 'required',
-        'trailer' => 'required',
+        // 'trailer' => 'required',
         'modePaymentId' => 'required',
         'amountPaid' => 'required',
         'typeWeighing' => 'required',
@@ -295,7 +295,7 @@ class Create extends Component
     protected $messages = [
         'customer.required' => 'veuillez saisir le nom du client',
         'tractor.required' => 'veuillez saisir le numero du tracteur',
-        'trailer.required' => 'veuillez saisir le numero de la remorque',
+        // 'trailer.required' => 'veuillez saisir le numero de la remorque',
         'modePaymentId.required' => 'veuillez selectionner le mode de paiment',
         'amountPaid.required' => 'veuillez saisir le montant',
         'typeWeighing.required' => 'veuillez selectionner la pesée',
