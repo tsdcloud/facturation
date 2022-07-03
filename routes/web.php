@@ -26,6 +26,8 @@ Route::get('/', function () {
     return view('auth.login');
 });
 Route::get('display/{id?}',[InvoiceController::class,'pdf'])->name('show-pdf');
+Route::get('export',[InvoiceController::class,'exportCG'])->name('export-cg');
+
 Route::get('print/receipt',[InvoiceController::class, 'pdf']);
 
 Route::middleware(['auth'])->group(function(){

@@ -40,4 +40,23 @@ class InvoiceController extends Controller
         $invoices = Invoice::orderBy('created_at','DESC')->paginate(10);
         return view('list-invoice2',compact('invoices','breadcrumb'));
     }
+
+    public function exportCG(){
+
+        $data = Invoice::whereDate('created_at',now())->get();
+
+        $cashMoney = Invoice::where('user_id', auth()->user()->id)
+                            ->where('mode_payment_id',2)
+                            ->whereDate('created_at',now())
+                            ->sum('total_amount');
+        $mobileMoney = Invoice::where('user_id', auth()->user()->id)
+                            ->where('mode_payment_id',1)
+                            ->whereDate('created_at',now())
+                            ->sum('total_amount');
+        $totalAmount = Invoice::where('user_id',auth()->user()->id)
+                            ->whereDate('created_at',now())
+                            ->sum('total_amount');
+
+        InvoiceService::export($data,$cashMoney,$mobileMoney,$totalAmount,'preview');
+    }
 }

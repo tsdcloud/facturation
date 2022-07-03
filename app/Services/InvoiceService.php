@@ -3,6 +3,7 @@
 namespace App\Services;
 
 
+use App\Helpers\Numbers\MoneyHelper;
 use App\Models\Invoice;
 use App\Models\Weighbridge;
 use setasign\Fpdi\Fpdi;
@@ -163,5 +164,50 @@ class InvoiceService extends Fpdi
             Storage::disk('public')->put($output_file, $picture);
             tap($data)->update(['path_qrcode'=> $output_file]);
         return $data->id;
+    }
+
+    public static function export($datas,$cashMoney,$mobileMoney,$totalAmount,$type){
+
+        $pdf = new InvoiceService('P','mm','A4');
+        $pdf->SetMargins(05,02,1); // starting margin
+        $pdf->AddPage();
+        $pdf->SetFont('Arial','',11);
+
+        $pdf->Cell(80 ,6,utf8_decode('N° Facture'),1,0,'C');
+        $pdf->Cell(23 ,6,utf8_decode('Tracteur'),1,0,'C');
+        $pdf->Cell(40 ,6,utf8_decode('Mode de paiement'),1,0,'C');
+        $pdf->Cell(40 ,6,'Montant TTC',1,1,'C'); /*end of line*/
+
+        /*Heading Of the table end*/
+        $pdf->SetFont('Arial','',10);
+        foreach ($datas as $data) {
+            $pdf->Cell(80 ,6, utf8_decode($data->invoice_no),1,0);
+            $pdf->Cell(23 ,6,utf8_decode($data->myTractor->label),1,0,'R');
+            $pdf->Cell(40 ,6, utf8_decode($data->modePayment->label),1,0,'R');
+            $pdf->Cell(40 ,6, iconv('UTF-8','windows-1252',MoneyHelper::price($data->total_amount)),1,1,'R');
+        };
+
+        $pdf->Cell(118	,6,'',0,0);
+        $pdf->Cell(25	,6,utf8_decode('Total Espèce'),0,0,'R');
+        $pdf->Cell(40	,6,iconv('UTF-8','windows-1252',MoneyHelper::price($cashMoney)),1,1,'R');//end of line
+
+        $pdf->Cell(118	,6,'',0,0);
+        $pdf->Cell(25	,6,utf8_decode('Paiement mobile'),0,0,'R');
+        $pdf->Cell(40	,6,iconv('UTF-8','windows-1252',MoneyHelper::price($mobileMoney)),1,1,'R');//end of line
+
+        $pdf->Cell(118	,6,'',0,0);
+        $pdf->Cell(25	,6,utf8_decode('Sous total'),0,0,'R');
+        $pdf->Cell(40	,6,iconv('UTF-8','windows-1252',MoneyHelper::price($totalAmount)),1,1,'R');//end of line
+
+        $pdf->Cell(118	,6,'',0,0);
+        $pdf->Cell(25	,6,utf8_decode('Remboursement'),0,0,'R');
+        $pdf->Cell(40	,6,iconv('UTF-8','windows-1252',MoneyHelper::price($totalAmount)),1,1,'R');//end of line
+
+        $pdf->Cell(118	,6,'',0,0);
+        $pdf->Cell(25	,6,utf8_decode('Montant total'),0,0,'R');
+        $pdf->Cell(40	,6,iconv('UTF-8','windows-1252',MoneyHelper::price($totalAmount)),1,1,'R');//end of line
+
+        if ($type == "preview")
+            return $pdf->Output('','Facture du '.$type.'.pdf','I');
     }
 }
