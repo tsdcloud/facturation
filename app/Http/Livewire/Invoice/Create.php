@@ -42,7 +42,8 @@ class Create extends Component
            $test = null,
            $hiddenCustomer = "",
            $hiddenTractor = "",
-           $hiddenTrailer = "";
+           $hiddenTrailer = "",
+           $selectedTrailer = null;
 
     public bool  $isRefunded = false ;
 
@@ -52,7 +53,6 @@ class Create extends Component
                 ;
 
     public int   $selectedTractor = 0,
-                 $selectedTrailer = 0,
                  $selectedCustomer = 0,
                  $highlightIndex = 0,
                  $highlightIndexTrailer = 0,
@@ -317,10 +317,10 @@ class Create extends Component
                                                      $this->remains,
                                                      auth()->id(),
                                                      $this->selectedTractor,
-                                                     $this->selectedTrailer,
                                                      $this->selectedCustomer,
                                                      $this->type->id,
                                                      $this->isRefunded,
+                                                     $this->selectedTrailer,
                                                      false
                                                     );
 
@@ -441,7 +441,7 @@ class Create extends Component
         $this->trailer = '';
         $this->customer = '';
         $this->selectedTractor = 0;
-        $this->selectedTrailer = 0;
+        $this->selectedTrailer = null;
         $this->selectedCustomer = 0;
         $this->showDropdown = true;
         $this->showDropdown2 = true;

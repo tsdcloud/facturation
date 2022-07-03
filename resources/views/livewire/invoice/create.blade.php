@@ -202,8 +202,8 @@
                     <div class="text-center">
                         @if (Auth::user()->isChefGuerite())
                             <button wire:click="store" wire:loading.attr="disabled" class="main-btn   active-btn-outline rounded-md btn-hover">
-                                <div class="spinner-border" wire:loading role="status"></div>
-                                <div wire:loading.remove> Imprimer </div>
+                                <div class="spinner-border" wire:loading role="status" wire:target="store"></div>
+                                <div wire:loading.remove  wire:target="store"> Imprimer </div>
                             </button>
                         @endif
                     </div>

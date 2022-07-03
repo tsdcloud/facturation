@@ -48,7 +48,7 @@ class InvoiceService extends Fpdi
         $pdf->Cell(60,10,utf8_decode($data->customer->label),0,0,'L');
         $pdf->Ln(10);
         $pdf->Cell(99,10,utf8_decode('Droit de pesage attelage : N° Tracteur '.$data->myTractor->label),0,0,'L');
-        $pdf->Cell(85,10,utf8_decode('N° Remorque : '.$data->myTrailer->label),0,0,'L');
+        $pdf->Cell(85,10,utf8_decode('N° Remorque : '.optional($data->myTrailer)->label),0,0,'L');
         $pdf->Ln(10);
         $pdf->Cell(35,10,utf8_decode('Mode de paiment : '),0,0,'L');
         $pdf->Cell(80,10,utf8_decode($data->modePayment->label),0,0,'L');
@@ -92,10 +92,10 @@ class InvoiceService extends Fpdi
                                         float $remains,
                                         int $user_id,
                                         int $tractor_id,
-                                        int $trailer_id,
                                         int $customer_id,
                                         int $price_id,
                                         bool $isRefunded,
+                                        $trailer_id = null,
                                         bool $direction= false): int
     {
 
@@ -117,7 +117,7 @@ class InvoiceService extends Fpdi
                     'user_id'=> $user_id,
                     'isRefunded'=> $isRefunded,
                     'tractor_id'=> $tractor_id,
-                    'trailer_id' => $trailer_id,
+                    'trailer_id' => $trailer_id ,
                     'customer_id' => $customer_id,
                     'type_weighing_id' => $price_id,
                     'path_qrcode' => '',
