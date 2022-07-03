@@ -20,12 +20,12 @@
                         <span class="text-bold mb-10">{{\App\Helpers\Numbers\MoneyHelper::price($mobileMoney)}} </span>
                     </div>
                 </div>
-                <div class="col-lg-3">
-                    <div class="input-style-1 text-center">
-                        <label>Remboursement</label>
-                        <span class="text-bold mb-10">{{\App\Helpers\Numbers\MoneyHelper::price($mobileMoney)}} </span>
-                    </div>
-                </div>
+{{--                <div class="col-lg-3">--}}
+{{--                    <div class="input-style-1 text-center">--}}
+{{--                        <label>Remboursement</label>--}}
+{{--                        <span class="text-bold mb-10">{{\App\Helpers\Numbers\MoneyHelper::price($mobileMoney)}} </span>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
                 <div class="col-lg-3">
                     <div class="input-style-1 text-center">
                         <label>Factures annulées</label>
@@ -38,7 +38,7 @@
                     <span class="text-bold mb-10">{{\App\Helpers\Numbers\MoneyHelper::price($totalAmount)}} </span>
                     </div>
                 </div>
-                {{-- <div class="col-lg-2">
+                 <div class="col-lg-2">
                     <div class="select-style-1">
                         <label>Shift</label>
                         <div class="select-position">
@@ -53,7 +53,7 @@
                 </div>
                 <div class="col-lg-2 mb-2 justify-content-end">
                     <button class="main-btn active-btn-outline rounded-md btn-hover" style="margin-top: 1.8rem!important;" type="submit">Filtrer</button>
-                </div> --}}
+                </div>
             </div>
             <div class="row">
                 <div class="col-lg-12">
@@ -92,7 +92,7 @@
                                 <tr>
                                     <th class="lead-info"><h6>N° facture</h6></th>
                                     <th class="lead-email"><h6>N° tracteur</h6></th>
-                                    <th class="lead-phone"><h6>N° remorque</h6></th>
+{{--                                    <th class="lead-phone"><h6>N° remorque</h6></th>--}}
                                     <th class="lead-company"><h6>Mode paiement</h6></th>
                                     <th class="lead-company"><h6>Pont bascule</h6></th>
                                     <th><h6>Actions</h6></th>
@@ -109,9 +109,9 @@
                                             <td>
                                                 <p>{{$invoice->myTractor->label}}</p>
                                             </td>
-                                            <td>
-                                                <p>{{$invoice->myTrailer->label}}</p>
-                                            </td>
+{{--                                            <td>--}}
+{{--                                                <p>{{$invoice->myTrailer->label}}</p>--}}
+{{--                                            </td>--}}
                                             <td>
                                                 <p>{{$invoice->modePayment->label}}</p>
                                             </td>
@@ -147,9 +147,9 @@
                                             <td>
                                                 <p>{{$invoice->myTractor->label}}</p>
                                             </td>
-                                            <td>
-                                                <p>{{optional($invoice->myTrailer)->label}}</p>
-                                            </td>
+{{--                                            <td>--}}
+{{--                                                <p>{{optional($invoice->myTrailer)->label}}</p>--}}
+{{--                                            </td>--}}
                                             <td>
                                                 <p>{{$invoice->modePayment->label}}</p>
                                             </td>
@@ -240,7 +240,7 @@
                                             <p><strong>N° Tracteur</strong> {{$data->myTractor->label}}</p>
                                         </div>
                                         <div class="col-md-4">
-                                            <p><strong>N° Remorque </strong> {{$data->myTrailer->label}}</p>
+                                            <p><strong>N° Remorque </strong> {{optional($data->myTrailer)->label}}</p>
                                         </div>
                                         <div class="col-md-4">
                                             <p><strong>Crée par</strong> {{$data->user->name}}</p>

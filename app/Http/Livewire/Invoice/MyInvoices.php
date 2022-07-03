@@ -40,7 +40,8 @@ class MyInvoices extends Component
             'totalAmount' => Invoice::where('user_id',auth()->user()->id)
                                     ->whereDate('created_at',now())
                                     ->sum('total_amount'),
-            ''
+//            'payback' => Invoice::where('who_paid_back',auth()->user()->name)
+//                                  ->whereDate('date_payback',now())
         ]);
     }
 
