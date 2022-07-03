@@ -55,7 +55,7 @@
                                             <p>{{$refund->myTractor->label}}</p>
                                         </td>
                                         <td>
-                                            <p>{{$refund->myTrailer->label}}</p>
+                                            <p>{{optional($refund->myTrailer)->label}}</p>
                                         </td>
                                         <td>
                                             <p>{{$refund->weighbridge->label}}</p>

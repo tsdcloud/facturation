@@ -25,7 +25,7 @@
                                 <div class="col-md-6">
                                     <div class="input-style-1">
                                         <label>N° Remorque </label>
-                                        <input type="text" value="{{ $invoice->myTrailer->label }}" disabled />
+                                        <input type="text" value="{{ optional($invoice->myTrailer)->label }}" disabled />
                                     </div>
                                 </div>
                             </div>

@@ -16,9 +16,11 @@ class Login extends Component
     public function render()
     {
         return view('livewire.auth.login',[
-            'weighbridges' => Weighbridge::all()->reject(function($bridge){
-                return $bridge->label == "Direction";
-            }),
+//            'weighbridges' => Weighbridge::all()->reject(function($bridge){
+//                return $bridge->label == "Direction" && $bridge->label == "P18" && $bridge->label == "P19";
+//            }),
+            'weighbridges' => Weighbridge::whereIn('id', ['1', '2','3','4','5','6','7','8','9','10','11'])->get()
+
         ]);
     }
 
@@ -30,7 +32,7 @@ class Login extends Component
                 'email.required' => 'veuillez saisir votre email',
             ],
         );
-       
+
         if (User::where('email',$this->email)->exists()){
 
             $this->user = User::where('email', $this->email)->first();
@@ -44,7 +46,7 @@ class Login extends Component
         }
     }
 
-    // validation du mot de passe 
+    // validation du mot de passe
     public function twoStepPassword(){
 
         $this->validate(
