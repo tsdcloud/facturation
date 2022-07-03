@@ -68,7 +68,7 @@ class InvoiceService extends Fpdi
         $pdf->Image(public_path('storage/'.$data->user->signature->path),05,92,38);
         $pdf->Cell(200 ,5,utf8_decode('FACTURE ACQUITTEE N° '.$data->invoice_no),0,0,'R');
         $pdf->Ln(10);
-        $pdf->Cell(200 ,5,utf8_decode('Date : '.$data->created_at->format('d/m/y H:m:s')),0,0,'R');
+        $pdf->Cell(200 ,5,utf8_decode('Date : '.$data->created_at->format('d/m/y H:i:s')),0,0,'R');
         $pdf->Cell(-173 ,10,utf8_decode('www.dpws.cm'),0,0,'R');
         $pdf->Ln(10);
         if($data->weighbridge->label =="Direction"){
@@ -172,11 +172,14 @@ class InvoiceService extends Fpdi
         $pdf->SetMargins(05,02,1); // starting margin
         $pdf->AddPage();
         $pdf->SetFont('Arial','',11);
-
-        $pdf->Cell(80 ,6,utf8_decode('N° Facture'),1,0,'C');
-        $pdf->Cell(23 ,6,utf8_decode('Tracteur'),1,0,'C');
-        $pdf->Cell(40 ,6,utf8_decode('Mode de paiement'),1,0,'C');
-        $pdf->Cell(40 ,6,'Montant TTC',1,1,'C'); /*end of line*/
+        $pdf->text(05,23,utf8_decode('Date'),0,0,'L');
+        $pdf->text(45,23,utf8_decode('shift'),0,0,'L');
+        $pdf->text(85,23,utf8_decode('Nom du chef de guerite'),0,0,'L');
+        $pdf->Ln(20);
+        $pdf->Cell(80 ,20,utf8_decode('N° Facture'),1,0,'C');
+        $pdf->Cell(23 ,20,utf8_decode('Tracteur'),1,0,'C');
+        $pdf->Cell(40 ,20,utf8_decode('Mode de paiement'),1,0,'C');
+        $pdf->Cell(40 ,20,'Montant TTC',1,1,'C'); /*end of line*/
 
         /*Heading Of the table end*/
         $pdf->SetFont('Arial','',10);

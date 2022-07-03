@@ -54,12 +54,12 @@
 {{--                <div class="col-lg-2 mb-2 justify-content-end">--}}
 {{--                    <button class="main-btn active-btn-outline rounded-md btn-hover" style="margin-top: 1.8rem!important;" type="submit">Filtrer</button>--}}
 {{--                </div>--}}
-                <div class="col-lg-2 mb-2 justify-content-end">
-                    <a class="main-btn active-btn-outline rounded-md btn-hover" target="_blank" href="{{route('export-cg')}}"
-                       style="margin-top: 1.8rem!important;" type="submit">
-                      Exporter
-                    </a>
-                </div>
+{{--                <div class="col-lg-2 mb-2 justify-content-end">--}}
+{{--                    <a class="main-btn active-btn-outline rounded-md btn-hover" target="_blank" href="{{route('export-cg')}}"--}}
+{{--                       style="margin-top: 1.8rem!important;" type="submit">--}}
+{{--                      Exporter--}}
+{{--                    </a>--}}
+{{--                </div>--}}
             </div>
             <div class="row">
                 <div class="col-lg-12">

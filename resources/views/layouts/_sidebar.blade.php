@@ -102,7 +102,8 @@
               </li>
           @endif
             <span class="divider"></span>
-            @if(Auth::user()->isAdmin() || Auth::user()->isSupport() ||  Auth::user()->isAccount() || Auth::user()->isAdministration())
+            @if(Auth::user()->isAdmin() || Auth::user()->isSupport() ||  Auth::user()->isAccount() ||
+                Auth::user()->isAdministration() || Auth::user()->isChefGuerite())
              <li class="nav-item {{ Request::is('report') ? 'active' : '' }} ">
               <a href="{{route('report')}}">
               <span class="icon">
