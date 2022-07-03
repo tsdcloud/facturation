@@ -56,7 +56,8 @@ class Create extends Component
                  $selectedCustomer = 0,
                  $highlightIndex = 0,
                  $highlightIndexTrailer = 0,
-                 $highlightIndexCustomer = 0;
+                 $highlightIndexCustomer = 0,
+                    $bridge_id = 0;
 
     public bool  $showDropdown1 = true,
                  $showDropdown2 = true,
@@ -68,7 +69,8 @@ class Create extends Component
             'modePayments' => ModePayment::all()->reject(function($mode){
                 return $mode->label == "Virement Bancaire";}),
 
-            'recups' => Customer::where('label','like', '%' . strtoupper($this->trailer). '%')->first()
+            'recups' => Customer::where('label','like', '%' . strtoupper($this->trailer). '%')->first(),
+            'bridges' => Weighbridge::whereIn('label', ['P18', 'P19'])->get()
 
             ]);
     }
@@ -241,7 +243,7 @@ class Create extends Component
 
         $bridge = Weighbridge::where('id',Auth::user()->currentBridge)->first();
         $this->weighbridge = $bridge->label;
-
+        $this->bridge_id = $bridge->id;
         $this->listTypeWeighing = TypeWeighing::all()->reject(function ($type){
             return $type->label =='Direction';
         });
@@ -312,7 +314,7 @@ class Create extends Component
                                                      $this->tax_amount,
                                                      $this->total_amount,
                                                      $this->modePaymentId,
-                                                     Auth::user()->currentBridge,
+                                                     $this->bridge_id,
                                                      $this->amountPaid,
                                                      $this->remains,
                                                      auth()->id(),

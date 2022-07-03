@@ -128,12 +128,36 @@
                             </div>
                         </div>
                         <!-- end input -->
-                        <div class="col-md-6">
-                            <div class="input-style-1">
-                                <label>Pont bascule </label>
-                                <input type="text" wire:model="weighbridge" disabled />
+                        @if(Auth::user()->currentBridge == 7)
+
+                            <div class="col-md-6">
+                                <div class="select-style-1">
+                                    <label>Selectionner le pont </label>
+                                    <div class="select-position">
+                                        <select wire:model="bridge_id">
+                                            <option value="" selected>Selectionner le pont</option>
+                                            @foreach ($bridges as $bridge)
+                                                <option value="{{ $bridge->id }}">{{ $bridge->label }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        @error('bridge_id')
+                                        <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
                             </div>
-                        </div>
+                            @else
+                            <div class="col-md-6">
+                                <div class="input-style-1">
+                                    <label>Pont bascule </label>
+                                    <input type="text" wire:model="weighbridge" disabled />
+                                </div>
+                            </div>
+
+                        @endif
+
+
                     </div>
                     <div class="row">
                         <div class="col-md-6">
