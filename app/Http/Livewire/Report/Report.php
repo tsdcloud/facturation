@@ -65,17 +65,17 @@ class Report extends Component
 
         $this->cashMoney = Invoice::where('user_id', auth()->user()->id)
                                     ->where('mode_payment_id',2)
-                                     ->whereBetween('created_at',[$start, $end])
+                                    ->whereBetween('created_at',[$start, $end])
                                     ->sum('total_amount');
 
             $this->mobileMoney = Invoice::where('user_id', auth()->user()->id)
                                     ->where('mode_payment_id',1)
-                ->whereBetween('created_at',[$start, $end])
+                                    ->whereBetween('created_at',[$start, $end])
                                     ->sum('total_amount');
 
             $this->cancelledInvoice = Invoice::where('user_id',auth()->user()->id)
                                     ->where('status_invoice','cancelling')
-                ->whereBetween('created_at',[$start, $end])
+                                    ->whereBetween('created_at',[$start, $end])
                                     ->count();
 
     }
@@ -84,7 +84,7 @@ class Report extends Component
 
         $recup = InvoiceService::export($this->invoices,$this->cashMoney,$this->mobileMoney,$this->total_amount,'preview');
 
-        dd($recup);
+    //    dd($recup);
 //        return response()->download(storage_path($recup));
     }
 }
