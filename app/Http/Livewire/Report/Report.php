@@ -82,7 +82,7 @@ class Report extends Component
 
     public function exportCG(){
 
-        $recup = InvoiceService::export($this->invoices,$this->cashMoney,$this->mobileMoney,$this->total_amount,'preview');
+        // $recup = InvoiceService::export($this->invoices,$this->cashMoney,$this->mobileMoney,$this->total_amount,'preview');
 
     //    dd($recup);
 //        return response()->download(storage_path($recup));
