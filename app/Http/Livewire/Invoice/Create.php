@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\Invoice;
 
-use App\Models\invoice;
+
 use App\Models\Tractor;
 use App\Models\Trailer;
 use App\Models\TypeWeighing;
@@ -253,6 +253,11 @@ class Create extends Component
     public function updatedTypeWeighing()
     {
 
+        if($this->typeWeighing == ""){
+            $this->reset(['tax_amount','subtotal','subtotal']);
+            return 0;
+        }
+        
         $this->type = TypeWeighing::where('id',$this->typeWeighing)->first();
 
         $this->subtotal = $this->type->price;
@@ -282,7 +287,9 @@ class Create extends Component
 
         if ($this->amountPaid == "")
              $this->remains = 0;
-
+             
+        if ($this->bridge_id == "")
+           return 0;
     }
 
     protected $rules = [

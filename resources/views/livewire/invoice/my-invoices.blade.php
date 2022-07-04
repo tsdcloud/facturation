@@ -98,8 +98,8 @@
                                 <tr>
                                     <th class="lead-info"><h6>N° facture</h6></th>
                                     <th class="lead-email"><h6>N° tracteur</h6></th>
-{{--                                    <th class="lead-phone"><h6>N° remorque</h6></th>--}}
                                     <th class="lead-company"><h6>Mode paiement</h6></th>
+                                    <th class="lead-phone"><h6>Type de pesée</h6></th>
                                     <th class="lead-company"><h6>Pont bascule</h6></th>
                                     <th><h6>Actions</h6></th>
                                 </tr>
@@ -115,11 +115,11 @@
                                             <td>
                                                 <p>{{$invoice->myTractor->label}}</p>
                                             </td>
-{{--                                            <td>--}}
-{{--                                                <p>{{$invoice->myTrailer->label}}</p>--}}
-{{--                                            </td>--}}
                                             <td>
                                                 <p>{{$invoice->modePayment->label}}</p>
+                                            </td>
+                                            <td>
+                                                <p>{{$invoice->typeWeighing->label}}</p>
                                             </td>
                                             <td>
                                                 <p>{{$invoice->weighbridge->label}}</p>
