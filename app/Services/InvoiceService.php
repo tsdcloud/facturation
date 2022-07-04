@@ -204,13 +204,13 @@ class InvoiceService extends Fpdi
 
         $pdf->Cell(118	,6,'',0,0);
         $pdf->Cell(25	,6,utf8_decode('Remboursement'),0,0,'R');
-        $pdf->Cell(40	,6,iconv('UTF-8','windows-1252',MoneyHelper::price($totalAmount)),1,1,'R');//end of line
+        $pdf->Cell(40	,6,iconv('UTF-8','windows-1252',0),1,1,'R');//end of line
 
         $pdf->Cell(118	,6,'',0,0);
         $pdf->Cell(25	,6,utf8_decode('Montant total'),0,0,'R');
         $pdf->Cell(40	,6,iconv('UTF-8','windows-1252',MoneyHelper::price($totalAmount)),1,1,'R');//end of line
 
-        if ($type == "preview")
-            return $pdf->Output('','Facture du '.$type.'.pdf','I');
+
+            return $pdf->Output('I', storage_path('exports/export2.pdf'));
     }
 }
