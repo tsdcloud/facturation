@@ -38,9 +38,10 @@
                             <tr>
                                 <th class="lead-info"><h6>N° facture</h6></th>
                                 <th class="lead-email"><h6>N° tracteur</h6></th>
-                                <th class="lead-phone"><h6>N° remorque</h6></th>
                                 <th class="lead-company"><h6>Pont bascule</h6></th>
-                                <th class="lead-company"><h6>Emise par</h6></th>
+                                <th class="lead-phone"><h6>Montant</h6></th>
+                                <th class="lead-phone"><h6>Reste</h6></th>
+                                <th class="lead-company"><h6>Facturé par</h6></th>
                                 <th><h6>Actions</h6></th>
                             </tr>
                             <!-- end table row-->
@@ -55,15 +56,17 @@
                                             <p>{{$refund->myTractor->label}}</p>
                                         </td>
                                         <td>
-                                            <p>{{optional($refund->myTrailer)->label}}</p>
+                                            <p>{{$refund->weighbridge->label}}</p>
                                         </td>
                                         <td>
-                                            <p>{{$refund->weighbridge->label}}</p>
+                                            <p>{{$refund->total_amount}}</p>
+                                        </td>
+                                        <td>
+                                            <p>{{$refund->remains}}</p>
                                         </td>
                                         <td>
                                             <p>{{$refund->user->name}}</p>
                                         </td>
-
                                         <td>
                                             <div class="action justify-content-end">
                                                 <button

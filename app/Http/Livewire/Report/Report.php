@@ -50,6 +50,9 @@ class Report extends Component
 
     public function searchCG(){
 
+        if ($this->startDate == "" || $this->endDate == ""){
+                return 0;
+        }
         $start = Carbon::createFromFormat('Y-m-d',$this->startDate)->startOfDay();
         $end = Carbon::createFromFormat('Y-m-d', $this->endDate)->endOfDay();
 
