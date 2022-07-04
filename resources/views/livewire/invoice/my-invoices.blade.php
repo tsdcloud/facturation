@@ -20,12 +20,12 @@
                         <span class="text-bold mb-10">{{\App\Helpers\Numbers\MoneyHelper::price($mobileMoney)}} </span>
                     </div>
                 </div>
-{{--                <div class="col-lg-3">--}}
-{{--                    <div class="input-style-1 text-center">--}}
-{{--                        <label>Remboursement</label>--}}
-{{--                        <span class="text-bold mb-10">{{\App\Helpers\Numbers\MoneyHelper::price($mobileMoney)}} </span>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
+               <div class="col-lg-3">
+                    <div class="input-style-1 text-center">
+                        <label>Remboursement</label>
+                        <span class="text-bold mb-10">{{\App\Helpers\Numbers\MoneyHelper::price($mobileMoney)}} </span>
+                    </div>
+                </div>
                 <div class="col-lg-3">
                     <div class="input-style-1 text-center">
                         <label>Factures annulées</label>
@@ -38,7 +38,7 @@
                     <span class="text-bold mb-10">{{\App\Helpers\Numbers\MoneyHelper::price($totalAmount)}} </span>
                     </div>
                 </div>
-{{--                 <div class="col-lg-2">--}}
+                {{-- <div class="col-lg-2">--}}
 {{--                    <div class="select-style-1">--}}
 {{--                        <label>Shift</label>--}}
 {{--                        <div class="select-position">--}}
@@ -59,7 +59,7 @@
 {{--                       style="margin-top: 1.8rem!important;" type="submit">--}}
 {{--                      Exporter--}}
 {{--                    </a>--}}
-{{--                </div>--}}
+{{--                </div> --}}
             </div>
             <div class="row">
                 <div class="col-lg-12">

@@ -11,7 +11,21 @@ use Livewire\Component;
 
 class Report extends Component
 {
-    public $users, $user_id, $startDate = '', $endDate = '', $invoices, $total_amount, $mobileMoney, $cancelledInvoice;
+    public $users, 
+            $user_id, 
+            $startDate = '', 
+            $endDate = '', 
+            $invoices, 
+            $total_amount, 
+            $mobileMoney, 
+            $cancelledInvoice, 
+            $payback, 
+            $numberCashMoney, 
+            $numberMobileMoney, 
+            $amountCancelledInvoice,
+            $numberRemains,
+            $totalValue;
+
     public ?int $number_invoice;
     public float $cashMoney;
 
@@ -53,23 +67,42 @@ class Report extends Component
         if ($this->startDate == "" || $this->endDate == ""){
                 return 0;
         }
+
         $start = Carbon::createFromFormat('Y-m-d',$this->startDate)->startOfDay();
         $end = Carbon::createFromFormat('Y-m-d', $this->endDate)->endOfDay();
 
+        // affiche moi seulement 
         $this->invoices = Invoice::where('user_id',auth()->user()->id)
                                     ->whereBetween('created_at',[$start, $end])
                                     ->get();
 
         $this->total_amount = $this->invoices->sum('total_amount');
+
         $this->number_invoice = $this->invoices->count();
 
+        //montant espèce
         $this->cashMoney = Invoice::where('user_id', auth()->user()->id)
-                                    ->where('mode_payment_id',2)
+                                    ->where('mode_payment_id',2) //Espèce
+                                    ->whereBetween('created_at',[$start, $end])
+                                    ->sum('total_amount');
+        //nombre d'espèce en cash
+       $this->numberCashMoney =  Invoice::where('user_id', auth()->user()->id)
+                                    ->where('mode_payment_id',2) //Espèce
+                                    ->whereBetween('created_at',[$start, $end])
+                                    ->count();
+
+            $this->mobileMoney = Invoice::where('user_id', auth()->user()->id)
+                                    ->where('mode_payment_id',1) //Paiement mobile
                                     ->whereBetween('created_at',[$start, $end])
                                     ->sum('total_amount');
 
-            $this->mobileMoney = Invoice::where('user_id', auth()->user()->id)
-                                    ->where('mode_payment_id',1)
+             $this->numberMobileMoney = Invoice::where('user_id', auth()->user()->id)
+                                    ->where('mode_payment_id',1) //Paiement mobile
+                                    ->whereBetween('created_at',[$start, $end])
+                                    ->count();
+
+            $this->amountCancelledInvoice = Invoice::where('user_id',auth()->user()->id)
+                                    ->where('status_invoice','cancelling')
                                     ->whereBetween('created_at',[$start, $end])
                                     ->sum('total_amount');
 
@@ -78,6 +111,15 @@ class Report extends Component
                                     ->whereBetween('created_at',[$start, $end])
                                     ->count();
 
+            $this->payback = Invoice::where('who_paid_back_id',auth()->user()->id)
+                                    ->whereBetween('date_payback',[$start, $end])
+                                    ->sum('remains');
+            
+            $this->numberRemains = Invoice::where('who_paid_back_id',auth()->user()->id)
+                                    ->whereBetween('date_payback',[$start, $end])
+                                    ->count();
+            
+        $this->totalValue = ($this->cashMoney + $this->mobileMoney) - ($this->amountCancelledInvoice + $this->payback);
     }
 
     public function exportCG(){

@@ -29,7 +29,8 @@ class PaybackController extends Controller
         tap($invoice)->update([
             'isRefunded' => true,
             'who_paid_back' => auth()->user()->name,
-            'who_paid_back_id' => auth()->user()->id
+            'who_paid_back_id' => auth()->user()->id,
+            'date_payback' => now(),
             ]);
 
         return to_route('payback.index')->with('succès','facture remboursée : opération reussite');
