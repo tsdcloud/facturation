@@ -254,7 +254,7 @@ class Create extends Component
     {
 
         if($this->typeWeighing == ""){
-            $this->reset(['tax_amount','subtotal','subtotal']);
+            $this->reset(['tax_amount','subtotal','total_amount']);
             return 0;
         }
         
@@ -287,7 +287,7 @@ class Create extends Component
 
         if ($this->amountPaid == "")
              $this->remains = 0;
-             
+
         if ($this->bridge_id == "")
            return 0;
     }
