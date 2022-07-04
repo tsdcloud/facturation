@@ -115,11 +115,11 @@
                                             <td>
                                                 <p>{{$invoice->myTractor->label}}</p>
                                             </td>
-                                            <td>
-                                                <p>{{$invoice->modePayment->label}}</p>
+                                           <td>
+                                                <p>{{$invoice->typeWeighing->label}}</p>
                                             </td>
                                             <td>
-                                                <p>{{$invoice->typeWeighing->label}}</p>
+                                                <p>{{$invoice->modePayment->label}}</p>
                                             </td>
                                             <td>
                                                 <p>{{$invoice->weighbridge->label}}</p>
@@ -153,9 +153,9 @@
                                             <td>
                                                 <p>{{$invoice->myTractor->label}}</p>
                                             </td>
-{{--                                            <td>--}}
-{{--                                                <p>{{optional($invoice->myTrailer)->label}}</p>--}}
-{{--                                            </td>--}}
+                                           <td>
+                                                <p>{{$invoice->typeWeighing->label}}</p>
+                                            </td>
                                             <td>
                                                 <p>{{$invoice->modePayment->label}}</p>
                                             </td>
