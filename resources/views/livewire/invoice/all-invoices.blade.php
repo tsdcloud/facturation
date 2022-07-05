@@ -24,6 +24,9 @@
                                     <th class="lead-info">
                                         <h6>N° facture</h6>
                                     </th>
+                                    <th class="lead-info">
+                                        <h6>Facturé par</h6>
+                                    </th>
                                     <th class="lead-email">
                                         <h6>N° tracteur</h6>
                                     </th>
@@ -54,6 +57,9 @@
                                         <tr class="table-danger">
                                             <td>
                                                 <p>{{ $invoice->invoice_no }}</p>
+                                            </td>
+                                            <td>
+                                                <p>{{ $invoice->user->name }}</p>
                                             </td>
                                             <td>
                                                 <p>{{ optional($invoice->myTractor)->label }}</p>
@@ -88,6 +94,9 @@
                                         <tr>
                                             <td>
                                                 <p>{{ $invoice->invoice_no }}</p>
+                                            </td>
+                                            <td>
+                                                <p>{{ $invoice->user->name }}</p>
                                             </td>
                                             <td>
                                                 <p>{{ optional($invoice->myTractor)->label }}</p>
