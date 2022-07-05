@@ -47,7 +47,8 @@ class Report extends Component
 
           $this->invoices = Invoice::where('user_id',$this->user_id)
                                      ->get();
-
+        $this->total_amount = $this->invoices->sum('total_amount');
+        $this->number_invoice = $this->invoices->count();
       }else{
           $start = Carbon::createFromFormat('Y-m-d',$this->startDate)->startOfDay();
           $end = Carbon::createFromFormat('Y-m-d', $this->endDate)->endOfDay();
@@ -55,7 +56,6 @@ class Report extends Component
           $this->invoices = Invoice::where('user_id',$this->user_id)
                                     ->whereBetween('created_at',[$start, $end])
                                     ->get();
-      }
 
         $this->total_amount = $this->invoices->sum('total_amount');
         $this->number_invoice = $this->invoices->count();
@@ -100,6 +100,9 @@ class Report extends Component
                                     ->count();
             
         $this->totalValue = ($this->cashMoney + $this->mobileMoney) - ($this->amountCancelledInvoice + $this->payback);
+      }
+
+        
 
     }
 
