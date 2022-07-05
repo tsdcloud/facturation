@@ -5,7 +5,6 @@ namespace App\Http\Livewire\Report;
 
 use App\Models\Invoice;
 use App\Models\User;
-use App\Services\InvoiceService;
 use Carbon\Carbon;
 use Livewire\Component;
 
