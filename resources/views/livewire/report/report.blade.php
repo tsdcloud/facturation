@@ -38,12 +38,12 @@
                     class="main-btn active-btn-outline rounded-md btn-hover" type="submit">Filtrer</button>
             </div>
         @else
-            <div class="col-lg-2 ">
+            <div class="col-lg-2 mb-2">
                 <button wire:click="search" style="margin-top: 1.8rem!important;"
                     class="main-btn active-btn-outline rounded-md btn-hover" type="submit">Filtrer</button>
             </div>
         @endif
-        <div class="col-lg-2 justify-content-end">
+        <div class="col-lg-2 justify-content-end mb-2">
             <button style="margin-top: 1.8rem!important;" class="main-btn dark-btn-outline rounded-md btn-hover"
                 wire:click="exportCG">Exporter</button>
         </div>
@@ -56,10 +56,66 @@
     @if (Auth::user()->isAdmin() || Auth::user()->isSupport() || Auth::user()->isAccount() || Auth::user()->isAdministration())
         <div class="row">
             <div class="col-lg-12">
-                <div class="card-style mb-30 mt-3">
+                @isset($invoices)
+                <div class="row mt-4">
+
+                    <div class="col-lg-2">
+                        <div class="select-style-1 text-center">
+                            <label>Nombre de facture</label>
+                            <span class="text-bold mb-10">{{ $number_invoice }} </span>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-2">
+                        <div class="select-style-1 text-center">
+                            <label>Espèce</label>
+                                <span class="text-bold mb-10">({{$numberCashMoney}}) 
+                                    {{\App\Helpers\Numbers\MoneyHelper::number($cashMoney) }} </span>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-2">
+                        <div class="select-style-1 text-center">
+                            <label>Paiement mobile</label>
+                            <span class="text-bold mb-10">({{$numberMobileMoney}}) 
+                                {{ \App\Helpers\Numbers\MoneyHelper::number($mobileMoney )    }}</span>
+                        </div>
+                    </div>
+                    <div class="col-lg-2">
+                        <div class="select-style-1 text-center">
+                            <label>Facture annulée</label>
+                            <span class="text-bold mb-10">({{ $cancelledInvoice }})
+                                 {{ \App\Helpers\Numbers\MoneyHelper::number($amountCancelledInvoice ) }}</span>
+                        </div>
+                    </div>
+                    <div class="col-lg-2">
+                        <div class="select-style-1 text-center">
+                            <label>Remboursé</label>
+                            <span class="text-bold mb-10">({{$numberRemains}}) 
+                                {{  \App\Helpers\Numbers\MoneyHelper::number($payback) }}</span>
+                        </div>
+                    </div>
+                    <div class="col-lg-2">
+                        <div class="select-style-1 text-center">
+                            <label>Montant total</label>
+                            <span class="text-bold mb-10">{{
+                            \App\Helpers\Numbers\MoneyHelper::price($total_amount)}}</span>
+                        </div>
+                    </div>
+                    <div class="col-lg-2">
+                        <div class="select-style-1 text-center">
+                            <label>Montant net</label>
+                            <span class="text-bold mb-10">{{
+                            \App\Helpers\Numbers\MoneyHelper::price($totalValue)}}</span>
+                        </div>
+                    </div>
+                </div>
+                <small class="text-muted">Montant net = (total espèce + total paiement mobile) - (facture annulées + remboursement)</small> 
+            @endisset
+                <div class="card-style mb-30">
                     <div class="table-wrapper table-responsive">
-                        <h6> Montant Total : {{ \App\Helpers\Numbers\MoneyHelper::price($total_amount) }}</h6>
-                        <small> Nombre de facture : {{ $number_invoice }} </small>
+                        {{-- <h6> Montant Total : {{ \App\Helpers\Numbers\MoneyHelper::price($total_amount) }}</h6>
+                        <small> Nombre de facture : {{ $number_invoice }} </small> --}}
                         <table class="table striped-table">
                             <thead>
                                 <tr>
