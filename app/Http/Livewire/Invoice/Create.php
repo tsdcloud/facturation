@@ -335,7 +335,6 @@ class Create extends Component
                                                     );
 
                     session()->flash('message', 'facture enregistreé avec succès.');
-                    $this->dispatchBrowserEvent('closeAlert');
                     $this->emptyField();
             DB::commit();
             }
