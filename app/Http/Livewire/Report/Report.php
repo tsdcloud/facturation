@@ -132,21 +132,25 @@ class Report extends Component
         //montant espèce
         $this->cashMoney = Invoice::where('user_id', auth()->user()->id)
                                     ->where('mode_payment_id',2) //Espèce
+                                    ->where('status_invoice','validated')
                                     ->whereBetween('created_at',[$start, $end])
                                     ->sum('total_amount');
         //nombre d'espèce en cash
        $this->numberCashMoney =  Invoice::where('user_id', auth()->user()->id)
                                     ->where('mode_payment_id',2) //Espèce
+                                    ->where('status_invoice','validated')
                                     ->whereBetween('created_at',[$start, $end])
                                     ->count();
 
             $this->mobileMoney = Invoice::where('user_id', auth()->user()->id)
                                     ->where('mode_payment_id',1) //Paiement mobile
+                                    ->where('status_invoice','validated')
                                     ->whereBetween('created_at',[$start, $end])
                                     ->sum('total_amount');
 
              $this->numberMobileMoney = Invoice::where('user_id', auth()->user()->id)
                                     ->where('mode_payment_id',1) //Paiement mobile
+                                    ->where('status_invoice','validated')
                                     ->whereBetween('created_at',[$start, $end])
                                     ->count();
 
@@ -161,10 +165,12 @@ class Report extends Component
                                     ->count();
 
             $this->payback = Invoice::where('who_paid_back_id',auth()->user()->id)
+                                    ->where('status_invoice','validated')
                                     ->whereBetween('date_payback',[$start, $end])
                                     ->sum('remains');
 
             $this->numberRemains = Invoice::where('who_paid_back_id',auth()->user()->id)
+                                    ->where('status_invoice','validated')
                                     ->whereBetween('date_payback',[$start, $end])
                                     ->count();
 
