@@ -316,7 +316,32 @@ class Create extends Component
 
         try{
 
-            DB::beginTransaction();
+            if (!$this->isRefunded){
+                DB::beginTransaction();
+                     InvoiceService::storeInvoice($this->subtotal,
+                                                     $this->tax_amount,
+                                                     $this->total_amount,
+                                                     $this->modePaymentId,
+                                                     $this->bridge_id,
+                                                     $this->amountPaid,
+                                                     $this->remains,
+                                                     auth()->id(),
+                                                     $this->selectedTractor,
+                                                     $this->selectedCustomer,
+                                                     $this->type->id,
+                                                     $this->isRefunded,
+                                                     $this->selectedTrailer,
+                                                     false
+                                                    );
+
+                    session()->flash('message', 'facture enregistreé avec succès.');
+                    $this->dispatchBrowserEvent('closeAlert');
+                    $this->emptyField();
+            DB::commit();
+            }
+            
+            if ($this->isRefunded){
+                DB::beginTransaction();
                    $this->id_invoice =  InvoiceService::storeInvoice($this->subtotal,
                                                      $this->tax_amount,
                                                      $this->total_amount,
@@ -336,13 +361,15 @@ class Create extends Component
                     session()->flash('message', 'facture enregistreé avec succès.');
                     $this->dispatchBrowserEvent('closeAlert');
                     $this->emptyField();
-                    DB::commit();
+            DB::commit();
+            }
+            
         }catch(\Exception $e){
                     Log::error(sprintf('%d'.$e->getMessage(), __METHOD__));
                     session()->flash('error', 'Une erreur c\'est produite, veuillez actualiser le navigateur et essayer à nouveau.
                     Rapprochez vous d\'un IT en service si necessaire.');
                     DB::rollBack();
-                }
+        }
     }
 
     public function cancelCustomer(){

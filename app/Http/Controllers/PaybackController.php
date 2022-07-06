@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Invoice;
 use Illuminate\Http\Request;
+use App\Http\Controllers\InvoiceController;
 
 class PaybackController extends Controller
 {
@@ -26,14 +27,13 @@ class PaybackController extends Controller
     public function update(Request $request, Invoice $invoice){
 
     if($request->isRefunded == "on"){
-        tap($invoice)->update([
+      $data =  tap($invoice)->update([
             'isRefunded' => true,
             'who_paid_back' => auth()->user()->name,
             'who_paid_back_id' => auth()->user()->id,
             'date_payback' => now(),
             ]);
-
-        return to_route('payback.index')->with('succès','facture remboursée : opération reussite');
+        return redirect()->route('show-pdf',$data->id);
     }
     return  to_route('payback.index');
     }
