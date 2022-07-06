@@ -316,7 +316,7 @@ class Create extends Component
 
         try{
                 DB::beginTransaction();
-                       InvoiceService::storeInvoice($this->subtotal,
+                $this->id_invoice =  InvoiceService::storeInvoice($this->subtotal,
                                             $this->tax_amount,
                                             $this->total_amount,
                                             $this->modePaymentId,
@@ -335,6 +335,7 @@ class Create extends Component
                 {
                     session()->flash('message', 'facture enregistrée avec succès.');
                     $this->emptyField();
+                    $this->id_invoice = '';
                 }else{
                     $this->dispatchBrowserEvent('closeAlert');
                     session()->flash('message', 'facture enregistrée avec succès.');
