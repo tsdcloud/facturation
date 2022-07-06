@@ -15,7 +15,7 @@
     <!-- ========== All CSS files linkup ========= -->
     <link rel="stylesheet" href="/assets/css/bootstrap.min.css" />
     <link rel="stylesheet" href="/assets/css/LineIcons.css" />
-    <link rel="stylesheet" href="/assets/css/fullcalendar.css" />
+    {{-- <link rel="stylesheet" href="/assets/css/fullcalendar.css" /> --}}
     <link rel="stylesheet" href="/assets/css/materialdesignicons.min.css" />
     <link rel="stylesheet" href="/assets/css/main.css" />
     @livewireStyles
@@ -100,16 +100,16 @@
     <script src="/assets/js/main.js"></script>
     <!-- ========= All Javascript files linkup ======== -->
 
-    <script src="/assets/js/Chart.min.js"></script>
+    {{-- <script src="/assets/js/Chart.min.js"></script>
     <script src="/assets/js/dynamic-pie-chart.js"></script>
     <script src="/assets/js/moment.min.js"></script>
     <script src="/assets/js/fullcalendar.js"></script>
     <script src="/assets/js/jvectormap.min.js"></script>
-    <script src="/assets/js/world-merc.js"></script>
+    <script src="/assets/js/world-merc.js"></script> --}}
 
 
 
-    <script>
+    {{-- <script>
         // ======== jvectormap activation
         var markers = [
             { name: "Egypt", coords: [26.8206, 30.8025] },
@@ -635,6 +635,6 @@
             },
         });
         // =========== chart four end
-    </script>
+    </script> --}}
   </body>
 </html>

@@ -2,7 +2,7 @@
 
 @section('content')
  <div class="row">
-            <div class="col-xl-3 col-lg-4 col-sm-6">
+            {{-- <div class="col-xl-3 col-lg-4 col-sm-6">
                 <div class="icon-card mb-30">
                     <div class="content">
                         <h6 class="mb-10">Nombre facture / jour</h6>
@@ -37,7 +37,7 @@
                     </div>
                 </div>
                 <!-- End Icon Cart -->
-            </div>
+            </div> --}}
         </div>
 
 {{-- <!-- End Row -->--}}
