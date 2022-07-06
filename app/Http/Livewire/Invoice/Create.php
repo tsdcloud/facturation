@@ -334,7 +334,7 @@ class Create extends Component
                                                      false
                                                     );
 
-                    session()->flash('message', 'facture enregistreé avec succès.');
+                    session()->flash('message', 'facture enregistrée avec succès.');
                     $this->emptyField();
             DB::commit();
             }
@@ -357,7 +357,7 @@ class Create extends Component
                                                      false
                                                     );
 
-                    session()->flash('message', 'facture enregistreé avec succès.');
+                    session()->flash('message', 'facture enregistrée avec succès.');
                     $this->dispatchBrowserEvent('closeAlert');
                     $this->emptyField();
             DB::commit();
