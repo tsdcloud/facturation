@@ -203,7 +203,7 @@
         <div class="modal-dialog  modal-xl">
             <div class="modal-content card-style">
                 <div class="modal-header px-0 border-0 d-flex justify-content-end ">
-                    <button class="border-0 bg-transparent h2" data-bs-dismiss="modal">
+                    <button onclick="closeInvoice" class="border-0 bg-transparent h2" data-bs-dismiss="modal">
                         <i class="lni lni-cross-circle"></i>
                     </button>
                 </div>
@@ -217,6 +217,30 @@
         </div>
     </div>
 </div>
+
+<!-- Button trigger modal -->
+{{-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+    Launch static backdrop modal
+  </button> --}}
+  
+  <!-- Modal -->
+  {{-- <div class="modal fade" id="closeRemains" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Fermer</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          voulez-vous fermer ?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary">Oui</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Non</button>
+        </div>
+      </div>
+    </div>
+  </div> --}}
 
 </div>
 @push('scripts')
@@ -241,6 +265,10 @@
         function closeModal() {
             
             // window.open('".$url."', '_blank')
+        }
+
+        function closeInvoice(){
+            confirm("Etes vous sûr de vouloir fermer cette fenêtre ?");
         }
     </script>
 @endpush
