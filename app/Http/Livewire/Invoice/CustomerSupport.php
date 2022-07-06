@@ -4,13 +4,15 @@ namespace App\Http\Livewire\Invoice;
 
 use App\Models\Tractor;
 use App\Models\Trailer;
-use App\Services\InvoiceService;
-use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use App\Models\Customer;
 use App\Models\ModePayment;
+use App\Models\Weighbridge;
+use App\Models\TypeWeighing;
+use App\Services\InvoiceService;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 
 
 class CustomerSupport extends Component
@@ -232,9 +234,7 @@ class CustomerSupport extends Component
         $bridge = Weighbridge::where('id',Auth::user()->currentBridge)->first();
         $this->weighbridge = $bridge->label;
         $this->bridge_id = $bridge->id;
-        $this->listTypeWeighing = TypeWeighing::all()->reject(function ($type){
-            return $type->label =='Direction';
-        });
+        $this->listTypeWeighing = TypeWeighing::where('type','Direction')->get();
 
     }
 
