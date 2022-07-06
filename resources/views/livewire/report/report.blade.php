@@ -43,10 +43,10 @@
                     class="main-btn active-btn-outline rounded-md btn-hover" type="submit">Filtrer</button>
             </div>
         @endif
-        <div class="col-lg-2 justify-content-end mb-2">
+        {{-- <div class="col-lg-2 justify-content-end mb-2">
             <button style="margin-top: 1.8rem!important;" class="main-btn dark-btn-outline rounded-md btn-hover"
                 wire:click="exportCG">Exporter</button>
-        </div>
+        </div> --}}
     </div>
 
     @php
