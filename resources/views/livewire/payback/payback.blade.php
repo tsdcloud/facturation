@@ -203,7 +203,7 @@
         <div class="modal-dialog  modal-xl">
             <div class="modal-content card-style">
                 <div class="modal-header px-0 border-0 d-flex justify-content-end ">
-                    <button onclick="closeInvoice" class="border-0 bg-transparent h2" data-bs-dismiss="modal">
+                    <button wire:click="cancel" class="border-0 bg-transparent h2" data-bs-dismiss="modal">
                         <i class="lni lni-cross-circle"></i>
                     </button>
                 </div>

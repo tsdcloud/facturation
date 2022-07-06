@@ -37,8 +37,10 @@ class Payback extends Component
         session()->flash('succès', 'facture remboursée : Opération reussite.');
        
         $this->dispatchBrowserEvent('closeAlert');
+
+        $this->reset('invoice','id_invoice');
     }
     public function cancel(){
-
+        $this->reset('invoice','id_invoice');
     }
 }
