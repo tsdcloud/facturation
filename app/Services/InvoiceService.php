@@ -65,7 +65,7 @@ class InvoiceService extends Fpdi
         $pdf->SetFont('Arial','',11);
         $pdf->Image(public_path( 'storage'.$data->path_qrcode),85,23,20);
         $pdf->Image(public_path( 'storage/'.$data->weighbridge->stamp->path),65,80,40);
-        $pdf->Image(public_path('storage/'.$data->user->signature->path),05,92,38);
+        $pdf->Image(public_path('storage/'.optional($data->user->signature)->path),05,92,38);
         $pdf->Cell(200 ,5,utf8_decode('FACTURE ACQUITTEE N° '.$data->invoice_no),0,0,'R');
         $pdf->Ln(10);
         $pdf->Cell(200 ,5,utf8_decode('Date : '.$data->created_at->format('d/m/y H:i:s')),0,0,'R');
@@ -81,10 +81,11 @@ class InvoiceService extends Fpdi
         $pdf->Cell(20,10,utf8_decode('Reçu de : '),0,0,'L');
         $pdf->Cell(60,10,utf8_decode($data->customer->label),0,0,'L');
         $pdf->Ln(10);
-        $pdf->Cell(99,10,utf8_decode('Droit de pesage attelage : N° Tracteur '.$data->myTractor->label),0,0,'L');
+        $pdf->Cell(99,10,utf8_decode('Droit de pesage attelage : N° Tracteur : '
+        .optional($data->myTractor)->label),0,0,'L');
         $pdf->Cell(85,10,utf8_decode('N° Remorque : '.optional($data->myTrailer)->label),0,0,'L');
         $pdf->Ln(10);
-        $pdf->Cell(35,10,utf8_decode('Mode de paiment : '),0,0,'L');
+        $pdf->Cell(35,10,utf8_decode('Mode de paiement : '),0,0,'L');
         $pdf->Cell(80,10,utf8_decode($data->modePayment->label),0,0,'L');
         $pdf->Ln(10);
         if($data->weighbridge->label =="Direction"){

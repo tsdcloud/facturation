@@ -1,68 +1,6 @@
 <div>
     <div class="form-elements-wrapper">
-        {{-- <div class="row">
-            <div class="col-xl-3 col-lg-4 col-sm-6">
-                <div class="icon-card mb-30">
-                    <div class="icon purple">
-                        <i class="lni lni-cart-full"></i>
-                    </div>
-                    <div class="content">
-                        <h6 class="mb-10">Solde veuille</h6>
-                            <h6 class="text-bold mb-10"> 0 FCFA</h6>
-                    </div>
-                </div>
-                <!-- End Icon Cart -->
-            </div>
-            <div class="col-xl-3 col-lg-4 col-sm-6">
-                <div class="icon-card mb-30">
-                    <div class="icon purple">
-                        <i class="lni lni-cart-full"></i>
-                    </div>
-                    <div class="content">
-                        <h6 class="mb-10">Solde actuel</h6>
-                        <h6 class="text-bold mb-10 text-danger">0 FCFA</h6>
-                    </div>
-                </div>
-                <!-- End Icon Cart -->
-            </div>
-            <div class="col-xl-3 col-lg-4 col-sm-6">
-                <div class="icon-card mb-30">
-                    <div class="icon purple">
-                        <i class="lni lni-cart-full"></i>
-                    </div>
-                    <div class="content">
-                        <h6 class="mb-10">Total Dépôt</h6>
-                        <h6 class="text-bold mb-10"> 0 FCFA</h6>
-                    </div>
-                </div>
-                <!-- End Icon Cart -->
-            </div>
-            <div class="col-xl-3 col-lg-4 col-sm-6">
-                <div class="icon-card mb-30">
-                    <div class="icon purple">
-                        <i class="lni lni-cart-full"></i>
-                    </div>
-                    <div class="content">
-                        <h6 class="mb-10">Total Retrait</h6>
-                        <h6 class="text-bold mb-10"> 0 FCFA</h6>
-                    </div>
-                </div>
-                <!-- End Icon Cart -->
-            </div>
-        </div> --}}
         <div class="row">
-            {{-- @if(session()->has('message'))
-                <div id="alert-message" class="alert alert-success alert-dismissible fade show" role="alert">
-                    <strong>{{session('message')}} </strong>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            @endif
-            @if(session()->has('error'))
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <strong>{{session('error')}} </strong>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            @endif --}}
             <div class="col-lg-12">
                 <!-- input style start -->
                 <div class="card-style mb-30">
@@ -70,30 +8,25 @@
                     <div class="row">
                         <div class="input-style-1">
                             <label>Reçu de  <a href="javascript:void(0)"  data-bs-toggle="modal" data-bs-target="#Modalfive"> Ajouter un client</a> </label>
-                            <input type="text"
-                                   placeholder="Rechercher un client..."
-                                   wire:model="customer"
-                                   wire:keydown.escape="hideDropdown3"
-                                   wire:keydown.tab="hideDropdown3"
-                                   wire:keydown.Arrow-Up="decrementHighlightCustomer"
-                                   wire:keydown.Arrow-Down="incrementHighlightCustomer"
-                                   wire:keydown.enter.prevent="selectCustomer"
-                            />
+                            <input type="text" placeholder="Rechercher un client..." wire:model="customer" />
 
-                            @if(!empty($customer) && $selectedCustomer == 0 && $showDropdown3)
-                                <div class="absolute z-10 bg-white mt-1 w-full border border-gray-300 rounded-md shadow-lg overflow-auto">
-                                    @if (!empty($customer))
-                                        @foreach($customers as $i => $customer)
-                                            <a role="button"
-                                               wire:click="selectCustomer({{ $i }})"
-                                               class="block py-1 px-2 text-sm cursor-pointer hover:bg-blue-50 {{ $highlightIndexCustomer === $i ? 'bg-blue-50' : '' }}"
-                                            >{{ $customer['label'] }}</a>
-                                        @endforeach
+                            <div class="absolute z-10 mt-1 w-full text-sm overflow-auto px-2" wire:loading.remove>
+                                <ul class="list-group">
+                                    @if (empty($customers) && $customer != '')
+                                        pas de resultat
                                     @else
-                                        <span class="block py-1 px-2 text-sm">Pas de résultat</span>
+                                        @if (!empty($customers) && $customer != '')
+                                            @foreach ($customers as $i => $customer)
+                                                <a href="javascript:void(0)"
+                                                    wire:click="selectCustomer({{ $i }})"
+                                                    class="list-group-item list-group-item-action"
+                                                    {{ $hiddenCustomer }}>{{ $customer['label'] }}
+                                                </a>
+                                            @endforeach
+                                        @endif
                                     @endif
-                                </div>
-                            @endif
+                                </ul>
+                            </div>
                             @error('name') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
                         <div class="col-md-6" >
