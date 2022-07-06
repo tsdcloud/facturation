@@ -115,7 +115,7 @@
                             <div class="select-style-1">
                                 <label>Mode paiement</label>
                                 <div class="select-position">
-                                    <select wire:model.defer="modePaymentId">
+                                    <select wire:model="modePaymentId">
                                         <option value="" selected>Selectionner le mode</option>
                                         @foreach ($modePayments as $modePayment)
                                             <option value="{{ $modePayment->id }}">{{ $modePayment->label }}</option>
@@ -430,7 +430,7 @@
                 let alertNode = document.querySelector('#alert-message');
                 let alert = new bootstrap.Alert(alertNode);
                 alert.close()
-            }, 3000)
+            }, 6000)
 
             const myModal = new bootstrap.Modal(document.getElementById('myModal'));
             myModal.show();

@@ -315,53 +315,32 @@ class Create extends Component
         $this->validate();
 
         try{
-
-            if ($this->isRefunded && $this->remains != 0){
                 DB::beginTransaction();
-                     InvoiceService::storeInvoice($this->subtotal,
-                                                     $this->tax_amount,
-                                                     $this->total_amount,
-                                                     $this->modePaymentId,
-                                                     $this->bridge_id,
-                                                     $this->amountPaid,
-                                                     $this->remains,
-                                                     auth()->id(),
-                                                     $this->selectedTractor,
-                                                     $this->selectedCustomer,
-                                                     $this->type->id,
-                                                     $this->isRefunded,
-                                                     $this->selectedTrailer,
-                                                     false
-                                                    );
-                                               //     $this->dispatchBrowserEvent('closeAlert');
+                       InvoiceService::storeInvoice($this->subtotal,
+                                            $this->tax_amount,
+                                            $this->total_amount,
+                                            $this->modePaymentId,
+                                            $this->bridge_id,
+                                            $this->amountPaid,
+                                            $this->remains,
+                                            auth()->id(),
+                                            $this->selectedTractor,
+                                            $this->selectedCustomer,
+                                            $this->type->id,
+                                            $this->isRefunded,
+                                            $this->selectedTrailer,
+                                            false
+                                        );
+                if($this->isRefunded == false && $this->remains !=0)
+                {
                     session()->flash('message', 'facture enregistrée avec succès.');
                     $this->emptyField();
-            DB::commit();
-            }
-            
-            if ($this->isRefunded || $this->remains == 0){
-                DB::beginTransaction();
-                   $this->id_invoice =  InvoiceService::storeInvoice($this->subtotal,
-                                                     $this->tax_amount,
-                                                     $this->total_amount,
-                                                     $this->modePaymentId,
-                                                     $this->bridge_id,
-                                                     $this->amountPaid,
-                                                     $this->remains,
-                                                     auth()->id(),
-                                                     $this->selectedTractor,
-                                                     $this->selectedCustomer,
-                                                     $this->type->id,
-                                                     $this->isRefunded,
-                                                     $this->selectedTrailer,
-                                                     false
-                                                    );
-
-                    session()->flash('message', 'facture enregistrée avec succès.');
+                }else{
                     $this->dispatchBrowserEvent('closeAlert');
+                    session()->flash('message', 'facture enregistrée avec succès.');
                     $this->emptyField();
+                }
             DB::commit();
-            }
             
         }catch(\Exception $e){
                     Log::error(sprintf('%d'.$e->getMessage(), __METHOD__));

@@ -138,6 +138,9 @@ class InvoiceService extends Fpdi
         if ($direction)
             $weighbridgeId =  Weighbridge::where('label', 'Direction')->first();
 
+        if ($remains == 0)
+             $isRefunded = true;
+
         $lastId = Invoice::latest('id')->first();
             $data = Invoice::create([
                    'invoice_no' => is_null($lastId) ? str_pad(1,7,0,STR_PAD_LEFT) :str_pad($lastId->id + 1,7,0,STR_PAD_LEFT),
