@@ -57,7 +57,7 @@ class Create extends Component
                  $highlightIndex = 0,
                  $highlightIndexTrailer = 0,
                  $highlightIndexCustomer = 0,
-                    $bridge_id = 0;
+                 $bridge_id = 0;
 
     public bool  $showDropdown1 = true,
                  $showDropdown2 = true,
@@ -316,7 +316,7 @@ class Create extends Component
 
         try{
 
-            if (!$this->isRefunded){
+            if ($this->isRefunded && $this->remains != 0){
                 DB::beginTransaction();
                      InvoiceService::storeInvoice($this->subtotal,
                                                      $this->tax_amount,
@@ -333,13 +333,13 @@ class Create extends Component
                                                      $this->selectedTrailer,
                                                      false
                                                     );
-
+                                               //     $this->dispatchBrowserEvent('closeAlert');
                     session()->flash('message', 'facture enregistrée avec succès.');
                     $this->emptyField();
             DB::commit();
             }
             
-            if ($this->isRefunded){
+            if ($this->isRefunded || $this->remains == 0){
                 DB::beginTransaction();
                    $this->id_invoice =  InvoiceService::storeInvoice($this->subtotal,
                                                      $this->tax_amount,
