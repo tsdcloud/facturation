@@ -316,6 +316,21 @@ class Create extends Component
 
         try{
                 DB::beginTransaction();
+
+                    $id_tractor = Tractor::firstOrCreate(
+                        ['label' =>  $this->tractor],
+                        ['label' => strtoupper(str_replace(" ","",$this->tractor)) ]
+                        );
+
+                    $id_customer = Customer::firstOrCreate(
+                                ['label' =>  $this->customer],
+                                ['label' => strtoupper(str_replace(" ","",$this->customer))]
+                                );
+                    $id_trailer = Trailer::firstOrCreate(
+                                ['label' =>  $this->trailer],
+                                ['label' => strtoupper(str_replace(" ","",$this->trailerr))]
+                                );
+
                 $this->id_invoice =  InvoiceService::storeInvoice($this->subtotal,
                                             $this->tax_amount,
                                             $this->total_amount,
@@ -324,11 +339,11 @@ class Create extends Component
                                             $this->amountPaid,
                                             $this->remains,
                                             auth()->id(),
-                                            $this->selectedTractor,
-                                            $this->selectedCustomer,
+                                            $id_tractor->id,
+                                            $id_customer->id,
                                             $this->type->id,
                                             $this->isRefunded,
-                                            $this->selectedTrailer,
+                                            $id_trailer->id,
                                             false
                                         );
                 if($this->isRefunded == false && $this->remains !=0)
