@@ -319,16 +319,16 @@ class Create extends Component
 
                     $id_tractor = Tractor::firstOrCreate(
                         ['label' =>  $this->tractor],
-                        ['label' => $this->tractor]
+                        ['label' => strtoupper(str_replace(" ","",$this->tractor)) ]
                         );
 
                     $id_customer = Customer::firstOrCreate(
                                 ['label' =>  $this->customer],
-                                ['label' => $this->customer]
+                                ['label' => strtoupper(str_replace(" ","",$this->customer))]
                                 );
                     $id_trailer = Trailer::firstOrCreate(
                                 ['label' =>  $this->trailer],
-                                ['label' => $this->trailer]
+                                ['label' => strtoupper(str_replace(" ","",$this->trailerr))]
                                 );
 
                 $this->id_invoice =  InvoiceService::storeInvoice($this->subtotal,

@@ -161,12 +161,12 @@ class InvoiceService extends Fpdi
                     'path_qrcode' => '',
             ]);
 
-            $path = 'http://billingdpws.bfclimited.com:8080/display/'.$data->id;
-            $picture = QrCode::format('png')->style('square')->size(120)->generate($path);
-            $output_file = '/Qrcode/'.$data->id.'/'. time() . '.png';
+            // $path = 'http://billingdpws.bfclimited.com:8080/display/'.$data->id;
+            // $picture = QrCode::format('png')->style('square')->size(120)->generate($path);
+            // $output_file = '/Qrcode/'.$data->id.'/'. time() . '.png';
 
-            Storage::disk('public')->put($output_file, $picture);
-            tap($data)->update(['path_qrcode'=> $output_file]);
+            // Storage::disk('public')->put($output_file, $picture);
+            // tap($data)->update(['path_qrcode'=> $output_file]);
         return $data->id;
     }
 

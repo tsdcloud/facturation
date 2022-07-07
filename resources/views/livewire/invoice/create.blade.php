@@ -25,8 +25,7 @@
 
                         <div class="col-md-6">
                             <div class="input-style-1">
-                                <label>N° Remorque <a href="javascript:void(0)" data-bs-toggle="modal"
-                                        data-bs-target="#Modalfour"> Ajouter une remorque</a> </label>
+                                <label>N° Remorque </label>
                                 <input type="text" placeholder="Rechercher la remorque..." wire:model.defer="trailer" />
                                 @error('trailer')
                                     <span class="text-danger">{{ $message }}</span>
