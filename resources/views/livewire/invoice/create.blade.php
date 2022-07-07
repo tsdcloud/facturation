@@ -277,7 +277,7 @@
 
         {{-- nouveau tracteur --}}
         <div class="warning-modal">
-            <div wire:ignore.self class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false"
+            <div wire:ignore.self class="modal fade" data-bs-keyboard="false"
                 id="ModalTree" tabindex="-1" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content card-style warning-card">
@@ -309,10 +309,10 @@
                                 @enderror
                             </div>
                             <div class="text-center">
-                                <button class="main-btn danger-btn-outline rounded-md btn-hover"
+                                {{-- <button class="main-btn danger-btn-outline rounded-md btn-hover"
                                     data-bs-dismiss="modal" wire:click="storeTractor">Fermer
-                                </button>
-                                <button class="main-btn active-btn-outline rounded-md btn-hover"
+                                </button> --}}
+                                <button data-bs-dismiss="modal" class="main-btn active-btn-outline rounded-md btn-hover"
                                     wire:click="storeTractor">Ajouter
                                 </button>
 
@@ -325,7 +325,7 @@
 
         {{-- nouvelle remorque --}}
         <div class="warning-modal">
-            <div wire:ignore.self class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false"
+            <div wire:ignore.self class="modal fade"  data-bs-keyboard="false"
                 id="Modalfour" tabindex="-1" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content card-style warning-card">
@@ -357,11 +357,11 @@
                                 @enderror
                             </div>
                             <div class="text-center">
-                                <button class="main-btn danger-btn-outline rounded-md btn-hover"
+                                {{-- <button class="main-btn danger-btn-outline rounded-md btn-hover"
                                     data-bs-dismiss="modal" wire:click="cancelTrailer">Fermer
-                                </button>
+                                </button> --}}
                                 <button class="main-btn active-btn-outline rounded-md btn-hover"
-                                    wire:click="storeTrailer">Ajouter
+                                data-bs-dismiss="modal"  wire:click="storeTrailer">Ajouter
                                 </button>
 
                             </div>
@@ -373,7 +373,7 @@
 
         {{-- nouveau client --}}
         <div class="warning-modal">
-            <div wire:ignore.self class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false"
+            <div wire:ignore.self class="modal fade"  data-bs-keyboard="false"
                 id="Modalfive" tabindex="-1" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content card-style warning-card">
@@ -405,10 +405,10 @@
                                 @enderror
                             </div>
                             <div class="text-center">
-                                <button class="main-btn danger-btn-outline rounded-md btn-hover"
+                                {{-- <button class="main-btn danger-btn-outline rounded-md btn-hover"
                                     data-bs-dismiss="modal" wire:click="cancelCustomer">Fermer
-                                </button>
-                                <button class="main-btn active-btn-outline rounded-md btn-hover"
+                                </button> --}}
+                                <button data-bs-dismiss="modal" class="main-btn active-btn-outline rounded-md btn-hover"
                                     wire:click="storeCustomer">Ajouter
                                 </button>
                             </div>
