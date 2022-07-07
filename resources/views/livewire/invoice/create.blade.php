@@ -7,69 +7,16 @@
                     <h6 class="mb-25">Facturation</h6>
                     <div class="row">
                         <div class="input-style-1">
-                            <label>Reçu de <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#Modalfive">
-                                    Ajouter un client</a> </label>
-                            <input type="text" placeholder="Rechercher un client..." wire:model="customer" />
-
-                            <div wire:loading.flex wire:target="customer">
-                                <div class="d-flex justify-content-center">
-                                    <div class="spinner-border" role="status">
-                                        <span class="visually-hidden">chargement...</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="absolute z-10 mt-1 w-full text-sm overflow-auto px-2" wire:loading.remove>
-                                <ul class="list-group">
-                                    @if (empty($customers) && $customer != '')
-                                        pas de resultat
-                                    @else
-                                        @if (!empty($customers) && $customer != '')
-                                            @foreach ($customers as $i => $customer)
-                                                <a href="javascript:void(0)"
-                                                    wire:click="selectCustomer({{ $i }})"
-                                                    class="list-group-item list-group-item-action"
-                                                    {{ $hiddenCustomer }}>{{ $customer['label'] }}
-                                                </a>
-                                            @endforeach
-                                        @endif
-                                    @endif
-                                </ul>
-                            </div>
+                            <label>Reçu de </label>
+                            <input type="text" placeholder="Rechercher un client..." wire:model.defer="customer" />
                             @error('customer')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
                         <div class="col-md-6">
                             <div class="input-style-1">
-                                <label>N° Tracteur <a href="javascript:void(0)" data-bs-toggle="modal"
-                                        data-bs-target="#ModalTree"> Ajouter un tracteur</a> </label>
-                                <input type="text" placeholder="Rechercher le tracteur..." wire:model="tractor" />
-
-                                <div wire:loading.flex wire:target="tractor">
-                                    <div class="d-flex justify-content-center">
-                                        <div class="spinner-border" role="status">
-                                            <span class="visually-hidden">chargement...</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="absolute z-10 mt-1 w-full text-sm overflow-auto px-2" wire:loading.remove>
-                                    <ul class="list-group">
-                                        @if (empty($tractors) && $tractor != '')
-                                            pas de resultat
-                                        @else
-                                            @if (!empty($tractors) && $tractor != '')
-                                                @foreach ($tractors as $i => $tractor)
-                                                    <a href="javascript:void(0)"
-                                                        wire:click="selectTractor({{ $i }})"
-                                                        class="list-group-item list-group-item-action"
-                                                        {{ $hiddenTractor }}>{{ $tractor['label'] }}
-                                                    </a>
-                                                @endforeach
-                                            @endif
-                                        @endif
-                                    </ul>
-                                </div>
+                                <label>N° Tracteur </label>
+                                <input type="text" placeholder="Rechercher le tracteur..." wire:model.defer="tractor" />
                                 @error('tractor')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
@@ -80,32 +27,7 @@
                             <div class="input-style-1">
                                 <label>N° Remorque <a href="javascript:void(0)" data-bs-toggle="modal"
                                         data-bs-target="#Modalfour"> Ajouter une remorque</a> </label>
-                                <input type="text" placeholder="Rechercher la remorque..." wire:model="trailer" />
-
-                                <div wire:loading.flex wire:target="trailer">
-                                    <div class="d-flex justify-content-center">
-                                        <div class="spinner-border" role="status">
-                                            <span class="visually-hidden">chargement...</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="absolute z-10 mt-1 w-full text-sm overflow-auto px-2">
-                                    <ul class="list-group">
-                                        @if (empty($trailers) && $trailer != '')
-                                            pas de resultat
-                                        @else
-                                            @if (!empty($trailer) && $trailer != '')
-                                                @foreach ($trailers as $i => $trailer)
-                                                    <a href="javascript:void(0)"
-                                                        wire:click="selectTrailer({{ $i }})"
-                                                        class="list-group-item list-group-item-action"
-                                                        {{ $hiddenTrailer }}>{{ $trailer['label'] }}
-                                                    </a>
-                                                @endforeach
-                                            @endif
-                                        @endif
-                                    </ul>
-                                </div>
+                                <input type="text" placeholder="Rechercher la remorque..." wire:model.defer="trailer" />
                                 @error('trailer')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
@@ -154,10 +76,7 @@
                                     <input type="text" wire:model="weighbridge" disabled />
                                 </div>
                             </div>
-
                         @endif
-
-
                     </div>
                     <div class="row">
                         <div class="col-md-6">
@@ -215,14 +134,6 @@
                         <label class="form-check-label" for="checkbox-1">
                             Je rembourse</label>
                     </div>
-                    {{-- <div class="form-check form-switch toggle-switch mb-30">
-                        <input
-                            class="form-check-input"
-                            type="checkbox"
-                            id="toggleSwitch1" />
-
-                        <label class="form-check-label" wire:model="isRefunded" for="toggleSwitch1">Remboursé</label>
-                    </div> --}}
                     <div class="text-center">
                         @if (Auth::user()->isChefGuerite())
                             <button wire:click="store" wire:loading.attr="disabled" class="main-btn   active-btn-outline rounded-md btn-hover">
