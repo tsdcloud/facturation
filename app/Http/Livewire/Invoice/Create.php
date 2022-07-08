@@ -207,9 +207,6 @@ class Create extends Component
                     ->take(4)
                     ->get()
                     ->toArray();
-
-
-
     }
 
     public function updatedTrailer()
@@ -221,7 +218,6 @@ class Create extends Component
             ->take(4)
             ->get()
             ->toArray();
-
     }
 
     public function updatedCustomer()
@@ -257,7 +253,7 @@ class Create extends Component
             $this->reset(['tax_amount','subtotal','total_amount']);
             return 0;
         }
-        
+
         $this->type = TypeWeighing::where('id',$this->typeWeighing)->first();
 
         $this->subtotal = $this->type->price;
@@ -317,20 +313,6 @@ class Create extends Component
         try{
                 DB::beginTransaction();
 
-                    $id_tractor = Tractor::firstOrCreate(
-                        ['label' =>  $this->tractor],
-                        ['label' => strtoupper(str_replace(" ","",$this->tractor)) ]
-                        );
-
-                    $id_customer = Customer::firstOrCreate(
-                                ['label' =>  $this->customer],
-                                ['label' => strtoupper(str_replace(" ","",$this->customer))]
-                                );
-                    $id_trailer = Trailer::firstOrCreate(
-                                ['label' =>  $this->trailer],
-                                ['label' => strtoupper(str_replace(" ","",$this->trailerr))]
-                                );
-
                 $this->id_invoice =  InvoiceService::storeInvoice($this->subtotal,
                                             $this->tax_amount,
                                             $this->total_amount,
@@ -339,13 +321,14 @@ class Create extends Component
                                             $this->amountPaid,
                                             $this->remains,
                                             auth()->id(),
-                                            $id_tractor->id,
-                                            $id_customer->id,
+                                            $this->selectedTractor,
+                                            $this->selectedCustomer,
                                             $this->type->id,
                                             $this->isRefunded,
-                                            $id_trailer->id,
+                                            $this->selectedTrailer,
                                             false
                                         );
+
                 if($this->isRefunded == false && $this->remains !=0)
                 {
                     session()->flash('message', 'facture enregistrée avec succès.');
@@ -357,7 +340,7 @@ class Create extends Component
                     $this->emptyField();
                 }
             DB::commit();
-            
+
         }catch(\Exception $e){
                     Log::error(sprintf('%d'.$e->getMessage(), __METHOD__));
                     session()->flash('error', 'Une erreur c\'est produite, veuillez actualiser le navigateur et essayer à nouveau.
