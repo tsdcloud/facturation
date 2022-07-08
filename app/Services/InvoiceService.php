@@ -6,6 +6,8 @@ namespace App\Services;
 use App\Helpers\Numbers\MoneyHelper;
 use App\Models\Invoice;
 use App\Models\Weighbridge;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use setasign\Fpdi\Fpdi;
 use Illuminate\Support\Facades\Storage;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
@@ -14,6 +16,7 @@ class InvoiceService extends Fpdi
 {
 
     private $angle = 0;
+    private int $id = 0;
     public function Header(){
         $this->Image(public_path('assets\images\logo\logo-dpws.png'),05,05,30);
         $this->Ln(3);
@@ -134,39 +137,64 @@ class InvoiceService extends Fpdi
                                         bool $direction= false): int
     {
 
-        $weighbridgeId = '';
-        if ($direction)
-            $weighbridgeId =  Weighbridge::where('label', 'Direction')->first();
 
-        if ($remains == 0)
-             $isRefunded = true;
+            $data = new Invoice();
 
-        $lastId = Invoice::latest('id')->first();
-            $data = Invoice::create([
-                   'invoice_no' => is_null($lastId) ? str_pad(1,7,0,STR_PAD_LEFT) :str_pad($lastId->id + 1,7,0,STR_PAD_LEFT),
-                    'subtotal' => $subtotal,
-                    'tax_amount' => $tax_amount,
-                    'total_amount' => $total_amount,
-                    'mode_payment_id'=> $mode_payment_id,
-                    'weighbridge_id'=> $direction == true ? $weighbridgeId->id : $bridge_id,
-                    'amount_paid'=> $amount_paid,
-                    'remains'=> $remains,
-                    'status_invoice' => 'validated',
-                    'user_id'=> $user_id,
-                    'isRefunded'=> $isRefunded,
-                    'tractor_id'=> $tractor_id,
-                    'trailer_id' => $trailer_id ,
-                    'customer_id' => $customer_id,
-                    'type_weighing_id' => $price_id,
-                    'path_qrcode' => '',
-            ]);
+        try {
 
-//            $path = 'http://billingdpws.bfclimited.com:8080/display/'.$data->id;
-//            $picture = QrCode::format('png')->style('square')->size(120)->generate($path);
-//            $output_file = '/Qrcode/'.$data->id.'/'. time() . '.png';
-//
-//            Storage::disk('public')->put($output_file, $picture);
-//            tap($data)->update(['path_qrcode'=> $output_file]);
+            DB::beginTransaction();
+
+            $weighbridgeId = '';
+
+            if ($direction)
+                $weighbridgeId =  Weighbridge::where('label', 'Direction')->first();
+
+            if ($remains == 0)
+                $isRefunded = true;
+
+            $lastId = Invoice::latest('id')->first();
+
+            $data->invoice_no = is_null($lastId) ? str_pad(1,7,0,STR_PAD_LEFT) :str_pad($lastId->id + 1,7,0,STR_PAD_LEFT);
+            $data->subtotal = $subtotal;
+            $data->tax_amount = $tax_amount;
+            $data->total_amount = $total_amount;
+            $data->mode_payment_id = $mode_payment_id;
+            $data->weighbridge_id = $direction ? $weighbridgeId->id : $bridge_id;
+            $data->amount_paid = $amount_paid;
+            $data->remains = $remains;
+            $data->status_invoice = 'validated';
+            $data->user_id = $user_id;
+            $data->isRefunded = $isRefunded;
+            $data->tractor_id = $tractor_id;
+            $data->trailer_id = $trailer_id;
+            $data->customer_id = $customer_id;
+            $data->type_weighing_id = $price_id;
+            $data->path_qrcode = '';
+
+            $path = 'http://billingdpws.bfclimited.com:8080/display/'.$lastId;
+            $picture = QrCode::format('png')->style('square')->size(120)->generate($path);
+            $output_file = '/Qrcode/'.$lastId.'/'. time() . '.png';
+            Storage::disk('public')->put($output_file, $picture);
+            $data->path_qrcode = $output_file;
+
+            $data->save();
+
+            DB::commit();
+
+        }catch (\Illuminate\Database\QueryException $e){
+            session()->flash('error', 'Erreur lors de l\'enregistrement de la facture, veuillez actualiser le navigateur et recommencer.1');
+            DB::rollBack();
+        }
+        catch (\Exception $e){
+            //Log::error(sprintf('%d'.$e->getMessage(), __METHOD__));
+            session()->flash('error', 'Erreur lors de l\'enregistrement de la facture, veuillez actualiser le navigateur et recommencer.2');
+            DB::rollBack();
+        }
+        catch (\Error $e){
+            session()->flash('error', 'Erreur lors de l\'enregistrement de la facture, veuillez actualiser le navigateur et recommencer.3');
+            DB::rollBack();
+        }
+
         return $data->id;
     }
 

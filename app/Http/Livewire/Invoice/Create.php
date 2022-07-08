@@ -310,8 +310,13 @@ class Create extends Component
     public function store(){
         $this->validate();
 
-        try{
-                DB::beginTransaction();
+                if ($this->selectedCustomer == 0)
+                    return $this->addError('customer', '.veuillez selectionner le client sur la liste déroulante et non ecrire le nom client');
+
+                if ($this->selectedTractor == 0)
+                    return $this->addError('tractor', 'veuillez selectionner le tracteur sur la liste déroulante et non ecrire le nom du tracteur');
+
+
 
                 $this->id_invoice =  InvoiceService::storeInvoice($this->subtotal,
                                             $this->tax_amount,
@@ -326,27 +331,19 @@ class Create extends Component
                                             $this->type->id,
                                             $this->isRefunded,
                                             $this->selectedTrailer,
-                                            false
-                                        );
+                                            false );
 
-                if($this->isRefunded == false && $this->remains !=0)
+                if(!$this->isRefunded && $this->remains !=0)
                 {
                     session()->flash('message', 'facture enregistrée avec succès.');
                     $this->emptyField();
                     $this->id_invoice = '';
                 }else{
                     $this->dispatchBrowserEvent('closeAlert');
-                    session()->flash('message', 'facture enregistrée avec succès.');
+                    session()->flash('message', 'facture enregistrée avec succès .');
                     $this->emptyField();
                 }
-            DB::commit();
 
-        }catch(\Exception $e){
-                    Log::error(sprintf('%d'.$e->getMessage(), __METHOD__));
-                    session()->flash('error', 'Une erreur c\'est produite, veuillez actualiser le navigateur et essayer à nouveau.
-                    Rapprochez vous d\'un IT en service si necessaire.');
-                    DB::rollBack();
-        }
     }
 
     public function cancelCustomer(){
@@ -454,7 +451,7 @@ class Create extends Component
         $this->trailer = '';
         $this->customer = '';
         $this->selectedTractor = 0;
-        $this->selectedTrailer = null;
+        $this->selectedTrailer = 0;
         $this->selectedCustomer = 0;
         $this->showDropdown = true;
         $this->showDropdown2 = true;
