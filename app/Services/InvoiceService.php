@@ -154,31 +154,33 @@ class InvoiceService extends Fpdi
 
             $lastId = Invoice::latest('id')->first();
 
-            $data->invoice_no = is_null($lastId) ? str_pad(1,7,0,STR_PAD_LEFT) :str_pad($lastId->id + 1,7,0,STR_PAD_LEFT);
-            $data->subtotal = $subtotal;
-            $data->tax_amount = $tax_amount;
-            $data->total_amount = $total_amount;
-            $data->mode_payment_id = $mode_payment_id;
-            $data->weighbridge_id = $direction ? $weighbridgeId->id : $bridge_id;
-            $data->amount_paid = $amount_paid;
-            $data->remains = $remains;
-            $data->status_invoice = 'validated';
-            $data->user_id = $user_id;
-            $data->isRefunded = $isRefunded;
-            $data->tractor_id = $tractor_id;
-            $data->trailer_id = $trailer_id;
-            $data->customer_id = $customer_id;
-            $data->type_weighing_id = $price_id;
-            $data->path_qrcode = '';
+            $lastId = Invoice::latest('id')->first();
+            $data = Invoice::create([
+                   'invoice_no' => is_null($lastId) ? str_pad(1,7,0,STR_PAD_LEFT) :str_pad($lastId->id + 1,7,0,STR_PAD_LEFT),
+                    'subtotal' => $subtotal,
+                    'tax_amount' => $tax_amount,
+                    'total_amount' => $total_amount,
+                    'mode_payment_id'=> $mode_payment_id,
+                    'weighbridge_id'=> $direction == true ? $weighbridgeId->id : $bridge_id,
+                    'amount_paid'=> $amount_paid,
+                    'remains'=> $remains,
+                    'status_invoice' => 'validated',
+                    'user_id'=> $user_id,
+                    'isRefunded'=> $isRefunded,
+                    'tractor_id'=> $tractor_id,
+                    'trailer_id' => $trailer_id ,
+                    'customer_id' => $customer_id,
+                    'type_weighing_id' => $price_id,
+                    'path_qrcode' => '',
+            ]);
 
-            $path = 'http://billingdpws.bfclimited.com:8080/display/'.$lastId;
+            $path = 'http://billingdpws.bfclimited.com:8080/display/'.$data->id;
             $picture = QrCode::format('png')->style('square')->size(120)->generate($path);
-            $output_file = '/Qrcode/'.$lastId.'/'. time() . '.png';
+            $output_file = '/Qrcode/'.$data->id.'/'. time() . '.png';
+
             Storage::disk('public')->put($output_file, $picture);
-            $data->path_qrcode = $output_file;
-
-            $data->save();
-
+            tap($data)->update(['path_qrcode'=> $output_file]);
+          
             DB::commit();
 
         }catch (\Illuminate\Database\QueryException $e){
@@ -194,7 +196,7 @@ class InvoiceService extends Fpdi
             session()->flash('error', 'Erreur lors de l\'enregistrement de la facture, veuillez actualiser le navigateur et recommencer.3');
             DB::rollBack();
         }
-
+//dd($data);
         return $data->id;
     }
 
