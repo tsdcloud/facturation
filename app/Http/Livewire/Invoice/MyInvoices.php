@@ -22,26 +22,6 @@ class MyInvoices extends Component
                 $query->where('user_id', auth()->user()->id);
 //                $query->where('who_paid_back_id', auth()->user()->id);
             })->orderBy('created_at','DESC')->paginate(10),
-            'numberInvoice' => Invoice::where('user_id',auth()->user()->id)
-                                        ->whereDate('created_at',now())
-                                        ->count(),
-            'cashMoney' => Invoice::where('user_id', auth()->user()->id)
-                                    ->where('mode_payment_id',2)
-                                    ->whereDate('created_at',now())
-                                    ->sum('total_amount'),
-            'mobileMoney' => Invoice::where('user_id', auth()->user()->id)
-                                     ->where('mode_payment_id',1)
-                                     ->whereDate('created_at',now())
-                                     ->sum('total_amount'),
-            'cancelledInvoice' => Invoice::where('user_id',auth()->user()->id)
-                                        ->where('status_invoice','cancelling')
-                                        ->whereDate('created_at',now())
-                                         ->count(),
-            'totalAmount' => Invoice::where('user_id',auth()->user()->id)
-                                    ->whereDate('created_at',now())
-                                    ->sum('total_amount'),
-//            'payback' => Invoice::where('who_paid_back',auth()->user()->name)
-//                                  ->whereDate('date_payback',now())
         ]);
     }
 
