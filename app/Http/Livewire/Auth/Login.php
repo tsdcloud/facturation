@@ -96,6 +96,7 @@ class Login extends Component
         tap($this->user)->update([
             'password' => Hash::make($this->password),
             'firstLogin' => true,
+            'status' => 'actif',
         ]);
         $this->password = '';
         $this->password_confirmation = '';
