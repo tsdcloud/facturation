@@ -36,7 +36,9 @@ class Report extends Component
 
     public function mount(){
 
-        $this->users = User::all();
+        $this->users = User::where('role','user')
+                            ->orWhere('role','support')
+                            ->get();
     }
 
 
