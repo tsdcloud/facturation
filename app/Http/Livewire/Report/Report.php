@@ -15,18 +15,13 @@ class Report extends Component
             $startDate = '',
             $endDate = '',
             $invoices,
-            $total_amount,
-            $mobileMoney,
             $cancelledInvoice,
-            $payback,
             $numberCashMoney,
             $numberMobileMoney,
-            $amountCancelledInvoice,
-            $numberRemains,
-            $totalValue;
+            $numberRemains;
 
     public ?int $number_invoice;
-    public float $cashMoney;
+    public ?float $cashMoney, $totalValue,  $mobileMoney, $amountCancelledInvoice, $total_amount, $payback;
 
     public function render()
     {
@@ -115,68 +110,76 @@ class Report extends Component
 
     public function searchCG(){
 
-        if ($this->startDate == "" || $this->endDate == ""){
+        try {
+
+            if ($this->startDate == "" || $this->endDate == ""){
                 return 0;
-        }
+            }
 
-        $start = Carbon::createFromFormat('Y-m-d',$this->startDate)->startOfDay();
-        $end = Carbon::createFromFormat('Y-m-d', $this->endDate)->endOfDay();
+            $start = Carbon::createFromFormat('Y-m-d',$this->startDate)->startOfDay();
+            $end = Carbon::createFromFormat('Y-m-d', $this->endDate)->endOfDay();
 
-        // affiche moi seulement
-        $this->invoices = Invoice::where('user_id',auth()->user()->id)
-                                    ->whereBetween('created_at',[$start, $end])
-                                    ->get();
+            // affiche moi seulement
+            $this->invoices = Invoice::where('user_id',auth()->user()->id)
+                ->whereBetween('created_at',[$start, $end])
+                ->get();
 
-        $this->total_amount = $this->invoices->sum('total_amount');
+            $this->total_amount = $this->invoices->sum('total_amount');
 
-        $this->number_invoice = $this->invoices->count();
+            $this->number_invoice = $this->invoices->count();
 
-        //montant espèce
-        $this->cashMoney = Invoice::where('user_id', auth()->user()->id)
-                                    ->where('mode_payment_id',2) //Espèce
-                                    ->where('status_invoice','validated')
-                                    ->whereBetween('created_at',[$start, $end])
-                                    ->sum('total_amount');
-        //nombre d'espèce en cash
-       $this->numberCashMoney =  Invoice::where('user_id', auth()->user()->id)
-                                    ->where('mode_payment_id',2) //Espèce
-                                    ->where('status_invoice','validated')
-                                    ->whereBetween('created_at',[$start, $end])
-                                    ->count();
+            //montant espèce
+            $this->cashMoney = Invoice::where('user_id', auth()->user()->id)
+                ->where('mode_payment_id',2) //Espèce
+                ->where('status_invoice','validated')
+                ->whereBetween('created_at',[$start, $end])
+                ->sum('total_amount');
+            //nombre d'espèce en cash
+            $this->numberCashMoney =  Invoice::where('user_id', auth()->user()->id)
+                ->where('mode_payment_id',2) //Espèce
+                ->where('status_invoice','validated')
+                ->whereBetween('created_at',[$start, $end])
+                ->count();
 
             $this->mobileMoney = Invoice::where('user_id', auth()->user()->id)
-                                    ->where('mode_payment_id',1) //Paiement mobile
-                                    ->where('status_invoice','validated')
-                                    ->whereBetween('created_at',[$start, $end])
-                                    ->sum('total_amount');
+                ->where('mode_payment_id',1) //Paiement mobile
+                ->where('status_invoice','validated')
+                ->whereBetween('created_at',[$start, $end])
+                ->sum('total_amount');
 
-             $this->numberMobileMoney = Invoice::where('user_id', auth()->user()->id)
-                                    ->where('mode_payment_id',1) //Paiement mobile
-                                    ->where('status_invoice','validated')
-                                    ->whereBetween('created_at',[$start, $end])
-                                    ->count();
+            $this->numberMobileMoney = Invoice::where('user_id', auth()->user()->id)
+                ->where('mode_payment_id',1) //Paiement mobile
+                ->where('status_invoice','validated')
+                ->whereBetween('created_at',[$start, $end])
+                ->count();
 
             $this->amountCancelledInvoice = Invoice::where('user_id',auth()->user()->id)
-                                    ->where('status_invoice','cancelling')
-                                    ->whereBetween('created_at',[$start, $end])
-                                    ->sum('total_amount');
+                ->where('status_invoice','cancelling')
+                ->whereBetween('created_at',[$start, $end])
+                ->sum('total_amount');
 
             $this->cancelledInvoice = Invoice::where('user_id',auth()->user()->id)
-                                    ->where('status_invoice','cancelling')
-                                    ->whereBetween('created_at',[$start, $end])
-                                    ->count();
+                ->where('status_invoice','cancelling')
+                ->whereBetween('created_at',[$start, $end])
+                ->count();
 
             $this->payback = Invoice::where('who_paid_back_id',auth()->user()->id)
-                                    ->where('status_invoice','validated')
-                                    ->whereBetween('date_payback',[$start, $end])
-                                    ->sum('remains');
+                ->where('status_invoice','validated')
+                ->whereBetween('date_payback',[$start, $end])
+                ->sum('remains');
 
             $this->numberRemains = Invoice::where('who_paid_back_id',auth()->user()->id)
-                                    ->where('status_invoice','validated')
-                                    ->whereBetween('date_payback',[$start, $end])
-                                    ->count();
+                ->where('status_invoice','validated')
+                ->whereBetween('date_payback',[$start, $end])
+                ->count();
 
-        $this->totalValue = ($this->cashMoney + $this->mobileMoney) - ($this->amountCancelledInvoice + $this->payback);
+            $this->totalValue = ($this->cashMoney + $this->mobileMoney) - ($this->amountCancelledInvoice + $this->payback);
+        }catch (\Exception){
+
+            session()->flash('error-trailer', 'une erreur est survenu, veuillez actualiser le navigateur');
+        }
+
+
     }
 
     public function exportCG(){
