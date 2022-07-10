@@ -64,7 +64,7 @@ Route::middleware(['auth'])->group(function(){
     Route::get('payback/index',[PaybackController::class,'index'] )->name('payback.index');
     Route::get('payback/edit/{id}',[PaybackController::class,'edit'] )->name('payback.edit');
     Route::patch('payback/update/{invoice}',[PaybackController::class,'update'] )->name('payback.update');
-
+    Route::patch('reset/{id}',[UserController::class,'resetPassword'])->name('reset.password');
     //journal d'erreur
     Route::get('logs', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index'])->name('log');
 });

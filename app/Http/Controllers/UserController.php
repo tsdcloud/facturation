@@ -110,4 +110,18 @@ class UserController extends Controller
     {
         //
     }
+
+    public function resetPassword(Request $request, $id){
+
+        $user = User::where('id',$id)->first();
+        if (is_null($user))
+            return redirect()->route('account.index')->with('error','impossible de trouver l\'utilisateur veuillez actualiser et recommencer');
+
+        $user->update([
+          'password' => '',
+          'firstLogin' => false,
+        ]);
+
+        return redirect()->route('account.index')->with('message','mot de passe renitialisé');
+    }
 }

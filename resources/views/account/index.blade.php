@@ -2,6 +2,18 @@
 
 @section('content')
     <div class="col-lg-12">
+        @if (session()->has('message'))
+            <div id="alert-message" class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>{{ session('message') }} </strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+        @if (session()->has('error'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>{{ session('error') }} </strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
         <div class="card-style mb-30">
             <h6 class="mb-10"></h6>
             <div class="table-wrapper table-responsive">
@@ -35,18 +47,41 @@
                                 <p> <span class="status-btn success-btn">{{$user->status}}</span> </p>
                             </td>
                             <td>
-                                <div class="action">
-                                    <button class="edit" data-bs-toggle="modal">
-                                        <i class="lni lni-pencil"></i>
+                                <div class="action justify-content-end">
+                                    <button class="more-btn ml-10 dropdown-toggle" id="moreAction1"
+                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="lni lni-more-alt"></i>
                                     </button>
-{{--                                    <button class="text-danger" data-bs-toggle="modal">--}}
-{{--                                         Annuler--}}
-{{--                                    </button>--}}
+                                    <ul class="dropdown-menu dropdown-menu-end"
+                                        aria-labelledby="moreAction1">
+                                        <li class="dropdown-item">
+                                            <a style="color:grey" class="link-primary"
+                                               href="javascript:void(0)">
+                                                Editer l'utilisateur
+                                            </a>
+                                        </li>
+                                        <li class="dropdown-item">
+                                            <a onclick="event.preventDefault(); document. getElementById('reset').submit();" style="color:grey" class="link-primary"
+                                               href="">
+                                                Rénitialiser le mot de passe
+                                            </a>
+                                            <form id="reset" action="{{ route('reset.password', $user->id) }}" method="POST">
+                                                @csrf
+                                                @method('PATCH')
+                                            </form>
+                                        </li>
+                                        <li class="dropdown-item">
+                                            <a style="color:grey" class="link-primary"
+                                               href="javascript:void(0)">
+                                                Désactiver le compte
+                                            </a>
+                                        </li>
+                                    </ul>
                                 </div>
                             </td>
                         </tr>
                     @empty
-                        Pas de facture en attente
+                       pas d'utilisateur
                     @endforelse
 
                     </tbody>
