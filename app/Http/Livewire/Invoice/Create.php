@@ -333,6 +333,7 @@ class Create extends Component
                                             $this->selectedTrailer,
                                             false );
 
+              //  dd($this->id_invoice);
                 if(!$this->isRefunded && $this->remains !=0)
                 {
                     session()->flash('message', 'facture enregistrée avec succès.');
@@ -433,6 +434,11 @@ class Create extends Component
         }
     }
 
+    public function closeModal(){
+
+        $this->id_invoice = null;
+    }
+
     protected function emptyField(){
 
         $this->reset(['tax_amount','subtotal']);
@@ -451,9 +457,9 @@ class Create extends Component
         $this->trailer = '';
         $this->customer = '';
         $this->selectedTractor = 0;
-        $this->selectedTrailer = 0;
+        $this->selectedTrailer = null;
         $this->selectedCustomer = 0;
-        $this->showDropdown = true;
+        $this->showDropdown1 = true;
         $this->showDropdown2 = true;
         $this->showDropdown3 = true;
         $this->typeWeighing = null;

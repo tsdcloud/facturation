@@ -250,7 +250,7 @@
                 <div class="modal-dialog  modal-xl">
                     <div class="modal-content card-style">
                         <div class="modal-header px-0 border-0 d-flex justify-content-end ">
-                            <button class="border-0 bg-transparent h2" data-bs-dismiss="modal">
+                            <button class="border-0 bg-transparent h2" wire:click="closeModal" data-bs-dismiss="modal">
                                 <i class="lni lni-cross-circle"></i>
                             </button>
                         </div>
