@@ -182,17 +182,19 @@ class InvoiceService extends Fpdi
             tap($data)->update(['path_qrcode'=> $output_file]);
           
             DB::commit();
-
+         //   dd($data);
         }catch (\Illuminate\Database\QueryException $e){
+            Log::error($e->getMessage());
             session()->flash('error', 'Erreur lors de l\'enregistrement de la facture, veuillez actualiser le navigateur et recommencer.1');
             DB::rollBack();
         }
         catch (\Exception $e){
-            //Log::error(sprintf('%d'.$e->getMessage(), __METHOD__));
+            Log::error(sprintf('%d'.$e->getMessage(), __METHOD__));
             session()->flash('error', 'Erreur lors de l\'enregistrement de la facture, veuillez actualiser le navigateur et recommencer.2');
             DB::rollBack();
         }
         catch (\Error $e){
+            Log::error($e->getMessage());
             session()->flash('error', 'Erreur lors de l\'enregistrement de la facture, veuillez actualiser le navigateur et recommencer.3');
             DB::rollBack();
         }
