@@ -184,17 +184,24 @@ class InvoiceService extends Fpdi
             DB::commit();
 
         }catch (\Illuminate\Database\QueryException $e){
-            session()->flash('error', 'Erreur lors de l\'enregistrement de la facture, veuillez actualiser le navigateur et recommencer.1');
             DB::rollBack();
+            Log::error(sprintf('%d'.$e->getMessage(), __METHOD__));
+            session()->flash('error', 'Erreur lors de l\'enregistrement de la facture, veuillez actualiser le navigateur et recommencer.1');
         }
         catch (\Exception $e){
-            //Log::error(sprintf('%d'.$e->getMessage(), __METHOD__));
-            session()->flash('error', 'Erreur lors de l\'enregistrement de la facture, veuillez actualiser le navigateur et recommencer.2');
             DB::rollBack();
+            Log::error(sprintf('%d'.$e->getMessage(), __METHOD__));
+            session()->flash('error', 'Erreur lors de l\'enregistrement de la facture, veuillez actualiser le navigateur et recommencer.2');
         }
         catch (\Error $e){
-            session()->flash('error', 'Erreur lors de l\'enregistrement de la facture, veuillez actualiser le navigateur et recommencer.3');
             DB::rollBack();
+            Log::error(sprintf('%d'.$e->getMessage(), __METHOD__));
+            session()->flash('error', 'Erreur lors de l\'enregistrement de la facture, veuillez actualiser le navigateur et recommencer.3');
+        }
+        catch (\Throwable $e){
+            DB::rollBack();
+            Log::error(sprintf('%d'.$e->getMessage(), __METHOD__));
+            session()->flash('error', 'Erreur lors de l\'enregistrement de la facture, veuillez actualiser le navigateur et recommencer.4');
         }
 //dd($data);
         return $data->id;
