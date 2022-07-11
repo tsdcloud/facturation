@@ -38,6 +38,9 @@
                                     <th class="lead-info">
                                         <h6>N° facture</h6>
                                     </th>
+                                    <th class="lead-info">
+                                        <h6>Date</h6>
+                                    </th>
                                     <th class="lead-email">
                                         <h6>N° tracteur</h6>
                                     </th>
@@ -62,6 +65,9 @@
                                         <tr class="table-danger">
                                             <td>
                                                 <p>{{ $invoice->invoice_no }}</p>
+                                            </td>
+                                            <td>
+                                                <p>{{ $invoice->created_at->format('d/m/y H:i:s') }}</p>
                                             </td>
                                             <td>
                                                 <p>{{ $invoice->myTractor->label }}</p>
@@ -99,6 +105,9 @@
                                                 <p>{{ $invoice->invoice_no }}</p>
                                             </td>
                                             <td>
+                                                <p>{{ $invoice->created_at->format('d/m/y H:i:s') }}</p>
+                                            </td>
+                                            <td>
                                                 <p>{{ $invoice->myTractor->label }}</p>
                                             </td>
                                             <td>
@@ -119,11 +128,13 @@
                                                     </button>
                                                     <ul class="dropdown-menu dropdown-menu-end"
                                                         aria-labelledby="moreAction1">
-                                                        <li class="dropdown-item">
-                                                            <a style="color:grey" class="link-primary" target="_blank"
-                                                                href="{{ route('show-pdf', $invoice->id) }}">Imprimer la
-                                                                facture</a>
-                                                        </li>
+                                                         @if($invoice->isRefunded == true)
+                                                            <li class="dropdown-item">
+                                                                <a style="color:grey" class="link-primary" target="_blank"
+                                                                    href="{{ route('show-pdf', $invoice->id) }}">Imprimer la
+                                                                    facture</a>
+                                                            </li>
+                                                         @endif
                                                         <li class="dropdown-item">
                                                             <a href="javascript:void(0)"
                                                                 wire:click="getInvoice({{ $invoice->id }})"

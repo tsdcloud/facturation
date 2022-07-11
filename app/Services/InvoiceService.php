@@ -139,11 +139,10 @@ class InvoiceService extends Fpdi
 
 
             $data = new Invoice();
-
-        //    dd($trailer_id);
             DB::beginTransaction();
 
         try {
+
 
             $weighbridgeId = '';
 
@@ -185,17 +184,17 @@ class InvoiceService extends Fpdi
             DB::commit();
 
         }catch (\Illuminate\Database\QueryException $e){
-            DB::rollBack();
             session()->flash('error', 'Erreur lors de l\'enregistrement de la facture, veuillez actualiser le navigateur et recommencer.1');
+            DB::rollBack();
         }
         catch (\Exception $e){
             //Log::error(sprintf('%d'.$e->getMessage(), __METHOD__));
-            DB::rollBack();
             session()->flash('error', 'Erreur lors de l\'enregistrement de la facture, veuillez actualiser le navigateur et recommencer.2');
+            DB::rollBack();
         }
         catch (\Error $e){
-            DB::rollBack();
             session()->flash('error', 'Erreur lors de l\'enregistrement de la facture, veuillez actualiser le navigateur et recommencer.3');
+            DB::rollBack();
         }
 //dd($data);
         return $data->id;
