@@ -16,12 +16,18 @@ class MyInvoices extends Component
 
     public function render()
     {
+        $query = Invoice::whereHas('myTractor', function($query){
+            $query->where('label','LIKE',strtoupper("%$this->search_invoice_no_tractor_trailer%") );
+        })
+        ->orWhere(function($query) {
+            $query->where('invoice_no','LIKE',"%$this->search_invoice_no_tractor_trailer%");
+
+        });
+        $query->where('user_id',auth()->user()->id);
+
         return view('livewire.invoice.my-invoices',[
-            'invoices' => Invoice::where(function($query){
-                $query->where('invoice_no','LIKE',"%{$this->search_invoice_no_tractor_trailer}%");
-                $query->where('user_id', auth()->user()->id);
-//                $query->where('who_paid_back_id', auth()->user()->id);
-            })->orderBy('created_at','DESC')->paginate(10),
+
+            'invoices' => $query->orderBy('created_at','DESC')->paginate(10),
         ]);
     }
 

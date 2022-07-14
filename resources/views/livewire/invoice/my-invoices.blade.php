@@ -25,7 +25,7 @@
                             <div class="table-search d-flex">
                                 <form action="#">
                                     <input type="text" wire:model.debounce.500ms="search_invoice_no_tractor_trailer"
-                                        placeholder="Entrer le n° facture" />
+                                        placeholder="Entrer n° facture ou tracteur" />
                                     <button><i class="lni lni-search-alt"></i></button>
                                 </form>
                             </div>
@@ -40,6 +40,9 @@
                                     </th>
                                     <th class="lead-info">
                                         <h6>Date</h6>
+                                    </th>
+                                    <th class="lead-info">
+                                        <h6>Statut facture</h6>
                                     </th>
                                     <th class="lead-email">
                                         <h6>N° tracteur</h6>
@@ -68,6 +71,11 @@
                                             </td>
                                             <td>
                                                 <p>{{ $invoice->created_at->format('d/m/y H:i:s') }}</p>
+                                            </td>
+                                            <td>
+                                                <p>
+                                                    <span class="status-btn danger-btn" >annulée</span>
+                                                </p>
                                             </td>
                                             <td>
                                                 <p>{{ $invoice->myTractor->label }}</p>
@@ -106,6 +114,14 @@
                                             </td>
                                             <td>
                                                 <p>{{ $invoice->created_at->format('d/m/y H:i:s') }}</p>
+                                            </td>
+                                            <td>
+                                                <p> @if($invoice->status_invoice == 'validated')
+                                                        <span class="status-btn success-btn">validée</span>
+                                                    @else
+                                                        <span class="mdi-priority-high">annulée</span>
+                                                    @endif
+                                                </p>
                                             </td>
                                             <td>
                                                 <p>{{ $invoice->myTractor->label }}</p>
