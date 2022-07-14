@@ -2,11 +2,13 @@
 
 @section('content')
  <div class="row">
-            {{-- <div class="col-xl-3 col-lg-4 col-sm-6">
+        @if (Auth::user()->isSupport() || Auth::user()->isAdmin()
+        || Auth::user()->isAccount() ||Auth::user()->isAdministration())
+             <div class="col-xl-3 col-lg-4 col-sm-6">
                 <div class="icon-card mb-30">
                     <div class="content">
-                        <h6 class="mb-10">Nombre facture / jour</h6>
-                            <h6 class="text-bold mb-10"> 0 </h6>
+                        <h6 class="mb-10">Nombre facture </h6>
+                            <h6 class="text-bold mb-10"> {{$number_invoices}} </h6>
                     </div>
                 </div>
                 <!-- End Icon Cart -->
@@ -23,22 +25,14 @@
             <div class="col-xl-3 col-lg-4 col-sm-6">
                 <div class="icon-card mb-30">
                     <div class="content">
-                        <h6 class="mb-10">Cash à rembourser</h6>
-                        <h6 class="text-bold mb-10"> 0 FCFA</h6>
+                        <h6 class="mb-10">Factures annulées</h6>
+                        <h6 class="text-bold mb-10">{{ $cancelled_invoice}} </h6>
                     </div>
                 </div>
                 <!-- End Icon Cart -->
             </div>
-            <div class="col-xl-3 col-lg-4 col-sm-6">
-                <div class="icon-card mb-30">
-                    <div class="content">
-                        <h6 class="mb-10">Factures annulées</h6>
-                        <h6 class="text-bold mb-10"> 0 </h6>
-                    </div>
-                </div>
-                <!-- End Icon Cart -->
-            </div> --}}
-        </div>
+        @endif
+    </div>
 
 {{-- <!-- End Row -->--}}
 {{-- <div class="row">--}}
