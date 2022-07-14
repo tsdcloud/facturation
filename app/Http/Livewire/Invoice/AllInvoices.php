@@ -11,12 +11,16 @@ class AllInvoices extends Component
     public  $search_invoice_no_tractor_trailer, $data;
     public function render()
     {
+        $query = Invoice::whereHas('myTractor', function($query){
+            $query->where('label','LIKE',strtoupper("%$this->search_invoice_no_tractor_trailer%") );
+        })
+            ->orWhere(function($query) {
+                $query->where('invoice_no','LIKE',"%$this->search_invoice_no_tractor_trailer%");
+
+            });
+
         return view('livewire.invoice.all-invoices',[
-            'invoices' => Invoice::where(function($query){
-                $query->where('invoice_no','LIKE',"%{$this->search_invoice_no_tractor_trailer}%");
-              //  $query->where('tractor','LIKE',"%{$this->search_invoice_no_tractor_trailer}%");
-            })
-            ->orderBy('created_at','DESC')->paginate(10),
+            'invoices' => $query->orderBy('created_at','DESC')->paginate(10),
         ]);
     }
 
@@ -24,7 +28,7 @@ class AllInvoices extends Component
 
         $this->data = '';
     }
-    
+
     public function getInvoice($id){
 
         $this->data = Invoice::where('id',$id)->first();

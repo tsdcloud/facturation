@@ -11,7 +11,8 @@
                         <div class="right">
                             <div class="table-search d-flex">
                                 <form action="#">
-                                    <input type="text"  wire:model.debounce.500ms="search_invoice_no_tractor_trailer" placeholder="Entrer le n° facture" />
+                                    <input type="text"  wire:model.debounce.500ms="search_invoice_no_tractor_trailer"
+                                           placeholder="Entrer le n° facture ou tracteur" />
                                     <button><i class="lni lni-search-alt"></i></button>
                                 </form>
                             </div>
@@ -136,7 +137,7 @@
                                                                 wire:click="getInvoice({{ $invoice->id }})"
                                                                 data-bs-toggle="modal" data-bs-target="#ModalTree"
                                                                 class="text-gray">Annuler la facture</a>
-                                                        </li>  
+                                                        </li>
                                                         @endif
                                                     </ul>
                                                 </div>
