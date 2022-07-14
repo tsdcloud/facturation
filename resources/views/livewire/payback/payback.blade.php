@@ -24,7 +24,7 @@
                             <div class="table-search d-flex">
                                 <form action="#">
                                     <input type="text" wire:model.debounce.500ms="search_invoice_no_tractor_trailer"
-                                        placeholder="Entrer le n° facture" />
+                                        placeholder="Entrer le n° tracteur" />
                                     <button><i class="lni lni-search-alt"></i></button>
                                 </form>
                             </div>
@@ -37,6 +37,9 @@
                                     <th class="lead-info">
                                         <h6>N° facture</h6>
                                     </th>
+                                    <th class="lead-info">
+                                        <h6>Emise le</h6>
+                                    </th>
                                     <th class="lead-email">
                                         <h6>N° tracteur</h6>
                                     </th>
@@ -44,7 +47,7 @@
                                         <h6>Pont bascule</h6>
                                     </th>
                                     <th class="lead-phone">
-                                        <h6>Montant</h6>
+                                        <h6>Montant versé</h6>
                                     </th>
                                     <th class="lead-phone">
                                         <h6>Reste</h6>
@@ -65,13 +68,16 @@
                                             <p>{{ $refund->invoice_no }}</p>
                                         </td>
                                         <td>
+                                            <p>{{ $refund->created_at->format('d/m/y H:i:s') }}</p>
+                                        </td>
+                                        <td>
                                             <p>{{ $refund->myTractor->label }}</p>
                                         </td>
                                         <td>
                                             <p>{{ $refund->weighbridge->label }}</p>
                                         </td>
                                         <td>
-                                            <p>{{ $refund->total_amount }}</p>
+                                            <p>{{ $refund->amount_paid }}</p>
                                         </td>
                                         <td>
                                             <p>{{ $refund->remains }}</p>
@@ -190,7 +196,7 @@
                                 <button wire:click="payback" data-bs-dismiss="modal"
                                     class="main-btn active-btn-outline rounded-md btn-hover">Rembourser</button>
                             @endif
-                        </div> 
+                        </div>
                     @endempty
                 </div>
             </div>
@@ -222,7 +228,7 @@
 {{-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
     Launch static backdrop modal
   </button> --}}
-  
+
   <!-- Modal -->
   {{-- <div class="modal fade" id="closeRemains" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-sm">
@@ -257,13 +263,13 @@
 
             const myModal = new bootstrap.Modal(document.getElementById('myModal'));
             myModal.show();
-            
+
             const myModal2 = new bootstrap.Modal(document.getElementById('ModalTree'));
             myModal2.hide();
         }
 
         function closeModal() {
-            
+
             // window.open('".$url."', '_blank')
         }
 
