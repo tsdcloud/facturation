@@ -26,6 +26,9 @@
                                         <h6>N° facture</h6>
                                     </th>
                                     <th class="lead-info">
+                                        <h6>Date</h6>
+                                    </th>
+                                    <th class="lead-info">
                                         <h6>Facturé par</h6>
                                     </th>
                                     <th class="lead-email">
@@ -58,6 +61,9 @@
                                         <tr class="table-danger">
                                             <td>
                                                 <p>{{ $invoice->invoice_no }}</p>
+                                            </td>
+                                            <td>
+                                                <p>{{ $invoice->created_at->format('d/m/y H:i:s') }}</p>
                                             </td>
                                             <td>
                                                 <p>{{ $invoice->user->name }}</p>
@@ -95,6 +101,9 @@
                                         <tr>
                                             <td>
                                                 <p>{{ $invoice->invoice_no }}</p>
+                                            </td>
+                                            <td>
+                                                <p>{{ $invoice->created_at->format('d/m/y H:i:s') }}</p>
                                             </td>
                                             <td>
                                                 <p>{{ $invoice->user->name }}</p>
