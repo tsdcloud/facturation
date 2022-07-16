@@ -33,7 +33,7 @@
                     <span class="text-danger">{{ $message }}</span>
                 @enderror
             </div>
-            @if ($user->role == 'admin' || $user->role == 'support' || $user->role == 'administration' || $user->role == 'account')
+            @if ($user->role == 'admin' || $user->role == 'support' || $user->isAdministration() || $user->role == 'account')
                 <div class="text-center">
                     <button wire:click="twoStepPassword" class="btn btn-primary px-5 mb-5 w-100"
                      wire:loading.attr="disabled">
@@ -98,7 +98,7 @@
             <div class="text-center">
                 <button wire:click="resetPassword" wire:loading.attr="disabled" class="btn btn-primary px-5 mb-5 w-100">
                     <div class="spinner-border" wire:loading role="status"></div>
-                    <div wire:loading.remove> Se connecter </div>
+                    <div wire:loading.remove> Valider </div>
                 </button>
             </div>
         @endif
