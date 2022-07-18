@@ -7,7 +7,7 @@
         @if ($currentStep == 1)
             <div class="mb-3">
                 <label>Votre email</label>
-                <input wire:keydown.enter="firstStepEmail" type="email" wire:model.defer="email" class="form-control " placeholder="Entrer votre email professionnel" />
+                <input wire:keydown.enter="firstStepEmail" type="email" wire:model.defer="email" class="form-control " placeholder="Votre email professionnel" />
                 @error('email')
                     <span class="text-danger">{{ $message }}</span>
                 @enderror
