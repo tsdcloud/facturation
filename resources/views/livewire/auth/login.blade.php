@@ -7,7 +7,7 @@
         @if ($currentStep == 1)
             <div class="mb-3">
                 <label>Votre email</label>
-                <input type="email" wire:model.defer="email" class="form-control " placeholder="Entrer votre email professionnel" />
+                <input wire:keydown.enter="firstStepEmail" type="email" wire:model.defer="email" class="form-control " placeholder="Entrer votre email professionnel" />
                 @error('email')
                     <span class="text-danger">{{ $message }}</span>
                 @enderror
@@ -27,7 +27,7 @@
             @endif --}}
             <div class="mb-3">
                 <label>Votre Mot de passe</label>
-                <input wire:model.defer="password" type="password" class="form-control "
+                <input wire:keydown.enter="twoStepPassword" wire:model.defer="password" type="password" class="form-control "
                     placeholder="votre mot de passe" />
                 @error('password')
                     <span class="text-danger">{{ $message }}</span>
@@ -56,7 +56,7 @@
             <div class="mb-3">
                 <div class="select-position">
                     <label for="exampleFormControlInput1" class="form-label">Vous travaillez sur quel pont ?</label>
-                    <select wire:model.defer="bridge" class="form-select">
+                    <select wire:keydown.enter="threeStepRole" wire:model.defer="bridge" class="form-select">
                         <option value="" selected>selectionner votre pont</option>
                         @foreach ($weighbridges as $weighbridge)
                             <option value="{{ $weighbridge->id }}">{{ $weighbridge->label }}</option>
@@ -78,7 +78,7 @@
         @if ($currentStep == 4)
             <div class="mb-3">
                 <label class="form-label">Mot de passe</label>
-                <input wire:model.defer="password" name="password" type="password" class="form-control"
+                <input wire:keydown.enter="resetPassword" wire:model.defer="password" name="password" type="password" class="form-control"
                     placeholder="votre mot de passe" />
                 @error('password')
                     <span class="text-danger">{{ $message }}</span>
@@ -87,7 +87,7 @@
 
             <div class="mb-3">
                 <label class="form-label">Confirmer mot le de passe</label>
-                <input type="password" wire:model.defer="password_confirmation" name="password_confirmation"
+                <input wire:keydown.enter="resetPassword" type="password" wire:model.defer="password_confirmation" name="password_confirmation"
                     class="form-control" placeholder="recommencer" />
                 @error('password')
                     <span class="text-danger">{{ $message }}</span>
