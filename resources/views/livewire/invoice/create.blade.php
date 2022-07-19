@@ -7,7 +7,7 @@
                     <h6 class="mb-25">Facturation</h6>
                     <div class="row">
                         <div class="input-style-1">
-                            <label>Reçu de <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#Modalfive">
+                            <label>Reçu de <a wire:click="getCustomer" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#Modalfive">
                                     Ajouter un client</a> </label>
                             <input type="text" placeholder="Rechercher un client..." wire:model="customer" />
 
@@ -43,7 +43,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="input-style-1">
-                                <label>N° Tracteur <a href="javascript:void(0)" data-bs-toggle="modal"
+                                <label>N° Tracteur <a wire:click="getTractor" href="javascript:void(0)" data-bs-toggle="modal"
                                                       data-bs-target="#ModalTree"> Ajouter un tracteur</a> </label>
                                 <input type="text" placeholder="Rechercher le tracteur..." wire:model="tractor" />
 
@@ -79,7 +79,7 @@
 
                         <div class="col-md-6">
                             <div class="input-style-1">
-                                <label>N° Remorque <a href="javascript:void(0)" data-bs-toggle="modal"
+                                <label>N° Remorque <a wire:click="getTrailer" href="javascript:void(0)" data-bs-toggle="modal"
                                                       data-bs-target="#Modalfour"> Ajouter une remorque</a> </label>
                                 <input type="text" placeholder="Rechercher la remorque..." wire:model="trailer" />
 

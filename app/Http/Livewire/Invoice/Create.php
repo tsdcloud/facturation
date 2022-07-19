@@ -207,6 +207,10 @@ class Create extends Component
                     ->take(4)
                     ->get()
                     ->toArray();
+
+        if ($this->tractor != null){
+            $this->selectedTractor = 0;
+        }
     }
 
     public function updatedTrailer()
@@ -218,6 +222,10 @@ class Create extends Component
             ->take(4)
             ->get()
             ->toArray();
+
+        if ($this->trailer != null){
+            $this->selectedTrailer = null;
+        }
     }
 
     public function updatedCustomer()
@@ -229,7 +237,9 @@ class Create extends Component
             ->take(7)
             ->get()
             ->toArray();
-
+         if ($this->customer != null){
+                $this->selectedCustomer = 0;
+         }
     }
 
     public function mount()
@@ -365,7 +375,7 @@ class Create extends Component
             if ($this->newTractor == "")
                 return 0;
         try {
-           $data = Tractor::create(['label' => strtoupper($this->newTractor)]);
+            $data = Tractor::create(['label' => str_replace(" ",'',strtoupper($this->newTractor))]);
             $this->newTractor = "";
             $this->tractors[] = $data;
 
@@ -392,7 +402,7 @@ class Create extends Component
             if ($this->newTrailer == "")
                 return 0;
 
-            $data = Trailer::create(['label'=> strtoupper($this->newTrailer)]);
+            $data = Trailer::create(['label'=> str_replace(" ",'',strtoupper($this->newTrailer))]);
             $this->newTrailer = "";
             $this->trailers[] = $data;
             session()->flash('new-trailer', 'remorque enregistré avec succès.');
@@ -437,6 +447,34 @@ class Create extends Component
     public function closeModal(){
 
         $this->id_invoice = null;
+    }
+
+    public function getCustomer(){
+
+        if ($this->selectedCustomer == 0){
+           $this->newCustomer = $this->customer;
+        }
+        if($this->selectedCustomer != 0){
+            $this->newCustomer = '';
+        }
+    }
+    public function getTractor(){
+
+        if ($this->selectedTractor == 0){
+            $this->newTractor = $this->tractor;
+        }
+        if($this->selectedTractor != 0){
+            $this->newTractor = '';
+        }
+    }
+    public function getTrailer(){
+
+        if ($this->selectedTrailer == null){
+            $this->newTrailer = $this->trailer;
+        }
+        if ($this->selectedTrailer != 0){
+            $this->newTrailer = '';
+        }
     }
 
     protected function emptyField(){
