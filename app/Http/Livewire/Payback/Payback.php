@@ -41,7 +41,7 @@ class Payback extends Component
 
         $this->dispatchBrowserEvent('closeAlert');
 
-        $this->reset('invoice','id_invoice');
+        $this->reset('invoice');
     }
     public function cancel(){
         $this->reset('invoice','id_invoice');
