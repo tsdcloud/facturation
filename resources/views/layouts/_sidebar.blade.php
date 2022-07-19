@@ -54,7 +54,8 @@
                 </a>
               </li>
             @endif
-            @if (Auth::user()->isChefGuerite())
+            @if (Auth::user()->isChefGuerite() || Auth::user()->isAdmin()
+          || Auth::user()->isAccount() ||Auth::user()->isAdministration() )
                 <li class="nav-item {{ Request::is('payback/index') ? 'active' : '' }} ">
                     <a href="{{route('payback.index')}}">
                 <span class="icon">
