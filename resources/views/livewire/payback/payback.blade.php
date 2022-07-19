@@ -86,21 +86,23 @@
                                             <p>{{ $refund->user->name }}</p>
                                         </td>
                                         <td>
-                                            <div class="action justify-content-end">
-                                                <button class="more-btn ml-10 dropdown-toggle" id="moreAction1"
-                                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                                    <i class="lni lni-more-alt"></i>
-                                                </button>
-                                                <ul class="dropdown-menu dropdown-menu-end"
-                                                    aria-labelledby="moreAction1">
-                                                    <li class="dropdown-item">
-                                                        <a href="javascript:void(0)"
-                                                            wire:click="getId({{ $refund->id }})"
-                                                            data-bs-toggle="modal" data-bs-target="#ModalTree"
-                                                            class="text-gray">Rembourser</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
+                                            @if(Auth::user()->isChefGuerite() || Auth::user()->isAccount() || Auth::user()->isSupport())
+                                                <div class="action justify-content-end">
+                                                    <button class="more-btn ml-10 dropdown-toggle" id="moreAction1"
+                                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <i class="lni lni-more-alt"></i>
+                                                    </button>
+                                                    <ul class="dropdown-menu dropdown-menu-end"
+                                                        aria-labelledby="moreAction1">
+                                                        <li class="dropdown-item">
+                                                            <a href="javascript:void(0)"
+                                                                wire:click="getId({{ $refund->id }})"
+                                                                data-bs-toggle="modal" data-bs-target="#ModalTree"
+                                                                class="text-gray">Rembourser</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            @endif
                                         </td>
                                     </tr>
                                 @empty
