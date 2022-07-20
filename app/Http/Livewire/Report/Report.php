@@ -18,7 +18,8 @@ class Report extends Component
             $cancelledInvoice,
             $numberCashMoney,
             $numberMobileMoney,
-            $numberRemains;
+            $numberRemains,
+            $myStates = false;
 
     public ?int $number_invoice;
     public ?float $cashMoney, $totalValue,  $mobileMoney, $amountCancelledInvoice, $total_amount, $payback;
@@ -36,7 +37,18 @@ class Report extends Component
                             ->get();
     }
 
+public function updatedMyStates(){
 
+        if (!$this->myStates){
+            $this->myStates = false;
+
+        }else{
+            $this->myStates = true;
+        }
+
+
+
+}
     public function search(){
 
       if ($this->startDate =='' || $this->endDate == '' ){
