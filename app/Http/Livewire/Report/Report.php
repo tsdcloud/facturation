@@ -34,6 +34,7 @@ class Report extends Component
 
         $this->users = User::where('role','user')
                             ->orWhere('role','support')
+                            ->orWhere('role','account')
                             ->get();
     }
 
@@ -41,9 +42,10 @@ public function updatedMyStates(){
 
         if (!$this->myStates){
             $this->myStates = false;
-
+            $this->invoices = null;
         }else{
             $this->myStates = true;
+            $this->invoices = null;
         }
 
 
