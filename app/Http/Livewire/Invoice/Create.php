@@ -250,9 +250,7 @@ class Create extends Component
         $bridge = Weighbridge::where('id',Auth::user()->currentBridge)->first();
         $this->weighbridge = $bridge->label;
         $this->bridge_id = $bridge->id;
-        $this->listTypeWeighing = TypeWeighing::all()->reject(function ($type){
-            return $type->label =='Direction';
-        });
+        $this->listTypeWeighing = TypeWeighing::where('type','Port')->orderByDesc('created_at')->get();;
 
     }
 
@@ -336,11 +334,11 @@ class Create extends Component
                                             $this->amountPaid,
                                             $this->remains,
                                             auth()->id(),
-                                            $this->selectedTractor,
                                             $this->selectedCustomer,
                                             $this->type->id,
                                             $this->isRefunded,
                                             $this->selectedTrailer,
+                                            $this->selectedTractor,
                                             false );
 
               //  dd($this->id_invoice);

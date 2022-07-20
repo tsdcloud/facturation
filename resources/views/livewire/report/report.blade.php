@@ -1,21 +1,34 @@
 <div>
     <!-- End Row -->
     <div class="row">
-        @if (Auth::user()->isAdmin() || Auth::user()->isSupport() || Auth::user()->isAccount() || Auth::user()->isAdministration())
-            <div class="col-lg-4">
-                <div class="select-style-1">
-                    <label>Selectionner le chef de Guerite</label>
-                    <div class="select-position">
-                        <select wire:model="user_id">
-                            <option selected value="" Selectionner le chef de Geurite>...</option>
-                            @foreach ($users as $user)
-                                <option value="{{ $user->id }}">{{ $user->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
+        @if(Auth::user()->isSupport() || Auth::user()->isAccount())
+            <div class="form-check checkbox-style mb-20 mr-5">
+                <input class="form-check-input" type="checkbox" wire:model="myStates" id="checkbox-1" />
+                <label class="form-check-label" for="checkbox-1">
+                    Mon état de facture </label>
             </div>
         @endif
+
+        @if(!$myStates)
+            @if (Auth::user()->isAdmin() || Auth::user()->isSupport() || Auth::user()->isAccount() || Auth::user()->isAdministration())
+                <div class="col-lg-4">
+                    <div class="select-style-1">
+                        <label>Selectionner le chef de Guerite</label>
+                        <div class="select-position">
+                            <select wire:model="user_id">
+                                <option selected value="" Selectionner le chef de Geurite>...</option>
+                                @foreach ($users as $user)
+                                    <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            @endif
+        @else
+        @endif
+
+
         <div class="col-lg-4">
             <div class="input-style-1">
                 @if (Auth::user()->isChefGuerite())
@@ -37,12 +50,21 @@
                 <button wire:click="searchCG" style="margin-top: 1.8rem!important;"
                     class="main-btn active-btn-outline rounded-md btn-hover" type="submit">Filtrer</button>
             </div>
-        @else
-            <div class="col-lg-2 mb-2">
-                <button wire:click="search" style="margin-top: 1.8rem!important;"
-                    class="main-btn active-btn-outline rounded-md btn-hover" type="submit">Filtrer</button>
-            </div>
         @endif
+            @if(!$myStates)
+
+                @if (Auth::user()->isAdmin() || Auth::user()->isSupport() || Auth::user()->isAccount() || Auth::user()->isAdministration())
+                    <div class="col-lg-2 mb-2">
+                        <button wire:click="search" style="margin-top: 1.8rem!important;"
+                                class="main-btn active-btn-outline rounded-md btn-hover" type="submit">Filtrer</button>
+                    </div>
+                @endif
+             @else
+                <div class="col-lg-2 ">
+                    <button wire:click="searchCG" style="margin-top: 1.8rem!important;"
+                            class="main-btn active-btn-outline rounded-md btn-hover" type="submit">Filtrer</button>
+                </div>
+            @endif
         {{-- <div class="col-lg-2 justify-content-end mb-2">
             <button style="margin-top: 1.8rem!important;" class="main-btn dark-btn-outline rounded-md btn-hover"
                 wire:click="exportCG">Exporter</button>
@@ -69,7 +91,7 @@
                     <div class="col-lg-2">
                         <div class="select-style-1 text-center">
                             <label>Espèce</label>
-                                <span class="text-bold mb-10">({{$numberCashMoney}}) 
+                                <span class="text-bold mb-10">({{$numberCashMoney}})
                                     {{\App\Helpers\Numbers\MoneyHelper::number($cashMoney) }} </span>
                         </div>
                     </div>
@@ -77,7 +99,7 @@
                     <div class="col-lg-2">
                         <div class="select-style-1 text-center">
                             <label>Paiement mobile</label>
-                            <span class="text-bold mb-10">({{$numberMobileMoney}}) 
+                            <span class="text-bold mb-10">({{$numberMobileMoney}})
                                 {{ \App\Helpers\Numbers\MoneyHelper::number($mobileMoney )    }}</span>
                         </div>
                     </div>
@@ -91,7 +113,7 @@
                     <div class="col-lg-2">
                         <div class="select-style-1 text-center">
                             <label>Remboursé</label>
-                            <span class="text-bold mb-10">({{$numberRemains}}) 
+                            <span class="text-bold mb-10">({{$numberRemains}})
                                 {{  \App\Helpers\Numbers\MoneyHelper::number($payback) }}</span>
                         </div>
                     </div>
@@ -110,7 +132,7 @@
                         </div>
                     </div>
                 </div>
-                <small class="text-muted">Montant net = (total espèce + total paiement mobile) - (facture annulées + remboursement)</small> 
+                <small class="text-muted">Montant net = (total espèce + total paiement mobile) - (facture annulées + remboursement)</small>
             @endisset
                 <div class="card-style mb-30">
                     <div class="table-wrapper table-responsive">
@@ -235,7 +257,7 @@
                     <div class="col-lg-2">
                         <div class="select-style-1 text-center">
                             <label>Espèce</label>
-                                <span class="text-bold mb-10">({{$numberCashMoney}}) 
+                                <span class="text-bold mb-10">({{$numberCashMoney}})
                                     {{\App\Helpers\Numbers\MoneyHelper::number($cashMoney) }} </span>
                         </div>
                     </div>
@@ -243,7 +265,7 @@
                     <div class="col-lg-2">
                         <div class="select-style-1 text-center">
                             <label>Paiement mobile</label>
-                            <span class="text-bold mb-10">({{$numberMobileMoney}}) 
+                            <span class="text-bold mb-10">({{$numberMobileMoney}})
                                 {{ \App\Helpers\Numbers\MoneyHelper::number($mobileMoney )    }}</span>
                         </div>
                     </div>
@@ -257,7 +279,7 @@
                     <div class="col-lg-2">
                         <div class="select-style-1 text-center">
                             <label>Remboursé</label>
-                            <span class="text-bold mb-10">({{$numberRemains}}) 
+                            <span class="text-bold mb-10">({{$numberRemains}})
                                 {{  \App\Helpers\Numbers\MoneyHelper::number($payback) }}</span>
                         </div>
                     </div>
@@ -276,7 +298,7 @@
                         </div>
                     </div>
                 </div>
-                <small class="text-muted">Montant net = (total espèce + total paiement mobile) - (facture annulées + remboursement)</small> 
+                <small class="text-muted">Montant net = (total espèce + total paiement mobile) - (facture annulées + remboursement)</small>
             @endisset
             {{-- fin statistique --}}
             <div class="card-style mb-30">
@@ -329,7 +351,7 @@
                                     </td>
 
                                     <td>
-                                        <p>{{ $invoice->myTractor->label }}</p>
+                                        <p>{{ optional($invoice->myTractor)->label }}</p>
                                     </td>
                                     <td>
                                         @if ($invoice->status_invoice == 'validated')

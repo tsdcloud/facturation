@@ -10,8 +10,6 @@ use App\Models\ModePayment;
 use App\Models\Weighbridge;
 use App\Models\TypeWeighing;
 use App\Services\InvoiceService;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -43,107 +41,33 @@ class CustomerSupport extends Component
            $hiddenCustomer = "",
            $hiddenTractor = "",
            $hiddenTrailer = "",
-           $selectedTrailer = null;
+           $selectedTrailer = null,
+           $selectedTractor = null ;
 
-    public bool  $isRefunded = false ;
+    public bool  $isRefunded = true ;
 
     public array $tractors = [],
                  $trailers = [],
                  $customers = [];
 
-    public int   $selectedTractor = 0,
-                 $selectedCustomer = 0,
-                 $highlightIndex = 0,
-                 $highlightIndexTrailer = 0,
-                 $highlightIndexCustomer = 0,
+    public int   $selectedCustomer = 0,
                  $bridge_id = 0;
 
-    public bool  $showDropdown1 = true,
-                 $showDropdown2 = true,
-                 $showDropdown3 = true;
 
-
-    public function hideDropdown()
+    public function render()
     {
-        $this->showDropdown = false;
-    }
-    public function hideDropdown2()
-    {
-        $this->showDropdown2 = false;
-    }
+        return view('livewire.invoice.customer-support',[
+            'modePayments' => ModePayment::orderByDesc('created_at')->get(),
 
-    public function hideDropdown3()
-    {
-        $this->showDropdown3 = false;
-    }
-
-
-    public function incrementHighlight()
-    {
-        if ($this->highlightIndex === count($this->accounts) - 1) {
-            $this->highlightIndex = 0;
-            return;
-        }
-        $this->highlightIndex++;
-    }
-    public function incrementHighlightTrailer()
-    {
-        if ($this->highlightIndexTrailer === count($this->trailers) - 1) {
-            $this->highlightIndexTrailer = 0;
-            return;
-        }
-        $this->highlightIndexTrailer++;
-    }
-
-    public function incrementHighlightCustomer()
-    {
-        if ($this->highlightIndexCustomer === count($this->customers) - 1) {
-            $this->highlightIndexCustomer = 0;
-            return;
-        }
-        $this->highlightIndexCustomer++;
-    }
-
-    public function decrementHighlight()
-    {
-        if ($this->highlightIndex === 0) {
-            $this->highlightIndex = count($this->accounts) - 1;
-            return;
-        }
-
-        $this->highlightIndex--;
-    }
-
-    public function decrementHighlightTrailer()
-    {
-        if ($this->highlightIndexTrailer === 0) {
-            $this->highlightIndexTrailer = count($this->trailers) - 1;
-            return;
-        }
-
-        $this->highlightIndexTrailer--;
-    }
-
-
-    public function decrementHighlightCustomer()
-    {
-        if ($this->highlightIndexCustomer === 0) {
-            $this->highlightIndexCustomer = count($this->customers) - 1;
-            return;
-        }
-
-        $this->highlightIndexCustomer--;
+        ]);
     }
 
 
     public function selectTractor($id = null)
     {
-        $id = $id ?: $this->highlightIndex;
-
         $tractor = $this->tractors[$id] ?? null;
 
         if ($tractor) {
-            $this->showDropdown2 = true;
             $this->tractor = $tractor['label'];
             $this->selectedTractor = $tractor['id'];
 
@@ -153,12 +77,10 @@ class CustomerSupport extends Component
     }
     public function selectTrailer($id = null)
     {
-        $id = $id ?: $this->highlightIndexTrailer;
 
         $trailer = $this->trailers[$id] ?? null;
 
         if ($trailer) {
-            $this->showDropdown3 = true;
             $this->trailer = $trailer['label'];
             $this->selectedTrailer = $trailer['id'];
 
@@ -169,12 +91,10 @@ class CustomerSupport extends Component
 
     public function selectCustomer($id = null)
     {
-        $id = $id ?: $this->highlightIndexCustomer;
 
         $customer = $this->customers[$id] ?? null;
 
         if ($customer) {
-            $this->showDropdown1 = true;
             $this->customer = $customer['label'];
             $this->selectedCustomer = $customer['id'];
 
@@ -183,15 +103,18 @@ class CustomerSupport extends Component
         }
     }
 
-
     public function updatedTractor()
     {
         //en cas de modification on l'affiche
         $this->hiddenTractor = "";
-            $this->tractors = Tractor::where('label', 'like', '%' . strtoupper($this->tractor). '%')
-                    ->take(4)
-                    ->get()
-                    ->toArray();
+        $this->tractors = Tractor::where('label', 'like', '%' . strtoupper($this->tractor). '%')
+            ->take(4)
+            ->get()
+            ->toArray();
+
+        if ($this->tractor != null){
+            $this->selectedTractor = null;
+        }
     }
 
     public function updatedTrailer()
@@ -203,6 +126,10 @@ class CustomerSupport extends Component
             ->take(4)
             ->get()
             ->toArray();
+
+        if ($this->trailer != null){
+            $this->selectedTrailer = null;
+        }
     }
 
     public function updatedCustomer()
@@ -214,38 +141,34 @@ class CustomerSupport extends Component
             ->take(7)
             ->get()
             ->toArray();
+        if ($this->customer != null){
+            $this->selectedCustomer = 0;
+        }
     }
 
-    public function render()
-    {
-        return view('livewire.invoice.customer-support',[
-            'modePayments' => ModePayment::all()->reject(function($mode){
-                return $mode->label == "Virement Bancaire";
-            }),
-
-        ]);
-    }
 
     public function mount()
     {
         if(Auth::user()->isAdmin() || Auth::user()->isAdministration())
            return $this->weighbridge = '';
 
-        $bridge = Weighbridge::where('id',Auth::user()->currentBridge)->first();
+        $bridge = Weighbridge::where('label','Direction')->first();
         $this->weighbridge = $bridge->label;
         $this->bridge_id = $bridge->id;
-        $this->listTypeWeighing = TypeWeighing::where('type','Direction')->get();
+        $this->listTypeWeighing = TypeWeighing::where('type','Direction')->orderByDesc('created_at')->get();
 
     }
+
+
 
     public function updatedTypeWeighing()
     {
 
-        if($this->typeWeighing == ""){
+        if($this->typeWeighing === ""){
             $this->reset(['tax_amount','subtotal','total_amount']);
             return 0;
         }
-        
+
         $this->type = TypeWeighing::where('id',$this->typeWeighing)->first();
 
         $this->subtotal = $this->type->price;
@@ -263,17 +186,16 @@ class CustomerSupport extends Component
             $this->remains =  $this->amountPaid - $this->total_amount;
     }
 
-    public function updatedisRefunded(){
-
-            if ($this->isRefunded)
-            $this->remains = 0;
-
-            if (!$this->isRefunded)
-                $this->remains =  $this->amountPaid - $this->total_amount;
-        }
-
+//    public function updatedisRefunded(){
+//
+//        if ($this->isRefunded)
+//            $this->remains = 0;
+//
+//        if (!$this->isRefunded)
+//            $this->remains =  $this->amountPaid - $this->total_amount;
+//    }
     public function updated(){
-        
+
         if ($this->amountPaid == "")
             $this->remains = 0;
 
@@ -295,7 +217,7 @@ class CustomerSupport extends Component
         // 'tractor.required' => 'veuillez saisir le numero du tracteur',
         // 'trailer.required' => 'veuillez saisir le numero de la remorque',
         'modePaymentId.required' => 'veuillez selectionner le mode de paiment',
-        'amountPaid.required' => 'veuillez saisir le montant',
+        'amountPaid.required' =>    'veuillez saisir le montant',
         'typeWeighing.required' => 'veuillez selectionner la pesée',
     ];
 
@@ -305,33 +227,29 @@ class CustomerSupport extends Component
 
          $this->validate();
 
-         try{
-             DB::beginTransaction();
+                if ($this->selectedCustomer == 0)
+                    return $this->addError('customer', '.veuillez selectionner le client sur la liste déroulante et non ecrire le nom client');
+
+
                 $this->id_invoice =  InvoiceService::storeInvoice($this->subtotal,
-                                                                 $this->tax_amount,
-                                                                $this->total_amount,
-                                                              $this->modePaymentId,
+                                                                  $this->tax_amount,
+                                                                  $this->total_amount,
+                                                                  $this->modePaymentId,
                                                                   $this->bridge_id,
-                                                                 $this->amountPaid,
-                                                                    $this->remains,
-                                                                    auth()->id(),
-                                                                  $this->selectedTractor,
+                                                                  $this->amountPaid,
+                                                                  $this->remains,
+                                                                  auth()->id(),
                                                                   $this->selectedCustomer,
-                                                                    $this->type->id,
-                                                                   $this->isRefunded,
-                                                                   $this->selectedTrailer,
+                                                                  $this->type->id,
+                                                                  $this->isRefunded,
+                                                                  $this->selectedTrailer,
+                                                                  $this->selectedTractor,
                                                                     true);
 
                 session()->flash('message', 'facture enregistreé avec succès.');
                 $this->dispatchBrowserEvent('closeAlert');
                 $this->emptyField();
-            DB::commit();
-         }catch(\Exception $e){
-            Log::error(sprintf('%d'.$e->getMessage(), __METHOD__));
-            session()->flash('error', 'Une erreur c\'est produite, veuillez actualiser le navigateur et essayer à nouveau.
-            Rapprochez vous d\'un IT en service si necessaire.');
-            DB::rollBack();
-         }
+
     }
 
     public function cancelCustomer(){
@@ -421,7 +339,42 @@ public function storeCustomer(){
     }
 }
 
+    public function closeModal(){
+
+        $this->id_invoice = null;
+    }
+
+    public function getCustomer(){
+
+        if ($this->selectedCustomer == 0){
+            $this->newCustomer = $this->customer;
+        }
+        if($this->selectedCustomer != 0){
+            $this->newCustomer = '';
+        }
+    }
+    public function getTractor(){
+
+        if ($this->selectedTractor == 0){
+            $this->newTractor = $this->tractor;
+        }
+        if($this->selectedTractor != 0){
+            $this->newTractor = '';
+        }
+    }
+    public function getTrailer(){
+
+        if ($this->selectedTrailer == null){
+            $this->newTrailer = $this->trailer;
+        }
+        if ($this->selectedTrailer != 0){
+            $this->newTrailer = '';
+        }
+    }
+
     protected function emptyField(){
+
+        $this->reset(['tax_amount','subtotal']);
 
         $this->reset(['tax_amount','subtotal']);
 
@@ -432,20 +385,14 @@ public function storeCustomer(){
         $this->tractors = [];
         $this->customers = [];
         $this->trailers = [];
-        $this->highlightIndex = 0;
-        $this->highlightIndexTrailer = 0;
-        $this->highlightIndexCustomer = 0;
         $this->tractor = '';
         $this->trailer = '';
         $this->customer = '';
-        $this->selectedTractor = 0;
+        $this->selectedTractor = null;
         $this->selectedTrailer = null;
         $this->selectedCustomer = 0;
-        $this->showDropdown = true;
-        $this->showDropdown2 = true;
-        $this->showDropdown3 = true;
         $this->typeWeighing = null;
         $this->total_amount = 0;
-        $this->isRefunded = false;
+      //  $this->isRefunded = true;
     }
 }

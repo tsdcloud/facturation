@@ -18,7 +18,8 @@ class Report extends Component
             $cancelledInvoice,
             $numberCashMoney,
             $numberMobileMoney,
-            $numberRemains;
+            $numberRemains,
+            $myStates = false;
 
     public ?int $number_invoice;
     public ?float $cashMoney, $totalValue,  $mobileMoney, $amountCancelledInvoice, $total_amount, $payback;
@@ -33,10 +34,23 @@ class Report extends Component
 
         $this->users = User::where('role','user')
                             ->orWhere('role','support')
+                            ->orWhere('role','account')
                             ->get();
     }
 
+public function updatedMyStates(){
 
+        if (!$this->myStates){
+            $this->myStates = false;
+            $this->invoices = null;
+        }else{
+            $this->myStates = true;
+            $this->invoices = null;
+        }
+
+
+
+}
     public function search(){
 
       if ($this->startDate =='' || $this->endDate == '' ){

@@ -26,7 +26,7 @@
                 <div class="icon-card mb-30">
                     <div class="content">
                         <h6 class="mb-10">Factures annulées</h6>
-                        <h6 class="text-bold mb-10">{{ $cancelled_invoice}} </h6>
+                        <h6 class="text-bold mb-10">({{ $cancelled_invoice}}) {{\App\Helpers\Numbers\MoneyHelper::price($amount_cancelled_invoice)}} </h6>
                     </div>
                 </div>
                 <!-- End Icon Cart -->

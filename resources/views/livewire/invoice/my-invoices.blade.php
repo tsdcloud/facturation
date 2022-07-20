@@ -78,7 +78,7 @@
                                                 </p>
                                             </td>
                                             <td>
-                                                <p>{{ $invoice->myTractor->label }}</p>
+                                                <p>{{ optional($invoice->myTractor)->label }}</p>
                                             </td>
                                             <td>
                                                 <p>{{ $invoice->typeWeighing->label }}</p>
@@ -124,7 +124,7 @@
                                                 </p>
                                             </td>
                                             <td>
-                                                <p>{{ $invoice->myTractor->label }}</p>
+                                                <p>{{ optional($invoice->myTractor)->label }}</p>
                                             </td>
                                             <td>
                                                 <p>{{ $invoice->typeWeighing->label }}</p>
