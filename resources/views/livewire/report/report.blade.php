@@ -5,8 +5,7 @@
             <div class="form-check checkbox-style mb-20 mr-5">
                 <input class="form-check-input" type="checkbox" wire:model="myStates" id="checkbox-1" />
                 <label class="form-check-label" for="checkbox-1">
-                    Mon é
-                    tat de facture </label>
+                    Mon état de facture </label>
             </div>
         @endif
 
