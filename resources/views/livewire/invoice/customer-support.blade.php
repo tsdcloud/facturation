@@ -7,7 +7,7 @@
                     <h6 class="mb-25">Facturation</h6>
                     <div class="row">
                         <div class="input-style-1">
-                            <label>Reçu de <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#Modalfive">
+                            <label>Reçu de <span class="text-danger" >*</span> <a wire:click="getCustomer" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#Modalfive">
                                     Ajouter un client</a> </label>
                             <input type="text" placeholder="Rechercher un client..." wire:model="customer" />
 
@@ -42,7 +42,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="input-style-1">
-                                <label>N° Tracteur <a href="javascript:void(0)" data-bs-toggle="modal"
+                                <label>N° Tracteur <a wire:click="getTractor" href="javascript:void(0)" data-bs-toggle="modal"
                                         data-bs-target="#ModalTree"> Ajouter un tracteur</a> </label>
                                 <input type="text" placeholder="Rechercher le tracteur..." wire:model="tractor" />
 
@@ -78,7 +78,7 @@
 
                         <div class="col-md-6">
                             <div class="input-style-1">
-                                <label>N° Remorque <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#Modalfour"> Ajouter une remorque</a> </label>
+                                <label>N° Remorque <a wire:click="getTrailer" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#Modalfour"> Ajouter une remorque</a> </label>
                                 <input type="text" placeholder="Rechercher la remorque..." wire:model="trailer" />
 
                                 <div wire:loading.flex wire:target="trailer">
@@ -112,7 +112,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="select-style-1">
-                                <label>Mode paiement</label>
+                                <label>Mode paiement <span class="text-danger" >*</span> </label>
                                 <div class="select-position">
                                     <select wire:model.defer="modePaymentId">
                                         <option value="" selected>Selectionner le mode</option>
@@ -128,26 +128,6 @@
                             </div>
                         </div>
                         <!-- end input -->
-                        @if (Auth::user()->currentBridge == 7)
-
-                            <div class="col-md-6">
-                                <div class="select-style-1">
-                                    <label>Selectionner le pont </label>
-                                    <div class="select-position">
-                                        <select wire:model="bridge_id">
-                                            <option value="" selected>Selectionner le pont</option>
-                                            @foreach ($bridges as $bridge)
-                                                <option value="{{ $bridge->id }}">{{ $bridge->label }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                        @error('bridge_id')
-                                            <span class="text-danger">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-                                </div>
-                            </div>
-                        @else
                             <div class="col-md-6">
                                 <div class="input-style-1">
                                     <label>Pont bascule </label>
@@ -155,14 +135,11 @@
                                 </div>
                             </div>
 
-                        @endif
-
-
                     </div>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="select-style-1">
-                                <label>Type de pesée</label>
+                                <label>Type de pesée <span class="text-danger" >*</span> </label>
                                 <div class="select-position">
                                     <select wire:model="typeWeighing">
                                         <option value="" selected>Selectionner la pesée</option>
@@ -180,7 +157,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="input-style-1">
-                                <label>Montant versé</label>
+                                <label>Montant versé <span class="text-danger" >*</span> </label>
                                 <input type="number" min="0" wire:model="amountPaid" class="form-control"
                                     aria-label="Text input with checkbox" />
                             </div>
@@ -211,19 +188,6 @@
                         <label>Reste à rembourser</label>
                         <input type="number" disabled wire:model="remains" />
                     </div>
-                    <div class="form-check checkbox-style mb-20">
-                        <input class="form-check-input" type="checkbox" wire:model="isRefunded" id="checkbox-1" />
-                        <label class="form-check-label" for="checkbox-1">
-                            Je rembourse</label>
-                    </div>
-                    {{-- <div class="form-check form-switch toggle-switch mb-30">
-                        <input
-                            class="form-check-input"
-                            type="checkbox"
-                            id="toggleSwitch1" />
-
-                        <label class="form-check-label" wire:model="isRefunded" for="toggleSwitch1">Remboursé</label>
-                    </div> --}}
                     <div class="text-center">
                         @if (Auth::user()->isSupport() || Auth::user()->isAccount())
                             <button wire:click="store" wire:loading.attr="disabled"
@@ -261,7 +225,7 @@
                 <div class="modal-dialog  modal-xl">
                     <div class="modal-content card-style">
                         <div class="modal-header px-0 border-0 d-flex justify-content-end ">
-                            <button class="border-0 bg-transparent h2" wire:click="cancel" data-bs-dismiss="modal">
+                            <button class="border-0 bg-transparent h2" wire:click="closeModal" data-bs-dismiss="modal">
                                 <i class="lni lni-cross-circle"></i>
                             </button>
                         </div>
@@ -277,7 +241,7 @@
         </div>
         {{-- nouveau tracteur --}}
         <div class="warning-modal">
-            <div wire:ignore.self class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false"
+            <div wire:ignore.self class="modal fade" data-bs-keyboard="false"
                 id="ModalTree" tabindex="-1" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content card-style warning-card">
@@ -295,16 +259,13 @@
                         <div class="modal-body">
                             <div class="input-style-1">
                                 <label>Tracteur</label>
-                                <input type="text" wire:model.defer="newTractor" placeholder="" />
+                                <input type="text" wire:model.defer="newTractor" placeholder="Ajouter un nouveau tracteur" />
                                 @error('newTractor')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
                             <div class="text-center">
-                                <button class="main-btn danger-btn-outline rounded-md btn-hover"
-                                    data-bs-dismiss="modal" wire:click="cancel">Fermer
-                                </button>
-                                <button class="main-btn active-btn-outline rounded-md btn-hover"
+                                <button data-bs-dismiss="modal" class="main-btn active-btn-outline rounded-md btn-hover"
                                     wire:click="storeTractor">Ajouter
                                 </button>
 
@@ -317,7 +278,7 @@
 
         {{-- nouvelle remorque --}}
         <div class="warning-modal">
-            <div wire:ignore.self class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false"
+            <div wire:ignore.self class="modal fade" data-bs-keyboard="false"
                 id="Modalfour" tabindex="-1" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content card-style warning-card">
@@ -335,16 +296,13 @@
                         <div class="modal-body">
                             <div class="input-style-1">
                                 <label>Remorque</label>
-                                <input type="text" wire:model.defer="newTrailer" placeholder="" />
+                                <input type="text" wire:model.defer="newTrailer" placeholder="Ajouter un nouvelle remorque" />
                                 @error('new-trailer')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
                             <div class="text-center">
-                                <button class="main-btn danger-btn-outline rounded-md btn-hover"
-                                    data-bs-dismiss="modal" wire:click="cancel">Fermer
-                                </button>
-                                <button class="main-btn active-btn-outline rounded-md btn-hover"
+                                <button data-bs-dismiss="modal" class="main-btn active-btn-outline rounded-md btn-hover"
                                     wire:click="storeTrailer">Ajouter
                                 </button>
 
@@ -357,7 +315,7 @@
 
         {{-- nouveau client --}}
         <div class="warning-modal">
-            <div wire:ignore.self class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false"
+            <div wire:ignore.self class="modal fade" data-bs-keyboard="false"
                 id="Modalfive" tabindex="-1" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content card-style warning-card">
@@ -375,16 +333,13 @@
                         <div class="modal-body">
                             <div class="input-style-1">
                                 <label>Client</label>
-                                <input type="text" wire:model.defer="newCustomer" placeholder="" />
+                                <input type="text" wire:model.defer="newCustomer" placeholder="Ajouter un nouveau client" />
                                 @error('new-customer')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
                             <div class="text-center">
-                                <button class="main-btn danger-btn-outline rounded-md btn-hover"
-                                    data-bs-dismiss="modal" wire:click="cancel">Fermer
-                                </button>
-                                <button class="main-btn active-btn-outline rounded-md btn-hover"
+                                <button data-bs-dismiss="modal" class="main-btn active-btn-outline rounded-md btn-hover"
                                     wire:click="storeCustomer">Ajouter
                                 </button>
                             </div>
@@ -397,8 +352,6 @@
     </div>
 </div>
 @push('scripts')
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.js"></script>
     <script>
         document.addEventListener('closeAlert', closeAlert);
 

@@ -106,9 +106,13 @@ class InvoiceService extends Fpdi
         $pdf->text(144,114,utf8_decode('Montant versé : '.$data->amount_paid.' FCFA'));
         $pdf->text(06,90,utf8_decode('Signature et cachet'));
         if ($data->isRefunded){
-            $pdf->text(144,119,utf8_decode('Montant à rembourser : 0.00 FCFA'));
+            if ($data->weighbridge->label =="Direction"){
+                $pdf->text(144,119,utf8_decode('Montant remboursé : '.$data->remains.' FCFA'));
+            }else{
+                $pdf->text(144,119,utf8_decode('Montant à rembourser : 0.00 FCFA'));
+            }
         }else{
-            $pdf->text(144,119,utf8_decode('Montant à rembourser : '.$data->remains.' FCFA'));
+                $pdf->text(144,119,utf8_decode('Montant à rembourser : '.$data->remains.' FCFA'));
         }
         $pdf->Ln(50);
         $pdf->Line(2,125,205,125);
@@ -129,11 +133,11 @@ class InvoiceService extends Fpdi
                                         float $amount_paid,
                                         float $remains,
                                         int $user_id,
-                                        int $tractor_id,
                                         int $customer_id,
                                         int $price_id,
                                         bool $isRefunded,
                                         $trailer_id = null,
+                                        $tractor_id = null,
                                         bool $direction= false): int
     {
 
