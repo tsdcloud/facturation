@@ -334,11 +334,11 @@ class Create extends Component
                                             $this->amountPaid,
                                             $this->remains,
                                             auth()->id(),
-                                            $this->selectedTractor,
                                             $this->selectedCustomer,
                                             $this->type->id,
                                             $this->isRefunded,
                                             $this->selectedTrailer,
+                                            $this->selectedTractor,
                                             false );
 
               //  dd($this->id_invoice);
