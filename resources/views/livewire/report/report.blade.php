@@ -9,13 +9,13 @@
 
 <div>
     <!-- End Row -->
-{{--    <div class="row">--}}
+    <div class="row">
 {{--        <small class="text-muted">veuillez </small>--}}
-{{--        <div class="col-lg-3">--}}
-{{--            <input type="checkbox" id="shift" wire:model="shift_22" >--}}
-{{--            <label for="shift">shift de 22H30 06h30</label>--}}
-{{--        </div>--}}
-{{--    </div>--}}
+        <div class="col-lg-3">
+            <input type="checkbox" id="shift" wire:model="shift_22" >
+            <label for="shift">shift de 22H30 06h30</label>
+        </div>
+    </div>
     <div class="row">
         @if(Auth::user()->isSupport() || Auth::user()->isAccount())
             <div class="form-check checkbox-style mb-20 mr-5">
@@ -77,6 +77,9 @@
             <div class="col-lg-2 mb-2">
                 <button wire:click="searchCG" style="margin-top: 1.8rem!important;"
                     class="main-btn active-btn-outline rounded-md btn-hover" type="submit">Filtrer</button>
+            </div>
+            <div class="col-lg-2 mb-2 mr-2" style="margin-top: 1.8rem!important;">
+                <button class="main-btn dark-btn-outline rounded-md btn-hover" wire:click="renitialize" type="submit">Rénitialiser</button>
             </div>
         @endif
             @if(!$myStates)
