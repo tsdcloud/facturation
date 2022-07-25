@@ -212,7 +212,7 @@
                                     <p><strong>Client</strong> {{ $data->customer->label }}</p>
                                 </div>
                                 <div class="col-md-4">
-                                    <p><strong>N° Tracteur</strong> {{ $data->myTractor->label }}</p>
+                                    <p><strong>N° Tracteur</strong> {{ optional($data->myTractor)->label }}</p>
                                 </div>
                                 <div class="col-md-4">
                                     <p><strong>N° Remorque </strong> {{ optional($data->myTrailer)->label }}</p>

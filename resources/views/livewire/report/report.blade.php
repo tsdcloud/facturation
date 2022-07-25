@@ -1,5 +1,21 @@
+@push('styles')
+
+    <link href="/assets/css/bootstrap-timepicker.min.css" />
+    <link href="/assets/css/bootstrap-colorpicker.min.css" rel="stylesheet">
+    <link href="/assets/css/bootstrap-datepicker.min.css" rel="stylesheet">
+    <link href="/assets/css/bootstrap-clockpicker.min.css" rel="stylesheet">
+    <link href="/assets/css/daterangepicker.css" rel="stylesheet">
+@endpush
+
 <div>
     <!-- End Row -->
+{{--    <div class="row">--}}
+{{--        <small class="text-muted">veuillez </small>--}}
+{{--        <div class="col-lg-3">--}}
+{{--            <input type="checkbox" id="shift" wire:model="shift_22" >--}}
+{{--            <label for="shift">shift de 22H30 06h30</label>--}}
+{{--        </div>--}}
+{{--    </div>--}}
     <div class="row">
         @if(Auth::user()->isSupport() || Auth::user()->isAccount())
             <div class="form-check checkbox-style mb-20 mr-5">
@@ -27,8 +43,6 @@
             @endif
         @else
         @endif
-
-
         <div class="col-lg-4">
             <div class="input-style-1">
                 @if (Auth::user()->isChefGuerite())
@@ -45,8 +59,22 @@
                 <input type="date" wire:model="endDate" />
             </div>
         </div>
+        @if($shift_22)
+            <div class="col-lg-2">
+                <div class="input-style-1">
+                    <label>De:</label>
+                    <input type="time" wire:model="startHour" />
+                </div>
+            </div>
+            <div class="col-lg-2">
+                <div class="input-style-1">
+                    <label>A:</label>
+                    <input type="time" wire:model="endHour" />
+                </div>
+            </div>
+        @endif
         @if (Auth::user()->isChefGuerite())
-            <div class="col-lg-2 ">
+            <div class="col-lg-2 mb-2">
                 <button wire:click="searchCG" style="margin-top: 1.8rem!important;"
                     class="main-btn active-btn-outline rounded-md btn-hover" type="submit">Filtrer</button>
             </div>
@@ -370,7 +398,7 @@
                                         <p>{{ $invoice->weighbridge->label }}</p>
                                     </td>
                                     <td>
-                                        <p>{{ $invoice->created_at->format('d/m/y H:m:s') }}</p>
+                                        <p>{{ $invoice->created_at->format('d/m/y H:i:s') }}</p>
                                     </td>
                                 </tr>
                             @endforeach
@@ -388,3 +416,14 @@
 </div>
 @endif
 </div>
+@push('scripts')
+    <script src="/assets/js/jquery.min.js"></script>
+    <script src="/assets/js/moment.js"></script>
+    <script src="/assets/js/bootstrap-timepicker.js"></script>
+    <script src="/assets/js/bootstrap-colorpicker.min.js"></script>
+    <script src="/assets/js/bootstrap-datepicker.min.js"></script>
+    <script src="/assets/js/bootstrap-clockpicker.min.js"></script>
+    <script src="/assets/js/daterangepicker.js"></script>
+    <script src="/assets/js/jquery.form-pickers.init.js"></script>
+
+@endpush
