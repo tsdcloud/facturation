@@ -19,7 +19,12 @@ class Report extends Component
             $numberCashMoney,
             $numberMobileMoney,
             $numberRemains,
-            $myStates = false;
+            $myStates = false,
+            $startHour,
+            $endHour
+            ;
+
+    public bool $shift_22 = false;
 
     public ?int $number_invoice;
     public ?float $cashMoney, $totalValue,  $mobileMoney, $amountCancelledInvoice, $total_amount, $payback;
@@ -130,8 +135,14 @@ public function updatedMyStates(){
                 return 0;
             }
 
-            $start = Carbon::createFromFormat('Y-m-d',$this->startDate)->startOfDay();
-            $end = Carbon::createFromFormat('Y-m-d', $this->endDate)->endOfDay();
+
+//            if ($this->shift_22){
+//                $start = new \DateTime($this->startDate.$this->startHour);
+//                $end = new \DateTime($this->endDate.$this->endHour);
+//            }else{
+                $start = Carbon::createFromFormat('Y-m-d',$this->startDate)->startOfDay();
+                $end = Carbon::createFromFormat('Y-m-d', $this->endDate)->endOfDay();
+//            }
 
             // affiche moi seulement
             $this->invoices = Invoice::where('user_id',auth()->user()->id)

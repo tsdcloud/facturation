@@ -144,19 +144,34 @@
                                                     </button>
                                                     <ul class="dropdown-menu dropdown-menu-end"
                                                         aria-labelledby="moreAction1">
-                                                         @if($invoice->isRefunded == true)
+{{--                                                         @if($invoice->isRefunded == true)--}}
+{{--                                                            <li class="dropdown-item">--}}
+{{--                                                                <a style="color:grey" class="link-primary" target="_blank"--}}
+{{--                                                                    href="{{ route('show-pdf', $invoice->id) }}">--}}
+{{--                                                                    Imprimer la facture</a>--}}
+{{--                                                            </li>--}}
+{{--                                                            <li class="dropdown-item">--}}
+{{--                                                                <a href="javascript:void(0)"--}}
+{{--                                                                   wire:click="getInvoice({{ $invoice->id }})"--}}
+{{--                                                                   data-bs-toggle="modal" data-bs-target="#ModalTree"--}}
+{{--                                                                   class="text-gray">Annuler la facture</a>--}}
+{{--                                                            </li>--}}
+{{--                                                        @else--}}
+                                                            <li class="dropdown-item">
+                                                                <a href="javascript:void(0)"
+                                                                   wire:click="getInvoice({{ $invoice->id }})"
+                                                                   data-bs-toggle="modal" data-bs-target="#ModalTree"
+                                                                   class="text-gray">Annuler la facture</a>
+                                                            </li>
+                                                        @if($invoice->isRefunded == true)
                                                             <li class="dropdown-item">
                                                                 <a style="color:grey" class="link-primary" target="_blank"
-                                                                    href="{{ route('show-pdf', $invoice->id) }}">Imprimer la
-                                                                    facture</a>
+                                                                    href="{{ route('show-pdf', $invoice->id) }}">
+                                                                    Imprimer la facture</a>
                                                             </li>
-                                                         @endif
-                                                        <li class="dropdown-item">
-                                                            <a href="javascript:void(0)"
-                                                                wire:click="getInvoice({{ $invoice->id }})"
-                                                                data-bs-toggle="modal" data-bs-target="#ModalTree"
-                                                                class="text-gray">Annuler la facture</a>
-                                                        </li>
+                                                        @endif
+{{--                                                         @endif--}}
+
                                                     </ul>
                                                 </div>
                                             </td>
@@ -212,7 +227,7 @@
                                     <p><strong>Client</strong> {{ $data->customer->label }}</p>
                                 </div>
                                 <div class="col-md-4">
-                                    <p><strong>N° Tracteur</strong> {{ $data->myTractor->label }}</p>
+                                    <p><strong>N° Tracteur</strong> {{ optional($data->myTractor)->label }}</p>
                                 </div>
                                 <div class="col-md-4">
                                     <p><strong>N° Remorque </strong> {{ optional($data->myTrailer)->label }}</p>
