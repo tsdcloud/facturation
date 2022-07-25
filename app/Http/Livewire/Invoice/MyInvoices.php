@@ -6,11 +6,13 @@ namespace App\Http\Livewire\Invoice;
 use App\Models\Invoice;
 use Illuminate\Support\Facades\Log;
 use Livewire\Component;
-
+use Livewire\WithPagination;
 class MyInvoices extends Component
 {
-    public $search_invoice_no_tractor_trailer, $data;
+    use WithPagination;
 
+    public $search_invoice_no_tractor_trailer, $data, $test;
+    protected $paginationTheme = 'bootstrap';
     protected $listeners = ['destroy'];
 
 
@@ -30,6 +32,12 @@ class MyInvoices extends Component
 
             'invoices' => $query->orderBy('created_at','DESC')->paginate(10),
         ]);
+    }
+
+    public function updating($name , $value)
+    {
+        if ($name === 'search_invoice_no_tractor_trailer')
+           $this->resetPage();
     }
 
     public function mount(){
