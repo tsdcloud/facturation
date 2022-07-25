@@ -52,21 +52,20 @@ public function updatedMyStates(){
             $this->myStates = true;
             $this->invoices = null;
         }
-
-
-
 }
     public function search(){
 
-      if ($this->startDate =='' || $this->endDate == '' ){
+        if ($this->startDate === "" || $this->endDate === ""){
+            return 0;
+        }
 
-          $this->invoices = Invoice::where('user_id',$this->user_id)
-                                     ->get();
-        $this->total_amount = $this->invoices->sum('total_amount');
-        $this->number_invoice = $this->invoices->count();
-      }else{
-          $start = Carbon::createFromFormat('Y-m-d',$this->startDate)->startOfDay();
-          $end = Carbon::createFromFormat('Y-m-d', $this->endDate)->endOfDay();
+        if ($this->shift_22){
+            $start = new \DateTime($this->startDate.$this->startHour);
+            $end = new \DateTime($this->endDate.$this->endHour);
+        }else{
+            $start = Carbon::createFromFormat('Y-m-d',$this->startDate)->startOfDay();
+            $end = Carbon::createFromFormat('Y-m-d', $this->endDate)->endOfDay();
+        }
 
           $this->invoices = Invoice::where('user_id',$this->user_id)
                                     ->whereBetween('created_at',[$start, $end])
@@ -121,9 +120,6 @@ public function updatedMyStates(){
                                     ->count();
 
         $this->totalValue = ($this->cashMoney + $this->mobileMoney) - ($this->amountCancelledInvoice + $this->payback);
-      }
-
-
 
     }
 
@@ -136,13 +132,13 @@ public function updatedMyStates(){
             }
 
 
-//            if ($this->shift_22){
-//                $start = new \DateTime($this->startDate.$this->startHour);
-//                $end = new \DateTime($this->endDate.$this->endHour);
-//            }else{
+            if ($this->shift_22){
+                $start = new \DateTime($this->startDate.$this->startHour);
+                $end = new \DateTime($this->endDate.$this->endHour);
+            }else{
                 $start = Carbon::createFromFormat('Y-m-d',$this->startDate)->startOfDay();
                 $end = Carbon::createFromFormat('Y-m-d', $this->endDate)->endOfDay();
-//            }
+            }
 
             // affiche moi seulement
             $this->invoices = Invoice::where('user_id',auth()->user()->id)
@@ -207,6 +203,11 @@ public function updatedMyStates(){
 
     }
 
+
+    public function renitialize(){
+
+        $this->reset(['startDate','endDate','invoices','startHour','endHour']);
+    }
     public function exportCG(){
 
         // $recup = InvoiceService::export($this->invoices,$this->cashMoney,$this->mobileMoney,$this->total_amount,'preview');
