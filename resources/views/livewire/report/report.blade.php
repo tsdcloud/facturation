@@ -89,11 +89,17 @@
                         <button wire:click="search" style="margin-top: 1.8rem!important;"
                                 class="main-btn active-btn-outline rounded-md btn-hover" type="submit">Filtrer</button>
                     </div>
+                    <div class="col-lg-2 ">
+                        <div class="col-lg-2 mb-2 mr-2" style="margin-top: 1.8rem!important;">
+                            <button class="main-btn dark-btn-outline rounded-md btn-hover" wire:click="renitialize" type="submit">Rénitialiser le filtre</button>
+                        </div>
+                    </div>
                 @endif
              @else
                 <div class="col-lg-2 ">
                     <button wire:click="searchCG" style="margin-top: 1.8rem!important;"
-                            class="main-btn active-btn-outline rounded-md btn-hover" type="submit">Filtrer</button>
+                       class="main-btn active-btn-outline rounded-md btn-hover" type="submit">Filtrer
+                    </button>
                 </div>
             @endif
         {{-- <div class="col-lg-2 justify-content-end mb-2">
