@@ -10,7 +10,7 @@ use Livewire\Component;
 
 class Report extends Component
 {
-    public $users,
+    public  $users,
             $user_id,
             $startDate = '',
             $endDate = '',
@@ -19,7 +19,6 @@ class Report extends Component
             $numberCashMoney,
             $numberMobileMoney,
             $numberRemains,
-            $myStates = false,
             $startHour,
             $endHour
             ;
@@ -34,6 +33,17 @@ class Report extends Component
         return view('livewire.report.report');
     }
 
+    public function updating($name, $value){
+
+        if ($name === 'shift_22'){
+            if (!$this->shift_22){
+                $this->invoices = null;
+                $this->user_id = null;
+                $this->startDate = null;
+                $this->endDate = null;
+            }
+        }
+    }
 
     public function mount(){
 
@@ -43,22 +53,14 @@ class Report extends Component
                             ->get();
     }
 
-public function updatedMyStates(){
+    public function search(): void{
 
-        if (!$this->myStates){
-            $this->myStates = false;
-            $this->invoices = null;
-        }else{
-            $this->myStates = true;
-            $this->invoices = null;
-        }
-}
-    public function search(){
 
         if ($this->startDate === "" || $this->endDate === ""){
-            return 0;
+            exit();
         }
 
+        //condition pour afficher l'etat du shift de 22h30
         if ($this->shift_22){
             $start = new \DateTime($this->startDate.$this->startHour);
             $end = new \DateTime($this->endDate.$this->endHour);
@@ -67,9 +69,10 @@ public function updatedMyStates(){
             $end = Carbon::createFromFormat('Y-m-d', $this->endDate)->endOfDay();
         }
 
-          $this->invoices = Invoice::where('user_id',$this->user_id)
+        $this->invoices = Invoice::where('user_id',$this->user_id)
                                     ->whereBetween('created_at',[$start, $end])
                                     ->get();
+
 
         $this->total_amount = $this->invoices->sum('total_amount');
         $this->number_invoice = $this->invoices->count();
@@ -87,48 +90,47 @@ public function updatedMyStates(){
                                     ->whereBetween('created_at',[$start, $end])
                                     ->count();
 
-            $this->mobileMoney = Invoice::where('user_id', $this->user_id)
+       $this->mobileMoney = Invoice::where('user_id', $this->user_id)
                                     ->where('mode_payment_id',1) //Paiement mobile
                                     ->where('status_invoice','validated')
                                     ->whereBetween('created_at',[$start, $end])
                                     ->sum('total_amount');
 
-             $this->numberMobileMoney = Invoice::where('user_id', $this->user_id)
+       $this->numberMobileMoney = Invoice::where('user_id', $this->user_id)
                                     ->where('mode_payment_id',1) //Paiement mobile
                                     ->where('status_invoice','validated')
                                     ->whereBetween('created_at',[$start, $end])
                                     ->count();
 
-            $this->amountCancelledInvoice = Invoice::where('user_id',$this->user_id)
+       $this->amountCancelledInvoice = Invoice::where('user_id',$this->user_id)
                                     ->where('status_invoice','cancelling')
                                     ->whereBetween('created_at',[$start, $end])
                                     ->sum('total_amount');
 
-            $this->cancelledInvoice = Invoice::where('user_id',$this->user_id)
+       $this->cancelledInvoice = Invoice::where('user_id',$this->user_id)
                                     ->where('status_invoice','cancelling')
                                     ->whereBetween('created_at',[$start, $end])
                                     ->count();
 
-            $this->payback = Invoice::where('who_paid_back_id',$this->user_id)
+       $this->payback = Invoice::where('who_paid_back_id',$this->user_id)
                                     ->where('status_invoice','validated')
                                     ->whereBetween('date_payback',[$start, $end])
                                     ->sum('remains');
 
-            $this->numberRemains = Invoice::where('who_paid_back_id',$this->user_id)
+       $this->numberRemains = Invoice::where('who_paid_back_id',$this->user_id)
                                     ->where('status_invoice','validated')
                                     ->whereBetween('date_payback',[$start, $end])
                                     ->count();
 
-        $this->totalValue = ($this->cashMoney + $this->mobileMoney) - ($this->amountCancelledInvoice + $this->payback);
-
+       $this->totalValue = ($this->cashMoney + $this->mobileMoney) - ($this->amountCancelledInvoice + $this->payback);
     }
 
-    public function searchCG(){
+    public function searchCG(): void {
 
         try {
 
             if ($this->startDate == "" || $this->endDate == ""){
-                return 0;
+                exit;
             }
 
 
@@ -204,7 +206,7 @@ public function updatedMyStates(){
     }
 
 
-    public function renitialize(){
+    public function renitialize(): void{
 
         $this->reset(['startDate','endDate','invoices','startHour','endHour']);
     }

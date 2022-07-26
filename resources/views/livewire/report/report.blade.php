@@ -10,38 +10,26 @@
 <div>
     <!-- End Row -->
     <div class="row">
-{{--        <small class="text-muted">veuillez </small>--}}
         <div class="col-lg-3">
             <input type="checkbox" id="shift" wire:model="shift_22" >
             <label for="shift">shift de 22H30 06h30</label>
         </div>
     </div>
     <div class="row">
-        @if(Auth::user()->isSupport() || Auth::user()->isAccount())
-            <div class="form-check checkbox-style mb-20 mr-5">
-                <input class="form-check-input" type="checkbox" wire:model="myStates" id="checkbox-1" />
-                <label class="form-check-label" for="checkbox-1">
-                    Mon état de facture </label>
-            </div>
-        @endif
-
-        @if(!$myStates)
-            @if (Auth::user()->isAdmin() || Auth::user()->isSupport() || Auth::user()->isAccount() || Auth::user()->isAdministration())
-                <div class="col-lg-4">
-                    <div class="select-style-1">
-                        <label>Selectionner le chef de Guerite</label>
-                        <div class="select-position">
-                            <select wire:model="user_id">
-                                <option selected value="" Selectionner le chef de Geurite>...</option>
-                                @foreach ($users as $user)
-                                    <option value="{{ $user->id }}">{{ $user->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
+        @if (Auth::user()->isAdmin() || Auth::user()->isSupport() || Auth::user()->isAccount() || Auth::user()->isAdministration())
+            <div class="col-lg-4">
+                <div class="select-style-1">
+                    <label>Selectionner le chef de Guerite</label>
+                    <div class="select-position">
+                        <select wire:model="user_id">
+                            <option selected value="" Selectionner le chef de Geurite>...</option>
+                            @foreach ($users as $user)
+                                <option value="{{ $user->id }}">{{ $user->name }}</option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
-            @endif
-        @else
+            </div>
         @endif
         <div class="col-lg-4">
             <div class="input-style-1">
@@ -82,26 +70,31 @@
                 <button class="main-btn dark-btn-outline rounded-md btn-hover" wire:click="renitialize" type="submit">Rénitialiser</button>
             </div>
         @endif
-            @if(!$myStates)
 
-                @if (Auth::user()->isAdmin() || Auth::user()->isSupport() || Auth::user()->isAccount() || Auth::user()->isAdministration())
-                    <div class="col-lg-2 mb-2">
-                        <button wire:click="search" style="margin-top: 1.8rem!important;"
-                                class="main-btn active-btn-outline rounded-md btn-hover" type="submit">Filtrer</button>
-                    </div>
-                    <div class="col-lg-2 ">
-                        <div class="col-lg-2 mb-2 mr-2" style="margin-top: 1.8rem!important;">
-                            <button class="main-btn dark-btn-outline rounded-md btn-hover" wire:click="renitialize" type="submit">Rénitialiser le filtre</button>
-                        </div>
-                    </div>
-                @endif
-             @else
-                <div class="col-lg-2 ">
-                    <button wire:click="searchCG" style="margin-top: 1.8rem!important;"
-                       class="main-btn active-btn-outline rounded-md btn-hover" type="submit">Filtrer
-                    </button>
+        @if (Auth::user()->isAdmin() || Auth::user()->isSupport() || Auth::user()->isAccount() || Auth::user()->isAdministration())
+            <div class="col-lg-2 mb-2">
+                <button wire:click="search" style="margin-top: 1.8rem!important;"
+                    class="main-btn active-btn-outline rounded-md btn-hover" type="submit">Filtrer
+                </button>
+            </div>
+            <div class="col-lg-2 ">
+                <div class="col-lg-2 mb-2 mr-2" style="margin-top: 1.8rem!important;">
+                    <button class="main-btn dark-btn-outline rounded-md btn-hover" wire:click="renitialize" type="submit">Rénitialiser le filtre</button>
                 </div>
-            @endif
+            </div>
+        @endif
+
+{{--                <div class="col-lg-2 ">--}}
+{{--                    <button wire:click="searchCG" style="margin-top: 1.8rem!important;"--}}
+{{--                       class="main-btn active-btn-outline rounded-md btn-hover" type="submit">Filtrer--}}
+{{--                    </button>--}}
+{{--                </div>--}}
+{{--                <div class="col-lg-2 ">--}}
+{{--                    <div class="col-lg-2 mb-2 mr-2" style="margin-top: 1.8rem!important;">--}}
+{{--                        <button class="main-btn dark-btn-outline rounded-md btn-hover" wire:click="renitialize" type="submit">Rénitialiser le filtre</button>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+
         {{-- <div class="col-lg-2 justify-content-end mb-2">
             <button style="margin-top: 1.8rem!important;" class="main-btn dark-btn-outline rounded-md btn-hover"
                 wire:click="exportCG">Exporter</button>
