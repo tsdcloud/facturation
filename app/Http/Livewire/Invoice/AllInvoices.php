@@ -5,9 +5,12 @@ namespace App\Http\Livewire\Invoice;
 use App\Models\Invoice;
 use Livewire\Component;
 use Illuminate\Support\Facades\Log;
+use Livewire\WithPagination;
 
 class AllInvoices extends Component
 {
+    use WithPagination;
+    protected $paginationTheme = 'bootstrap';
     public  $search_invoice_no_tractor_trailer, $data;
     public function render()
     {
@@ -24,8 +27,13 @@ class AllInvoices extends Component
         ]);
     }
 
-    public function mount(){
+    public function updating($name , $value)
+    {
+        if ($name === 'search_invoice_no_tractor_trailer')
+            $this->resetPage();
+    }
 
+    public function mount(){
         $this->data = '';
     }
 
