@@ -244,14 +244,14 @@ class Create extends Component
 
     public function mount()
     {
-        if(Auth::user()->isAdmin() || Auth::user()->isAdministration())
-           return $this->weighbridge = '';
-
-        $bridge = Weighbridge::where('id',Auth::user()->currentBridge)->first();
-        $this->weighbridge = $bridge->label;
-        $this->bridge_id = $bridge->id;
-        $this->listTypeWeighing = TypeWeighing::where('type','Port')->orderByDesc('created_at')->get();;
-
+        if(Auth::user()->isAdmin() || Auth::user()->isAdministration()){
+            $this->weighbridge = '';
+        }else{
+            $bridge = Weighbridge::where('id',Auth::user()->currentBridge)->first();
+            $this->weighbridge = $bridge->label;
+            $this->bridge_id = $bridge->id;
+        }
+            $this->listTypeWeighing = TypeWeighing::where('type','Port')->orderByDesc('created_at')->get();
     }
 
     public function updatedTypeWeighing()
