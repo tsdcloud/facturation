@@ -7,9 +7,9 @@
                     <h6 class="mb-25">Facturation</h6>
                     <div class="row">
                         <div class="input-style-1">
-                            <label>Reçu de <a wire:click="getCustomer" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#Modalfive">
+                            <label>Reçu de <span class="text-danger" >*</span> <a wire:click="getCustomer" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#Modalfive">
                                     Ajouter un client</a> </label>
-                            <input type="text" placeholder="Rechercher un client..." wire:model="customer" />
+                            <input type="text" placeholder="Rechercher un client..." wire:model.debounce.500ms="customer" />
 
                             <div wire:loading.flex wire:target="customer">
                                 <div class="d-flex justify-content-center">
@@ -43,9 +43,9 @@
                         </div>
                         <div class="col-md-6">
                             <div class="input-style-1">
-                                <label>N° Tracteur <a wire:click="getTractor" href="javascript:void(0)" data-bs-toggle="modal"
+                                <label>N° Tracteur  <span class="text-danger" >*</span> <a wire:click="getTractor" href="javascript:void(0)" data-bs-toggle="modal"
                                                       data-bs-target="#ModalTree"> Ajouter un tracteur</a> </label>
-                                <input type="text" placeholder="Rechercher le tracteur..." wire:model="tractor" />
+                                <input type="text" placeholder="Rechercher le tracteur..." wire:model.debounce.500ms="tractor" />
 
                                 <div wire:loading.flex wire:target="tractor">
                                     <div class="d-flex justify-content-center">
@@ -81,7 +81,7 @@
                             <div class="input-style-1">
                                 <label>N° Remorque <a wire:click="getTrailer" href="javascript:void(0)" data-bs-toggle="modal"
                                                       data-bs-target="#Modalfour"> Ajouter une remorque</a> </label>
-                                <input type="text" placeholder="Rechercher la remorque..." wire:model="trailer" />
+                                <input type="text" placeholder="Rechercher la remorque..." wire:model.debounce.500ms="trailer" />
 
                                 <div wire:loading.flex wire:target="trailer">
                                     <div class="d-flex justify-content-center">
@@ -114,7 +114,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="select-style-1">
-                                <label>Mode paiement</label>
+                                <label>Mode paiement  <span class="text-danger" >*</span></label>
                                 <div class="select-position">
                                     <select wire:model="modePaymentId">
                                         <option value="" selected>Selectionner le mode</option>
@@ -160,7 +160,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="select-style-1">
-                                <label>Type de pesée</label>
+                                <label>Type de pesée  <span class="text-danger" >*</span></label>
                                 <div class="select-position">
                                     <select wire:model="typeWeighing">
                                         <option value="" selected>Selectionner la pesée</option>
