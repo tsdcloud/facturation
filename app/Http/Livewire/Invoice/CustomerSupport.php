@@ -149,13 +149,15 @@ class CustomerSupport extends Component
 
     public function mount()
     {
-        if(Auth::user()->isAdmin() || Auth::user()->isAdministration())
-           return $this->weighbridge = '';
+        if(Auth::user()->isAdmin() || Auth::user()->isAdministration()){
+            $this->weighbridge = '';
+        }else{
+            $bridge = Weighbridge::where('label','Direction')->first();
+            $this->weighbridge = $bridge->label;
+            $this->bridge_id = $bridge->id;
+        }
+            $this->listTypeWeighing = TypeWeighing::where('type','Direction')->orderByDesc('created_at')->get();
 
-        $bridge = Weighbridge::where('label','Direction')->first();
-        $this->weighbridge = $bridge->label;
-        $this->bridge_id = $bridge->id;
-        $this->listTypeWeighing = TypeWeighing::where('type','Direction')->orderByDesc('created_at')->get();
 
     }
 
