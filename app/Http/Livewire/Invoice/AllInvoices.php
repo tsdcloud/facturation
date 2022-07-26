@@ -27,7 +27,10 @@ class AllInvoices extends Component
         ]);
     }
 
-    public function mount(){
+    public function mount($name , $value){
+
+        if ($name === 'search_invoice_no_tractor_trailer')
+            $this->resetPage();
 
         $this->data = '';
     }
