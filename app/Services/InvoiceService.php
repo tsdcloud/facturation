@@ -100,19 +100,19 @@ class InvoiceService extends Fpdi
         // $pdf->Cell(400,10,utf8_decode($data->user->name),0,0,'L');
         $pdf->text(41,81,utf8_decode($data->user->name));
 
-        $pdf->text(144,99,utf8_decode('Montant HT : '.$data->typeWeighing->price.' FCFA'),0,0,'L');
-        $pdf->text(144,104,utf8_decode('TVA 19.25% : '. $data->typeWeighing->tax_amount.' FCFA'));
-        $pdf->text(144,109,utf8_decode('Montant TTC : '.$data->typeWeighing->total_amount.' FCFA'));
-        $pdf->text(144,114,utf8_decode('Montant versé : '.$data->amount_paid.' FCFA'));
+        $pdf->text(144,99,utf8_decode('Montant HT : '.MoneyHelper::price($data->typeWeighing->price)),0,0,'L');
+        $pdf->text(144,104,utf8_decode('TVA 19.25% : '.MoneyHelper::price($data->typeWeighing->tax_amount)));
+        $pdf->text(144,109,utf8_decode('Montant TTC : '.MoneyHelper::price($data->typeWeighing->total_amount)));
+        $pdf->text(144,114,utf8_decode('Montant versé : '.MoneyHelper::price($data->amount_paid)));
         $pdf->text(06,90,utf8_decode('Signature et cachet'));
         if ($data->isRefunded){
             if ($data->weighbridge->label =="Direction"){
-                $pdf->text(144,119,utf8_decode('Montant remboursé : '.$data->remains.' FCFA'));
+                $pdf->text(144,119,utf8_decode('Montant remboursé : '.MoneyHelper::price($data->remains)));
             }else{
-                $pdf->text(144,119,utf8_decode('Montant à rembourser : 0.00 FCFA'));
+                $pdf->text(144,119,utf8_decode('Montant à rembourser : 0,00 FCFA'));
             }
         }else{
-                $pdf->text(144,119,utf8_decode('Montant à rembourser : '.$data->remains.' FCFA'));
+                $pdf->text(144,119,utf8_decode('Montant à rembourser : '.MoneyHelper::price($data->remains)));
         }
         $pdf->Ln(50);
         $pdf->Line(2,125,205,125);
@@ -124,6 +124,113 @@ class InvoiceService extends Fpdi
         if ($type == "preview")
           return $pdf->Output('','Facture du '.$data->created_at.'.pdf','I');
     }
+
+    public static function invoiceBuilderWithCoupon($data,$type){
+
+        $pdf = new InvoiceService('P','mm','A4');
+        $pdf->SetMargins(05,02,1); // starting margin
+        $pdf->AddPage();
+
+        //debut coupon
+        $pdf->SetFont('Arial','',8);
+        $pdf->text(178 ,19,utf8_decode('www.dpws.cm'));
+        $pdf->SetFont('Arial','B',7.6);
+        $pdf->text(167 ,24,utf8_decode('COUPON DE REMBOURSEMENT'));
+        $pdf->SetFont('Arial','',8);
+        $pdf->text(167 ,32,utf8_decode('FACTURE N° '.$data->invoice_no));
+        $pdf->text(167 ,37,utf8_decode('Date : '.$data->created_at->format('d/m/y H:i:s')));
+        $pdf->text(167 ,42,utf8_decode('Pont bascule : '.$data->weighbridge->label),0,0,'R');
+
+
+        $pdf->text(167,50,utf8_decode('Reçu de : '),0,0,'L');
+        $pdf->text(167,55,utf8_decode($data->customer->label));
+        $pdf->text(167,60,utf8_decode('N° Tracteur : '
+            .optional($data->myTractor)->label));
+        $pdf->text(167,65,utf8_decode('N° Remorque : '.optional($data->myTrailer)->label));
+        $pdf->text(167,78,utf8_decode('Chef de Guerite :'));
+        $pdf->text(167,83,utf8_decode($data->user->name));
+
+        $pdf->text(167,98,utf8_decode('Montant HT : '.MoneyHelper::price($data->typeWeighing->price)));
+        $pdf->text(167,103,utf8_decode('TVA 19.25% : '.MoneyHelper::price($data->typeWeighing->tax_amount)));
+        $pdf->text(167,108,utf8_decode('Montant TTC : '.MoneyHelper::price($data->typeWeighing->total_amount)));
+        $pdf->text(167,113,utf8_decode('Montant versé : '.MoneyHelper::price($data->amount_paid)));
+        $pdf->text(167,118,utf8_decode('A rembourser : '.MoneyHelper::price($data->remains)));
+        $pdf->SetFont('Arial','',11);
+
+        //fin coupon
+
+        $pdf->Image(public_path('assets\images\logo\logo-dpws.png'),172,05,30);
+        $pdf->Image(public_path( 'storage'.$data->path_qrcode),66,23,20);
+        $pdf->Image(public_path( 'storage/'.$data->weighbridge->stamp->path),57,80,40);
+        $pdf->Image(public_path('storage/'.optional($data->user->signature)->path),05,92,38);
+        $pdf->text(96 ,10,utf8_decode('FACTURE ACQUITTEE N° '.$data->invoice_no));
+        $pdf->Ln(10);
+        $pdf->text(96 ,15,utf8_decode('Date : '.$data->created_at->format('d/m/y H:i:s')));
+        $pdf->text(06 ,20,utf8_decode('www.dpws.cm'));
+        $pdf->Ln(10);
+        $pdf->text(96 ,20,utf8_decode('Pont bascule : '.$data->weighbridge->label),0,0,'R');
+
+        // ligne a couper le coupon
+
+        $pdf->Line(165, 10, 165, 2);
+        $pdf->Line(165, 20, 165, 12);
+        $pdf->Line(165, 30, 165, 22);
+        $pdf->Line(165, 40, 165, 32);
+        $pdf->Line(165, 50, 165, 42);
+        $pdf->Line(165, 60, 165, 52);
+        $pdf->Line(165, 70, 165, 62);
+        $pdf->Line(165, 80, 165, 72);
+        $pdf->Line(165, 90, 165, 82);
+        $pdf->Line(165, 100, 165, 92);
+        $pdf->Line(165, 110, 165, 102);
+        $pdf->Line(165, 120, 165, 112);
+        $pdf->Line(165, 130, 165, 122);
+        $pdf->Line(165, 140, 165, 132);
+
+
+        $pdf->SetFont('Arial','',10);
+        $pdf->Ln(20);
+        $pdf->Cell(20,10,utf8_decode('Reçu de : '),0,0,'L');
+        $pdf->Cell(60,10,utf8_decode($data->customer->label),0,0,'L');
+        $pdf->Ln(10);
+        $pdf->Cell(99,10,utf8_decode('Droit de pesage attelage : N° Tracteur : '
+            .optional($data->myTractor)->label),0,0,'L');
+        $pdf->Cell(85,10,utf8_decode('N° Remorque : '.optional($data->myTrailer)->label),0,0,'L');
+        $pdf->Ln(10);
+        $pdf->Cell(35,10,utf8_decode('Mode de paiement : '),0,0,'L');
+        $pdf->Cell(80,10,utf8_decode($data->modePayment->label),0,0,'L');
+        $pdf->Ln(10);
+
+        $pdf->Cell(138,10,utf8_decode('Chef de Guerite :'),0,0,'L');
+
+        $pdf->text(41,81,utf8_decode($data->user->name));
+
+        $pdf->text(105,99,utf8_decode('Montant HT : '.MoneyHelper::price($data->typeWeighing->price)),0,0,'L');
+        $pdf->text(105,104,utf8_decode('TVA 19.25% : '. MoneyHelper::price($data->typeWeighing->tax_amount)));
+        $pdf->text(105,109,utf8_decode('Montant TTC : '.MoneyHelper::price($data->typeWeighing->total_amount)));
+        $pdf->text(105,114,utf8_decode('Montant versé : '.MoneyHelper::price($data->amount_paid)));
+        $pdf->text(06,90,utf8_decode('Signature et cachet'));
+
+        $pdf->Ln(50);
+        $pdf->Line(2,125,205,125);
+        $pdf->SetFont('Arial','',7.2);
+        $pdf->text(05,130,utf8_decode('Douala Port Weighing Services SAS CAPITAL VARIABLE DE 50 000 000 XAF RCCM RC / DLA / 2019 / b / 5453 NUI M121914355936 L'));
+        $pdf->text(05,135,utf8_decode('Siège Social : Bonapriso, Lieu dit Ancien dépôt Guinness - Douala B.P 12209 00237 650 911 000/ 695 502 502 contact@dpws.cm dpws.cm'));
+        $pdf->text(05,140,utf8_decode('Compte Afriland First Bank réf : 10005 00002 06463841002 52 swift : cceicmcx iban : cm21 100005 0000206463841002 52'));
+
+        if ($type == "preview")
+            return $pdf->Output('','Facture du '.$data->created_at.'.pdf','I');
+    }
+
+
+
+
+
+
+
+
+
+
 
     public static function storeInvoice(float $subtotal,
                                         float $tax_amount,
