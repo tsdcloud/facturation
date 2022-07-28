@@ -36,7 +36,7 @@ class Payback extends Component
             'who_paid_back_id' => auth()->user()->id,
             'date_payback' => now(),
         ]);
-        $this->id_invoice = $data->id;
+      //  $this->id_invoice = $data->id;
         session()->flash('succès', 'facture remboursée : Opération reussite.');
 
         $this->dispatchBrowserEvent('closeAlert');

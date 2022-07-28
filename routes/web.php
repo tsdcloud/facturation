@@ -26,6 +26,7 @@ Route::get('/', function () {
     return view('auth.login');
 });
 Route::get('display/{id?}',[InvoiceController::class,'pdf'])->name('show-pdf');
+Route::get('coupon/{id?}',[InvoiceController::class,'pdfWithCoupon'])->name('show-coupon');
 Route::get('export',[InvoiceController::class,'exportCG'])->name('export-cg');
 
 Route::get('print/receipt',[InvoiceController::class, 'pdf']);

@@ -265,6 +265,28 @@
             </div>
         </div>
 
+        {{-- afficher la facture avec coupon --}}
+        <div class="warning-modal">
+            <div wire:ignore.self id="myModalWithCoupon" class="modal fade mod" data-bs-backdrop="static"
+                 data-bs-keyboard="false" id="ModalTwo" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog  modal-xl">
+                    <div class="modal-content card-style">
+                        <div class="modal-header px-0 border-0 d-flex justify-content-end ">
+                            <button class="border-0 bg-transparent h2" wire:click="closeModalWithCoupon" data-bs-dismiss="modal">
+                                <i class="lni lni-cross-circle"></i>
+                            </button>
+                        </div>
+                        <div class="modal-body px-0">
+                            @if (!is_null($id_invoice_with_coupon))
+                                <iframe src="{{ route('show-coupon', $id_invoice_with_coupon) }}" width="100%"
+                                        height="500px"></iframe>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         {{-- nouveau tracteur --}}
         <div class="warning-modal">
             <div wire:ignore.self class="modal fade" data-bs-keyboard="false"
@@ -413,6 +435,13 @@
 @push('scripts')
     <script>
         document.addEventListener('closeAlert', closeAlert);
+
+        document.addEventListener('invoiceWithCoupon',invoiceWithCoupon);
+
+        function invoiceWithCoupon(){
+            const myModal = new bootstrap.Modal(document.getElementById('myModalWithCoupon'));
+            myModal.show();
+        }
 
         function closeAlert() {
 

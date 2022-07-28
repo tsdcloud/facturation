@@ -9,17 +9,26 @@ use Illuminate\Support\Facades\Auth;
 
 class InvoiceController extends Controller
 {
-    public function pdf($id){
-
-        $data = Invoice::where('id',$id)->first();
-
-       InvoiceService::invoiceBuilder($data,'preview');
-    }
 
     public function index()
     {
         $breadcrumb = "Facturation";
         return view('invoice', compact('breadcrumb'));
+    }
+
+    public function pdf($id){
+
+        $data = Invoice::where('id',$id)->first();
+
+        InvoiceService::invoiceBuilder($data,'preview');
+    }
+
+    public function pdfWithCoupon($id){
+
+     //   dd('ok');
+        $data = Invoice::where('id',$id)->first();
+
+        InvoiceService::invoiceBuilderWithCoupon($data,'preview');
     }
 
     public function myInvoice(){
