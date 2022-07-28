@@ -29,6 +29,7 @@ class Create extends Component
            $remains = 0,
            $weighedTest = false,
            $id_invoice= null,
+           $id_invoice_with_coupon = null,
            $newTractor = null,
            $newTrailer = null,
            $newCustomer = null,
@@ -326,28 +327,41 @@ class Create extends Component
 
 
 
-                $this->id_invoice =  InvoiceService::storeInvoice($this->subtotal,
-                                            $this->tax_amount,
-                                            $this->total_amount,
-                                            $this->modePaymentId,
-                                            $this->bridge_id,
-                                            $this->amountPaid,
-                                            $this->remains,
-                                            auth()->id(),
-                                            $this->selectedCustomer,
-                                            $this->type->id,
-                                            $this->isRefunded,
-                                            $this->selectedTrailer,
-                                            $this->selectedTractor,
-                                            false );
-
               //  dd($this->id_invoice);
                 if(!$this->isRefunded && $this->remains !=0)
                 {
+                    $this->id_invoice_with_coupon =  InvoiceService::storeInvoice($this->subtotal,
+                                                                                $this->tax_amount,
+                                                                                $this->total_amount,
+                                                                                $this->modePaymentId,
+                                                                                $this->bridge_id,
+                                                                                $this->amountPaid,
+                                                                                $this->remains,
+                                                                                auth()->id(),
+                                                                                $this->selectedCustomer,
+                                                                                $this->type->id,
+                                                                                $this->isRefunded,
+                                                                                $this->selectedTrailer,
+                                                                                $this->selectedTractor,
+                                                                                false );
+                    $this->dispatchBrowserEvent('invoiceWithCoupon');
                     session()->flash('message', 'facture enregistrée avec succès.');
                     $this->emptyField();
-                    $this->id_invoice = '';
                 }else{
+                    $this->id_invoice =  InvoiceService::storeInvoice($this->subtotal,
+                                                                        $this->tax_amount,
+                                                                        $this->total_amount,
+                                                                        $this->modePaymentId,
+                                                                        $this->bridge_id,
+                                                                        $this->amountPaid,
+                                                                        $this->remains,
+                                                                        auth()->id(),
+                                                                        $this->selectedCustomer,
+                                                                        $this->type->id,
+                                                                        $this->isRefunded,
+                                                                        $this->selectedTrailer,
+                                                                        $this->selectedTractor,
+                                                                        false );
                     $this->dispatchBrowserEvent('closeAlert');
                     session()->flash('message', 'facture enregistrée avec succès .');
                     $this->emptyField();
@@ -445,6 +459,10 @@ class Create extends Component
     public function closeModal(){
 
         $this->id_invoice = null;
+    }
+    public function closeModalWithCoupon(){
+
+        $this->id_invoice_with_coupon = null;
     }
 
     public function getCustomer(){

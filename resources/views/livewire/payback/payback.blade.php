@@ -205,26 +205,26 @@
         </div>
     </div>
  {{-- afficher la facture --}}
- <div class="warning-modal">
-    <div wire:ignore.self id="myModal" class="modal fade mod" data-bs-backdrop="static"
-        data-bs-keyboard="false" id="ModalTwo" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog  modal-xl">
-            <div class="modal-content card-style">
-                <div class="modal-header px-0 border-0 d-flex justify-content-end ">
-                    <button wire:click="cancel" class="border-0 bg-transparent h2" data-bs-dismiss="modal">
-                        <i class="lni lni-cross-circle"></i>
-                    </button>
-                </div>
-                <div class="modal-body px-0">
-                    @if (!is_null($id_invoice))
-                        <iframe src="{{ route('show-pdf', $id_invoice) }}" width="100%"
-                            height="500px"></iframe>
-                    @endif
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+{{-- <div class="warning-modal">--}}
+{{--    <div wire:ignore.self id="myModal" class="modal fade mod" data-bs-backdrop="static"--}}
+{{--        data-bs-keyboard="false" id="ModalTwo" tabindex="-1" aria-hidden="true">--}}
+{{--        <div class="modal-dialog  modal-xl">--}}
+{{--            <div class="modal-content card-style">--}}
+{{--                <div class="modal-header px-0 border-0 d-flex justify-content-end ">--}}
+{{--                    <button wire:click="cancel" class="border-0 bg-transparent h2" data-bs-dismiss="modal">--}}
+{{--                        <i class="lni lni-cross-circle"></i>--}}
+{{--                    </button>--}}
+{{--                </div>--}}
+{{--                <div class="modal-body px-0">--}}
+{{--                    @if (!is_null($id_invoice))--}}
+{{--                        <iframe src="{{ route('show-pdf', $id_invoice) }}" width="100%"--}}
+{{--                            height="500px"></iframe>--}}
+{{--                    @endif--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    </div>--}}
+{{--</div>--}}
 
 <!-- Button trigger modal -->
 {{-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
