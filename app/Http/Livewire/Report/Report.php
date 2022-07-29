@@ -122,7 +122,7 @@ class Report extends Component
                                     ->whereBetween('date_payback',[$start, $end])
                                     ->count();
 
-       $this->totalValue = ($this->cashMoney + $this->mobileMoney) - ($this->amountCancelledInvoice + $this->payback);
+       $this->totalValue = ($this->total_amount) - ($this->amountCancelledInvoice + $this->payback);
     }
 
     public function searchCG(): void {
