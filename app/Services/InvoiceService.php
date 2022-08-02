@@ -101,7 +101,7 @@ class InvoiceService extends Fpdi
         $pdf->text(41,81,utf8_decode($data->user->name));
 
         if ($data->deposit){
-            $pdf->text(144,81,utf8_decode('Montant TTC : '.MoneyHelper::price($data->amount_paid)),0,0,'L');
+            $pdf->text(144,81,utf8_decode('Montant TTC : '.MoneyHelper::price($data->total_amount)),0,0,'L');
             $pdf->text(144,86,utf8_decode('Montant versé : '.MoneyHelper::price($data->amount_paid)),0,0,'L');
         }else{
             $pdf->text(144,99,utf8_decode('Montant HT : '.MoneyHelper::price($data->typeWeighing->price)),0,0,'L');
@@ -277,7 +277,7 @@ class InvoiceService extends Fpdi
                    'invoice_no' => is_null($lastId) ? str_pad(1,7,0,STR_PAD_LEFT) :str_pad($lastId->id + 1,7,0,STR_PAD_LEFT),
                     'subtotal' => $subtotal,
                     'tax_amount' => $tax_amount,
-                    'total_amount' => $total_amount,
+                    'total_amount' => $deposit ? $amount_paid : $total_amount,
                     'mode_payment_id'=> $mode_payment_id,
                     'weighbridge_id'=> $direction == true ? $weighbridgeId->id : $bridge_id,
                     'amount_paid'=> $amount_paid,

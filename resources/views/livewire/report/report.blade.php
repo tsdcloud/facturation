@@ -251,7 +251,7 @@
                                             <p>{{ optional($invoice->typeWeighing)->label }}</p>
                                         </td>
                                         <td>
-                                            <p>{{ $invoice->total_amount }}</p>
+                                            <p>{{ \App\Helpers\Numbers\MoneyHelper::number($invoice->total_amount) }}</p>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -394,7 +394,7 @@
                                         <p>{{ $invoice->modePayment->label }}</p>
                                     </td>
                                     <td>
-                                        <p>{{ $invoice->total_amount }}</p>
+                                        <p>{{ \App\Helpers\Numbers\MoneyHelper::number($invoice->total_amount) }}</p>
                                     </td>
                                     <td>
                                         <p>{{ $invoice->weighbridge->label }}</p>
