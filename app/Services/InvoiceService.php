@@ -100,20 +100,26 @@ class InvoiceService extends Fpdi
         // $pdf->Cell(400,10,utf8_decode($data->user->name),0,0,'L');
         $pdf->text(41,81,utf8_decode($data->user->name));
 
-        $pdf->text(144,99,utf8_decode('Montant HT : '.MoneyHelper::price($data->typeWeighing->price)),0,0,'L');
-        $pdf->text(144,104,utf8_decode('TVA 19.25% : '.MoneyHelper::price($data->typeWeighing->tax_amount)));
-        $pdf->text(144,109,utf8_decode('Montant TTC : '.MoneyHelper::price($data->typeWeighing->total_amount)));
-        $pdf->text(144,114,utf8_decode('Montant versé : '.MoneyHelper::price($data->amount_paid)));
-        $pdf->text(06,90,utf8_decode('Signature et cachet'));
-        if ($data->isRefunded){
-            if ($data->weighbridge->label =="Direction"){
-                $pdf->text(144,119,utf8_decode('Montant remboursé : '.MoneyHelper::price($data->remains)));
-            }else{
-                $pdf->text(144,119,utf8_decode('Montant à rembourser : 0,00 FCFA'));
-            }
+        if ($data->deposit){
+            $pdf->text(144,81,utf8_decode('Montant TTC : '.MoneyHelper::price($data->amount_paid)),0,0,'L');
+            $pdf->text(144,86,utf8_decode('Montant versé : '.MoneyHelper::price($data->amount_paid)),0,0,'L');
         }else{
+            $pdf->text(144,99,utf8_decode('Montant HT : '.MoneyHelper::price($data->typeWeighing->price)),0,0,'L');
+            $pdf->text(144,104,utf8_decode('TVA 19.25% : '.MoneyHelper::price($data->typeWeighing->tax_amount)));
+            $pdf->text(144,109,utf8_decode('Montant TTC : '.MoneyHelper::price($data->typeWeighing->total_amount)));
+            $pdf->text(144,114,utf8_decode('Montant versé : '.MoneyHelper::price($data->amount_paid)));
+            $pdf->text(06,90,utf8_decode('Signature et cachet'));
+            if ($data->isRefunded){
+                if ($data->weighbridge->label =="Direction"){
+                    $pdf->text(144,119,utf8_decode('Montant remboursé : '.MoneyHelper::price($data->remains)));
+                }else{
+                    $pdf->text(144,119,utf8_decode('Montant à rembourser : 0,00 FCFA'));
+                }
+            }else{
                 $pdf->text(144,119,utf8_decode('Montant à rembourser : '.MoneyHelper::price($data->remains)));
+            }
         }
+
         $pdf->Ln(50);
         $pdf->Line(2,125,205,125);
         $pdf->SetFont('Arial','',9);
@@ -245,7 +251,8 @@ class InvoiceService extends Fpdi
                                         bool $isRefunded,
                                         $trailer_id = null,
                                         $tractor_id = null,
-                                        bool $direction= false): int
+                                        bool $direction= false,
+                                        bool $deposit = false ): int
     {
 
 
@@ -281,8 +288,9 @@ class InvoiceService extends Fpdi
                     'tractor_id'=> $tractor_id,
                     'trailer_id' => $trailer_id ,
                     'customer_id' => $customer_id,
-                    'type_weighing_id' => $price_id,
+                    'type_weighing_id' => $price_id == 0 ? null : $price_id,
                     'path_qrcode' => '',
+                    'deposit' => $deposit,
             ]);
 
             $path = 'http://billingdpws.bfclimited.com:8080/display/'.$data->id;
@@ -291,7 +299,7 @@ class InvoiceService extends Fpdi
 
             Storage::disk('public')->put($output_file, $picture);
             tap($data)->update(['path_qrcode'=> $output_file]);
-
+          //  dd($data);
             DB::commit();
 
         }catch (\Illuminate\Database\QueryException $e){

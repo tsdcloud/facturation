@@ -81,7 +81,7 @@
                                                 <p>{{ $invoice->weighbridge->label }}</p>
                                             </td>
                                             <td>
-                                                <p>{{ $invoice->typeWeighing->label }}</p>
+                                                <p>{{ optional($invoice->typeWeighing)->label }}</p>
                                             </td>
                                             <td>
                                                 <p>{{ $invoice->total_amount }}</p>
@@ -122,7 +122,7 @@
                                             </td>
 
                                             <td>
-                                                <p>{{ $invoice->typeWeighing->label }}</p>
+                                                <p>{{ optional($invoice->typeWeighing)->label }}</p>
                                             </td>
                                             <td>
                                                 <p>{{ $invoice->total_amount }}</p>
