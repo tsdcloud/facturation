@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Invoice;
 
 
+use App\Helpers\Numbers\MoneyHelper;
 use App\Models\Tractor;
 use App\Models\Trailer;
 use App\Models\TypeWeighing;
@@ -325,6 +326,8 @@ class Create extends Component
                 if ($this->selectedTractor == 0)
                     return $this->addError('tractor', 'veuillez selectionner le tracteur sur la liste déroulante et non ecrire le nom du tracteur');
 
+                if ($this->remains < 0)
+                    return $this->addError('amountPaid', 'veuillez saisir un montant correct');
 
 
               //  dd($this->id_invoice);
