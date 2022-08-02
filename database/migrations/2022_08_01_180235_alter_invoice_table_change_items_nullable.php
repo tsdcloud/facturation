@@ -18,7 +18,7 @@ return new class extends Migration
             $table->decimal('tax_amount',8,0)->nullable()->change();
             $table->decimal('remains',8,0)->nullable()->change();
             $table->boolean('deposit')->default(false);
-            $table->boolean('type_weighing_id')->nullable()->change();
+            $table->bigInteger('type_weighing_id')->nullable()->change();
         });
     }
 
