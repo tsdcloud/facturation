@@ -42,7 +42,9 @@ class CustomerSupport extends Component
            $hiddenTractor = "",
            $hiddenTrailer = "",
            $selectedTrailer = null,
-           $selectedTractor = null ;
+           $selectedTractor = null,
+           $deposit = false
+           ;
 
     public bool  $isRefunded = true ;
 
@@ -146,6 +148,14 @@ class CustomerSupport extends Component
         }
     }
 
+    public function updatedDeposit(){
+
+        $this->tax_amount = 0;
+        $this->subtotal = 0;
+        $this->total_amount = 0;
+        $this->type = null;
+       // $this->deposit = true;
+    }
 
     public function mount()
     {
@@ -157,8 +167,6 @@ class CustomerSupport extends Component
             $this->bridge_id = $bridge->id;
         }
             $this->listTypeWeighing = TypeWeighing::where('type','Direction')->orderByDesc('created_at')->get();
-
-
     }
 
 
@@ -184,25 +192,28 @@ class CustomerSupport extends Component
 
     public function updatedAmountPaid(){
 
+        if ($this->deposit)
+            return 0;
+
         if ($this->amountPaid != "" )
             $this->remains =  $this->amountPaid - $this->total_amount;
     }
 
-//    public function updatedisRefunded(){
-//
-//        if ($this->isRefunded)
-//            $this->remains = 0;
-//
-//        if (!$this->isRefunded)
-//            $this->remains =  $this->amountPaid - $this->total_amount;
-//    }
+    public function updatedisRefunded(){
+
+        if ($this->isRefunded)
+            $this->remains = 0;
+
+        if (!$this->isRefunded)
+            $this->remains =  $this->amountPaid - $this->total_amount;
+    }
     public function updated(){
 
         if ($this->amountPaid == "")
             $this->remains = 0;
 
         if ($this->bridge_id == "")
-            return 0;
+            exit();
     }
 
     protected $rules = [
@@ -227,7 +238,15 @@ class CustomerSupport extends Component
 
     public function store() {
 
+        if ($this->deposit){
+            $this->validate([
+                'customer' => 'required',
+                'modePaymentId' => 'required',
+                'amountPaid' => 'required',
+            ]);
+        }else{
          $this->validate();
+        }
 
                 if ($this->selectedCustomer == 0)
                     return $this->addError('customer', '.veuillez selectionner le client sur la liste déroulante et non ecrire le nom client');
@@ -242,11 +261,12 @@ class CustomerSupport extends Component
                                                                   $this->remains,
                                                                   auth()->id(),
                                                                   $this->selectedCustomer,
-                                                                  $this->type->id,
+                                                                  is_null(optional($this->type)->id) ? 0 : $this->type->id, // type de pesée
                                                                   $this->isRefunded,
                                                                   $this->selectedTrailer,
                                                                   $this->selectedTractor,
-                                                                    true);
+                                                                  true,
+                                                                  $this->deposit);
 
                 session()->flash('message', 'facture enregistreé avec succès.');
                 $this->dispatchBrowserEvent('closeAlert');
@@ -271,28 +291,28 @@ class CustomerSupport extends Component
 
         if ($this->newTractor == "")
             return 0;
-    try {
-       $data = Tractor::create(['label' => strtoupper($this->newTractor)]);
-        $this->newTractor = "";
-        $this->tractors[] = $data;
+        try {
+           $data = Tractor::create(['label' => strtoupper($this->newTractor)]);
+            $this->newTractor = "";
+            $this->tractors[] = $data;
 
-        session()->flash('new-tractor', 'Tracteur enregistré avec succès.');
+            session()->flash('new-tractor', 'Tracteur enregistré avec succès.');
 
-    }catch (\Illuminate\Database\QueryException $e){
+        }catch (\Illuminate\Database\QueryException $e){
 
-        if ($e->getCode() == 23505)
-            session()->flash('error-tractor', 'vous essayez d\'ajouter un client qui existe déjà, si besoin actualiser le navigateur.');
+            if ($e->getCode() == 23505)
+                session()->flash('error-tractor', 'vous essayez d\'ajouter un client qui existe déjà, si besoin actualiser le navigateur.');
 
-        if ($e->getCode() != 23505)
+            if ($e->getCode() != 23505)
+                session()->flash('error-tractor', 'une erreur est survenu, veuillez actualiser le navigateur si besoin rapprochez-vous d\'un IT.');
+        }
+        catch(\Exception $e){
             session()->flash('error-tractor', 'une erreur est survenu, veuillez actualiser le navigateur si besoin rapprochez-vous d\'un IT.');
-    }
-    catch(\Exception $e){
-        session()->flash('error-tractor', 'une erreur est survenu, veuillez actualiser le navigateur si besoin rapprochez-vous d\'un IT.');
-    }
+        }
 
 }
 
-public function storeTrailer(){
+    public function storeTrailer(){
 
     try {
 
@@ -317,7 +337,7 @@ public function storeTrailer(){
 
 }
 
-public function storeCustomer(){
+    public function storeCustomer(){
 
     try {
         if ($this->newCustomer == "")

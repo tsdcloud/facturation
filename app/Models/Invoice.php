@@ -29,8 +29,8 @@ class Invoice extends Model
         'isRefunded',
         'who_paid_back',
         'who_paid_back_id',
-        'date_payback'
-
+        'date_payback',
+        'deposit',
     ];
 
     public function weighbridge(){

@@ -1204,7 +1204,7 @@ h6,
   .input-style-1 input,
   .input-style-1 textarea {
     width: 100%;
-    background: rgba(239, 239, 239, 0.5);
+    background: rgb(239, 239, 239);
     border: 1px solid #e5e5e5;
     border-radius: 4px;
     padding: 16px;
