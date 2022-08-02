@@ -229,7 +229,7 @@ class CustomerSupport extends Component
         'customer.required' => 'veuillez saisir le nom du client',
         // 'tractor.required' => 'veuillez saisir le numero du tracteur',
         // 'trailer.required' => 'veuillez saisir le numero de la remorque',
-        'modePaymentId.required' => 'veuillez selectionner le mode de paiment',
+        'modePaymentId.required' => 'veuillez selectionner le mode de paiement',
         'amountPaid.required' =>    'veuillez saisir le montant',
         'typeWeighing.required' => 'veuillez selectionner la pesée',
     ];
