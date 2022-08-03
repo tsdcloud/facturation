@@ -50,6 +50,12 @@ class InvoiceController extends Controller
         return view('list-invoice2',compact('invoices','breadcrumb'));
     }
 
+    public function refund(){
+
+        $breadcrumb = "Mes remboursements";
+        return view('refund',compact('breadcrumb'));
+    }
+
     public function exportCG(){
 
         $data = Invoice::whereDate('created_at',now())->get();
