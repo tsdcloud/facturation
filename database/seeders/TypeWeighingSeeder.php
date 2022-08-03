@@ -42,7 +42,7 @@ class TypeWeighingSeeder extends Seeder
             'label' => 'Import/Export RCA/TCHAD',
             'price' => 7500,
             'tax_amount' =>1443,
-            'total_amount' => 8943,
+            'total_amount' => 8945,
         ]);
         TypeWeighing::create([
             'id' => 5,
@@ -58,7 +58,7 @@ class TypeWeighingSeeder extends Seeder
             'label' => 'Pesée test normale',
             'price' => 5000,
             'tax_amount' => 962,
-            'total_amount' => 5962,
+            'total_amount' => 5965,
         ]);
         TypeWeighing::create([
             'id' => 7,

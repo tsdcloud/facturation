@@ -137,57 +137,75 @@
 
                     </div>
                     <div class="row">
-                        <div class="col-md-6">
-                            <div class="select-style-1">
-                                <label>Type de pesée <span class="text-danger" >*</span> </label>
-                                <div class="select-position">
-                                    <select wire:model="typeWeighing">
-                                        <option value="" selected>Selectionner la pesée</option>
-                                        @foreach ($listTypeWeighing as $type_weighing)
-                                            <option value="{{ $type_weighing->id }}">
-                                                {{ $type_weighing->label }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                    @error('typeWeighing')
-                                        <span class="text-danger">{{ $message }}</span>
-                                    @enderror
+
+                        @if(!$deposit)
+                            <div class="col-md-6">
+                                <div class="select-style-1">
+                                    <label>Type de pesée <span class="text-danger" >*</span> </label>
+                                    <div class="select-position">
+                                        <select wire:model="typeWeighing">
+                                            <option value="" selected>Selectionner la pesée</option>
+                                            @foreach ($listTypeWeighing as $type_weighing)
+                                                <option value="{{ $type_weighing->id }}">
+                                                    {{ $type_weighing->label }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        @error('typeWeighing')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        @endif
                         <div class="col-md-6">
                             <div class="input-style-1">
                                 <label>Montant versé <span class="text-danger" >*</span> </label>
-                                <input type="number" min="0" wire:model="amountPaid" class="form-control"
-                                    aria-label="Text input with checkbox" />
+                                <div class="input-group ">
+                                    <div style="background: gray !important" class="input-group-text">
+                                        <input data-bs-toggle="tooltip" data-bs-placement="top"
+                                               data-bs-custom-class="custom-tooltip"
+                                               title="Cliquer ici pour activer la pesée test "
+                                               class="form-check-input mt-0" type="checkbox"
+                                               wire:model="deposit" aria-label="Checkbox for following text input">
+                                    </div>
+                                    <input type="number" min="0" wire:model ="amountPaid" class="form-control" aria-label="Text input with checkbox">
+                                </div>
+                                @if ($deposit)
+                                    <small style="color: green" >Déposit activé</small>
+                                @else
+                                    <span><small>pour activer le déposit, cliquer sur le carré gris</small></span>
+                                @endif
+
+                                @error('amountPaid') <span class="text-danger">{{ $message }}</span> @enderror
                             </div>
-                            @error('amountPaid')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
                         </div>
                     </div>
                     <!-- end input -->
 
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="input-style-1">
-                                <label>Montant HT</label>
-                                <input type="number" disabled wire:model="subtotal" />
+                    @if(!$deposit)
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="input-style-1">
+                                    <label>Montant HT</label>
+                                    <input type="number" disabled wire:model="subtotal" />
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="input-style-1">
+                                    <label>Montant TTC</label>
+                                    <input type="number" disabled wire:model="total_amount" />
+                                </div>
                             </div>
                         </div>
 
-                        <div class="col-md-6">
-                            <div class="input-style-1">
-                                <label>Montant TTC</label>
-                                <input type="number" disabled wire:model="total_amount" />
-                            </div>
+                        <div class="input-style-1">
+                            <label>Reste à rembourser</label>
+                            <input type="number" disabled wire:model="remains" />
                         </div>
-                    </div>
+                    @endif
 
-                    <div class="input-style-1">
-                        <label>Reste à rembourser</label>
-                        <input type="number" disabled wire:model="remains" />
-                    </div>
                     <div class="text-center">
                         @if (Auth::user()->isSupport() || Auth::user()->isAccount())
                             <button wire:click="store" wire:loading.attr="disabled"
