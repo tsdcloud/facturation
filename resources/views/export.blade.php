@@ -3,7 +3,7 @@
 @section('content')
     <div class="card-style mb-30">
         <div class="table-wrapper table-responsive">
-            <button type="button" id="export_button" class="btn btn-success btn-sm">Export</button>
+            <button type="button" id="export_button" class="btn btn-success btn-sm">Exporter</button>
             <table id="employee_data" class="table striped-table">
                 <thead>
                 <tr>
