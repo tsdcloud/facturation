@@ -50,6 +50,8 @@ Route::middleware(['auth'])->group(function(){
 
     Route::get('invoices',[InvoiceController::class, 'myInvoice'])->name('invoices');
     Route::get('all-invoices',[InvoiceController::class, 'allInvoice'])->name('allInvoice');
+    Route::get('refund',[InvoiceController::class, 'refund'])->name('refund');
+    Route::get('export',[InvoiceController::class, 'export'])->name('export');
     Route::get('bill-pending',[AccountingController::class,'billPending'])->name('bill-pending');
     Route::get('bill/edit/{id}',[AccountingController::class,'edit'])->name('accounting.edit');
     Route::patch('bill/edit/{id}',[AccountingController::class,'update'])->name('accounting.update');
