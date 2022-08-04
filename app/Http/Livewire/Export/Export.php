@@ -19,6 +19,7 @@ class Export extends Component
 
     public function markexport(){
 
+        sleep(30);
         foreach($this->invoices as $invoice)
         {
             tap($invoice)->update(['export' => true]);

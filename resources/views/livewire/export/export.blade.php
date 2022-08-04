@@ -1,8 +1,17 @@
 <div>
     <div class="card-style mb-30">
         <div class="table-wrapper table-responsive">
-            <button type="button" id="export_button" wire:click="markexport"
-             class="btn btn-success btn-sm">Exporter</button>
+            {{-- <button type="button" id="export_button" wire:click="markexport"
+                class="btn btn-success btn-sm">
+                <div class="spinner-border" wire:loading role="status" wire:target="store"></div>
+                <span wire:loading.remove>Exporter</span> 
+            </button> --}}
+
+            <button id="export_button" wire:click="markexport" wire:loading.attr="disabled"    class="main-btn   active-btn-outline rounded-md btn-hover">
+                <div class="spinner-border" wire:loading role="status"></div>
+                <div wire:loading.remove  wire:target="store"> Export </div>
+            </button>
+
             <table id="employee_data" class="table striped-table">
                 <thead>
                 <tr>
