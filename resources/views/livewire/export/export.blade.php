@@ -7,7 +7,7 @@
                 <span wire:loading.remove>Exporter</span> 
             </button> --}}
 
-            <button id="export_button" wire:click="markexport" wire:loading.attr="disabled"    class="main-btn   active-btn-outline rounded-md btn-hover">
+            <button id="export_button" wire:click="markexport" wire:loading.attr="disabled"    class="main-btn success-btn square-btn btn-hover">
                 <div class="spinner-border" wire:loading role="status"></div>
                 <div wire:loading.remove  wire:target="store"> Export </div>
             </button>
@@ -15,9 +15,6 @@
             <table id="employee_data" class="table striped-table">
                 <thead>
                 <tr>
-                    <th>
-                        <h6>N° Facture</h6>
-                    </th>
                     <th>
                         <h6>Partenaires</h6>
                     </th>
@@ -63,9 +60,6 @@
                 <tbody>
                     @foreach ($invoices as $invoice)
                         <tr>
-                            <td>
-                                <p>{{ $invoice->invoice_no }} </p>
-                            </td>
                             <td>
                                 <p>{{ $invoice->customer->label }} </p>
                             </td>
