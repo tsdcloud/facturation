@@ -59,8 +59,8 @@ class InvoiceController extends Controller
     public function export(){
 
         $breadcrumb = "Exportation";
-        $invoices = Invoice::whereDate('created_at',now())->get();
-        return view('export',compact('breadcrumb','invoices'));
+      //  $invoices = Invoice::whereDate('created_at',now())->get();
+        return view('export',compact('breadcrumb'));
     }
 
     public function exportCG(){

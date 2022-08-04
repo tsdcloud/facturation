@@ -31,6 +31,7 @@ class Invoice extends Model
         'who_paid_back_id',
         'date_payback',
         'deposit',
+        'export',
     ];
 
     public function weighbridge(){
