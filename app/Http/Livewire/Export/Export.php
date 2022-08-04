@@ -14,7 +14,9 @@ class Export extends Component
     }
 
     public function mount(){
-        $this->invoices =  Invoice::where('export',null)->get();
+        $this->invoices =  Invoice::whereDate('created_at',now())
+                                  ->where('export',null)
+                                  ->get();
     }
 
     public function markexport(){
