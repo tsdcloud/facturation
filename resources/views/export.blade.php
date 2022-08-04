@@ -8,19 +8,34 @@
                 <thead>
                 <tr>
                     <th>
-                        <h6>Nom client</h6>
+                        <h6>Partenaires</h6>
                     </th>
                     <th>
-                        <h6>Tracteur</h6>
+                        <h6>Vehicule</h6>
                     </th>
                     <th>
                         <h6>Remorque</h6>
+                    </th>
+                    <th>
+                        <h6>N° Conteneur</h6>
+                    </th>
+                    <th>
+                        <h6>N° Plomb</h6>
+                    </th>
+                    <th>
+                        <h6>Chargeur</h6>
+                    </th>
+                    <th>
+                        <h6>Produit</h6>
                     </th>
                     <th>
                         <h6>Chef de Guerite</h6>
                     </th>
                     <th>
                         <h6>Guerite entrée</h6>
+                    </th>
+                    <th>
+                        <h6>Statut de la pesée</h6>
                     </th>
                     <th>
                         <h6>Pesée d'entrée</h6>
@@ -43,6 +58,10 @@
                             <td>
                                 <p>{{ optional($invoice->myTrailer)->label }} </p>
                             </td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
                             <td>
                                 <p>{{ $invoice->user->name }} </p>
                             </td>
