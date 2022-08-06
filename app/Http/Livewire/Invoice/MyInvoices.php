@@ -18,13 +18,14 @@ class MyInvoices extends Component
 
     public function render()
     {
-        $query = Invoice::where('user_id',auth()->user()->id);
+        $id = auth()->user()->id;
+        $query = Invoice::where('user_id',$id);
         $query->whereHas('myTractor', function($query){
             $query->where('label','LIKE',strtoupper("%$this->search_invoice_no_tractor_trailer%") );
         })
-        ->orWhere(function($query) {
+        ->orWhere(function($query) use ($id) {
             $query->where('invoice_no','LIKE',"%$this->search_invoice_no_tractor_trailer%");
-            $query->where('user_id',auth()->user()->id);
+            $query->where('user_id',$id);
         });
 
 

@@ -34,6 +34,13 @@ class Invoice extends Model
         'export',
     ];
 
+    /**
+     * The relationships that should always be loaded.
+     *
+     * @var array
+     */
+    protected $with = ['myTractor','myTrailer','typeWeighing','modePayment','weighbridge','user'];
+
     public function weighbridge(){
         return $this->belongsTo(Weighbridge::class);
     }
