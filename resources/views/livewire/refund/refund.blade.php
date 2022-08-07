@@ -70,7 +70,7 @@
                                                 <p>{{ $refund->remains }}</p>
                                             </td>
                                             <td>
-                                                <p>{{ $refund->customer->name }}</p>
+                                                <p>{{ $refund->customer->label }}</p>
                                             </td>
                                             <td>
                                                 <p>{{ optional($refund->myTractor)->label }}</p>
@@ -177,7 +177,7 @@
                                                 <p>{{ $ref->remains }}</p>
                                             </td>
                                             <td>
-                                                <p>{{ $ref->customer->name }}</p>
+                                                <p>{{ $ref->customer->label }}</p>
                                             </td>
                                             <td>
                                                 <p>{{ optional($ref->myTractor)->label }}</p>
