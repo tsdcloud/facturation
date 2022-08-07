@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Payback;
 
 use App\Models\Invoice;
+use App\Models\Weighbridge;
 use Livewire\Component;
 
 class Payback extends Component
@@ -30,11 +31,13 @@ class Payback extends Component
 
     public function payback(){
 
+        $bridge = Weighbridge::where('id',auth()->user()->currentBridge)->first();
         $data =  tap($this->invoice)->update([
             'isRefunded' => true,
             'who_paid_back' => auth()->user()->name,
             'who_paid_back_id' => auth()->user()->id,
             'date_payback' => now(),
+            'bridge_that_paid_off' => $bridge->label,
         ]);
       //  $this->id_invoice = $data->id;
         session()->flash('succès', 'facture remboursée : Opération reussite.');

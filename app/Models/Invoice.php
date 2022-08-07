@@ -29,6 +29,7 @@ class Invoice extends Model
         'isRefunded',
         'who_paid_back',
         'who_paid_back_id',
+        'bridge_that_paid_off',
         'date_payback',
         'deposit',
         'export',

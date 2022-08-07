@@ -131,7 +131,7 @@
                                             <h6>Montant versé</h6>
                                         </th>
                                         <th>
-                                            <h6>A rembourser</h6>
+                                            <h6>Montant remboursé</h6>
                                         </th>
                                         <th>
                                             <h6>Nom client</h6>
@@ -142,9 +142,9 @@
                                         <th>
                                             <h6>Remorque</h6>
                                         </th>
-{{--                                        <th>--}}
-{{--                                            <h6>Pont</h6>--}}
-{{--                                        </th>--}}
+                                        <th>
+                                            <h6>Pont</h6>
+                                        </th>
                                         <th>
                                             <h6>Mode de paiement</h6>
                                         </th>
@@ -185,9 +185,9 @@
                                             <td>
                                                 <p>{{ optional($ref->myTrailer)->label }}</p>
                                             </td>
-{{--                                            <td>--}}
-{{--                                                <p>{{ $ref->weighbridge->label }}</p>--}}
-{{--                                            </td>--}}
+                                            <td>
+                                                <p>{{ $ref->bridge_that_paid_off }}</p>
+                                            </td>
                                             <td>
                                                 <p>{{ $ref->modePayment->label }}</p>
                                             </td>
