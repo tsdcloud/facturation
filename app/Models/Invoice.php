@@ -39,7 +39,7 @@ class Invoice extends Model
      *
      * @var array
      */
-    protected $with = ['myTractor','myTrailer','typeWeighing','modePayment','weighbridge','user'];
+    protected $with = ['myTractor','myTrailer','typeWeighing','modePayment','weighbridge','user','customer'];
 
     public function weighbridge(){
         return $this->belongsTo(Weighbridge::class);
