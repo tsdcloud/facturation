@@ -24,7 +24,7 @@ class Refund extends Component
             'refunded'=> Invoice::where('isRefunded',true)
                                   ->where('user_id',auth()->user()->id)
                                   ->where('who_paid_back','<>',null)
-                                  ->orderByDesc('date_payback','DESC')
+                                  ->orderByDesc('updated_at','DESC')
                                   ->paginate(10,['*'],'refundedPage')
         ]);
     }
