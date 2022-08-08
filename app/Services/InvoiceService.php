@@ -8,6 +8,7 @@ use App\Models\Invoice;
 use App\Models\Weighbridge;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 use setasign\Fpdi\Fpdi;
 use Illuminate\Support\Facades\Storage;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
@@ -270,7 +271,6 @@ class InvoiceService extends Fpdi
             if ($remains == 0)
                 $isRefunded = true;
 
-            $lastId = Invoice::latest('id')->first();
 
             $lastId = Invoice::latest('id')->first();
             $data = Invoice::create([
@@ -291,6 +291,7 @@ class InvoiceService extends Fpdi
                     'type_weighing_id' => $price_id == 0 ? null : $price_id,
                     'path_qrcode' => '',
                     'deposit' => $deposit,
+                    'slug' => (string) Str::of(Str::uuid())->substr(1,17),
             ]);
 
             $path = 'http://billingdpws.bfclimited.com:8080/display/'.$data->id;
@@ -299,7 +300,6 @@ class InvoiceService extends Fpdi
 
             Storage::disk('public')->put($output_file, $picture);
             tap($data)->update(['path_qrcode'=> $output_file]);
-          //  dd($data);
             DB::commit();
 
         }catch (\Illuminate\Database\QueryException $e){
@@ -322,7 +322,7 @@ class InvoiceService extends Fpdi
             Log::error(sprintf('%d'.$e->getMessage(), __METHOD__));
             session()->flash('error', 'Erreur lors de l\'enregistrement de la facture, veuillez actualiser le navigateur et recommencer.4');
         }
-//dd($data);
+
         return $data->id;
     }
 
