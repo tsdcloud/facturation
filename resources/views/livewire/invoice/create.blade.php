@@ -243,7 +243,7 @@
             {{-- Fin depôt --}}
         </div>
 
-        {{-- afficher la facture --}}
+        {{-- afficher la facture sans coupon --}}
         <div class="warning-modal">
             <div wire:ignore.self id="myModal" class="modal fade mod" data-bs-backdrop="static"
                 data-bs-keyboard="false" id="ModalTwo" tabindex="-1" aria-hidden="true">
