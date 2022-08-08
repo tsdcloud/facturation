@@ -33,6 +33,7 @@ class Invoice extends Model
         'date_payback',
         'deposit',
         'export',
+        'slug',
     ];
 
     /**
