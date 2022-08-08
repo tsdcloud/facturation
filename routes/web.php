@@ -25,11 +25,16 @@ use App\Http\Controllers\SignatureController;
 Route::get('/', function () {
     return view('auth.login');
 });
+
+//route pour afficher la facture sans coupon et la télécherger depuis l'exterieur
 Route::get('display/{id?}',[InvoiceController::class,'pdf'])->name('show-pdf');
+
+// route pour afficher la facture avec coupon de remboursement
 Route::get('coupon/{id?}',[InvoiceController::class,'pdfWithCoupon'])->name('show-coupon');
+
+
 Route::get('export',[InvoiceController::class,'exportCG'])->name('export-cg');
 
-Route::get('print/receipt',[InvoiceController::class, 'pdf']);
 
 Route::middleware(['auth'])->group(function(){
 

@@ -25,7 +25,6 @@ class InvoiceController extends Controller
 
     public function pdfWithCoupon($id){
 
-     //   dd('ok');
         $data = Invoice::where('id',$id)->first();
 
         InvoiceService::invoiceBuilderWithCoupon($data,'preview');
