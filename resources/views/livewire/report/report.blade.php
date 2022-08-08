@@ -150,7 +150,7 @@
                         </div>
                     </div>
                 </div>
-                <small class="text-muted">Montant net = (montant total + sur plus en caisse) - (facture annulées + remboursement)</small>
+                <small class="text-muted">Montant net = (montant total + surplus en caisse) - (facture annulées + remboursement)</small>
             @endisset
             {{-- fin statistique --}}
     </div>
@@ -231,7 +231,7 @@
                                                 <p>{{ $invoice->weighbridge->label }}</p>
                                             </td>
                                             <td>
-                                                <p>{{ $invoice->modePayment->label }}</p>
+                                                <p>{{ $invoice->typeWeighing->label }}</p>
                                             </td>
                                             <td>
                                                 <p>{{ $invoice->created_at->format('d/m/y H:i:s') }}</p>
