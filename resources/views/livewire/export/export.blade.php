@@ -4,7 +4,7 @@
             {{-- <button type="button" id="export_button" wire:click="markexport"
                 class="btn btn-success btn-sm">
                 <div class="spinner-border" wire:loading role="status" wire:target="store"></div>
-                <span wire:loading.remove>Exporter</span> 
+                <span wire:loading.remove>Exporter</span>
             </button> --}}
 
             <button id="export_button" wire:click="markexport" wire:loading.attr="disabled"    class="main-btn success-btn square-btn btn-hover">
@@ -82,10 +82,10 @@
                             <td></td> {{-- statut de la pesée  --}}
                             <td>OUI</td> {{-- pesee entree  --}}
                             <td>
-                                <p>{{ $invoice->created_at->format('d/m/y') }} </p>
+                                <p>{{ $invoice->created_at->format('d/m/y H:i:s') }} </p>
                             </td>
                             <td>
-                                <p>{{ $invoice->created_at->format('H:i:s') }} </p>
+                                <p>{{ $invoice->created_at->format('d/m/y H:i:s') }} </p>
                             </td>
                         </tr>
                     @endforeach
