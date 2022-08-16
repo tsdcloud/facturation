@@ -82,7 +82,7 @@
                             <td></td> {{-- statut de la pesée  --}}
                             <td>OUI</td> {{-- pesee entree  --}}
                             <td>
-                                <p>{{ $invoice->created_at->format('d/m/y) }} </p>
+                                <p>{{ $invoice->created_at->format('d/m/y') }} </p>
                             </td>
                             <td>
                                 <p>{{ $invoice->created_at->format('H:i:s') }} </p>
