@@ -85,6 +85,7 @@
                                 <p>{{ $invoice->created_at->format('d/m/y') }} </p>
                             </td>
                             <td>
+                                
                                 <p>{{ $invoice->created_at->format('H:i:s') }} </p>
                             </td>
                         </tr>
