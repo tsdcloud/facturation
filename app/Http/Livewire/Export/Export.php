@@ -17,6 +17,7 @@ class Export extends Component
 
     public function mount(){
         $this->invoices =  Invoice::whereDate('created_at',now())
+                                  ->where('status_invoice','validated')
                                   ->where('export',null)
                                   ->get();
     }
