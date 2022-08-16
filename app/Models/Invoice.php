@@ -34,6 +34,7 @@ class Invoice extends Model
         'deposit',
         'export',
         'slug',
+        'status_cancel',
     ];
 
     /**
