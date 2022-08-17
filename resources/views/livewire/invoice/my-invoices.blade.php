@@ -157,12 +157,12 @@
 {{--                                                                   class="text-gray">Annuler la facture</a>--}}
 {{--                                                            </li>--}}
 {{--                                                        @else--}}
-                                                            <li class="dropdown-item">
-                                                                <a href="javascript:void(0)"
-                                                                   wire:click="getInvoice({{ $invoice->id }})"
-                                                                   data-bs-toggle="modal" data-bs-target="#ModalTree"
-                                                                   class="text-gray">Annuler la facture</a>
-                                                            </li>
+{{--                                                            <li class="dropdown-item">--}}
+{{--                                                                <a href="javascript:void(0)"--}}
+{{--                                                                   wire:click="getInvoice({{ $invoice->id }})"--}}
+{{--                                                                   data-bs-toggle="modal" data-bs-target="#ModalTree"--}}
+{{--                                                                   class="text-gray">Annuler la facture</a>--}}
+{{--                                                            </li>--}}
                                                         @if($invoice->isRefunded == true)
                                                             <li class="dropdown-item">
                                                                 <a style="color:grey" class="link-primary" target="_blank"

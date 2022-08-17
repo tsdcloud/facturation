@@ -140,14 +140,14 @@
                                                                 href="{{ route('show-pdf', $invoice->id) }}">Imprimer la
                                                                 facture</a>
                                                         </li>
-                                                        @if ($invoice->user_id == Auth::user()->id)
-                                                        <li class="dropdown-item">
-                                                            <a href="javascript:void(0)"
-                                                                wire:click="getInvoice({{ $invoice->id }})"
-                                                                data-bs-toggle="modal" data-bs-target="#ModalTree"
-                                                                class="text-gray">Annuler la facture</a>
-                                                        </li>
-                                                        @endif
+{{--                                                        @if ($invoice->user_id == Auth::user()->id)--}}
+{{--                                                        <li class="dropdown-item">--}}
+{{--                                                            <a href="javascript:void(0)"--}}
+{{--                                                                wire:click="getInvoice({{ $invoice->id }})"--}}
+{{--                                                                data-bs-toggle="modal" data-bs-target="#ModalTree"--}}
+{{--                                                                class="text-gray">Annuler la facture</a>--}}
+{{--                                                        </li>--}}
+{{--                                                        @endif--}}
                                                     </ul>
                                                 </div>
                                             </td>
