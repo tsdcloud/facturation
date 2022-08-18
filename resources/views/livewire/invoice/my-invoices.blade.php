@@ -169,6 +169,12 @@
                                                                     href="{{ route('show-pdf', $invoice->id) }}">
                                                                     Imprimer la facture</a>
                                                             </li>
+                                                        @else
+                                                            <li class="dropdown-item">
+                                                                <a style="color:grey" class="link-primary" target="_blank"
+                                                                   href="{{ route('show-coupon', $invoice->id) }}">
+                                                                    Imprimer la facture</a>
+                                                            </li>
                                                         @endif
 {{--                                                         @endif--}}
 
