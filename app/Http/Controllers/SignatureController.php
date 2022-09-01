@@ -36,8 +36,8 @@ class SignatureController extends Controller
             'path' => '',
             'user_id' =>  $request->user_id,
         ]);
-        $user = Str::substr( str_replace(" ",'',$signature->user->name),0,14);
-        tap($signature)->update(['path'=> $request->path->store('signature/'.$user,'public')]);
+       // $user = Str::substr( str_replace(" ",'',$signature->user->name),0,14);
+        tap($signature)->update(['path'=> $request->path->store('signature/'.$signature->user->id,'public')]);
 
         return redirect()->route('signature.index')->with('message','signature enregistré avec succès');
     }
