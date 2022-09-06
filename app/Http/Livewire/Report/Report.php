@@ -78,7 +78,8 @@ class Report extends Component
                 ->whereBetween('created_at',[$start, $end])
                 ->get();
 
-            $this->total_amount = $this->invoices->sum('total_amount');
+            $this->total_amount = $this->invoices->sum('amount_paid');
+            $amount = $this->invoices->sum('total_amount');
 
             $this->number_invoice = $this->invoices->count();
 
@@ -111,6 +112,11 @@ class Report extends Component
                 ->where('status_invoice','cancelling')
                 ->whereBetween('created_at',[$start, $end])
                 ->sum('total_amount');
+
+            $amountTotalCancelledInvoice = Invoice::where('user_id', $this->user_id)
+                ->where('status_invoice','cancelling')
+                ->whereBetween('created_at',[$start, $end])
+                ->sum('amount_paid');
 
             $this->numberCancelledInvoice = Invoice::where('user_id', $this->user_id)
                 ->where('status_invoice','cancelling')
@@ -145,8 +151,8 @@ class Report extends Component
                 ->whereBetween('date_payback',[$start, $end])
                 ->count();
 
-
-            $this->totalValue = ($this->total_amount + $this->excessAmount) - ($this->amountCancelledInvoice + $this->payback);
+            $this->total_amount -= $this->payback;
+            $this->totalValue = $this->total_amount - $amountTotalCancelledInvoice;
         }catch (\Exception){
 
             session()->flash('error-trailer', 'une erreur est survenu, veuillez actualiser le navigateur');
