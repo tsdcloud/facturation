@@ -131,12 +131,13 @@
                                 {{\App\Helpers\Numbers\MoneyHelper::number($payback) }}</span>
                         </div>
                     </div>
-                    <div class="col-lg-2">
+                    {{-- on n'a plus besoin du montant total a supprimer --}}
+                    {{-- <div class="col-lg-2">
                         <div class="select-style-1 text-center">
                             <label>Montant total</label>
                             <span class="text-bold mb-10">{{\App\Helpers\Numbers\MoneyHelper::price($total_amount)}}</span>
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="col-lg-2">
                         <div class="select-style-1 text-center">
                             <label>Surplus en caisse</label>
@@ -150,7 +151,7 @@
                         </div>
                     </div>
                 </div>
-                <small class="text-muted">Montant net = (montant total + surplus en caisse) - (facture annulées + remboursement)</small>
+                {{-- <small class="text-muted">Montant net = (montant total + surplus en caisse) - (facture annulées + remboursement)</small> --}}
             @endisset
             {{-- fin statistique --}}
     </div>
