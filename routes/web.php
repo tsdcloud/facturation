@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\AccountingController;
+use App\Http\Controllers\CheckpointController;
 use App\Http\Controllers\SignatureController;
 
 /*
@@ -76,9 +77,7 @@ Route::middleware(['auth'])->group(function(){
     //journal d'erreur
     Route::get('logs', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index'])->name('log');
 
-    Route::get('/checkpoint/index', function(){
-        $breadcrumb = "Contrôle camion";
-        return view('checkpoint.index',compact('breadcrumb'));
-    })->name('checkpoint.index');
+    Route::get('/checkpoint/index', [CheckpointController::class, 'index']);
+    Route::get('/checkpoint/edit/{invoice}', [CheckpointController::class, 'edit'])->name('checkpoint.edit');
 });
 
