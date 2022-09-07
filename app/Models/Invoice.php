@@ -34,6 +34,12 @@ class Invoice extends Model
         'deposit',
         'export',
         'slug',
+        'seen_entry_control',
+        'name_controleur_input',
+        'date_entry',
+        'seen_exit_control',
+        'name_controleur_ouput',
+        'date_exit',
     ];
 
     /**

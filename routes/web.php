@@ -75,5 +75,10 @@ Route::middleware(['auth'])->group(function(){
     Route::patch('reset/{id}',[UserController::class,'resetPassword'])->name('reset.password');
     //journal d'erreur
     Route::get('logs', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index'])->name('log');
+
+    Route::get('/checkpoint/index', function(){
+        $breadcrumb = "Contrôle camion";
+        return view('checkpoint.index',compact('breadcrumb'));
+    })->name('checkpoint.index');
 });
 
