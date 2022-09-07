@@ -42,6 +42,11 @@ class Invoice extends Model
         'date_exit',
     ];
 
+    protected $casts =[
+        'date_entry' => 'date:d-m-Y',
+        'date_exit' => 'date:d-m-Y',
+    ];
+    
     /**
      * The relationships that should always be loaded.
      *

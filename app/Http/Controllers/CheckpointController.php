@@ -20,7 +20,7 @@ class CheckpointController extends Controller
            throw new \Exception;
 
         $breadcrumb = "Détails";
-        return view('checkpoint.create',compact('breadcrumb','invoice'));
+        return view('checkpoint.detail',compact('breadcrumb','invoice'));
     }
 
     public function store(Request $request ,Invoice $invoice){

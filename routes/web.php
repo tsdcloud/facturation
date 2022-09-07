@@ -78,6 +78,6 @@ Route::middleware(['auth'])->group(function(){
     Route::get('logs', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index'])->name('log');
 
     Route::get('/checkpoint/index', [CheckpointController::class, 'index']);
-    Route::get('/checkpoint/edit/{invoice}', [CheckpointController::class, 'edit'])->name('checkpoint.edit');
+    Route::get('/checkpoint/edit/{invoice}', [CheckpointController::class, 'edit'])->name('checkpoint.detail');
 });
 

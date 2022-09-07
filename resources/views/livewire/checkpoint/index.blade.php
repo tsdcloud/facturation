@@ -16,7 +16,7 @@
                     <p class="text-muted">Nom client : {{$invoice->customer->label}} </p>
                     <p class="text-muted">Tracteur : {{$invoice->myTractor->label}}</p>
                     <p class="text-muted">Remorque : {{optional($invoice->myTrailer)->label}}</p>
-                    {{-- <a href="{{route('checkpoint.create')}}" class="stretched-link"></a> --}}
+                    <a href="{{route('checkpoint.detail',$invoice)}}" class="stretched-link"></a>
                 </div>
             @endforeach
         </div>

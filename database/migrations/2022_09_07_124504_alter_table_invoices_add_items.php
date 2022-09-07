@@ -14,12 +14,12 @@ return new class extends Migration
     public function up()
     {
         Schema::table('invoices', function (Blueprint $table) {
-            $table->string('seen_entry_control')->nullable();
+            $table->string('seen_entry_control',5)->nullable();
             $table->string('name_controleur_input')->nullable();
             $table->dateTime('date_entry')->nullable();
-            $table->string('seen_exit_control')->nullable();
+            $table->string('seen_exit_control',5)->nullable();
             $table->string('name_controleur_ouput')->nullable();
-            $table->string('date_exit')->nullable();
+            $table->dateTime('date_exit')->nullable();
         });
     }
 
