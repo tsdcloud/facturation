@@ -35,14 +35,25 @@ class Invoice extends Model
         'export',
         'slug',
         'status_cancel',
+        'seen_entry_control',
+        'name_controleur_input',
+        'date_entry',
+        'seen_exit_control',
+        'name_controleur_ouput',
+        'date_exit',
     ];
-
+    
+    protected $casts =[
+      'date_entry' => 'date:d-m-Y',
+      'date_exit' => 'date:d-m-Y',
+  ];
     /**
      * The relationships that should always be loaded.
      *
      * @var array
      */
     protected $with = ['myTractor','myTrailer','typeWeighing','modePayment','weighbridge','user','customer'];
+
 
     public function weighbridge(){
         return $this->belongsTo(Weighbridge::class);
