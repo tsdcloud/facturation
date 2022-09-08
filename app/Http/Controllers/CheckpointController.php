@@ -24,7 +24,7 @@ class CheckpointController extends Controller
         return view('checkpoint.detail',compact('breadcrumb','invoice'));
     }
 
-    public function update(Invoice $invoice){
+    public function updateEntry(Invoice $invoice){
         $invoice = Invoice::where('id',$invoice->id)->first();
 
         if (is_null($invoice))
