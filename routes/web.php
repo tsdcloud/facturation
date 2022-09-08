@@ -77,7 +77,9 @@ Route::middleware(['auth'])->group(function(){
     //journal d'erreur
     Route::get('logs', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index'])->name('log');
 
-    Route::get('/checkpoint/index', [CheckpointController::class, 'index']);
+    Route::get('/checkpoint/index', [CheckpointController::class, 'index'])->name('checkpoint.index');
     Route::get('/checkpoint/edit/{invoice}', [CheckpointController::class, 'edit'])->name('checkpoint.detail');
+    Route::get('/checkpoint/updateEntry/{invoice}', [CheckpointController::class, 'update'])->name('checkpoint.update');
+    Route::get('/checkpoint/updateExit/{invoice}', [CheckpointController::class, 'updateExit'])->name('checkpoint.update');
 });
 
