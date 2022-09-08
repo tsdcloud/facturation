@@ -42,7 +42,7 @@
                     </div>
                     <div class="modal-body">
                         @if (!is_null($invoice))
-                            <p class="text-muted">Nom client : {{ $invoice->customer->label }} </p>
+                            <p class="text-muted">Nom client : {{ optional($invoice->customer)->label }} </p>
                             <p class="text-muted">Tracteur : {{ $invoice->myTractor->label }}</p>
                             <p class="text-muted">Remorque : {{ optional($invoice->myTrailer)->label }}</p>
                             <p class="text-muted">Chef de guerite : {{ $invoice->user->name }}</p>
