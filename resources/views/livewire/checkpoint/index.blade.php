@@ -46,6 +46,7 @@
                             <p class="text-muted">Tracteur : {{ $invoice->myTractor->label }}</p>
                             <p class="text-muted">Remorque : {{ optional($invoice->myTrailer)->label }}</p>
                             <p class="text-muted">Chef de guerite : {{ $invoice->user->name }}</p>
+                            <p class="text-muted">Pont : {{ $invoice->weighbridge->label }}</p>
                             <p class="text-muted">Date facture : {{ $invoice->created_at->format('d/m/Y H:i:s') }}</p>
                             <p class="text-muted">Vu contrôle entrée : {{ $invoice->seen_entry_control }}</p>
                             <p class="text-muted">Date contrôle entrée : {{ $invoice->date_entry }}</p>
