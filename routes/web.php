@@ -79,7 +79,7 @@ Route::middleware(['auth'])->group(function(){
 
     Route::get('/checkpoint/index', [CheckpointController::class, 'index'])->name('checkpoint.index');
     Route::get('/checkpoint/edit/{invoice}', [CheckpointController::class, 'edit'])->name('checkpoint.detail');
-    Route::get('/checkpoint/updateEntry/{invoice}', [CheckpointController::class, 'update'])->name('checkpoint.update');
-    Route::get('/checkpoint/updateExit/{invoice}', [CheckpointController::class, 'updateExit'])->name('checkpoint.update');
+    Route::get('/checkpoint/updateEntry/{invoice}', [CheckpointController::class, 'updateEntry'])->name('checkpoint.updateEntry');
+    Route::get('/checkpoint/updateExit/{invoice}', [CheckpointController::class, 'updateExit'])->name('checkpoint.updateExit');
 });
 
