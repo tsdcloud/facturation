@@ -34,8 +34,19 @@ class Invoice extends Model
         'deposit',
         'export',
         'slug',
+        'seen_entry_control',
+        'name_controleur_input',
+        'date_entry',
+        'seen_exit_control',
+        'name_controleur_ouput',
+        'date_exit',
     ];
 
+    protected $casts =[
+        'date_entry' => 'date:d-m-Y',
+        'date_exit' => 'date:d-m-Y',
+    ];
+    
     /**
      * The relationships that should always be loaded.
      *
