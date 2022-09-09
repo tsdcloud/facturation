@@ -22,13 +22,13 @@
                 </div>
                 @if ($invoice->seen_entry_control === null)
                     <div class="col-xs-12 col-sm-12 col-lg-12">
-                        <a  class="main-btn active-btn-outline rounded-md btn-hover" href="{{route('checkpoint.update',$invoice)}}">Vu entrée
+                        <a  class="main-btn active-btn-outline rounded-md btn-hover" href="{{route('checkpoint.updateEntry',$invoice)}}">Vu entrée
                         </a>
                     </div>
                 @endif
                 @if ($invoice->seen_exit_control === null && $invoice->seen_entry_control != null)
                 <div class="col-xs-12 col-sm-12 col-lg-12">
-                    <a  class="main-btn active-btn-outline rounded-md btn-hover" href="{{route('checkpoint.update',$invoice)}}">Vu sortie
+                    <a  class="main-btn active-btn-outline rounded-md btn-hover" href="{{route('checkpoint.updateExit',$invoice)}}">Vu sortie
                     </a>
                 </div>
                 @endif

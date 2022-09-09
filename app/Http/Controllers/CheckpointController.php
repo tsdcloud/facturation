@@ -24,7 +24,7 @@ class CheckpointController extends Controller
         return view('checkpoint.detail',compact('breadcrumb','invoice'));
     }
 
-    public function update(Invoice $invoice){
+    public function updateEntry(Invoice $invoice){
         $invoice = Invoice::where('id',$invoice->id)->first();
 
         if (is_null($invoice))
@@ -34,6 +34,7 @@ class CheckpointController extends Controller
                     'seen_entry_control' => 'oui',
                     'name_controleur_input' => auth()->user()->name,
                     'date_entry' => Carbon::now(),
+                    'weighbridge_entry' => auth()->user()->currentBridge
                 ]);
       
            return redirect()->to('/checkpoint/index');
@@ -50,6 +51,7 @@ class CheckpointController extends Controller
                 'seen_exit_control' => 'oui',
                 'name_controleur_ouput' => auth()->user()->name,
                 'date_exit' => Carbon::now(),
+                'weighbridge_exit' => auth()->user()->currentBridge
             ]);
             return redirect()->to('/checkpoint/index');
        }

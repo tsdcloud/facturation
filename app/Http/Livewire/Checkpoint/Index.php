@@ -19,7 +19,7 @@ class Index extends Component
             });
 
         return view('livewire.checkpoint.index', [
-            'invoices' => $query->get()
+            'invoices' => $query->orderByDesc('updated_at')->paginate(10)
         ]);
     }
 

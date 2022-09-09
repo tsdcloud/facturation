@@ -41,6 +41,9 @@ class Invoice extends Model
         'seen_exit_control',
         'name_controleur_ouput',
         'date_exit',
+        'weight',
+        'weighbridge_entry',
+        'weighbridge_exit',
     ];
     
     protected $casts =[
