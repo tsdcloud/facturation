@@ -68,7 +68,7 @@ class CheckpointController extends Controller
                 'date_exit' => Carbon::now(),
                 'weighbridge_exit' => auth()->user()->currentBridge
             ]);
-            session()->flash('success', 'contrôle en entrée ok');
+            session()->flash('success', 'contrôle en sortie ok');
             return redirect()->to('/checkpoint/index');
         } catch (\Exception $e) {
             Log::error($e->getMessage());
