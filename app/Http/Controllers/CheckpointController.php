@@ -68,6 +68,10 @@ class CheckpointController extends Controller
                 throw new \Exception('impossible de retrouver cette facture... delail');
 
             $weight_bridge = Weighbridge::where('id', auth()->user()->currentBridge)->first();
+
+            if (is_null($weight_bridge))
+                throw new \Exception('Impossible de trouver le pont passé en paramètre (CheckPointController)');
+            
             $invoice->update([
                 'seen_exit_control' => 'oui',
                 'name_controleur_ouput' => auth()->user()->name,
