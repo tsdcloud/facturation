@@ -192,7 +192,7 @@
                     </a>
                 </li>
             @endif
-            @if (Auth::user()->isAdmin())
+            @if (Auth::user()->isAdmin() || Auth::user()->isOperateur())
             <li class="nav-item {{ Request::is('checkpoint/index') ? 'active' : '' }}">
               <a href="{{url('checkpoint/index')}}">
               <span class="icon">

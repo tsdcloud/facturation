@@ -86,4 +86,9 @@ class User extends Authenticatable
 
         return $this->role === 'super_admin';
     }
+
+    public function isOperateur(){
+
+        return $this->role === 'ope';
+    }
 }
