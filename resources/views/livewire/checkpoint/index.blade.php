@@ -1,6 +1,6 @@
 <div>
     @if (session()->has('success'))
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
             <strong>{{ session('success') }} </strong>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
@@ -39,7 +39,8 @@
                         <p style="color: white !important">Tracteur : {{ $invoice->myTractor->label }}</p>
                         <p style="color: white !important">Remorque : {{ optional($invoice->myTrailer)->label }}</p>
                         <p style="color: white !important">Chef de guerite : {{ $invoice->user->name }}</p>
-                        <p style="color: white !important">Facturé le : {{ $invoice->created_at->format('d/m/Y H:i:s') }}</p>
+                        <p style="color: white !important">Facturé le :
+                            {{ $invoice->created_at->format('d/m/Y H:i:s') }}</p>
                         <a href="{{ route('checkpoint.detail', $invoice) }}" class="stretched-link"></a>
                     </div>
                 @endif
@@ -49,10 +50,14 @@
                     <div class="card-style mb-3" style="background-color: rgb(19, 97, 49)">
                         <p class="text-muted" style="color: white !important">Nom client :
                             {{ $invoice->customer->label }} </p>
-                        <p class="text-muted" style="color: white !important">Tracteur : {{ $invoice->myTractor->label }}</p>
-                        <p class="text-muted" style="color: white !important">Remorque : {{ optional($invoice->myTrailer)->label }}</p>
-                        <p class="text-muted" style="color: white !important">Chef de guerite : {{ $invoice->user->name }}</p>
-                        <p class="text-muted" style="color: white !important">Facturé le : {{ $invoice->created_at->format('d/m/Y H:i:s') }}</p>
+                        <p class="text-muted" style="color: white !important">Tracteur :
+                            {{ $invoice->myTractor->label }}</p>
+                        <p class="text-muted" style="color: white !important">Remorque :
+                            {{ optional($invoice->myTrailer)->label }}</p>
+                        <p class="text-muted" style="color: white !important">Chef de guerite :
+                            {{ $invoice->user->name }}</p>
+                        <p class="text-muted" style="color: white !important">Facturé le :
+                            {{ $invoice->created_at->format('d/m/Y H:i:s') }}</p>
                         <a href="{{ route('checkpoint.detail', $invoice) }}" class="stretched-link"></a>
                     </div>
                 @endif
