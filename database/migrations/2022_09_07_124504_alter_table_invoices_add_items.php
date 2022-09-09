@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('seen_exit_control',5)->nullable();
             $table->string('name_controleur_ouput')->nullable();
             $table->dateTime('date_exit')->nullable();
+            $table->string('weighbridge_entry')->nullable();
+            $table->string('weighbridge_exit')->nullable();
         });
     }
 
