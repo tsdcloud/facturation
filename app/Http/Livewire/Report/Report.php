@@ -79,7 +79,7 @@ class Report extends Component
                 ->get();
 
             $this->total_amount = $this->invoices->sum('amount_paid');
-            $amount = $this->invoices->sum('total_amount');
+            $amounts = $this->invoices->sum('total_amount');
 
             $this->number_invoice = $this->invoices->count();
 
@@ -150,9 +150,11 @@ class Report extends Component
                 ->where('status_invoice','validated')
                 ->whereBetween('date_payback',[$start, $end])
                 ->count();
-
+                
+           $recp = $this->total_amount - $amounts;
+    //dd($recp);
             $this->total_amount -= $this->payback;
-            $this->totalValue = $this->total_amount - $amountTotalCancelledInvoice;
+            $this->totalValue = $this->total_amount - $amountTotalCancelledInvoice - $recp;
         }catch (\Exception){
 
             session()->flash('error-trailer', 'une erreur est survenu, veuillez actualiser le navigateur');
