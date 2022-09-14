@@ -16,12 +16,11 @@ return new class extends Migration
         Schema::create('predictions', function (Blueprint $table) {
             $table->id();
             $table->string('operation');
-            $table->string('partenaire');
             $table->string('tractor');
             $table->string('trailer');
             $table->string('container_number')->unique();
             $table->string('seal_number')->nullable();
-            $table->string('loader')->nullable();
+            $table->string('loader');
             $table->string('product')->nullable();
 
             $table->string('head_guerite_entry')->nullable();
@@ -34,7 +33,9 @@ return new class extends Migration
             $table->dateTime('date_weighing_output')->nullable();
             $table->string('weighing_out')->nullable();
             $table->string('weighing_status')->nullable();
+
             $table->foreignId('user_id')->constrained();
+            $table->foreignId('partner_id')->constrained();
             $table->timestamps();
         });
     }
