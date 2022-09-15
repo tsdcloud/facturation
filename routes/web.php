@@ -1,16 +1,17 @@
 <?php
 
 
-use App\Http\Controllers\PaybackController;
-use App\Http\Controllers\StampController;
-use App\Http\Controllers\UserController;
 use App\Models\Weighbridge;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AppController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\StampController;
 use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\PaybackController;
+use App\Http\Controllers\SignatureController;
 use App\Http\Controllers\AccountingController;
 use App\Http\Controllers\CheckpointController;
-use App\Http\Controllers\SignatureController;
 
 /*
 |--------------------------------------------------------------------------
@@ -82,5 +83,14 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/checkpoint/updateEntry/{invoice}', [CheckpointController::class, 'updateEntry'])->name('checkpoint.updateEntry');
     Route::get('/checkpoint/updateExit/{invoice}', [CheckpointController::class, 'updateExit'])->name('checkpoint.updateExit');
     Route::get('/prediction', [HomeController::class, 'prediction'])->name('prediction.index');
+    Route::get('/search/container', [HomeController::class, 'searchContainer'])->name('search.container');
+
+    Route::get('/details/container/{prediction}', [AppController::class, 'edit'])->name('container.detail');
+
+    Route::get('/weighing-in/{prediction}', [AppController::class, 'entry'])
+           ->name('apure.entry');
+
+    Route::get('/wieghing-out/{prediction}', [AppController::class, 'exit'])
+           ->name('apure.exit');
 });
 

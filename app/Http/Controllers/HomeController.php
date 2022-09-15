@@ -33,4 +33,8 @@ class HomeController extends Controller
         $breadcrumb = "Prévision";
         return view('prediction.index',compact('breadcrumb'));
      }
+     public function searchContainer(){
+        $breadcrumb = "Apurement";
+        return view('apurement.search-container',compact('breadcrumb'));
+     }
 }
