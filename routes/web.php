@@ -85,12 +85,12 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/prediction', [HomeController::class, 'prediction'])->name('prediction.index');
     Route::get('/search/container', [HomeController::class, 'searchContainer'])->name('search.container');
 
-    Route::get('/details/container/{prediction}', [AppController::class, 'edit'])->name('container.detail');
+    Route::get('/details/container/{prediction}/{param?}', [AppController::class, 'edit'])->name('container.detail');
 
-    Route::get('/weighing-in/{prediction}', [AppController::class, 'entry'])
+    Route::get('/weighing-in/{prediction}/{param?}', [AppController::class, 'entry'])
            ->name('apure.entry');
 
-    Route::get('/wieghing-out/{prediction}', [AppController::class, 'exit'])
+    Route::get('/wieghing-out/{prediction}/{param?}', [AppController::class, 'exit'])
            ->name('apure.exit');
 });
 

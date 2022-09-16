@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('predictions', function (Blueprint $table) {
             $table->id();
+            $table->string('partenaire');
             $table->string('operation');
             $table->string('tractor');
             $table->string('trailer');
@@ -33,6 +34,16 @@ return new class extends Migration
             $table->dateTime('date_weighing_output')->nullable();
             $table->string('weighing_out')->nullable();
             $table->string('weighing_status')->nullable();
+
+            $table->string('seen_entry_control',5)->nullable();
+            $table->string('name_controleur_input')->nullable();
+            $table->dateTime('date_entry')->nullable();
+            $table->string('seen_exit_control',5)->nullable();
+
+            $table->string('name_controleur_ouput')->nullable();
+            $table->dateTime('date_exit')->nullable();
+            $table->string('weighbridge_entry')->nullable();
+            $table->string('weighbridge_exit')->nullable();
 
             $table->foreignId('user_id')->constrained();
             $table->foreignId('partner_id')->constrained();

@@ -9,7 +9,13 @@
             </div>
         @endif
         <div class="col-md-12 col-sm-12 col-lg-12">
-            <a href="{{ route('search.container') }}" class="main-btn primary-btn-outline mb-2">Retour</a>
+            @if (!empty($param) && $param == 'oui')
+                <a href="{{ route('checkpoint.index') }}" class="main-btn primary-btn-outline mb-2">Retour</a>  
+                
+            @else
+            <a href="{{ route('search.container') }}" class="main-btn primary-btn-outline mb-2">Retour</a> 
+            @endif
+            
             <div class="card-style">
                 <h6 class="mb-25">Détails</h6>
                 <div class="row">
@@ -23,26 +29,59 @@
                     <p class="text-muted">Pesée entrée : {{ $prediction->weighing_in }}</p>
                     <p class="text-muted">Chef de guerite entrée : {{ $prediction->head_guerite_entry }}</p>
                     <p class="text-muted">Pont entrée : {{ $prediction->guerite_entry }}</p>
-                    <p class="text-muted">Date pesée entrée {{ $prediction->date_weighing_entry }}</p>
+                    <p class="text-muted">Date pesée entrée {{ $prediction->date_weighing_entry->format('d/m/Y H:i:s') }}</p>
 
                     <p class="text-muted">Pesée sortie : {{ $prediction->weighing_out }}</p>
                     <p class="text-muted">Chef de guerite sortie : {{$prediction->head_geurite_output }}</p>
                     <p class="text-muted">Pont sortie : {{ $prediction->geurite_output }}</p>
-                    <p class="text-muted">Date pesée sortie {{ $prediction->date_weighing_output }}</p>
+                    <p class="text-muted">Date pesée sortie {{ $prediction->date_weighing_output->format('d/m/Y H:i:s') }}</p>
                 </div>
-                @if ($prediction->weighing_in === null)
-                    <div class="col-xs-12 col-sm-12 col-lg-12">
-                        <a class="main-btn active-btn-outline rounded-md btn-hover"
-                            href="{{ route('apure.entry', $prediction) }}"> Apuré en Entrée
-                        </a>
+                @if (!empty($param) && $param == 'oui')
+                    <div class="row">
+                            <p class="fw-bold">Vu contrôle entrée : {{ $prediction->seen_entry_control }}</p>
+                            <p class="fw-bold">Pont controleur entrée : {{ $prediction->weighbridge_entry }}</p>
+                            <p class="fw-bold">Date contrôle entrée :
+                                {{ optional($prediction->date_entry)->format('d/m/Y H:i:s') }}</p>
+                            <p class="fw-bold">Nom controleur entrée : {{ $prediction->name_controleur_input }}</p>
+                            <p class="fw-bold">Vu contrôle sortie : {{ $prediction->seen_exit_control }}</p>
+                            <p class="fw-bold">Pont controleur entrée : {{ $prediction->weighbridge_exit }}</p>
+                            <p class="fw-bold">Date contrôle sortie : {{ optional($prediction->date_exit)->format('d/m/Y H:i:s') }}
+                            </p>
+                            <p class="fw-bold">Nom controleur sortie : {{ $prediction->name_controleur_ouput }} </p>
                     </div>
                 @endif
-                @if ($prediction->weighing_out === null && $prediction->weighing_in != null)
-                    <div class="col-xs-12 col-sm-12 col-lg-12">
-                        <a class="main-btn active-btn-outline rounded-md btn-hover"
-                            href="{{ route('apure.exit', $prediction) }}">Apuré en sortie
-                        </a>
-                    </div>
+             
+                @if (!empty($param) && $param == 'oui')
+                    @if ($prediction->seen_entry_control === null)
+                        <div class="col-xs-12 col-sm-12 col-lg-12">
+                            <a class="main-btn active-btn-outline rounded-md btn-hover"
+                                href="{{ route('apure.entry', [$prediction,$param]) }}"> Vu entrée
+                            </a>
+                        </div>
+                    @endif
+                    @if ($prediction->seen_exit_control === null && $prediction->seen_entry_control != null)
+                        <div class="col-xs-12 col-sm-12 col-lg-12">
+                            <a class="main-btn active-btn-outline rounded-md btn-hover"
+                                href="{{ route('apure.exit', [$prediction,$param]) }}">Vu sortie
+                            </a>
+                        </div>
+                    @endif 
+                    @else
+                        {{-- si c'est pas un OP mais plutot un CG --}}
+                        @if ($prediction->weighing_in === null)
+                            <div class="col-xs-12 col-sm-12 col-lg-12">
+                                <a class="main-btn active-btn-outline rounded-md btn-hover"
+                                    href="{{ route('apure.entry', $prediction) }}"> Apuré en Entrée
+                                </a>
+                            </div>
+                        @endif
+                        @if ($prediction->weighing_out === null && $prediction->weighing_in != null)
+                            <div class="col-xs-12 col-sm-12 col-lg-12">
+                                <a class="main-btn active-btn-outline rounded-md btn-hover"
+                                    href="{{ route('apure.exit', $prediction) }}">Apuré en sortie
+                                </a>
+                            </div>
+                        @endif
                 @endif
             </div>
         </div>
