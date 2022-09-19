@@ -1,8 +1,18 @@
 <div>
     <div class="card-style">
-        <div class="col">
-            <div class="mb-3">
-                <input class="form-control" wire:model="file_excel" type="file" id="formFile">
+        <div x-data="{ isUpoloading: false, progress: 0 }"
+                x-on:livewire-upload-start="isUploading = true"
+                x-on:livewire-upload-finish="isUploading = false"
+                x-on:livewire-upload-error="isUploading = false"
+                x-on:livewire-upload-progress="progress = $event.detail.progress"
+                     >
+            <div class="col">
+                <div class="mb-3">
+                    <input class="form-control" wire:model="file_excel" type="file" id="formFile">
+                </div>
+            </div>
+            <div  x-show="isUploading" class="progress mb-3">
+                <div class="progress-bar progress-bar-striped" role="progressbar" aria-label="Default striped example" x-bind:style="`width:${progress}%`" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
         </div>
         <button wire:click="preview" class="btn btn-primary">Précharger</button>
@@ -14,9 +24,8 @@
                 <table class="table striped-table">
                     <thead>
                         <tr>
-                            @foreach ($predictions[0] as $key => $preview)
+                            {{-- @foreach ($predictions[0] as $key => $preview)
                                 <th>
-                                    {{-- {{dd($preview)}} --}}
                                     <div class="select-style-1">
                                         <div class="select-position">
                                             <select>
@@ -29,7 +38,14 @@
                                         </div>
                                     </div>
                                 </th>
-                            @endforeach
+                            @endforeach --}}
+                            <th>Partenaires</th>
+                            <th>Vehicules</th>
+                            <th>Remorques</th>
+                            <th>N° conteneur</th>
+                            <th>N° plomb</th>
+                            <th>Chargeur</th>
+                            <th>Produit</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -45,7 +61,13 @@
                     </tbody>
                 </table>
             </div>
-            <button wire:click="import" class="btn btn-primary mt-3">Importer</button>
+            <button wire:click="import" wire:loading.attr="disabled" class="btn btn-primary mt-3">
+                <div class="spinner-border" wire:loading role="status" wire:target="store"></div>
+            <div wire:loading.remove  wire:target="store">Importer</div>
+            </button>
         </div>
     @endif
 </div>
+@push('scripts')
+<script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+@endpush

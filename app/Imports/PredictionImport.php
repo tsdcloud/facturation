@@ -15,9 +15,11 @@ class PredictionImport implements ToModel, WithHeadingRow
     */
     public function model(array $row)
     {
-        // dd($row);
+        // row ce sont les lignes excel
+       //  dd($row);
         return new Prediction([
-            'tractor'     => $row['vehicules'],
+           'partenaire'     => $row['partenaires'],
+           'tractor'     => $row['vehicules'],
            'trailer'    => $row['remorques'], 
            'container_number'    => $row['n_conteneur'], 
            'seal_number'    => $row['nplomb'], 

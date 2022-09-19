@@ -19,7 +19,7 @@
             <div class="card-style">
                 <h6 class="mb-25">Détails</h6>
                 <div class="row">
-                    <p class="text-muted">Partenaire :  </p>
+                    <p class="text-muted">Partenaire : {{ $prediction->partenaire }} </p>
                     <p class="text-muted">Tracteur : {{ $prediction->tractor }}</p>
                     <p class="text-muted">Remorque : {{ $prediction->trailer }}</p>
                     <p class="text-muted">N° Plomb : {{ $prediction->seal_number }}</p>
@@ -29,12 +29,12 @@
                     <p class="text-muted">Pesée entrée : {{ $prediction->weighing_in }}</p>
                     <p class="text-muted">Chef de guerite entrée : {{ $prediction->head_guerite_entry }}</p>
                     <p class="text-muted">Pont entrée : {{ $prediction->guerite_entry }}</p>
-                    <p class="text-muted">Date pesée entrée {{ $prediction->date_weighing_entry->format('d/m/Y H:i:s') }}</p>
+                    <p class="text-muted">Date pesée entrée {{ optional($prediction->date_weighing_entry)->format('d/m/Y H:i:s') }}</p>
 
                     <p class="text-muted">Pesée sortie : {{ $prediction->weighing_out }}</p>
                     <p class="text-muted">Chef de guerite sortie : {{$prediction->head_geurite_output }}</p>
                     <p class="text-muted">Pont sortie : {{ $prediction->geurite_output }}</p>
-                    <p class="text-muted">Date pesée sortie {{ $prediction->date_weighing_output->format('d/m/Y H:i:s') }}</p>
+                    <p class="text-muted">Date pesée sortie {{ optional($prediction->date_weighing_output)->format('d/m/Y H:i:s') }}</p>
                 </div>
                 @if (!empty($param) && $param == 'oui')
                     <div class="row">
