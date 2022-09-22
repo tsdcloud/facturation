@@ -20,6 +20,9 @@
         <div class="col-sm-12 col-md-6 col-lg-12 mt-2">
             @foreach ($containers as $container)
                     <div class="card-style mb-3">
+                        @if ($container->weighing_in == 'oui')
+                        <p class="text-warning fw-bold mb-2">Pesée entrée</p>
+                        @endif
                         <p class="text-muted">Vehicule : {{ $container->tractor }}</p>
                         <p class="text-muted">Remorque : {{ $container->trailer }}</p>
                         <p class="text-muted">Conteneur : {{ $container->container_number }}</p>
