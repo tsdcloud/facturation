@@ -12,6 +12,18 @@
             <a href="{{ route('checkpoint.index') }}" class="main-btn primary-btn-outline mb-2">Retour</a>
             <div class="card-style">
                 <h6 class="mb-25">Détails</h6>
+                <div class="row mb-4">
+                    @if ($invoice->seen_entry_control != null)
+                      <p class="text-success fw-bold">Vu contrôle entrée : {{ $invoice->seen_entry_control }}</p>
+                      @else
+                       <p class="text-danger fw-bold">Vu contrôle entrée : {{ $invoice->seen_entry_control }}</p>
+                    @endif
+                    @if ($invoice->seen_exit_control != null)
+                       <p class="text-success fw-bold">Vu contrôle sortie : {{ $invoice->seen_exit_control }}</p>
+                       @else
+                       <p class="text-danger fw-bold">Vu contrôle sortie : {{ $invoice->seen_exit_control }}</p>
+                    @endif
+                </div>
                 <div class="row">
                     <p class="text-muted">Nom client : {{ optional($invoice->customer)->label }} </p>
                     <p class="text-muted">Tracteur : {{ $invoice->myTractor->label }}</p>

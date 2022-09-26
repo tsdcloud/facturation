@@ -191,6 +191,9 @@
                                         <h6>Mode de paiement</h6>
                                     </th>
                                     <th>
+                                        <h6>Montant versé</h6>
+                                    </th>
+                                    <th>
                                         <h6>Montant TTC</h6>
                                     </th>
                                     <th>
@@ -224,6 +227,9 @@
                                             </td>
                                             <td>
                                                 <p>{{ $invoice->modePayment->label }}</p>
+                                            </td>
+                                            <td>
+                                                <p>{{ \App\Helpers\Numbers\MoneyHelper::number($invoice->amount_paid) }}</p>
                                             </td>
                                             <td>
                                                 <p>{{ \App\Helpers\Numbers\MoneyHelper::number($invoice->total_amount) }}</p>
