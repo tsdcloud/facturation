@@ -16,12 +16,12 @@ return new class extends Migration
         Schema::create('predictions', function (Blueprint $table) {
             $table->id();
             $table->string('partenaire');
-            $table->string('operation');
-            $table->string('tractor');
-            $table->string('trailer');
-            $table->string('container_number')->unique();
+            $table->string('operation')->nullable();
+            $table->string('tractor')->nullable();
+            $table->string('trailer')->nullable();
+            $table->string('container_number')->nullable()->unique();
             $table->string('seal_number')->nullable();
-            $table->string('loader');
+            $table->string('loader')->nullable();
             $table->string('product')->nullable();
 
             $table->string('head_guerite_entry')->nullable();
