@@ -53,7 +53,7 @@ class CheckpointController extends Controller
             return redirect()->to('/checkpoint/index');
         } catch (\Exception $e) {
             Log::error($e->getMessage());
-            session()->flash('error', 'une erreur est survenu, veuillez réessayer si besoin rapproché vous d\'un IT en service');
+            session()->flash('error', 'une erreur est survenu, veuillez réessayer si besoin rapprochez-vous d\'un IT en service');
             return redirect()->back();
         }
     }
@@ -82,7 +82,7 @@ class CheckpointController extends Controller
             return redirect()->to('/checkpoint/index');
         } catch (\Exception $e) {
             Log::error($e->getMessage());
-            session()->flash('error', 'une erreur est survenu, veuillez réessayer si besoin rapproché vous d\'un IT en service');
+            session()->flash('error', 'une erreur est survenu, veuillez réessayer si besoin rapprochez-vous d\'un IT en service');
             return redirect()->back();
         }
     }
