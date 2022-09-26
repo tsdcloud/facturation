@@ -46,6 +46,7 @@
                             <th>N° plomb</th>
                             <th>Chargeur</th>
                             <th>Produit</th>
+                            <th>Opérations</th>
                         </tr>
                     </thead>
                     <tbody>
