@@ -46,7 +46,7 @@ return new class extends Migration
             $table->string('weighbridge_exit')->nullable();
 
             $table->foreignId('user_id')->constrained();
-            $table->foreignId('partner_id')->constrained();
+            $table->foreignId('partner_id')->nullable()->constrained();
             $table->timestamps();
         });
     }
