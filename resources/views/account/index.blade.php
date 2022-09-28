@@ -14,6 +14,11 @@
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         @endif
+        <div class="col-lg-4">
+            <a  type="button" class="main-btn btn-sm primary-btn btn-hover mb-2" href="{{route('account.create')}}"
+                    ><i class="lni lni-plus me-2"></i> Ajouter un utilisateur
+            </a>
+        </div>
         <div class="card-style mb-30">
             <h6 class="mb-10"></h6>
             <div class="table-wrapper table-responsive">
