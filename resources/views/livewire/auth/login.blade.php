@@ -33,7 +33,7 @@
                     <span class="text-danger">{{ $message }}</span>
                 @enderror
             </div>
-            @if ($user->role == 'user')
+            @if ($user->role == 'user' || $user->role == 'ope')
                 <div class="text-center">
                     <button wire:click="twoStepPassword"  class="btn btn-primary px-5 mb-5 w-100"
                          wire:loading.attr="disabled">
