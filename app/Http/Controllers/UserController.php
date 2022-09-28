@@ -41,20 +41,20 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nom' => 'required',
+            'name' => 'required',
             'email' => 'required',
             'role' => 'required',
-            'status' => 'required',
         ]);
-
-        User::create([
+        
+       $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'role' => $request->role,
-            'status' => $request->status,
+            'status' => 'actif',
             'firstLogin' => false,
         ]);
-
+        
+      //  dd($user);
         return redirect()->route('account.index')->with('message','utilisateur enregistré avec succès');
     }
 
@@ -118,7 +118,7 @@ class UserController extends Controller
             return redirect()->route('account.index')->with('error','impossible de trouver l\'utilisateur veuillez actualiser et recommencer');
 
         $user->update([
-          'password' => '',
+          'password' => null,
           'firstLogin' => false,
         ]);
 
