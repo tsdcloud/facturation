@@ -1,59 +1,52 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="col-lg-12">
+    <div class="form-elements-wrapper">
         <div class="card-style mb-30">
-            <h6 class="mb-10"></h6>
-            <div class="table-wrapper table-responsive">
-                <table class="table striped-table">
-                    <thead>
-                    <tr>
-                        <th> <h6>Nom</h6> </th>
-                        <th> <h6>Identifiant</h6> </th>
-                        <th><h6>Rôle</h6></th>
-                        <th><h6>Statut</h6></th>
-{{--                        <th><h6>Mode Paiement</h6></th>--}}
-{{--                        <th><h6>Montant</h6></th>--}}
-{{--                        <th><h6>statut</h6></th>--}}
-                        <th><h6>Actions</h6></th>
-                    </tr>
-                    <!-- end table row-->
-                    </thead>
-                    <tbody>
-                    @forelse($users as $user)
-                        <tr>
-                            <td>
-                                <p>{{$user->name}}</p>
-                            </td>
-                            <td>
-                                <h6 class="text-sm">{{$user->email}}</h6>
-                            </td>
-                            <td>
-                                <h6 class="text-sm">{{$user->role}}</h6>
-                            </td>
-                            <td>
-                                <p> <span class="status-btn success-btn">{{$user->status}}</span> </p>
-                            </td>
-                            <td>
-                                <div class="action">
-                                    <button class="edit" data-bs-toggle="modal">
-                                        <i class="lni lni-pencil"></i>
-                                    </button>
-{{--                                    <button class="text-danger" data-bs-toggle="modal">--}}
-{{--                                         Annuler--}}
-{{--                                    </button>--}}
-                                </div>
-                            </td>
-                        </tr>
-                    @empty
-                        Pas de facture en attente
-                    @endforelse
+            <form action="{{ route('account.store') }}" method="POST">
+                @csrf
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="input-style-1">
+                            <label>Nom</label>
+                             <input name="name" type="text" />
+                        </div>
+                    </div>
 
-                    </tbody>
-                </table>
-                <!-- end table -->
-            </div>
+                    <div class="col-md-6">
+                        <div class="input-style-1">
+                            <label>Email</label>
+                            <input type="email" name="email"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="select-style-1">
+                    <label>Selectionner son role</label>
+                    <div class="select-position">
+                        <select name="role" class="@error('role') is-invalid @enderror">
+                            <option selected disabled>Selectionner son rôle</option>
+                            <option value="ope">Opérateur</option>
+                            <option value="administration">Coordonnateur</option>
+                            <option value="admin">IT</option>
+                            <option value="support">Support</option>
+                            <option value="administration">Administration</option>
+                            <option value="account">Comptable</option>
+                        </select>
+                        @error('role')
+                            <div class="invalid-feedback">
+                                {{ $errors->first('role') }}
+                            </div>
+                        @enderror
+                    </div>
+                </div>
+                <!-- end select -->
+                <div class="col-lg-4">
+                    <button type="submit" class="main-btn btn-sm primary-btn btn-hover mb-2">
+                        Ajouter
+                    </button>
+                </div>
+            </form>
+
         </div>
-        <!-- end card -->
     </div>
 @stop
