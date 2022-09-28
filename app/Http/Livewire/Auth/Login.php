@@ -58,7 +58,7 @@ class Login extends Component
 
         if ($this->user && Hash::check($this->password, $this->user->password)){
 
-            if ($this->user->role =="user")
+            if ($this->user->role =="user" || $this->user->role =="ope")
                 return $this->currentStep = 3;
 
                 Auth::login($this->user);
