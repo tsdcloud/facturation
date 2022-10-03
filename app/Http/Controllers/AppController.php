@@ -56,7 +56,7 @@ class AppController extends Controller
             'date_weighing_entry' => now(),
             'weighing_in' => 'oui',
         ]);
-        Mail::to('alexgobe92@gmail.com')->send(new TruckPassage($prediction));
+    //    Mail::to('alexgobe92@gmail.com')->send(new TruckPassage($prediction));
         session()->flash('success', 'apuré en entrée ok');
         
         return redirect()->to('/search/container');
