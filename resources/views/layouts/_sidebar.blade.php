@@ -154,7 +154,7 @@
             </li>
         @endif
 
-        @if (Auth::user()->isAdmin() ||  Auth::user()->isAdministration() || Auth::user()->isChefGuerite())
+        @if (Auth::user()->isAdmin() ||  Auth::user()->isAdministration() || Auth::user()->isChefGuerite() || Auth::user()->isSupport() )
             <li class="nav-item {{ Request::is('search/container') ? 'active' : '' }} ">
                 <a href="{{ route('search.container') }}">
                     <span class="icon">
