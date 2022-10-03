@@ -15,7 +15,9 @@
                 <div class="progress-bar progress-bar-striped" role="progressbar" aria-label="Default striped example" x-bind:style="`width:${progress}%`" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
         </div>
-        <button wire:click="preview" class="btn btn-primary">Précharger</button>
+        @if (!empty($file_excel))
+         <button wire:click="preview" class="btn btn-primary">Afficher le fichier</button>   
+        @endif
     </div>
 
     @if (!empty($predictions))
