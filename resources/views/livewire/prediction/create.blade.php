@@ -67,6 +67,140 @@
             <div wire:loading.remove  wire:target="store">Importer</div>
             </button>
         </div>
+
+        {{-- éléments existants et nouveau éléments --}}
+
+        {{-- <div class="card-style mt-3">
+            <div class="table-wrapper table-responsive">
+                <h5>Conteneur déja enregistrés</h5>
+                <table class="table striped-table">
+                    <thead>
+                        <tr>
+                            <th>Partenaires</th>
+                            <th>Vehicules</th>
+                            <th>Remorques</th>
+                            <th>N° conteneur</th>
+                            <th>N° plomb</th>
+                            <th>Chargeur</th>
+                            <th>Produit</th>
+                            <th>Opérations</th>
+                            <th>Opérations</th>
+                            <th>Opérations</th>
+                            <th>Opérations</th>
+                            <th>Opérations</th>
+                            <th>Opérations</th>
+                            <th>Opérations</th>
+                            <th>Opérations</th>
+                            <th>Opérations</th>
+                            <th>Opérations</th>
+                            <th>Opérations</th>
+                            <th>Opérations</th>
+                            <th>Opérations</th>
+                            <th>Opérations</th>
+                            <th>Opérations</th>
+                            <th>Opérations</th>
+                            <th>Opérations</th>
+                            <th>Opérations</th>
+                            <th>Opérations</th>
+                            <th>Opérations</th>
+                            <th>Opérations</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($existingItems as $row)
+                            <tr>
+                                <td>
+                                    <p>{{ $row['partenaire'] }}</p>
+                                </td>
+                                <td>
+                                    <p>{{ $row['tractor'] }}</p>
+                                </td>
+                                <td>
+                                    <p>{{ $row['trailer'] }}</p>
+                                </td>
+                                <td>
+                                    <p>{{ $row['container_number'] }}</p>
+                                </td>
+                                <td>
+                                    <p>{{ $row['seal_number'] }}</p>
+                                </td>
+                                <td>
+                                    <p>{{ $row['loader'] }}</p>
+                                </td>
+                                <td>
+                                    <p>{{ $row['product'] }}</p>
+                                </td>
+                                <td>
+                                    <p>{{ $row['head_guerite_entry'] }}</p>
+                                </td>
+                                <td>
+                                    <p>{{ $row['guerite_entry'] }}</p>
+                                </td>
+                                <td>
+                                    <p>{{ $row['date_weighing_entry'] }}</p>
+                                </td>
+                                <td>
+                                    <p>{{ $row['weighing_in'] }}</p>
+                                </td>
+                                <td>
+                                    <p>{{ $row['head_geurite_output'] }}</p>
+                                </td>
+                                <td>
+                                    <p>{{ $row['geurite_output'] }}</p>
+                                </td>
+                                <td>
+                                    <p>{{ $row['date_weighing_output'] }}</p>
+                                </td>
+                                <td>
+                                    <p>{{ $row['weighing_out'] }}</p>
+                                </td>
+                                <td>
+                                    <p>{{ $row['weighing_status'] }}</p>
+                                </td>
+                                <td>
+                                    <p>{{ $row['seen_entry_control'] }}</p>
+                                </td>
+                                <td>
+                                    <p>{{ $row['name_controleur_input'] }}</p>
+                                </td>
+                                <td>
+                                    <p>{{ $row['date_entry'] }}</p>
+                                </td>
+                                <td>
+                                    <p>{{ $row['seen_exit_control'] }}</p>
+                                </td>
+                                <td>
+                                    <p>{{ $row['name_controleur_ouput'] }}</p>
+                                </td>
+                                <td>
+                                    <p>{{ $row['date_exit'] }}</p>
+                                </td>
+                                <td>
+                                    <p>{{ $row['weighbridge_entry'] }}</p>
+                                </td>
+                                <td>
+                                    <p>{{ $row['weighbridge_exit'] }}</p>
+                                </td>
+                                <td>
+                                    <p>{{ $row['user_id'] }}</p>
+                                </td>
+                                <td>
+                                    <p>{{ $row['created_at'] }}</p>
+                                </td>
+                                <td>
+                                    <p>{{ $row['updated_at'] }}</p>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+            <button wire:click="import" wire:loading.attr="disabled" class="btn btn-primary mt-3">
+                <div class="spinner-border" wire:loading role="status" wire:target="store"></div>
+            <div wire:loading.remove  wire:target="store">Importer</div>
+            </button>
+        </div> --}}
+        
     @endif
 </div>
 @push('scripts')
