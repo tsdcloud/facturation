@@ -7,6 +7,7 @@ use App\Models\Prediction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\prediction\TruckPassage;
+use App\Models\Weighbridge;
 
 class AppController extends Controller
 {
@@ -41,6 +42,7 @@ class AppController extends Controller
 
     public function entry(Prediction $prediction, String $param = null){
 
+        $bridge = Weighbridge::where('id',auth()->user()->currentBridge)->first();
         if ($param != '' && $param === 'oui'){
 
             // $prediction = tap($prediction)->update([
@@ -53,7 +55,7 @@ class AppController extends Controller
                     'seen_entry_control' => 'oui',
                     'name_controleur_input' => auth()->user()->name,
                     'date_entry' => Carbon::now(),
-                    'weighbridge_entry' => 'P10',
+                    'weighbridge_entry' => $bridge->label,
                 ]); 
                // Mail::to('alexgobe92@gmail.com')->send(new TruckPassage($prediction));
                 session()->flash('success', 'apuré en entrée ok');
@@ -61,7 +63,7 @@ class AppController extends Controller
         }
         $prediction = tap($prediction)->update([
             'head_guerite_entry' => auth()->user()->name,
-            'guerite_entry' => 'P10',
+            'guerite_entry' => $bridge->label,
             'date_weighing_entry' => now(),
             'weighing_in' => 'oui',
         ]);
@@ -73,12 +75,14 @@ class AppController extends Controller
 
     public function exit(Prediction $prediction, String $param = null){
 
+        $bridge = Weighbridge::where('id',auth()->user()->currentBridge)->first();
+
         if ($param != '' && $param === 'oui'){
             $prediction->update([
                 'seen_exit_control' => 'oui',
                'name_controleur_ouput' => auth()->user()->name,
                'date_exit' => Carbon::now(),
-              'weighbridge_exit' => 'P10',
+              'weighbridge_exit' => $bridge->label,
             ]); 
             session()->flash('success', 'apuré en sortie ok');
             return redirect()->to('/checkpoint/index');
@@ -86,7 +90,7 @@ class AppController extends Controller
 
         $prediction->update([
             'head_geurite_output' => auth()->user()->name,
-            'geurite_output' => 'P10',
+            'geurite_output' => $bridge->label,
             'date_weighing_output' => now(),
             'weighing_out' => 'oui',
             'weighing_status' => 'Pesé',
