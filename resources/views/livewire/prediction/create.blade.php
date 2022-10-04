@@ -8,7 +8,7 @@
                      >
             <div class="col">
                 <div class="mb-3">
-                    <input class="form-control" wire:model="file_excel" type="file" id="formFile">
+                    <input class="form-control" wire:model="file_excel" type="file" id="formFile{{ $iteration }}">
                 </div>
             </div>
             <div  x-show="isUploading" class="progress mb-3">
