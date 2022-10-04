@@ -16,7 +16,8 @@ class SearchContainer extends Component
                         $q->orWhere('container_number', 'LIKE', strtoupper("%$this->search%"));
                         $q->orWhere('trailer', 'LIKE', strtoupper("%$this->search%"));
                         $q->orWhere('tractor', 'LIKE', strtoupper("%$this->search%"));
-            })->paginate(10),
+            })->where('weighing_status','En attente')
+            ->paginate(10),
         ]);
     }
 }
