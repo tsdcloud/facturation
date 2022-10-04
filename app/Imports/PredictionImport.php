@@ -21,20 +21,12 @@ class PredictionImport implements ToModel, WithHeadingRow, WithChunkReading
     */
     public function model(array $row)
     {  
-       
-            // if (!isset($row['nplomb']) )
-            //     dd('sans espace');
-
-            // if (isset($row['n_plomb']))
-            //     dd('avec space');
-
-          //  dd('passé');
              return new Prediction([
                 'partenaire'     => $row['partenaires'],
                 'tractor'     => $row['vehicules'],
                 'trailer'    => $row['remorques'], 
                 'container_number'    => $row['n_conteneur'], 
-                'seal_number'    => $row['nplomb'],
+                'seal_number'    => $row['n_plomb'],
                 'loader'    => $row['chargeur'], 
                 'product'    => $row['produit'], 
                 'user_id' => auth()->user()->id,
