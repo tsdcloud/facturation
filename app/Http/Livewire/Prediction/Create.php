@@ -15,6 +15,7 @@ class Create extends Component
     public  $checkPrediction;
     public  $existingItems;
     public  $newItems ;
+    public  $iteration ;
     public function render()
     {
         return view('livewire.prediction.create');
@@ -47,6 +48,6 @@ class Create extends Component
     public function import(){
         Excel::import(new PredictionImport, $this->file_excel->store('temp'));
         $this->reset('predictions','file_excel');
-
+        $this->iteration++;
     }
 }
