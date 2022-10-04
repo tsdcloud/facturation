@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="/assets/css/materialdesignicons.min.css" />
     <link rel="stylesheet" href="/assets/css/main.css" />
     @livewireStyles
+    @powerGridStyles
     @stack('styles')
   </head>
   <body>
@@ -93,6 +94,8 @@
     </main>
     <!-- ======== main-wrapper end =========== -->
     @livewireScripts
+    <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"></script>
+    @powerGridScripts
     @stack('scripts')
     <!-- ========= All Javascript files linkup ======== -->
     <script src="/assets/js/bootstrap.bundle.min.js"></script>
