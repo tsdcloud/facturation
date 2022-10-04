@@ -29,10 +29,7 @@ class HomeController extends Controller
          return view('report',compact('breadcrumb'));
      }
 
-     public function prediction(){
-        $breadcrumb = "Prévision";
-        return view('prediction.index',compact('breadcrumb'));
-     }
+    
      public function searchContainer(){
         $breadcrumb = "Apurement";
         return view('apurement.search-container',compact('breadcrumb'));

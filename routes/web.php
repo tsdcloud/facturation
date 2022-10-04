@@ -82,7 +82,7 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/checkpoint/edit/{invoice}', [CheckpointController::class, 'edit'])->name('checkpoint.detail');
     Route::get('/checkpoint/updateEntry/{invoice}', [CheckpointController::class, 'updateEntry'])->name('checkpoint.updateEntry');
     Route::get('/checkpoint/updateExit/{invoice}', [CheckpointController::class, 'updateExit'])->name('checkpoint.updateExit');
-    Route::get('/prediction', [HomeController::class, 'prediction'])->name('prediction.index');
+    Route::get('/prediction', [AppController::class, 'prediction'])->name('prediction.create');
     Route::get('/search/container', [HomeController::class, 'searchContainer'])->name('search.container');
 
     Route::get('/details/container/{prediction}/{param?}', [AppController::class, 'edit'])->name('container.detail');
@@ -92,5 +92,6 @@ Route::middleware(['auth'])->group(function(){
 
     Route::get('/wieghing-out/{prediction}/{param?}', [AppController::class, 'exit'])
            ->name('apure.exit');
+    Route::get('/all-predictiond',[AppController::class,'index'])->name('prediction.index');
 });
 
