@@ -3,9 +3,10 @@
 namespace App\Imports;
 
 use App\Models\Prediction;
-use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
+
 class PredictionImport implements ToModel, WithHeadingRow, WithChunkReading
 {
     /**
@@ -20,14 +21,20 @@ class PredictionImport implements ToModel, WithHeadingRow, WithChunkReading
     */
     public function model(array $row)
     {  
-        // dd($row);
        
+            // if (!isset($row['nplomb']) )
+            //     dd('sans espace');
+
+            // if (isset($row['n_plomb']))
+            //     dd('avec space');
+
+          //  dd('passé');
              return new Prediction([
                 'partenaire'     => $row['partenaires'],
                 'tractor'     => $row['vehicules'],
                 'trailer'    => $row['remorques'], 
                 'container_number'    => $row['n_conteneur'], 
-                'seal_number'    => isset($row['nplomb']) ? $row['nplomb'] : $row['n_plomb'],
+                'seal_number'    => $row['nplomb'],
                 'loader'    => $row['chargeur'], 
                 'product'    => $row['produit'], 
                 'user_id' => auth()->user()->id,
@@ -41,4 +48,5 @@ class PredictionImport implements ToModel, WithHeadingRow, WithChunkReading
     {
         return 1000;
     }
+    
 }
