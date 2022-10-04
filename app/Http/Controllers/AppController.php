@@ -11,6 +11,15 @@ use App\Mail\prediction\TruckPassage;
 class AppController extends Controller
 {
 
+    public function index(){
+        $breadcrumb = "Prévisions";
+        return view('prediction.all-predictions',compact('breadcrumb'));
+    }
+
+    public function prediction(){
+        $breadcrumb = "Importation prévision";
+        return view('prediction.create',compact('breadcrumb'));
+     }
 
     // afficher le détail du conteneur 
     public function edit(Prediction $prediction, String $param = null){
