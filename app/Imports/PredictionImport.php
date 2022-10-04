@@ -27,23 +27,7 @@ class PredictionImport implements ToModel, WithHeadingRow, WithChunkReading
                 'tractor'     => $row['vehicules'],
                 'trailer'    => $row['remorques'], 
                 'container_number'    => $row['n_conteneur'], 
-                'seal_number'    => $row['nplomb'], 
-                'loader'    => $row['chargeur'], 
-                'product'    => $row['produit'], 
-                'user_id' => auth()->user()->id,
-                'operation' => $row['operations'],
-                'weighing_status' => 'En attente',
-                'created_at' => now(),
-                'updated_at' => now(),
-                ]);
-
-        if(isset($row['n_plomb']))
-            return new Prediction([
-                'partenaire'     => $row['partenaires'],
-                'tractor'     => $row['vehicules'],
-                'trailer'    => $row['remorques'], 
-                'container_number'    => $row['n_conteneur'], 
-                'seal_number'    => $row['n_plomb'], 
+                'seal_number'    => isset($row['nplomb']) ? $row['nplomb'] : $row['n_plomb'],
                 'loader'    => $row['chargeur'], 
                 'product'    => $row['produit'], 
                 'user_id' => auth()->user()->id,
