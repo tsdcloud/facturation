@@ -21,7 +21,7 @@ class PredictionImport implements ToModel, WithHeadingRow, WithChunkReading
     public function model(array $row)
     {  
         // dd($row);
-         if(isset($row['nplomb']))
+       
              return new Prediction([
                 'partenaire'     => $row['partenaires'],
                 'tractor'     => $row['vehicules'],
