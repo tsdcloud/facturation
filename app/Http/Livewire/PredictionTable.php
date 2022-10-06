@@ -53,7 +53,8 @@ final class PredictionTable extends PowerGridComponent
     */
     public function datasource(): Builder
     {
-        return Prediction::query();
+        return Prediction::query()->join('users','predictions.user_id','=','users.id')
+                                  ->select('predictions.*','users.name as username');
     }
 
     /*
@@ -217,11 +218,15 @@ final class PredictionTable extends PowerGridComponent
                 ->searchable()
                 ->makeInputText('name_controleur_ouput')
                 ->sortable(),
+            Column::make('Ajouté par', 'username')
+                ->searchable()
+                ->makeInputText('user_id')
+                ->sortable(),
 
             Column::make('Created at', 'created_at')
                 ->hidden(),
 
-            Column::make('Created at', 'created_at_formatted', 'created_at')
+            Column::make('Enregistré le', 'created_at_formatted', 'created_at')
                 ->makeInputDatePicker()
                 ->searchable()
         ];
