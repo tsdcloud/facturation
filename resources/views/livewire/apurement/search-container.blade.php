@@ -21,7 +21,7 @@
             @foreach ($containers as $container)
                     <div class="card-style mb-3">
                         @if ($container->weighing_in == 'oui')
-                        <p class="text-warning fw-bold mb-2">Pesée entrée</p>
+                        <p class="text-warning fw-bold mb-2">Pesée en entrée</p>
                         @endif
                         <p class="text-muted">Vehicule : {{ $container->tractor }}</p>
                         <p class="text-muted">Remorque : {{ $container->trailer }}</p>
