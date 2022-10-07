@@ -54,7 +54,7 @@ final class PredictionTable extends PowerGridComponent
     public function datasource(): Builder
     {
         return Prediction::query()->join('users','predictions.user_id','=','users.id')
-                                  ->select('predictions.*','users.name as username');
+                                  ->select('predictions.*','users.name as username')->orderBy('created_at', 'desc');
     }
 
     /*
@@ -246,21 +246,21 @@ final class PredictionTable extends PowerGridComponent
      * @return array<int, Button>
      */
 
-    /*
-    public function actions(): array
-    {
-       return [
-           Button::make('edit', 'Edit')
-               ->class('bg-indigo-500 cursor-pointer text-white px-3 py-2.5 m-1 rounded text-sm')
-               ->route('prediction.edit', ['prediction' => 'id']),
+   
+    // public function actions(): array
+    // {
+    //    return [
+    //        Button::make('edit', 'Edit')
+    //            ->class('bg-indigo-500 cursor-pointer text-white px-3 py-2.5 m-1 rounded text-sm')
+    //            ->route('prediction.edit', ['prediction' => 'id']),
 
-           Button::make('destroy', 'Delete')
-               ->class('bg-red-500 cursor-pointer text-white px-3 py-2 m-1 rounded text-sm')
-               ->route('prediction.destroy', ['prediction' => 'id'])
-               ->method('delete')
-        ];
-    }
-    */
+    //        Button::make('destroy', 'Delete')
+    //            ->class('bg-red-500 cursor-pointer text-white px-3 py-2 m-1 rounded text-sm')
+    //            ->route('prediction.destroy', ['prediction' => 'id'])
+    //            ->method('delete')
+    //     ];
+    // }
+    
 
     /*
     |--------------------------------------------------------------------------
@@ -276,16 +276,16 @@ final class PredictionTable extends PowerGridComponent
      * @return array<int, RuleActions>
      */
 
-    /*
-    public function actionRules(): array
-    {
-       return [
+  
+    // public function actionRules(): array
+    // {
+    //    return [
 
-           //Hide button edit for ID 1
-            Rule::button('edit')
-                ->when(fn($prediction) => $prediction->id === 1)
-                ->hide(),
-        ];
-    }
-    */
+    //        //Hide button edit for ID 1
+    //         Rule::button('edit')
+    //             ->when(fn($prediction) => $prediction->id === 1)
+    //             ->hide(),
+    //     ];
+    // }
+    
 }
