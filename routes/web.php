@@ -12,6 +12,7 @@ use App\Http\Controllers\PaybackController;
 use App\Http\Controllers\SignatureController;
 use App\Http\Controllers\AccountingController;
 use App\Http\Controllers\CheckpointController;
+use App\Http\Controllers\PredictionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -93,5 +94,8 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/wieghing-out/{prediction}/{param?}', [AppController::class, 'exit'])
            ->name('apure.exit');
     Route::get('/all-predictiond',[AppController::class,'index'])->name('prediction.index');
+
+    Route::get('/prediction/edit/{prediction}',[PredictionController::class,'edit'])->name('prediction.edit');
+    Route::patch('/prediction/update/{prediction}',[PredictionController::class,'update'])->name('prediction.update');
 });
 
