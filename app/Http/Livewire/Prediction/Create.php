@@ -27,18 +27,7 @@ class Create extends Component
       $this->predictions = Excel::toArray(new PredictionImport, $this->file_excel->store('temp'));   
 
        $this->predictions = array_slice( $this->predictions[0],0);
-      //  dd($this->predictions);
-      //  $this->checkPrediction = $this->predictions->toArray();
-      //  dd(count($this->checkPrediction));
-        // for ($i=0; $i < count($this->predictions); $i++) { 
-        //   //  dd('ok');
-        //       $item =  Prediction::where('container_number',$this->predictions[$i]['n_conteneur'])  
-        //                ->first();
-        //       if(!is_null($item)){
-        //           $this->existingItems->push($item);
-        //           dd($this->existingItems);
-        //       }else $this->newItems[] = $item;
-        // }
+   
     }
 
     public function valideOrinvalidateItem($item){
@@ -46,7 +35,34 @@ class Create extends Component
     }
 
     public function import(){
-        Excel::import(new PredictionImport, $this->file_excel->store('temp'));
+        // $this->existingItems = collect();
+        // $this->newItems = collect();
+
+        for ($i=0; $i < count($this->predictions); $i++) {
+
+        // if (Prediction::where('container_number',$this->predictions[$i]['n_conteneur'], )->first())
+        //     {
+        //         $prediction = Prediction::where('container_number',$this->predictions[$i]['n_conteneur'], )->first();
+        //          $this->existingItems->push($prediction);
+        //          $this->existingItems->all();
+        //     }
+        //     else{
+               $prediction = Prediction::create([
+                    'partenaire' => $this->predictions[$i]['partenaires'],
+                    'tractor'     => str_replace(" ",'',strtoupper($this->predictions[$i]['vehicules'])),
+                    'trailer'    => str_replace(" ",'',strtoupper($this->predictions[$i]['remorques'])), 
+                    'container_number' => str_replace(" ",'',strtoupper($this->predictions[$i]['n_conteneur'])), 
+                    'seal_number'    => array_key_exists('nplomb',$this->predictions[$i]) ? $this->predictions[$i]['nplomb'] : $this->predictions[$i]['n_plomb'], 
+                    'loader'    => strtoupper($this->predictions[$i]['chargeur']) , 
+                    'product'    => strtoupper($this->predictions[$i]['produit']) , 
+                    'user_id' => auth()->user()->id,
+                    'weighing_status' => 'En attente',
+                    'operation' => strtoupper($this->predictions[$i]['operations']),
+                ]);
+                // $this->newItems = $this->newItems->push($prediction);
+            }
+              
+        //   }
         $this->reset('predictions','file_excel');
         $this->iteration++;
     }
