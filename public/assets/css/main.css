@@ -897,6 +897,7 @@ h6,
       color: #f2994a; }
 
 /* =========== tables css =========== */
+/* c'est moi qui est mit le border-bottom-with a zero */
 .table > :not(caption) > * > * {
   padding: 15px 0;
   border-bottom-color: #efefef;
