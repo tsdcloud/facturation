@@ -78,12 +78,12 @@
         </div>
     @endif
     {{-- éléments existants et nouveau éléments --}}
-    {{-- @if (!empty($existingItems)) --}}
+    @if (!empty($existingItems) && count($existingItems) > 0)
     {{-- {{dd($existingItems)}} --}}
-        {{-- <div class="card-style mb-30">
+         <div class="card-style mb-30 mt-3">
             <h6 class="mb-10 text-danger">Conteneurs déjà enregistrés</h6>
             <p class="text-sm mb-20">
-                Ces conteneurs ont déja été enregistrés que voulez faire ?
+                Ces conteneurs ont déja été enregistrés que voulez-vous faire ?
             </p>
             <div class="table-wrapper table-responsive">
                 <table class="table">
@@ -209,8 +209,8 @@
                 </table>
                 <!-- end table -->
             </div>
-        </div> --}}
-    {{-- @endif --}}
+        </div> 
+    @endif
 
 </div>
 @push('scripts')

@@ -35,23 +35,27 @@ class Create extends Component
     }
 
     public function import(){
-        // $this->existingItems = collect();
-        // $this->newItems = collect();
-
+         $this->existingItems = collect();
+         $this->newItems = collect();
+        
         for ($i=0; $i < count($this->predictions); $i++) {
 
-        // if (Prediction::where('container_number',$this->predictions[$i]['n_conteneur'], )->first())
-        //     {
-        //         $prediction = Prediction::where('container_number',$this->predictions[$i]['n_conteneur'], )->first();
-        //          $this->existingItems->push($prediction);
-        //          $this->existingItems->all();
-        //     }
-        //     else{
-               $prediction = Prediction::create([
+            $item = Prediction::where('container_number',str_replace(" ",'',strtoupper($this->predictions[$i]['n_conteneur'])), )->exists();
+
+            if ($item){
+                $existItem = Prediction::where('container_number',str_replace(" ",'',strtoupper($this->predictions[$i]['n_conteneur'])), )->first();
+                $this->existingItems->push($existItem);
+            }
+
+            if (!$item) {
+                $prediction = Prediction::create([
                     'partenaire' => $this->predictions[$i]['partenaires'],
-                    'tractor'     => str_replace(" ",'',strtoupper($this->predictions[$i]['vehicules'])),
-                    'trailer'    => str_replace(" ",'',strtoupper($this->predictions[$i]['remorques'])), 
-                    'container_number' => str_replace(" ",'',strtoupper($this->predictions[$i]['n_conteneur'])), 
+                    'tractor'     => str_replace(" ",'',
+                            strtoupper($this->predictions[$i]['vehicules'])),
+                    'trailer'    => str_replace(" ",'',
+                                    strtoupper($this->predictions[$i]['remorques'])), 
+                    'container_number' => str_replace(" ",'',
+                                        strtoupper($this->predictions[$i]['n_conteneur'])), 
                     'seal_number'    => array_key_exists('nplomb',$this->predictions[$i]) ? $this->predictions[$i]['nplomb'] : $this->predictions[$i]['n_plomb'], 
                     'loader'    => strtoupper($this->predictions[$i]['chargeur']) , 
                     'product'    => strtoupper($this->predictions[$i]['produit']) , 
@@ -59,11 +63,10 @@ class Create extends Component
                     'weighing_status' => 'En attente',
                     'operation' => strtoupper($this->predictions[$i]['operations']),
                 ]);
-                // $this->newItems = $this->newItems->push($prediction);
+                $this->newItems = $this->newItems->push($prediction);
             }
-              
-        //   }
+        }      
         $this->reset('predictions','file_excel');
         $this->iteration++;
-    }
+   }
 }
