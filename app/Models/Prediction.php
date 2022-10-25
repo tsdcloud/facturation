@@ -14,7 +14,7 @@ class Prediction extends Model
      *
      * @var array
      */
-    protected $guarded = [];
+    protected $guarded = ['id'];
 
     protected $casts = [
         'date_weighing_entry' => 'date:d-m-Y',

@@ -27,6 +27,13 @@
             <button wire:click="preview" class="btn btn-primary">Afficher le fichier</button>
         @endif
     </div>
+    <div>
+        @if (session()->has('message'))
+                <div class="alert alert-success">
+                    {{ session('message') }}
+                </div>
+        @endif
+    </div>
     @if (!empty($predictions))
         <div class="card-style mt-3">
             <div class="table-wrapper table-responsive">
@@ -148,6 +155,7 @@
                     </thead>
                     <tbody>
                         @foreach ($existingItems as $item)
+                        {{-- {{dd($item['partenaire'])}} --}}
                             <tr>
                                 <td>
                                     <p>{{ $item->partenaire }}</p>
@@ -201,7 +209,7 @@
                                    <p>{{ $item->created_at }}</p>
                                 </td>
                                 <td>
-                                   <p>action</p>
+                                   <p><button class="btn btn-primary" wire:click="add({{$item->id}})" >Ajouter</button></p>
                                 </td>
                             </tr>
                         @endforeach
