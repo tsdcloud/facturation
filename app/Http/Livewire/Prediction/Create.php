@@ -25,7 +25,8 @@ class Create extends Component
         $this->existingItems = collect([]);
     }
 
-    public function hydrate(){
+    public function updating(){
+       // dd($this->existingItems);
         $this->existingItems = $this->existingItems;
     }
     protected $listeners = ['refreshComponent' => '$refresh'];
@@ -70,19 +71,22 @@ class Create extends Component
                     'weighing_status' => 'En attente',
                     'operation' => strtoupper($this->predictions[$i]['operations']),
                 ]);
-                $this->newItems = $this->newItems->push($prediction);
+                //$this->newItems = $this->newItems->push($prediction);
             }
-        }      
+        }     
+       // dd($this->existingItems);
         $this->reset('predictions','file_excel');
         $this->iteration++;
    }
 
    public function add($id){
-
+   // dd($this->existingItems->firstWhere('id',$id));
    // session()->flash('message', 'Post successfully updated.');
     //$item = $this->existingItems->firstWhere('id',$id);
     Prediction::create($this->existingItems->firstWhere('id',$id));
-    $this->emit('refreshComponent');
+    $this->existingItems->pull($id);
+    $this->existingItems->all();
+   // $this->emit('refreshComponent');
     //dd($item);
    }
 }

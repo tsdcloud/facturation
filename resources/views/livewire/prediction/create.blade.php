@@ -85,8 +85,8 @@
         </div>
     @endif
     {{-- éléments existants et nouveau éléments --}}
-    @if (!empty($existingItems) && count($existingItems) > 0)
-    {{-- {{dd($existingItems)}} --}}
+    {{-- @if (!empty($existingItems) && count($existingItems) > 0)
+  
          <div class="card-style mb-30 mt-3">
             <h6 class="mb-10 text-danger">Conteneurs déjà enregistrés</h6>
             <p class="text-sm mb-20">
@@ -151,14 +151,19 @@
                                 <h6>Actions</h6>
                             </th>
                         </tr>
-                        <!-- end table row-->
+                     
                     </thead>
                     <tbody>
-                        @foreach ($existingItems as $item)
-                        {{-- {{dd($item['partenaire'])}} --}}
+                        @foreach ($existingItems as $key => $item)
+                     
                             <tr>
                                 <td>
-                                    <p>{{ $item->partenaire }}</p>
+                                    <p>{{ $item->id ?? $item['id']}}</p>
+                                    <p>{{ $item->id ?? $item[$key]['id']}}</p>
+                                </td>
+                                <td>
+                                    <p>{{ $item->partenaire ?? $item['partenaire'] }}</p>
+                                    <p>{{ $item->partenaire ?? $item[$key]['partenaire'] }}</p>
                                 </td>
                                 <td>
                                     <p>{{ $item->tractor }}</p>
@@ -215,10 +220,10 @@
                         @endforeach
                     </tbody>
                 </table>
-                <!-- end table -->
+               
             </div>
         </div> 
-    @endif
+    @endif --}}
 
 </div>
 @push('scripts')
