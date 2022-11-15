@@ -2,11 +2,13 @@
 
 namespace App\Http\Livewire\Report;
 
+use App\Mail\report\ReportEmail;
 use App\Models\Report;
 use Livewire\Component;
 use App\Models\Attachment;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 
 class CreateReport extends Component
 {
@@ -82,6 +84,7 @@ class CreateReport extends Component
 
                 $this->dispatchBrowserEvent('filepont');
                 $this->dispatchBrowserEvent('closeAlert');
+                Mail::to('alexgobe92@gmail.com')->send(new ReportEmail($report));
        }catch (\Exception $e){
            Log::error($e->getMessage());
            session()->flash('success','Une erreur c\'est produite veuillez actualiser');

@@ -6,19 +6,21 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
+use Maatwebsite\Excel\Concerns\FromView;
 
 class ReportEmail extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public $report;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($report)
     {
-        //
+        $this->report = $report;
     }
 
     /**
@@ -28,6 +30,8 @@ class ReportEmail extends Mailable
      */
     public function build()
     {
-        return $this->view('view.name');
+        return $this->subject('Rapport de shift')
+                    ->from('dpwsnetwork@bfclimited.com')
+                    ->view('emails.report.report-email');
     }
 }
