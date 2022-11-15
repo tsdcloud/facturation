@@ -54,6 +54,7 @@ Route::middleware(['auth'])->group(function(){
     })->name('bridge');
     Route::get('report',[HomeController::class, 'report'])->name('report');
     Route::get('billing',[InvoiceController::class,'index']);
+    Route::get('report-create',[HomeController::class,'reporting'])->name('reporting.create');
 
 
 
