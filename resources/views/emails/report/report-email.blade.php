@@ -36,25 +36,11 @@
 <table class="body-wrap">
     <tr>
         <td class="container">
-
-            <!-- Message start -->
             <table>
                 <tr>
-                    <td align="center" class="masthead">
-                        <img src="{{asset('assets/images/logo/logo-dpws.png')}}" alt="logo" />
-                        <h3> Douala Port Weight Services.</h3>
-                    </td>
-                </tr>
-                <tr>
                     <td class="content">
-
                         <h5>Bonjour Coordonnateur(trice)  </h5>
-
-                        <p>
-                           
-
-                            <br>
-                        </p>
+                        <p></p>
                         <table>
                             <tr>
                                 <td align="center">
