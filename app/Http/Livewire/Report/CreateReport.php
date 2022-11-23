@@ -85,46 +85,7 @@ class CreateReport extends Component
     {
         return view('livewire.report.create-report');
     }
-
-    public function shift22h()
-    {
-
-        $start = new Carbon();
-        $end = new Carbon();
-
-        $this->amount_pay = Invoice::where('user_id',  3)
-            ->where('mode_payment_id', 2) //Espèce
-            ->where('status_invoice', 'validated')
-            ->whereBetween('created_at', ['2022-09-06 00:00:00', '2022-10-07 00:00:00'])->sum('total_amount');
-        $this->number_cash_invoices = Invoice::where('user_id', 3)
-            ->where('mode_payment_id', 2) //Espèce
-            ->where('status_invoice', 'validated')
-            ->whereBetween('created_at', ['2022-09-06 00:00:00', '2022-10-07 00:00:00'])->count();
-        $this->number_invoice_to_be_billed = Prediction::where('user_id', 3)
-            ->orWhereBetween('date_weighing_entry', [$start->startOfDay(), $end->endOfDay()])
-            ->orWhereBetween('date_weighing_output', [$start->startOfDay(), $end->endOfDay()])->count();
-    }
-    // public function updatedShift()
-    // {
-    //     $start = new Carbon();
-    //     $end = new Carbon();
-    //     //   $start = Carbon::createFromFormat('Y-m-d', today())->startOfDay();
-    //     // $end = Carbon::createFromFormat('Y-m-d', '2022-09-21 09:44:44')->endOfDay();
-    //     //  dd($date->startOfDay());
-
-    //     $this->amount_pay = Invoice::where('user_id',  3)
-    //         ->where('mode_payment_id', 2) //Espèce
-    //         ->where('status_invoice', 'validated')
-    //         ->whereBetween('created_at', [$start->startOfDay(), $end->endOfDay()])
-    //         ->sum('total_amount');
-    //     $this->number_cash_invoices = Invoice::where('user_id', 3)
-    //         ->where('mode_payment_id', 2) //Espèce
-    //         ->where('status_invoice', 'validated')
-    //         ->whereBetween('created_at', [$start->startOfDay(), $end->endOfDay()])
-    //         ->count();
-    //     $this->number_invoice_to_be_billed = Prediction::where('user_id', 3)
-    //         ->whereBetween('date_entry', [$start->startOfDay(), $end->endOfDay()])->count();
-    // }
+    
     public function save(): void
     {
 

@@ -1,6 +1,6 @@
 @push('styles')
-    <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet" />
-    <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet" />
+    <link href="{{asset('assets/css/filepond.css')}}" rel="stylesheet" />
+    <link href="{{asset('assets/css/filepond-plugin-image-preview.css')}}" rel="stylesheet"/>
 @endpush
 <div>
     <div class="form-elements-wrapper">
@@ -212,9 +212,8 @@
             <button type="reset" class="main-btn danger-btn btn-hover me-1 mb-1">Annuler</button>
         </div>
         @push('scripts')
-            <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
-            <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
-
+            <script src="{{asset('assets/js/filepond-plugin-image-preview.js')}}"></script>
+            <script src="{{asset('assets/js/filepond.js')}}"></script>
             <script>
                 // Register the plugin
                 FilePond.registerPlugin(FilePondPluginImagePreview);
