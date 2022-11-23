@@ -164,10 +164,8 @@
         <div class="row mt-4">
             <div class="col-lg-12">
                 <div class="card-style">
-                    <x-forms.filepond wire:model="images" acceptedFileTypes="['image/png', 'image/jpg']" multiple />
-                    @error('images')
-                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
-                    @enderror
+                    <x-forms.filepond wire:model="images" 
+                    acceptedFileTypes="['image/*']" multiple />
                 </div>
             </div>
         </div>
@@ -189,9 +187,6 @@
                     </div>
                     <div class="col-lg-12">
                         <x-forms.filepond-attachement wire:model="attachements" multiple />
-                        @error('attachements')
-                            <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
                     </div>
                 </div>
             </div>
@@ -215,15 +210,21 @@
         @push('scripts')
             <script src="{{asset('assets/js/filepond-plugin-image-preview.js')}}"></script>
             <script src="{{asset('assets/js/filepond.js')}}"></script>
+            <script src="https://unpkg.com/filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.js"></script>
             <script>
                 // Register the plugin
                 FilePond.registerPlugin(FilePondPluginImagePreview);
+                FilePond.registerPlugin(FilePondPluginFileValidateType);
                 FilePond.setOptions({
                     labelIdle: 'Glissez-déposez vos fichiers ou <span class="filepond--label-action"> parcourir </span>',
                     labelFileProcessing: 'Téléchargement',
                     labelFileProcessingComplete: 'Téléchargement terminé',
-                    labelTapToUndo: 'appuyez sur pour annuler',
-                })
+                    labelTapToUndo: 'appuyez sur la croix pour annuler',
+                    labelFileTypeNotAllowed: 'Fichier de type non valide',
+                    fileValidateTypeLabelExpectedTypes: 'Sélectionner une image de type {allButLastType} ou {lastType}',
+                    labelTapToCancel: 'Appuyer sur le loader pour annuler',
+                });
+                
 
                 document.addEventListener('filepont', () => {
                     const pond = FilePond.create(

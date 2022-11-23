@@ -11,8 +11,8 @@
                 revert: (filename, load) => {
                     @this.removeUpload('{{ $attributes->whereStartsWith('wire:model')->first() }}', filename, load)
                 },
-                acceptedFileTypes: {!! $attributes->get('acceptedFileTypes') ?? 'null' !!},
-            }
+            },
+            acceptedFileTypes: {!! $attributes->get('acceptedFileTypes') ?? 'null' !!},
         });
     }">
         <div class="input-style-1" >
