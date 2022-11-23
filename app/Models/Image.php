@@ -5,13 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Attachment extends Model
+
+class Image extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['path','report_id'];
+    protected $fillable = ['name', 'path', 'report_id'];
 
-    public function report(){
+    public function report()
+    {
         return $this->belongsTo(Report::class);
     }
+
 }

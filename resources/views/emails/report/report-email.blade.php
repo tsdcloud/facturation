@@ -44,13 +44,17 @@
                         <table>
                             <tr>
                                 <td align="center">
-                                    {{-- <p>
-                                        <a class="button" style=" color: white"  href="{{route('rendez-vous',$data['id'])}}">JE SOUHAITE TESTER LE MODELE AVEC LES DONNEES DE MON ENTREPRISE</a>
-                                    </p> --}}
+                                    <p>Pont bascule : {{$report->weighbridge}}</p>
+                                    <p>Nombre total de pesées de type 1 : {{$report->total_number_type_1_weighings}} </p>
+                                    <p>Nombre total de pesées de type 2 : {{$report->total_number_type_2_weighings}} </p>
+                                    <p>Nombre total de factures à facturer : {{$report->number_invoice_to_be_billed}} </p>
+                                    <p>Nombre total de factures payés cash : {{$report->number_cash_invoices}} </p>
+                                    <p>Nombre total de factures payés cash OM : </p>
+                                    <p>Montant total à verser : {{$report->amount_pay}} </p>
                                 </td>
                             </tr>
                         </table>
-                        <p><em>–  Bien à vous.</em></p>
+                        <p><em>–  Cordialement.</em></p>
                     </td>
                 </tr>
             </table>

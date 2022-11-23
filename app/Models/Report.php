@@ -11,8 +11,10 @@ class Report extends Model
 
     protected $guarded = ['id'];
     
-    public function attachements(){
-        return $this->hasMany(Attachment::class);
+
+
+    public function images(){
+        return $this->hasMany(Image::class);
     }
     
 }

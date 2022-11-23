@@ -11,14 +11,12 @@
                 revert: (filename, load) => {
                     @this.removeUpload('{{ $attributes->whereStartsWith('wire:model')->first() }}', filename, load)
                 },
-                acceptedFileTypes: {!! $attributes->get('acceptedFileTypes') ?? 'null' !!},
             }
         });
     }">
         <div class="input-style-1" >
-            <label for="email-id-column">Piece(s) jointe(s) du rapport</label>
-            <input id="pic" type="file" x-ref="input" multiple />
-            <span class="text-muted">Uniquement les images</span>
+            <label for="email-id-column">Piece(s) jointe(s) de l'email</label>
+            <input id="attachements" type="file" x-ref="input" multiple />
         </div>
     </div>
 </div>

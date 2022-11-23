@@ -21,18 +21,32 @@ return new class extends Migration
             $table->text("production_comment");
             $table->text("disciplinary_comment");
             $table->text("incidental_comment");
-            $table->string("attachment")->nullable();
+           
+
+            $table->string("attachments")->nullable();
+
+            $table->string("operator_hse_one")->nullable();
+            $table->string("operator_hse_two")->nullable();
+            $table->string("operator_name_one")->nullable();
+            $table->string("operator_name_two")->nullable();
+
+            $table->integer("number_invoice_to_be_billed")->nullable();
+            $table->decimal("amount_pay",12,0)->nullable();
+            $table->integer("number_cash_invoices")->nullable();
+            $table->string("subject")->nullable();
+            $table->string("total_number_type_1_weighings")->nullable();
+            $table->string("total_number_type_2_weighings")->nullable();
+            $table->string("weighbridge")->nullable();
+
             $table->integer("total_complete_weighing");
             $table->integer("total_complete_weighing_cash");
+            $table->integer("total_number_weighings");
             $table->integer("total_complete_weighing_prepaid");
             $table->integer("total_complete_weighing_invoiced");
             $table->integer("total_incomplete_weighing");
             $table->integer("total_incomplete_weighing_cash");
             $table->integer("total_incomplete_weighing_prepaid");
             $table->integer("total_incomplete_weighing_invoiced");
-            $table->string("name_hse_1")->nullable();
-            $table->string("name_hse_2")->nullable();
-            $table->string("weighing_operator")->nullable();
             $table->timestamps();
         });
     }
