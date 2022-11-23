@@ -160,6 +160,7 @@
                 </div>
             </div>
         </div>
+        {{-- pices jointes du rapport --}}
         <div class="row mt-4">
             <div class="col-lg-12">
                 <div class="card-style">
@@ -217,7 +218,12 @@
             <script>
                 // Register the plugin
                 FilePond.registerPlugin(FilePondPluginImagePreview);
-
+                FilePond.setOptions({
+                    labelIdle: 'Glissez-déposez vos fichiers ou <span class="filepond--label-action"> parcourir </span>',
+                    labelFileProcessing: 'Téléchargement',
+                    labelFileProcessingComplete: 'Téléchargement terminé',
+                    labelTapToUndo: 'appuyez sur pour annuler',
+                })
 
                 document.addEventListener('filepont', () => {
                     const pond = FilePond.create(
