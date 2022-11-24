@@ -186,7 +186,7 @@
                         </div>
                     </div>
                     <div class="col-lg-12">
-                        <x-forms.filepond-attachement wire:model="attachements" multiple />
+                        <x-forms.filepond-attachement wire:model="attachments" multiple />
                     </div>
                 </div>
             </div>
@@ -235,7 +235,7 @@
                 })
                 document.addEventListener('filepont', () => {
                     const pond = FilePond.create(
-                        document.getElementById('attachements'));
+                        document.getElementById('attachment'));
                     pond.removeFiles({
                         revert: true
                     });

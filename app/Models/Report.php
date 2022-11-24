@@ -13,8 +13,14 @@ class Report extends Model
     
 
 
-    public function images(){
+    public function images()
+    {
         return $this->hasMany(Image::class);
+    }
+
+    public function attachments()
+    {
+        return $this->hasMany(EmailAttachment::class);
     }
     
 }

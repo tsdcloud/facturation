@@ -8,6 +8,7 @@ use App\Models\Invoice;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use App\Mail\report\ReportEmail;
+use App\Models\EmailAttachment;
 use App\Models\Image;
 use App\Models\Prediction;
 use App\Models\Weighbridge;
@@ -50,7 +51,7 @@ class CreateReport extends Component
     public string $name = "";
     public $images = [];
     public bool $shift_22h = false;
-    public $attachements = [];
+    public $attachments = [];
     protected $rules = [
         'shift' => 'required',
     ];
@@ -85,7 +86,7 @@ class CreateReport extends Component
     {
         return view('livewire.report.create-report');
     }
-    
+
     public function save(): void
     {
 
@@ -128,6 +129,7 @@ class CreateReport extends Component
                 'shift' => $this->shift,
             ]);
 
+            // piece jointe rapport
             foreach ($this->images as $image) {
                 Image::create([
                     'name' => $image->getClientOriginalName(),
@@ -135,8 +137,20 @@ class CreateReport extends Component
                     'path' => $image->store('attachments/report', 'public'),
                 ]);
             }
+
+            // pieces jointes email
+            foreach ($this->attachments as $attachment) {
+                EmailAttachment::create([
+                    'name' => $attachment->getClientOriginalName(),
+                    'report_id' => $report->id,
+                    'path' => $attachment->store('attachments/email-report', 'public'),
+                ]);
+            }
+
+        //    dd($report->attachments->toArray());
             Mail::to('alexgobe92@gmail.com')
-                ->send(new ReportEmail($report, $report->images->toArray()));
+                ->send(new ReportEmail($report, $report->attachments->toArray()));
+
             session()->flash('success', 'votre rapport a été enregistré avec succès');
             $this->reset([
                 'shift', 'number_incident', 'production_comment',
