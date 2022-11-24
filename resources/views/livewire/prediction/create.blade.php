@@ -29,9 +29,9 @@
     </div>
     <div>
         @if (session()->has('message'))
-                <div class="alert alert-success">
-                    {{ session('message') }}
-                </div>
+            <div class="alert alert-success">
+                {{ session('message') }}
+            </div>
         @endif
     </div>
     @if (!empty($predictions))
@@ -84,13 +84,13 @@
             </button>
         </div>
     @endif
-    {{-- éléments existants et nouveau éléments --}}
-    {{-- @if (!empty($existingItems) && count($existingItems) > 0)
-  
-         <div class="card-style mb-30 mt-3">
-            <h6 class="mb-10 text-danger">Conteneurs déjà enregistrés</h6>
+    {{-- conteneur rejetés   --}}
+    @if (!empty($existingItems) && count($existingItems) > 0)
+
+        <div class="card-style mb-30 mt-3">
+            <h6 class="mb-10 text-danger">Conteneurs rejetés</h6>
             <p class="text-sm mb-20">
-                Ces conteneurs ont déja été enregistrés que voulez-vous faire ?
+                Ces conteneurs ont déja été enregistrés
             </p>
             <div class="table-wrapper table-responsive">
                 <table class="table">
@@ -147,23 +147,13 @@
                             <th class="lead-company">
                                 <h6>Ajouté le</h6>
                             </th>
-                            <th class="lead-company">
-                                <h6>Actions</h6>
-                            </th>
                         </tr>
-                     
                     </thead>
                     <tbody>
                         @foreach ($existingItems as $key => $item)
-                     
                             <tr>
                                 <td>
-                                    <p>{{ $item->id ?? $item['id']}}</p>
-                                    <p>{{ $item->id ?? $item[$key]['id']}}</p>
-                                </td>
-                                <td>
                                     <p>{{ $item->partenaire ?? $item['partenaire'] }}</p>
-                                    <p>{{ $item->partenaire ?? $item[$key]['partenaire'] }}</p>
                                 </td>
                                 <td>
                                     <p>{{ $item->tractor }}</p>
@@ -211,19 +201,100 @@
                                     <p>{{ optional($item->user)->name }}</p>
                                 </td>
                                 <td>
-                                   <p>{{ $item->created_at }}</p>
-                                </td>
-                                <td>
-                                   <p><button class="btn btn-primary" wire:click="add({{$item->id}})" >Ajouter</button></p>
+                                    <p>{{ $item->created_at->format('d/m/y H:i:s') }}</p>
                                 </td>
                             </tr>
                         @endforeach
                     </tbody>
                 </table>
-               
+
             </div>
-        </div> 
-    @endif --}}
+        </div>
+    @endif
+
+
+    {{-- éléments enregistrés avec succès  --}}
+    @if (!empty($newItems) && count($newItems) > 0)
+
+        <div class="card-style mb-30 mt-3">
+            <h6 class="mb-10 text-success">Conteneurs enregistrés avec succès</h6>
+            <div class="table-wrapper table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th class="lead-info">
+                                <h6>Partenaire</h6>
+                            </th>
+                            <th class="lead-info">
+                                <h6>Véhicule</h6>
+                            </th>
+                            <th class="lead-email">
+                                <h6>Remorque</h6>
+                            </th>
+                            <th class="lead-company">
+                                <h6>N° conteneur</h6>
+                            </th>
+                            <th class="lead-phone">
+                                <h6>N° plomb</h6>
+                            </th>
+                            <th class="lead-phone">
+                                <h6>Chargeur</h6>
+                            </th>
+                            <th class="lead-company">
+                                <h6>Produit</h6>
+                            </th>
+                            <th class="lead-company">
+                                <h6>Opération</h6>
+                            </th>
+                            <th class="lead-company">
+                                <h6>Ajouté par</h6>
+                            </th>
+                            <th class="lead-company">
+                                <h6>Ajouté le</h6>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($newItems as $key => $item)
+                            <tr>
+                                <td>
+                                    <p>{{ $item->partenaire }}</p>
+                                </td>
+                                <td>
+                                    <p>{{ $item->tractor }}</p>
+                                </td>
+                                <td>
+                                    <p>{{ $item->trailer }}</p>
+                                </td>
+                                <td>
+                                    <p>{{ $item->container_number }}</p>
+                                </td>
+                                <td>
+                                    <p>{{ $item->seal_number }}</p>
+                                </td>
+                                <td>
+                                    <p>{{ $item->loader }}</p>
+                                </td>
+                                <td>
+                                    <p>{{ $item->product }}</p>
+                                </td>
+                                <td>
+                                    <p>{{ $item->operation }}</p>
+                                </td>
+                                <td>
+                                    <p>{{ optional($item->user)->name }}</p>
+                                </td>
+                                <td>
+                                    <p>{{ $item->created_at->format('d/m/y H:i:s') }}</p>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    @endif
 
 </div>
 @push('scripts')

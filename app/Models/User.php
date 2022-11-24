@@ -55,6 +55,10 @@ class User extends Authenticatable
         return $this->hasONE(Signature::class);
     }
 
+    public function predictions(){
+        return $this->hasMany(Prediction::class);
+    }
+
     public function isAdmin()
     {
         return $this->role === 'admin';

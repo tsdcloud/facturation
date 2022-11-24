@@ -13,7 +13,7 @@ class Create extends Component
     use WithFileUploads;
     public $predictions, $file_excel;
     public  $checkPrediction;
-    public  $existingItems;
+    public  $existingItems ;
     public  $newItems ;
     public  $iteration ;
     public function render()
@@ -23,16 +23,18 @@ class Create extends Component
 
     public function mount(){
         $this->existingItems = collect([]);
+        $this->newItems = collect([]);
     }
 
     public function updating(){
-       // dd($this->existingItems);
         $this->existingItems = $this->existingItems;
+        $this->newItems = $this->newItems;
     }
     protected $listeners = ['refreshComponent' => '$refresh'];
     public function preview(){
 
-      //  $path = $this->file_excel->store('temp');
+    //   $this->newItems = "";
+    //   $this->existingItems = "";
       $this->predictions = Excel::toArray(new PredictionImport, $this->file_excel->store('temp'));   
 
        $this->predictions = array_slice( $this->predictions[0],0);
@@ -48,8 +50,31 @@ class Create extends Component
         
         for ($i=0; $i < count($this->predictions); $i++) {
 
-            $item = Prediction::where('container_number',str_replace(" ",'',strtoupper($this->predictions[$i]['n_conteneur'])), )->exists();
-
+            // recherche si le contenaire existe, la colonne peut parfois être null
+            $item = Prediction::where('partenaire',str_replace(" ",'',strtoupper($this->predictions[$i]['partenaires'])))
+                                
+                                ->where(function($query) use ($i){
+                                    
+                                    $query->orWhere('container_number',null);
+                                    $query->orWhere('container_number',str_replace(" ",'',strtoupper($this->predictions[$i]['n_conteneur'])));
+                                    
+                                    $query->orWhere('tractor',null);
+                                    $query->orWhere('tractor',str_replace(" ",'',strtoupper($this->predictions[$i]['vehicules'])));
+                                    
+                                    $query->orWhere('trailer',null);
+                                    $query->orWhere('trailer',str_replace(" ",'',strtoupper($this->predictions[$i]['remorques'])));
+                                    
+                                    $query->orWhere('seal_number',null);
+                                    $query->orWhere('seal_number',strtoupper($this->predictions[$i]['nplomb']));
+                                   
+                                    $query->orWhere('loader',null);
+                                    $query->orWhere('loader',$this->predictions[$i]['chargeur']);
+                                    
+                                    $query->orWhere('product',null);
+                                    $query->orWhere('product',$this->predictions[$i]['produit']);
+                                })
+                                ->exists();
+          //  dd($item );
             if ($item){
                 $existItem = Prediction::where('container_number',str_replace(" ",'',strtoupper($this->predictions[$i]['n_conteneur'])), )->first();
                 $this->existingItems->push($existItem);
@@ -71,10 +96,10 @@ class Create extends Component
                     'weighing_status' => 'En attente',
                     'operation' => strtoupper($this->predictions[$i]['operations']),
                 ]);
-                //$this->newItems = $this->newItems->push($prediction);
+                $this->newItems->push($prediction);
             }
         }     
-       // dd($this->existingItems);
+
         $this->reset('predictions','file_excel');
         $this->iteration++;
    }
