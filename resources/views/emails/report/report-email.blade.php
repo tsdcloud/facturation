@@ -21,7 +21,7 @@
         h4 { font-size: 20px; }
         h5 { font-size: 16px; }
         p, ul, ol { font-size: 16px; font-weight: normal; margin-bottom: 20px; }
-        .container { display: block !important; clear: both !important; margin: 0 auto !important; max-width: 580px !important; }
+        .container { display: block !important; clear: both !important; margin: 0 auto !important; max-width: 100% !important; }
         .container table { width: 100% !important; border-collapse: collapse; }
         .container .masthead { padding: 80px 0; background: #ffffff;; color: white; }
         .container .masthead h1 { margin: 0 auto !important; max-width: 90%; text-transform: uppercase; }
@@ -43,18 +43,19 @@
                         <p></p>
                         <table>
                             <tr>
-                                <td align="center">
-                                    <p>Pont bascule : {{$report->weighbridge}}</p>
-                                    <p>Nombre total de pesées de type 1 : {{$report->total_number_type_1_weighings}} </p>
-                                    <p>Nombre total de pesées de type 2 : {{$report->total_number_type_2_weighings}} </p>
-                                    <p>Nombre total de factures à facturer : {{$report->number_invoice_to_be_billed}} </p>
-                                    <p>Nombre total de factures payés cash : {{$report->number_cash_invoices}} </p>
-                                    <p>Nombre total de factures payés cash OM : </p>
-                                    <p>Montant total à verser : {{$report->amount_pay}} </p>
+                                <td align="justifys">
+                                    <p> <strong><u>Pont bascule {{$report->weighbridge}}</u></strong></p>
+                                    <p> <span style="font-weight: 250">Nombre total de pesées de type 1 :</span>  <i>
+                                        {{$report->total_number_type_1_weighings}}</i>  </p>
+                                    <p> <span style="font-weight: 250">Nombre total de pesées de type 2 : </span> <i>{{$report->total_number_type_2_weighings}}</i> </p>
+                                    <p> <span style="font-weight: 250">Nombre total de factures à facturer :</span>  <i>{{$report->number_invoice_to_be_billed}}</i> </p>
+                                    <p> <span style="font-weight: 250">Nombre total de factures payés cash :</span>  <i>{{$report->number_cash_invoices}}</i> </p>
+                                    <p> <span style="font-weight: 250">Montant total à verser : </span> <i>{{$report->amount_pay}}</i>  </p>
                                 </td>
                             </tr>
                         </table>
                         <p><em>–  Cordialement.</em></p>
+                        <p>{{auth()->user()->name}}.</em></p>
                     </td>
                 </tr>
             </table>
@@ -66,7 +67,7 @@
             <table>
                 <tr>
                     <td class="content footer" align="center">
-                        <p>Envoyé par <a href="https://www.bfclimited.com/">DPWS</p>
+                        <p>Envoyé par l'application <a href="https://www.bfclimited.com/">GOP</p>
                         <p><a href="javascript:void(0)"></a></p>
                     </td>
                 </tr>

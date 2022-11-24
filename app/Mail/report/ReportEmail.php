@@ -14,15 +14,17 @@ class ReportEmail extends Mailable
 
     public $report;
     public $attachements;
+    public $subject;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($report, $attachments)
+    public function __construct($report, $attachments, $subject)
     {
         $this->report = $report;
         $this->attachements = $attachments;
+        $this->subject = $subject;
     }
 
     /**
@@ -32,7 +34,7 @@ class ReportEmail extends Mailable
      */
     public function build()
     {
-       $email = $this->subject('Rapport de shift')
+       $email = $this->subject($this->subject)
                     ->from('dpwsnetwork@bfclimited.com')
                     ->view('emails.report.report-email');
 

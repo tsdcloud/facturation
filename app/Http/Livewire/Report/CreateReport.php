@@ -147,9 +147,11 @@ class CreateReport extends Component
                 ]);
             }
 
-        //    dd($report->attachments->toArray());
-            Mail::to('alexgobe92@gmail.com')
-                ->send(new ReportEmail($report, $report->attachments->toArray()));
+      
+            Mail::to(auth()->user()->email)
+                ->send(new ReportEmail($report,
+                                              $report->attachments->toArray(), 
+                                              $this->subject));
 
             session()->flash('success', 'votre rapport a été enregistré avec succès');
             $this->reset([
