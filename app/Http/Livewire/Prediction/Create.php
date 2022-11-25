@@ -52,10 +52,11 @@ class Create extends Component
         try {
             for ($i=0; $i < count($this->predictions); $i++) {
 
+                $seal_number =  array_key_exists('nplomb',$this->predictions[$i]) ? $this->predictions[$i]['nplomb'] : $this->predictions[$i]['n_plomb'];
                 // recherche si le contenaire existe, la colonne peut parfois être null
                 $item = Prediction::where('partenaire',str_replace(" ",'',strtoupper($this->predictions[$i]['partenaires'])))
                                     
-                                    ->where(function($query) use ($i){
+                                    ->where(function($query) use ($i, $seal_number){
                                         
                                         $query->orWhere('container_number',null);
                                         $query->orWhere('container_number',str_replace(" ",'',strtoupper($this->predictions[$i]['n_conteneur'])));
@@ -67,7 +68,7 @@ class Create extends Component
                                         $query->orWhere('trailer',str_replace(" ",'',strtoupper($this->predictions[$i]['remorques'])));
                                         
                                         $query->orWhere('seal_number',null);
-                                        $query->orWhere('seal_number',strtoupper($this->predictions[$i]['nplomb']));
+                                        $query->orWhere('seal_number',$seal_number);
                                        
                                         $query->orWhere('loader',null);
                                         $query->orWhere('loader',$this->predictions[$i]['chargeur']);
