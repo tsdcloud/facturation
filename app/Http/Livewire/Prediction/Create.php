@@ -49,7 +49,7 @@ class Create extends Component
         $this->existingItems = collect([]);
         $this->newItems = collect([]);
         
-        try {
+        // try {
             for ($i=0; $i < count($this->predictions); $i++) {
 
                 $seal_number =  array_key_exists('nplomb',$this->predictions[$i]) ? $this->predictions[$i]['nplomb'] : $this->predictions[$i]['n_plomb'];
@@ -68,7 +68,7 @@ class Create extends Component
                                         $query->orWhere('trailer',str_replace(" ",'',strtoupper($this->predictions[$i]['remorques'])));
                                         
                                         $query->orWhere('seal_number',null);
-                                        $query->orWhere('seal_number',$seal_number);
+                                        $query->orWhere('seal_number',strtoupper($seal_number));
                                        
                                         $query->orWhere('loader',null);
                                         $query->orWhere('loader',$this->predictions[$i]['chargeur']);
@@ -104,11 +104,11 @@ class Create extends Component
             }     
             $this->reset('predictions','file_excel');
             $this->iteration++;
-        } catch (\Throwable $e) {
-             Log::error($e->getMessage());
-             $this->iteration ++;
-             $this->file_excel = "";
-             session()->flash('error', 'Une erreur c\'est produite veuillez vérifier l\'entête de votre fichier excel');
-        }
+        // } catch (\Throwable $e) {
+        //      Log::error($e->getMessage());
+        //      $this->iteration ++;
+        //      $this->file_excel = "";
+        //      session()->flash('error', 'Une erreur c\'est produite veuillez vérifier l\'entête de votre fichier excel');
+        // }
    }
 }

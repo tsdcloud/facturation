@@ -148,55 +148,55 @@
                         @foreach ($existingItems as $key => $item)
                             <tr>
                                 <td>
-                                    <p>{{ $item->partenaire ?? $item['partenaire'] }}</p>
+                                    <p>{{ $item->partenaire  }}</p>
                                 </td>
                                 <td>
-                                    <p>{{ $item->tractor ?? $item['partenaire'] }}</p>
+                                    <p>{{ $item->tractor  }}</p>
                                 </td>
                                 <td>
-                                    <p>{{ $item->trailer ?? $item['partenaire'] }}</p>
+                                    <p>{{ $item->trailer  }}</p>
                                 </td>
                                 <td>
-                                    <p>{{ $item->container_number ?? $item['partenaire'] }}</p>
+                                    <p>{{ $item->container_number  }}</p>
                                 </td>
                                 <td>
-                                    <p>{{ $item->seal_number ?? $item['partenaire'] }}</p>
+                                    <p>{{ $item->seal_number  }}</p>
                                 </td>
                                 <td>
-                                    <p>{{ $item->loader ?? $item['partenaire'] }}</p>
+                                    <p>{{ $item->loader  }}</p>
                                 </td>
                                 <td>
-                                    <p>{{ $item->product ?? $item['partenaire'] }}</p>
+                                    <p>{{ $item->product  }}</p>
                                 </td>
                                 <td>
-                                    <p>{{ $item->operation ?? $item['partenaire'] }}</p>
+                                    <p>{{ $item->operation  }}</p>
                                 </td>
                                 <td>
-                                    <p>{{ $item->head_guerite_entry ?? $item['partenaire'] }}</p>
+                                    <p>{{ $item->head_guerite_entry  }}</p>
                                 </td>
                                 <td>
-                                    <p>{{ $item->guerite_entry ?? $item['partenaire'] }}</p>
+                                    <p>{{ $item->guerite_entry  }}</p>
                                 </td>
                                 <td>
-                                    <p>{{ $item->date_weighing_entry ?? $item['partenaire'] }}</p>
+                                    <p>{{ $item->date_weighing_entry  }}</p>
                                 </td>
                                 <td>
-                                    <p>{{ $item->head_geurite_output ?? $item['partenaire'] }}</p>
+                                    <p>{{ $item->head_geurite_output  }}</p>
                                 </td>
                                 <td>
-                                    <p>{{ $item->geurite_output ?? $item['partenaire'] }}</p>
+                                    <p>{{ $item->geurite_output  }}</p>
                                 </td>
                                 <td>
-                                    <p>{{ $item->date_weighing_output ?? $item['partenaire'] }}</p>
+                                    <p>{{ $item->date_weighing_output  }}</p>
                                 </td>
                                 <td>
-                                    <p>{{ $item->weighing_status ?? $item['partenaire'] }}</p>
+                                    <p>{{ $item->weighing_status  }}</p>
                                 </td>
                                 <td>
-                                    <p>{{ optional($item->user)->name ?? $item['partenaire'] }}</p>
+                                    <p>{{ optional($item->user)->name  }}</p>
                                 </td>
                                 <td>
-                                    <p>{{ $item->created_at->format('d/m/y H:i:s') ?? $item['partenaire'] }}</p>
+                                    <p>{{ $item->created_at->format('d/m/y H:i:s') }}</p>
                                 </td>
                             </tr>
                         @endforeach
