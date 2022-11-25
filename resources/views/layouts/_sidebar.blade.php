@@ -138,9 +138,7 @@
         @endif
 
         <span class="divider"></span>
-        @if (Auth::user()->isAdmin() ||
-            Auth::user()->isAdministration() ||
-            Auth::user()->isChefGuerite())
+        @if (Auth::user()->isAdmin() )
             <li class="nav-item {{ Request::is('report-create') ? 'active' : '' }} ">
                 <a href="{{ route('reporting.create') }}">
                     <span class="icon">
