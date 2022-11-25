@@ -43,14 +43,9 @@ class AppController extends Controller
     public function entry(Prediction $prediction, String $param = null){
 
         $bridge = Weighbridge::where('id',auth()->user()->currentBridge)->first();
+        
+          // contrôle camion en entrée pour les opérateurs
         if ($param != '' && $param === 'oui'){
-
-            // $prediction = tap($prediction)->update([
-            //                 'seen_entry_control' => 'oui',
-            //                 'name_controleur_input' => auth()->user()->name,
-            //                 'date_entry' => Carbon::now(),
-            //                 'weighbridge_entry' => 'P10',
-            //               ]);
                 $prediction->update([
                     'seen_entry_control' => 'oui',
                     'name_controleur_input' => auth()->user()->name,
@@ -61,6 +56,7 @@ class AppController extends Controller
                 session()->flash('success', 'apuré en entrée ok');
                 return redirect()->to('/checkpoint/index');
         }
+          // apurement en sortie pour CG
         $prediction = tap($prediction)->update([
             'head_guerite_entry' => auth()->user()->name,
             'guerite_entry' => $bridge->label,
@@ -77,6 +73,7 @@ class AppController extends Controller
 
         $bridge = Weighbridge::where('id',auth()->user()->currentBridge)->first();
 
+        // contrôle pour les opérateurs
         if ($param != '' && $param === 'oui'){
             $prediction->update([
                 'seen_exit_control' => 'oui',
@@ -88,6 +85,7 @@ class AppController extends Controller
             return redirect()->to('/checkpoint/index');
     }
 
+    // apurement en sortie pour CG
         $prediction->update([
             'head_geurite_output' => auth()->user()->name,
             'geurite_output' => $bridge->label,
