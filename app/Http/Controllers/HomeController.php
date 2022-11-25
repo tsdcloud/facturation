@@ -34,4 +34,10 @@ class HomeController extends Controller
         $breadcrumb = "Apurement";
         return view('apurement.search-container',compact('breadcrumb'));
      }
+
+     public function reporting(){
+        $breadcrumb="Nouveau rapport";
+        return view('report.create',compact('breadcrumb'));
+     }
+
 }

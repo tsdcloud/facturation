@@ -11,14 +11,11 @@ use Livewire\Component;
 class Login extends Component
 {
     public $currentStep = 1, $email = null, $password = null, $user = null, $bridge = null,
-    $password_confirmation = null;
+    $password_confirmation = null, $shift = null;
 
     public function render()
     {
         return view('livewire.auth.login',[
-//            'weighbridges' => Weighbridge::all()->reject(function($bridge){
-//                return $bridge->label == "Direction" && $bridge->label == "P18" && $bridge->label == "P19";
-//            }),
             'weighbridges' => Weighbridge::whereIn('id', ['1', '2','3','4','5','6','7','8','9','10','11'])->get()
 
         ]);
@@ -79,15 +76,24 @@ class Login extends Component
         );
 
         if ($this->user && Hash::check($this->password, $this->user->password)){
-
-            Auth::login($this->user);
-
-            tap($this->user)->update(['currentBridge' => $this->bridge]);
-
-            to_route('home');
+            
+            //selectionner le shift
+            if ($this->user->role =="user")
+                return $this->currentStep = 5;
         }
+        
     }
 
+    public function fourStepShift(){
+
+        if ($this->user && Hash::check($this->password, $this->user->password)){
+              Auth::login($this->user);
+        tap($this->user)->update(['currentBridge' => $this->bridge,'shift' => $this->shift]);
+
+        to_route('home');
+    }
+
+    }
     public function resetPassword(){
         $this->validate(
             ['password' => 'required|confirmed'],

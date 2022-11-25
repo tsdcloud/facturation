@@ -25,6 +25,7 @@ class User extends Authenticatable
         'status',
         'firstLogin',
         'currentBridge',
+        'shift',
     ];
 
     /**
@@ -52,6 +53,10 @@ class User extends Authenticatable
 
     public function signature(){
         return $this->hasONE(Signature::class);
+    }
+
+    public function predictions(){
+        return $this->hasMany(Prediction::class);
     }
 
     public function isAdmin()

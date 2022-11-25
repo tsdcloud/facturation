@@ -12,6 +12,7 @@ use App\Http\Controllers\PaybackController;
 use App\Http\Controllers\SignatureController;
 use App\Http\Controllers\AccountingController;
 use App\Http\Controllers\CheckpointController;
+use App\Http\Controllers\PowerWeightController;
 use App\Http\Controllers\PredictionController;
 
 /*
@@ -53,6 +54,7 @@ Route::middleware(['auth'])->group(function(){
     })->name('bridge');
     Route::get('report',[HomeController::class, 'report'])->name('report');
     Route::get('billing',[InvoiceController::class,'index']);
+    Route::get('report-create',[HomeController::class,'reporting'])->name('reporting.create');
 
 
 
@@ -97,5 +99,7 @@ Route::middleware(['auth'])->group(function(){
 
     Route::get('/prediction/edit/{prediction}',[PredictionController::class,'edit'])->name('prediction.edit');
     Route::patch('/prediction/update/{prediction}',[PredictionController::class,'update'])->name('prediction.update');
+
 });
+Route::get('/db',[PowerWeightController::class,'index']);
 
