@@ -30,7 +30,10 @@
             </div>
         </div>
         @if (!empty($file_excel))
-            <button wire:click="preview" class="btn btn-primary">Afficher le fichier</button>
+            <button wire:click="preview" wire:loading.attr="disabled" class="btn btn-primary">
+                <div class="spinner-border" wire:loading role="status" wire:target="preview"></div>
+                <div wire:loading.remove  wire:target="preview"> Afficher le fichier </div>
+            </button>
         @endif
     </div>
     <div>
@@ -71,8 +74,8 @@
                 </table>
             </div>
             <button wire:click="import" wire:loading.attr="disabled" class="btn btn-primary mt-3">
-                <div class="spinner-border" wire:loading role="status" wire:target="store"></div>
-                <div wire:loading.remove wire:target="store">Importer</div>
+                <div class="spinner-border" wire:loading role="status" wire:target="import"></div>
+                <div wire:loading.remove wire:target="import">Importer</div>
             </button>
         </div>
     @endif
