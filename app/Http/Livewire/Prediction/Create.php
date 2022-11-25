@@ -3,9 +3,10 @@
 namespace App\Http\Livewire\Prediction;
 
 use Livewire\Component;
+use App\Models\Prediction;
 use Livewire\WithFileUploads;
 use App\Imports\PredictionImport;
-use App\Models\Prediction;
+use Illuminate\Support\Facades\Log;
 use Maatwebsite\Excel\Facades\Excel;
 
 class Create extends Component
@@ -48,58 +49,65 @@ class Create extends Component
         $this->existingItems = collect([]);
         $this->newItems = collect([]);
         
-        for ($i=0; $i < count($this->predictions); $i++) {
+        try {
+            for ($i=0; $i < count($this->predictions); $i++) {
 
-            // recherche si le contenaire existe, la colonne peut parfois être null
-            $item = Prediction::where('partenaire',str_replace(" ",'',strtoupper($this->predictions[$i]['partenaires'])))
-                                
-                                ->where(function($query) use ($i){
+                // recherche si le contenaire existe, la colonne peut parfois être null
+                $item = Prediction::where('partenaire',str_replace(" ",'',strtoupper($this->predictions[$i]['partenaires'])))
                                     
-                                    $query->orWhere('container_number',null);
-                                    $query->orWhere('container_number',str_replace(" ",'',strtoupper($this->predictions[$i]['n_conteneur'])));
-                                    
-                                    $query->orWhere('tractor',null);
-                                    $query->orWhere('tractor',str_replace(" ",'',strtoupper($this->predictions[$i]['vehicules'])));
-                                    
-                                    $query->orWhere('trailer',null);
-                                    $query->orWhere('trailer',str_replace(" ",'',strtoupper($this->predictions[$i]['remorques'])));
-                                    
-                                    $query->orWhere('seal_number',null);
-                                    $query->orWhere('seal_number',strtoupper($this->predictions[$i]['nplomb']));
-                                   
-                                    $query->orWhere('loader',null);
-                                    $query->orWhere('loader',$this->predictions[$i]['chargeur']);
-                                    
-                                    $query->orWhere('product',null);
-                                    $query->orWhere('product',$this->predictions[$i]['produit']);
-                                })
-                                ->exists();
-          //  dd($item );
-            if ($item){
-                $existItem = Prediction::where('container_number',str_replace(" ",'',strtoupper($this->predictions[$i]['n_conteneur'])), )->first();
-                $this->existingItems->push($existItem);
-            }
-
-            if (!$item) {
-                $prediction = Prediction::create([
-                    'partenaire' => $this->predictions[$i]['partenaires'],
-                    'tractor'     => str_replace(" ",'',
-                            strtoupper($this->predictions[$i]['vehicules'])),
-                    'trailer'    => str_replace(" ",'',
-                                    strtoupper($this->predictions[$i]['remorques'])), 
-                    'container_number' => str_replace(" ",'',
-                                        strtoupper($this->predictions[$i]['n_conteneur'])), 
-                    'seal_number'    => array_key_exists('nplomb',$this->predictions[$i]) ? $this->predictions[$i]['nplomb'] : $this->predictions[$i]['n_plomb'], 
-                    'loader'    => strtoupper($this->predictions[$i]['chargeur']) , 
-                    'product'    => strtoupper($this->predictions[$i]['produit']) , 
-                    'user_id' => auth()->user()->id,
-                    'weighing_status' => 'En attente',
-                    'operation' => strtoupper($this->predictions[$i]['operations']),
-                ]);
-                $this->newItems->push($prediction);
-            }
-        }     
-        $this->reset('predictions','file_excel');
-        $this->iteration++;
+                                    ->where(function($query) use ($i){
+                                        
+                                        $query->orWhere('container_number',null);
+                                        $query->orWhere('container_number',str_replace(" ",'',strtoupper($this->predictions[$i]['n_conteneur'])));
+                                        
+                                        $query->orWhere('tractor',null);
+                                        $query->orWhere('tractor',str_replace(" ",'',strtoupper($this->predictions[$i]['vehicules'])));
+                                        
+                                        $query->orWhere('trailer',null);
+                                        $query->orWhere('trailer',str_replace(" ",'',strtoupper($this->predictions[$i]['remorques'])));
+                                        
+                                        $query->orWhere('seal_number',null);
+                                        $query->orWhere('seal_number',strtoupper($this->predictions[$i]['nplomb']));
+                                       
+                                        $query->orWhere('loader',null);
+                                        $query->orWhere('loader',$this->predictions[$i]['chargeur']);
+                                        
+                                        $query->orWhere('product',null);
+                                        $query->orWhere('product',$this->predictions[$i]['produit']);
+                                    })
+                                    ->exists();
+              //  dd($item );
+                if ($item){
+                    $existItem = Prediction::where('container_number',str_replace(" ",'',strtoupper($this->predictions[$i]['n_conteneur'])), )->first();
+                    $this->existingItems->push($existItem);
+                }
+    
+                if (!$item) {
+                    $prediction = Prediction::create([
+                        'partenaire' => $this->predictions[$i]['partenaires'],
+                        'tractor'     => str_replace(" ",'',
+                                strtoupper($this->predictions[$i]['vehicules'])),
+                        'trailer'    => str_replace(" ",'',
+                                        strtoupper($this->predictions[$i]['remorques'])), 
+                        'container_number' => str_replace(" ",'',
+                                            strtoupper($this->predictions[$i]['n_conteneur'])), 
+                        'seal_number'    => array_key_exists('nplomb',$this->predictions[$i]) ? $this->predictions[$i]['nplomb'] : $this->predictions[$i]['n_plomb'], 
+                        'loader'    => strtoupper($this->predictions[$i]['chargeur']) , 
+                        'product'    => strtoupper($this->predictions[$i]['produit']) , 
+                        'user_id' => auth()->user()->id,
+                        'weighing_status' => 'En attente',
+                        'operation' => strtoupper($this->predictions[$i]['operations']),
+                    ]);
+                    $this->newItems->push($prediction);
+                }
+            }     
+            $this->reset('predictions','file_excel');
+            $this->iteration++;
+        } catch (\Throwable $e) {
+             Log::error($e->getMessage());
+             $this->iteration ++;
+             $this->file_excel = "";
+             session()->flash('error', 'Une erreur c\'est produite veuillez vérifier l\'entête de votre fichier excel');
+        }
    }
 }

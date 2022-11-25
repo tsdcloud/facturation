@@ -9,13 +9,19 @@
     </style>
 @endpush
 <div>
+    @if (session()->has('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @endif
     <div class="card-style">
         <div x-data="{ isUpoloading: false, progress: 0 }" x-on:livewire-upload-start="isUploading = true"
             x-on:livewire-upload-finish="isUploading = false" x-on:livewire-upload-error="isUploading = false"
             x-on:livewire-upload-progress="progress = $event.detail.progress">
             <div class="col">
                 <div class="mb-3">
-                    <input x-on:click="$wire.clear()" class="form-control" wire:model="file_excel" type="file" id="formFile{{ $iteration }}">
+                    <input x-on:click="$wire.clear()" class="form-control" wire:model="file_excel" type="file"
+                        id="formFile{{ $iteration }}">
                 </div>
             </div>
             <div x-show="isUploading" class="progress mb-3">
@@ -28,11 +34,12 @@
         @endif
     </div>
     <div>
-        @if (session()->has('message'))
+        {{-- @if (session()->has('message'))
             <div class="alert alert-success">
                 {{ session('message') }}
             </div>
-        @endif
+        @endif --}}
+
     </div>
     @if (!empty($predictions))
         <div class="card-style mt-3">
@@ -144,49 +151,49 @@
                                     <p>{{ $item->tractor ?? $item['partenaire'] }}</p>
                                 </td>
                                 <td>
-                                    <p>{{ $item->trailer ?? $item['partenaire']}}</p>
+                                    <p>{{ $item->trailer ?? $item['partenaire'] }}</p>
                                 </td>
                                 <td>
-                                    <p>{{ $item->container_number ?? $item['partenaire']}}</p>
+                                    <p>{{ $item->container_number ?? $item['partenaire'] }}</p>
                                 </td>
                                 <td>
-                                    <p>{{ $item->seal_number ?? $item['partenaire']}}</p>
+                                    <p>{{ $item->seal_number ?? $item['partenaire'] }}</p>
                                 </td>
                                 <td>
-                                    <p>{{ $item->loader ?? $item['partenaire']}}</p>
+                                    <p>{{ $item->loader ?? $item['partenaire'] }}</p>
                                 </td>
                                 <td>
-                                    <p>{{ $item->product ?? $item['partenaire']}}</p>
+                                    <p>{{ $item->product ?? $item['partenaire'] }}</p>
                                 </td>
                                 <td>
-                                    <p>{{ $item->operation ?? $item['partenaire']}}</p>
+                                    <p>{{ $item->operation ?? $item['partenaire'] }}</p>
                                 </td>
                                 <td>
-                                    <p>{{ $item->head_guerite_entry ?? $item['partenaire']}}</p>
+                                    <p>{{ $item->head_guerite_entry ?? $item['partenaire'] }}</p>
                                 </td>
                                 <td>
-                                    <p>{{ $item->guerite_entry ?? $item['partenaire']}}</p>
+                                    <p>{{ $item->guerite_entry ?? $item['partenaire'] }}</p>
                                 </td>
                                 <td>
-                                    <p>{{ $item->date_weighing_entry ?? $item['partenaire']}}</p>
+                                    <p>{{ $item->date_weighing_entry ?? $item['partenaire'] }}</p>
                                 </td>
                                 <td>
-                                    <p>{{ $item->head_geurite_output ?? $item['partenaire']}}</p>
+                                    <p>{{ $item->head_geurite_output ?? $item['partenaire'] }}</p>
                                 </td>
                                 <td>
-                                    <p>{{ $item->geurite_output ?? $item['partenaire']}}</p>
+                                    <p>{{ $item->geurite_output ?? $item['partenaire'] }}</p>
                                 </td>
                                 <td>
-                                    <p>{{ $item->date_weighing_output ?? $item['partenaire']}}</p>
+                                    <p>{{ $item->date_weighing_output ?? $item['partenaire'] }}</p>
                                 </td>
                                 <td>
-                                    <p>{{ $item->weighing_status ?? $item['partenaire']}}</p>
+                                    <p>{{ $item->weighing_status ?? $item['partenaire'] }}</p>
                                 </td>
                                 <td>
-                                    <p>{{ optional($item->user)->name ?? $item['partenaire']}}</p>
+                                    <p>{{ optional($item->user)->name ?? $item['partenaire'] }}</p>
                                 </td>
                                 <td>
-                                    <p>{{ $item->created_at->format('d/m/y H:i:s') ?? $item['partenaire']}}</p>
+                                    <p>{{ $item->created_at->format('d/m/y H:i:s') ?? $item['partenaire'] }}</p>
                                 </td>
                             </tr>
                         @endforeach
