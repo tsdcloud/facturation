@@ -21,11 +21,6 @@ class Create extends Component
         return view('livewire.prediction.create');
     }
 
-    public function mount(){
-        $this->existingItems = collect([]);
-        $this->newItems = collect([]);
-    }
-
     public function updating(){
         $this->existingItems = $this->existingItems;
         $this->newItems = $this->newItems;
@@ -45,8 +40,13 @@ class Create extends Component
 
     }
 
+    public function clear(){
+        $this->reset('existingItems','newItems');
+    }
     public function import(){
         
+        $this->existingItems = collect([]);
+        $this->newItems = collect([]);
         
         for ($i=0; $i < count($this->predictions); $i++) {
 
@@ -99,19 +99,7 @@ class Create extends Component
                 $this->newItems->push($prediction);
             }
         }     
-
         $this->reset('predictions','file_excel');
         $this->iteration++;
-   }
-
-   public function add($id){
-   // dd($this->existingItems->firstWhere('id',$id));
-   // session()->flash('message', 'Post successfully updated.');
-    //$item = $this->existingItems->firstWhere('id',$id);
-    Prediction::create($this->existingItems->firstWhere('id',$id));
-    $this->existingItems->pull($id);
-    $this->existingItems->all();
-   // $this->emit('refreshComponent');
-    //dd($item);
    }
 }

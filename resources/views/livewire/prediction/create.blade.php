@@ -15,7 +15,7 @@
             x-on:livewire-upload-progress="progress = $event.detail.progress">
             <div class="col">
                 <div class="mb-3">
-                    <input class="form-control" wire:model="file_excel" type="file" id="formFile{{ $iteration }}">
+                    <input x-on:click="$wire.clear()" class="form-control" wire:model="file_excel" type="file" id="formFile{{ $iteration }}">
                 </div>
             </div>
             <div x-show="isUploading" class="progress mb-3">
@@ -40,21 +40,6 @@
                 <table class="table striped-table">
                     <thead>
                         <tr>
-                            {{-- @foreach ($predictions[0] as $key => $preview)
-                                <th>
-                                    <div class="select-style-1">
-                                        <div class="select-position">
-                                            <select>
-                                                @foreach (config('excel_field') as $field)
-                                                    <option value="{{ $field }}"
-                                                        @if ($key == $field) selected @endif>
-                                                        {{ $field }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
-                                </th>
-                            @endforeach --}}
                             <th>Partenaires</th>
                             <th>Vehicules</th>
                             <th>Remorques</th>
@@ -156,52 +141,52 @@
                                     <p>{{ $item->partenaire ?? $item['partenaire'] }}</p>
                                 </td>
                                 <td>
-                                    <p>{{ $item->tractor }}</p>
+                                    <p>{{ $item->tractor ?? $item['partenaire'] }}</p>
                                 </td>
                                 <td>
-                                    <p>{{ $item->trailer }}</p>
+                                    <p>{{ $item->trailer ?? $item['partenaire']}}</p>
                                 </td>
                                 <td>
-                                    <p>{{ $item->container_number }}</p>
+                                    <p>{{ $item->container_number ?? $item['partenaire']}}</p>
                                 </td>
                                 <td>
-                                    <p>{{ $item->seal_number }}</p>
+                                    <p>{{ $item->seal_number ?? $item['partenaire']}}</p>
                                 </td>
                                 <td>
-                                    <p>{{ $item->loader }}</p>
+                                    <p>{{ $item->loader ?? $item['partenaire']}}</p>
                                 </td>
                                 <td>
-                                    <p>{{ $item->product }}</p>
+                                    <p>{{ $item->product ?? $item['partenaire']}}</p>
                                 </td>
                                 <td>
-                                    <p>{{ $item->operation }}</p>
+                                    <p>{{ $item->operation ?? $item['partenaire']}}</p>
                                 </td>
                                 <td>
-                                    <p>{{ $item->head_guerite_entry }}</p>
+                                    <p>{{ $item->head_guerite_entry ?? $item['partenaire']}}</p>
                                 </td>
                                 <td>
-                                    <p>{{ $item->guerite_entry }}</p>
+                                    <p>{{ $item->guerite_entry ?? $item['partenaire']}}</p>
                                 </td>
                                 <td>
-                                    <p>{{ $item->date_weighing_entry }}</p>
+                                    <p>{{ $item->date_weighing_entry ?? $item['partenaire']}}</p>
                                 </td>
                                 <td>
-                                    <p>{{ $item->head_geurite_output }}</p>
+                                    <p>{{ $item->head_geurite_output ?? $item['partenaire']}}</p>
                                 </td>
                                 <td>
-                                    <p>{{ $item->geurite_output }}</p>
+                                    <p>{{ $item->geurite_output ?? $item['partenaire']}}</p>
                                 </td>
                                 <td>
-                                    <p>{{ $item->date_weighing_output }}</p>
+                                    <p>{{ $item->date_weighing_output ?? $item['partenaire']}}</p>
                                 </td>
                                 <td>
-                                    <p>{{ $item->weighing_status }}</p>
+                                    <p>{{ $item->weighing_status ?? $item['partenaire']}}</p>
                                 </td>
                                 <td>
-                                    <p>{{ optional($item->user)->name }}</p>
+                                    <p>{{ optional($item->user)->name ?? $item['partenaire']}}</p>
                                 </td>
                                 <td>
-                                    <p>{{ $item->created_at->format('d/m/y H:i:s') }}</p>
+                                    <p>{{ $item->created_at->format('d/m/y H:i:s') ?? $item['partenaire']}}</p>
                                 </td>
                             </tr>
                         @endforeach
