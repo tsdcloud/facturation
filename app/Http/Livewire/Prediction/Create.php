@@ -52,31 +52,14 @@ class Create extends Component
         // try {
             for ($i=0; $i < count($this->predictions); $i++) {
 
-                $seal_number =  array_key_exists('nplomb',$this->predictions[$i]) ? $this->predictions[$i]['nplomb'] : $this->predictions[$i]['n_plomb'];
                 // recherche si le contenaire existe, la colonne peut parfois être null
-                $item = Prediction::where('partenaire',str_replace(" ",'',strtoupper($this->predictions[$i]['partenaires'])))
-                                    
-                                    ->where(function($query) use ($i, $seal_number){
-                                        
-                                        $query->orWhere('container_number',null);
-                                        $query->orWhere('container_number',str_replace(" ",'',strtoupper($this->predictions[$i]['n_conteneur'])));
-                                        
-                                        $query->orWhere('tractor',null);
-                                        $query->orWhere('tractor',str_replace(" ",'',strtoupper($this->predictions[$i]['vehicules'])));
-                                        
-                                        $query->orWhere('trailer',null);
-                                        $query->orWhere('trailer',str_replace(" ",'',strtoupper($this->predictions[$i]['remorques'])));
-                                        
-                                        $query->orWhere('seal_number',null);
-                                        $query->orWhere('seal_number',strtoupper($seal_number));
-                                       
-                                        $query->orWhere('loader',null);
-                                        $query->orWhere('loader',$this->predictions[$i]['chargeur']);
-                                        
-                                        $query->orWhere('product',null);
-                                        $query->orWhere('product',$this->predictions[$i]['produit']);
-                                    })
-                                    ->exists();
+                $item = Prediction::where('partenaire',str_replace(" ",'',strtoupper      
+                        ($this->predictions[$i]['partenaires'])))
+                        ->where('container_number',str_replace(" ",'',strtoupper($this->predictions[$i]['n_conteneur'])))
+                        ->where('loader',strtoupper($this->predictions[$i]['chargeur']))
+                        ->where('operation',strtoupper($this->predictions[$i]['operations']))
+                        ->exists();
+
               //  dd($item );
                 if ($item){
                     $existItem = Prediction::where('container_number',str_replace(" ",'',strtoupper($this->predictions[$i]['n_conteneur'])), )->first();
