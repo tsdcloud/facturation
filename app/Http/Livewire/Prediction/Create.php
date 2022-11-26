@@ -42,11 +42,9 @@ class Create extends Component
     {
         $this->existingItems = collect([]);
         $this->newItems = collect([]);
-
-        //   dd($this->predictions, count($this->predictions));
-        // try {
+        try {
         foreach ($this->predictions as $i => $prediction) {
-            // recherche si le contenaire existe, la colonne peut parfois être null
+            // rechercher si le contenaire existe, la colonne peut parfois être null
             $item = Prediction::where('partenaire', str_replace(" ", '', strtoupper($this->predictions[$i]['partenaires'])))
                 ->where('container_number', str_replace(" ", '', strtoupper($this->predictions[$i]['n_conteneur'])))
                 ->where('loader', strtoupper($this->predictions[$i]['chargeur']))
@@ -87,11 +85,11 @@ class Create extends Component
         }
         $this->reset('predictions', 'file_excel');
         $this->iteration++;
-        // } catch (\Throwable $e) {
-        //      Log::error($e->getMessage());
-        //      $this->iteration ++;
-        //      $this->file_excel = "";
-        //      session()->flash('error', 'Une erreur c\'est produite veuillez vérifier l\'entête de votre fichier excel');
-        // }
+        } catch (\Throwable $e) {
+             Log::error($e->getMessage());
+             $this->iteration ++;
+             $this->file_excel = "";
+             session()->flash('error', 'Une erreur c\'est produite veuillez vérifier l\'entête de votre fichier excel');
+        }
     }
 }
