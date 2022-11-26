@@ -66,7 +66,7 @@ class Login extends Component
         }
     }
 
-    // selection du pont
+    // selectionner le pont ou authentifier si c'est un ope
     public function threeStepRole(){
         $this->validate(
             ['bridge' => 'required'],
@@ -77,6 +77,11 @@ class Login extends Component
 
         if ($this->user && Hash::check($this->password, $this->user->password)){
             
+            //si ope login and return home
+            if ($this->user->role =="ope"){ 
+               Auth::login($this->user);
+              to_route('home');
+            }
             //selectionner le shift
             if ($this->user->role =="user")
                 return $this->currentStep = 5;
