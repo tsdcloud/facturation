@@ -152,6 +152,21 @@
                 </a>
             </li>
         @endif
+        
+        @if (Auth::user()->isAdmin() )
+            <li class="nav-item {{ Request::is('report-create') ? 'active' : '' }} ">
+                <a href="{{ route('reporting.create') }}">
+                    <span class="icon">
+                        <svg width="22" height="22" viewBox="0 0 22 22" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M12.9067 14.2908L15.2808 11.9167H6.41667V10.0833H15.2808L12.9067 7.70917L14.2083 6.41667L18.7917 11L14.2083 15.5833L12.9067 14.2908ZM17.4167 2.75C17.9029 2.75 18.3692 2.94315 18.713 3.28697C19.0568 3.63079 19.25 4.0971 19.25 4.58333V8.86417L17.4167 7.03083V4.58333H4.58333V17.4167H17.4167V14.9692L19.25 13.1358V17.4167C19.25 17.9029 19.0568 18.3692 18.713 18.713C18.3692 19.0568 17.9029 19.25 17.4167 19.25H4.58333C3.56583 19.25 2.75 18.425 2.75 17.4167V4.58333C2.75 3.56583 3.56583 2.75 4.58333 2.75H17.4167Z" />
+                        </svg>
+                    </span>
+                    <span class="text">Consulter un rapport</span>
+                </a>
+            </li>
+        @endif
 
         @if (Auth::user()->isAdmin() ||
             Auth::user()->isSupport() ||

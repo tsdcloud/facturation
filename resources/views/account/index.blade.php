@@ -61,7 +61,7 @@
                                         aria-labelledby="moreAction1">
                                         <li class="dropdown-item">
                                             <a style="color:grey" class="link-primary"
-                                               href="javascript:void(0)">
+                                               href="{{route('account.edit',$user->id)}}">
                                                 Editer l'utilisateur
                                             </a>
                                         </li>
