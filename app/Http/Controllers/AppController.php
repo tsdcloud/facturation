@@ -97,4 +97,11 @@ class AppController extends Controller
         session()->flash('success', 'apuré en sortie ok');
             return redirect()->to('/search/container');
     }
+
+    // reporting
+    public function indexReport(){
+
+        $breadcrumb = "Consulter un rapport";
+        return view('report.index',compact('breadcrumb'));
+    }
 }
