@@ -1,10 +1,10 @@
 @push('styles')
-    <link href="{{asset('assets/css/filepond.css')}}" rel="stylesheet" />
-    <link href="{{asset('assets/css/filepond-plugin-image-preview.css')}}" rel="stylesheet"/>
+    <link href="{{ asset('assets/css/filepond.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/css/filepond-plugin-image-preview.css') }}" rel="stylesheet" />
 @endpush
 <div>
     <div class="form-elements-wrapper">
-        
+
         @if ($shift_22h)
             <div class="row">
                 <div class="col-lg-2 mt-4">
@@ -164,8 +164,7 @@
         <div class="row mt-4">
             <div class="col-lg-12">
                 <div class="card-style">
-                    <x-forms.filepond wire:model="images" 
-                    acceptedFileTypes="['image/*']" multiple />
+                    <x-forms.filepond wire:model="images" acceptedFileTypes="['image/*']" multiple />
                 </div>
             </div>
         </div>
@@ -203,50 +202,53 @@
         <div class="col-12 d-flex justify-content-end mt-3">
             <button wire:click="save" wire:loading.attr="disabled" class="btn btn-primary me-1 mb-1">
                 <div class="spinner-border" wire:loading role="status" wire:target="save"></div>
-                <div wire:loading.remove  wire:target="save"> Enregistrer </div>
-                </button>
+                <div wire:loading.remove wire:target="save"> Enregistrer </div>
+            </button>
             <button type="reset" class="main-btn danger-btn btn-hover me-1 mb-1">Annuler</button>
         </div>
-        @push('scripts')
-            <script src="{{asset('assets/js/filepond-plugin-image-preview.js')}}"></script>
-            <script src="{{asset('assets/js/filepond.js')}}"></script>
-            <script src="https://unpkg.com/filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.js"></script>
-            <script>
-                // Register the plugin
-                FilePond.registerPlugin(FilePondPluginImagePreview);
-                FilePond.registerPlugin(FilePondPluginFileValidateType);
-                FilePond.setOptions({
-                    labelIdle: 'Glissez-déposez vos fichiers ou <span class="filepond--label-action"> parcourir </span>',
-                    labelFileProcessing: 'Téléchargement',
-                    labelFileProcessingComplete: 'Téléchargement terminé',
-                    labelTapToUndo: 'appuyez sur la croix pour annuler',
-                    labelFileTypeNotAllowed: 'Fichier de type non valide',
-                    fileValidateTypeLabelExpectedTypes: 'Sélectionner une image de type {allButLastType} ou {lastType}',
-                    labelTapToCancel: 'Appuyer sur le loader pour annuler',
-                });
-                
+    </div>
+</div>
 
-                document.addEventListener('filepont', () => {
-                    const pond = FilePond.create(
-                        document.getElementById('pic'));
-                    pond.removeFiles({
-                        revert: true
-                    });
-                })
-                document.addEventListener('filepont', () => {
-                    const pond = FilePond.create(
-                        document.getElementById('attachment'));
-                    pond.removeFiles({
-                        revert: true
-                    });
-                })
+@push('scripts')
+    <script src="{{ asset('assets/js/filepond-plugin-image-preview.js') }}"></script>
+    <script src="{{ asset('assets/js/filepond.js') }}"></script>
+    <script src="https://unpkg.com/filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.js"></script>
+    <script>
+        // Register the plugin
+        FilePond.registerPlugin(FilePondPluginImagePreview);
+        FilePond.registerPlugin(FilePondPluginFileValidateType);
+        FilePond.setOptions({
+            labelIdle: 'Glissez-déposez vos fichiers ou <span class="filepond--label-action"> parcourir </span>',
+            labelFileProcessing: 'Téléchargement',
+            labelFileProcessingComplete: 'Téléchargement terminé',
+            labelTapToUndo: 'appuyez sur la croix pour annuler',
+            labelFileTypeNotAllowed: 'Fichier de type non valide',
+            fileValidateTypeLabelExpectedTypes: 'Sélectionner une image de type {allButLastType} ou {lastType}',
+            labelTapToCancel: 'Appuyer sur le loader pour annuler',
+        });
 
-                document.addEventListener('closeAlert', () => {
-                    setTimeout(() => {
-                        let alertNode = document.querySelector('#alert-message');
-                        let alert = new bootstrap.Alert(alertNode);
-                        alert.close()
-                    }, 6000)
-                })
-            </script>
-        @endpush
+
+        document.addEventListener('filepont', () => {
+            const pond = FilePond.create(
+                document.getElementById('pic'));
+            pond.removeFiles({
+                revert: true
+            });
+        })
+        document.addEventListener('filepont', () => {
+            const pond = FilePond.create(
+                document.getElementById('attachment'));
+            pond.removeFiles({
+                revert: true
+            });
+        })
+
+        document.addEventListener('closeAlert', () => {
+            setTimeout(() => {
+                let alertNode = document.querySelector('#alert-message');
+                let alert = new bootstrap.Alert(alertNode);
+                alert.close()
+            }, 6000)
+        })
+    </script>
+@endpush

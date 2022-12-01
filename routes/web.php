@@ -58,6 +58,7 @@ Route::middleware(['auth'])->group(function(){
     // reporting
     Route::get('report-index',[AppController::class,'indexReport'])->name('reporting.index');
     Route::get('report-create',[HomeController::class,'reporting'])->name('reporting.create');
+    Route::get('report-details/{id}',[AppController::class,'detailReport'])->name('reporting.show');
 
     
 
