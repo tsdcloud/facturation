@@ -154,7 +154,7 @@
         @endif
 
         @if (Auth::user()->isAdmin() )
-            <li class="nav-item {{ Request::is('report-create') ? 'active' : '' }} ">
+            <li class="nav-item {{ Request::is('report-index') ? 'active' : '' }} ">
                 <a href="{{ route('reporting.index') }}">
                     <span class="icon">
                         <svg width="22" height="22" viewBox="0 0 22 22" fill="none"

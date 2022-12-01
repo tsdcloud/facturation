@@ -181,7 +181,7 @@
                     <div class="col-lg-12">
                         <div class="input-style-1">
                             <label>Ajouter un message</label>
-                            <textarea wire:model.defer="" rows="3"></textarea>
+                            <textarea wire:model.defer="body" rows="3"></textarea>
                         </div>
                     </div>
                     <div class="col-lg-12">

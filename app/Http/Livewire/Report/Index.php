@@ -10,7 +10,7 @@ class Index extends Component
     public function render()
     {
         return view('livewire.report.index',[
-            'reports' => Report::paginate(10),
+            'reports' => Report::orderByDesc('created_at')->paginate(10),
         ]);
     }
 }

@@ -93,6 +93,10 @@
                                                             <a style="color:grey" class="link-primary"
                                                                 href="{{ route('reporting.show', $report->id) }}">voir</a>
                                                         </li>
+                                                        <li class="dropdown-item">
+                                                            <a style="color:grey" class="link-primary"
+                                                                href="{{ route('reporting.show', $report->id) }}">Modifier</a>
+                                                        </li>
                                                     </ul>
                                                 </div>
                                             </td>
