@@ -140,9 +140,8 @@ class CreateReport extends Component
                     'name' => $image->getClientOriginalName(),
                     'report_id' => $report->id,
                     'path' => $image->store('attachments/report', 'public'),
-                    'mime_type' => $image->store('attachments/report', 'public'),
+                    'mime_type' => $image->getMimeType(),
                 ]);
-                dd($image->getMimeType());
             }
 
             // pieces jointes email
@@ -151,6 +150,7 @@ class CreateReport extends Component
                     'name' => $attachment->getClientOriginalName(),
                     'report_id' => $report->id,
                     'path' => $attachment->storeAs('attachments/email-report', $attachment->getClientOriginalName(), 'public'),
+                    'mime_type' => $image->getMimeType(),
                 ]);
             }
 

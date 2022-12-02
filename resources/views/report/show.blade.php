@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @push('styles')
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+    <link rel="stylesheet" href="{{asset('assets/css/fancybox.min.css')}}">
 @endpush
 @section('content')
     <div class="form-elements-wrapper">
@@ -175,6 +175,6 @@
     </div>
 @stop
 @push('scripts')
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.0/dist/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+    <script src="{{asset('assets/js/jquery-fancybox.min.js')}}"></script>
+    <script src="{{asset('assets/js/fancybox.min.js')}}"></script>
 @endpush
