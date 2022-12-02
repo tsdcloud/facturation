@@ -1,5 +1,8 @@
 @extends('layouts.app')
+@push('styles')
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
 
+@endpush
 @section('content')
 <div class="form-elements-wrapper">
     <div class="card-style">
@@ -140,9 +143,10 @@
             <h6 class="mb-25"> Pièce jointe email</h6>
             <div class="row">
                 @foreach ($report->attachments as $attachment)
+                
                     <div class="col-lg-4">
                         <label>{{$attachment->name}}</label>
-                        <a href="javascript:void(0)" download="{{asset('storage/'.$attachment->path)}}">
+                        <a href="{{route('download',$report->id)}}" download="{{asset('storage/'.$attachment->path)}}">
                              Télécharger
                         </a>
                     </div>
@@ -151,17 +155,17 @@
         </div>
     </div>
     <div class="row mt-4">
-        <div class="col-lg-12">
-            @foreach ($report->images as $image )
-
-            <div class="card mt-3" style="width: 73rem;">
-                <img src="{{asset('storage/'.$image->path)}}" alt="">
+        @foreach ($report->images as $image )
+        <div class="col-lg-4">
+                <a href="{{asset('storage/'.$image->path)}}" data-fancybox="group" data-caption="This image has a caption 2">
+                    <img width="300" height="300" src="{{asset('storage/'.$image->path)}}" />
+                  </a>
               </div>
             @endforeach
-            {{-- <div class="card-style">
-                <x-forms.filepond wire:model="images" acceptedFileTypes="['image/*']" multiple />
-            </div> --}}
-        </div>
     </div>
 </div>
 @stop
+@push('scripts')
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.0/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+@endpush

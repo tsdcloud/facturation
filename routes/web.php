@@ -14,6 +14,7 @@ use App\Http\Controllers\AccountingController;
 use App\Http\Controllers\CheckpointController;
 use App\Http\Controllers\PowerWeightController;
 use App\Http\Controllers\PredictionController;
+use App\Models\Report;
 
 /*
 |--------------------------------------------------------------------------
@@ -60,8 +61,13 @@ Route::middleware(['auth'])->group(function(){
     Route::get('report-create',[HomeController::class,'reporting'])->name('reporting.create');
     Route::get('report-details/{id}',[AppController::class,'detailReport'])->name('reporting.show');
 
+    // Téléchargement pièces jointes rapport
+    Route::get('/download/{id}', function ($id) {
+      $report = Report::where('id',$id)->first();
+      //  return Storage::download($report->path);
+      return Response::download(public_path('storage/'.$report->path));
+    })->name('download');
     
-
     Route::get('invoices',[InvoiceController::class, 'myInvoice'])->name('invoices');
     Route::get('all-invoices',[InvoiceController::class, 'allInvoice'])->name('allInvoice');
     Route::get('refund',[InvoiceController::class, 'refund'])->name('refund');
