@@ -1,7 +1,9 @@
 <?php
 
 
+use App\Models\Report;
 use App\Models\Weighbridge;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AppController;
 use App\Http\Controllers\HomeController;
@@ -12,9 +14,9 @@ use App\Http\Controllers\PaybackController;
 use App\Http\Controllers\SignatureController;
 use App\Http\Controllers\AccountingController;
 use App\Http\Controllers\CheckpointController;
-use App\Http\Controllers\PowerWeightController;
 use App\Http\Controllers\PredictionController;
-use App\Models\Report;
+use App\Http\Controllers\PowerWeightController;
+use App\Models\EmailAttachment;
 
 /*
 |--------------------------------------------------------------------------
@@ -63,9 +65,12 @@ Route::middleware(['auth'])->group(function(){
 
     // Téléchargement pièces jointes rapport
     Route::get('/download/{id}', function ($id) {
-      $report = Report::where('id',$id)->first();
-      //  return Storage::download($report->path);
-      return Response::download(public_path('storage/'.$report->path));
+      $attachment = EmailAttachment::where('id',$id)->first();
+      $url = Storage::url($attachment->path);
+      $headers = ['Content-Type: '.$attachment->mime_type];
+     // dd(public_path('storage/'.$url));
+      return Storage::download($url, $attachment->name,$headers);
+      //public_path($url) return Response::download(public_path('storage/'.$report->path));
     })->name('download');
     
     Route::get('invoices',[InvoiceController::class, 'myInvoice'])->name('invoices');

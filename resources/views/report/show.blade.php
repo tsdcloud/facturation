@@ -151,11 +151,11 @@
             <div class="card-style">
                 <h6 class="mb-25"> Pièce jointe email</h6>
                 <div class="row">
+                    {{--  download="{{ asset('storage/' . $attachment->path) }} --}}
                     @foreach ($report->attachments as $attachment)
                         <div class="col-lg-4">
                             <label>{{ $attachment->name }}</label>
-                            <a href="{{ route('download', $report->id) }}"
-                                download="{{ asset('storage/' . $attachment->path) }}">
+                            <a href="{{ route('download', $attachment->id) }}">
                                 Télécharger
                             </a>
                         </div>
