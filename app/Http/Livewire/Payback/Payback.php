@@ -26,7 +26,6 @@ class Payback extends Component
     public function getId($id){
 
         $this->invoice = Invoice::where('id',$id)->first();
-     //  dd($this->invoice);
     }
 
     public function payback(){
@@ -39,7 +38,6 @@ class Payback extends Component
             'date_payback' => now(),
             'bridge_that_paid_off' => $bridge->label,
         ]);
-      //  $this->id_invoice = $data->id;
         session()->flash('succès', 'facture remboursée : Opération reussite.');
 
         $this->dispatchBrowserEvent('closeAlert');
