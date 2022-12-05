@@ -44,6 +44,7 @@
                         <table>
                             <tr>
                                 <td align="justifys">
+                                    <p>{{$report->body}}</p>
                                     <p> <strong><u>Pont bascule {{$report->weighbridge}}</u></strong></p>
                                     <p> <span style="font-weight: 250">Nombre total de pesées de type 1 :</span>  <i>
                                         {{$report->total_number_type_1_weighings}}</i>  </p>

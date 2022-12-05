@@ -77,17 +77,17 @@ class Create extends Component
             ]);
     }
 
-    //customer
+    //hiden dropdown customer
     public function hideDropdown1()
     {
         $this->showDropdown1 = false;
     }
-    //tractor
+    //hiden dropdown tractor
    public function hideDropdown2()
     {
         $this->showDropdown2 = false;
     }
-   //trailer
+   // hiden dropdown trailer
    public function hideDropdown3()
     {
         $this->showDropdown3 = false;

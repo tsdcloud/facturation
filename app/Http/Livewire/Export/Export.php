@@ -7,6 +7,7 @@ use Livewire\Component;
 
 use function PHPUnit\Framework\returnSelf;
 
+// ceci est un code qui n'est plus utilisé mais l'a été un moment 
 class Export extends Component
 {
     public  $invoices;

@@ -28,7 +28,8 @@ class CreateReport extends Component
         $operator_hse_one = "HSE 1",
         $operator_hse_two = "HSE 2",
         $amount_pay = "",
-        $subject = "",
+        $subject = "Rapport shift",
+        $body = "",
         $startHour = "",
         $endHour = "";
 
@@ -69,15 +70,15 @@ class CreateReport extends Component
             $this->shift_22h = true;
 
         if (auth()->user()->shift != '22h30-06h30') {
-            $this->amount_pay = Invoice::where('user_id',  3)
+            $this->amount_pay = Invoice::where('user_id',  auth()->user()->id)
                 ->where('mode_payment_id', 2) //Espèce
                 ->where('status_invoice', 'validated')
                 ->whereBetween('created_at', [$start->startOfDay(), $end->endOfDay()])->sum('total_amount');
-            $this->number_cash_invoices = Invoice::where('user_id', 3)
+            $this->number_cash_invoices = Invoice::where('user_id', auth()->user()->id)
                 ->where('mode_payment_id', 2) //Espèce
                 ->where('status_invoice', 'validated')
                 ->whereBetween('created_at', [$start->startOfDay(), $end->endOfDay()])->count();
-            $this->number_invoice_to_be_billed = Prediction::where('user_id', 3)
+            $this->number_invoice_to_be_billed = Prediction::where('user_id', auth()->user()->id)
                 ->orWhereBetween('date_weighing_entry', [$start->startOfDay(), $end->endOfDay()])
                 ->orWhereBetween('date_weighing_output', [$start->startOfDay(), $end->endOfDay()])->count();
         }
@@ -96,13 +97,17 @@ class CreateReport extends Component
 
             $bridge = Weighbridge::where('id',auth()->user()->currentBridge)->first();
             $report = Report::create([
+                
+                'subject' => $this->subject,
+                'body' => $this->body,
+                'shift' => $this->shift,
 
                 'type_report' => $this->type_report,
                 'disciplinary_comment' => $this->disciplinary_comment,
                 'incidental_comment' => $this->incidental_comment,
                 'production_comment' => $this->production_comment,
                 'number_incident' => $this->number_incident,
-
+                 
                 'total_complete_weighing' => $this->total_complete_weighing,
                 'total_complete_weighing_prepaid' => $this->total_complete_weighing_prepaid,
                 'total_complete_weighing_invoiced' => $this->total_complete_weighing_invoiced,
@@ -117,7 +122,7 @@ class CreateReport extends Component
                 'amount_pay' => $this->amount_pay,
                 'number_invoice_to_be_billed' => $this->number_invoice_to_be_billed,
                 'total_number_weighings' => $this->total_number_weighings,
-                'subject' => $this->subject,
+                
                 'total_number_type_1_weighings' => $this->total_number_type_1_weighings,
                 'total_number_type_2_weighings' => $this->total_number_type_2_weighings,
                 'weighbridge' => $bridge->label,
@@ -126,7 +131,7 @@ class CreateReport extends Component
                 'total_incomplete_weighing_prepaid' => $this->total_incomplete_weighing_prepaid,
                 'total_incomplete_weighing_invoiced' => $this->total_incomplete_weighing_invoiced,
                 'total_incomplete_weighing_cash' => $this->total_incomplete_weighing_cash,
-                'shift' => $this->shift,
+                
             ]);
 
             // piece jointe rapport
@@ -135,6 +140,7 @@ class CreateReport extends Component
                     'name' => $image->getClientOriginalName(),
                     'report_id' => $report->id,
                     'path' => $image->store('attachments/report', 'public'),
+                    'mime_type' => $image->getMimeType(),
                 ]);
             }
 
@@ -143,7 +149,8 @@ class CreateReport extends Component
                 EmailAttachment::create([
                     'name' => $attachment->getClientOriginalName(),
                     'report_id' => $report->id,
-                    'path' => $attachment->store('attachments/email-report', 'public'),
+                    'path' => $attachment->storeAs('attachments/email-report', $attachment->getClientOriginalName(), 'public'),
+                    'mime_type' => $image->getMimeType(),
                 ]);
             }
 
@@ -161,7 +168,7 @@ class CreateReport extends Component
                 'total_complete_weighing_prepaid', 'total_complete_weighing_invoiced',
                 'total_incomplete_weighing', 'total_incomplete_weighing_cash',
                 'operator_hse_one', 'operator_hse_two', 'operator_name_one', 'operator_name_two',
-                'total_incomplete_weighing_prepaid', 'total_incomplete_weighing_invoiced'
+                'total_incomplete_weighing_prepaid', 'total_incomplete_weighing_invoiced','body'
             ]);
 
             $this->dispatchBrowserEvent('filepont');

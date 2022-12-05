@@ -16,7 +16,7 @@ class EmailAttachment extends Model
      */
     protected $table = 'attachments';
 
-    protected $fillable=['name','path','report_id'];
+    protected $fillable=['name','path','report_id','mime_type'];
 
     public function report()
     {

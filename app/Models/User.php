@@ -58,7 +58,9 @@ class User extends Authenticatable
     public function predictions(){
         return $this->hasMany(Prediction::class);
     }
-
+    public function reporting(){
+         return $this->hasMany(Report::class);
+    }
     public function isAdmin()
     {
         return $this->role === 'admin';
