@@ -7,6 +7,7 @@ use App\Models\Prediction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\prediction\TruckPassage;
+use App\Models\Report;
 use App\Models\Weighbridge;
 
 class AppController extends Controller
@@ -97,4 +98,19 @@ class AppController extends Controller
         session()->flash('success', 'apuré en sortie ok');
             return redirect()->to('/search/container');
     }
+
+    // reporting
+    public function indexReport(){
+
+        $breadcrumb = "Consulter un rapport";
+        return view('report.index',compact('breadcrumb'));
+    }
+
+    public function detailReport($id){
+        $breadcrumb = "Détail rapport";
+
+        $report = Report::where('id',$id)->first();
+        return view('report.show',compact('breadcrumb','report'));
+    }
+
 }

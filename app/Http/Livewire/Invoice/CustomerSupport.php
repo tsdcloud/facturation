@@ -216,6 +216,7 @@ class CustomerSupport extends Component
             exit();
     }
 
+    // le tractor et le trailer ne sont plus obligatoire
     protected $rules = [
         'customer' => 'required',
         // 'tractor' => 'required',

@@ -1,9 +1,12 @@
 <?php
 
 
+
 use App\Models\Weighbridge;
+use App\Models\EmailAttachment;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AppController;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\StampController;
@@ -12,8 +15,8 @@ use App\Http\Controllers\PaybackController;
 use App\Http\Controllers\SignatureController;
 use App\Http\Controllers\AccountingController;
 use App\Http\Controllers\CheckpointController;
-use App\Http\Controllers\PowerWeightController;
 use App\Http\Controllers\PredictionController;
+use App\Http\Controllers\PowerWeightController;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,10 +57,20 @@ Route::middleware(['auth'])->group(function(){
     })->name('bridge');
     Route::get('report',[HomeController::class, 'report'])->name('report');
     Route::get('billing',[InvoiceController::class,'index']);
+
+    // reporting
+    Route::get('report-index',[AppController::class,'indexReport'])->name('reporting.index');
     Route::get('report-create',[HomeController::class,'reporting'])->name('reporting.create');
+    Route::get('report-details/{id}',[AppController::class,'detailReport'])->name('reporting.show');
 
-
-
+    // Téléchargement pièces jointes rapport
+    Route::get('/download/{id}', function ($id) {
+      $attachment = EmailAttachment::where('id',$id)->first();
+      $headers = ['Content-Type: '.$attachment->mime_type];
+    // dd($headers);
+     // return Storage::download($url, $attachment->name,$headers);
+    })->name('download');
+    
     Route::get('invoices',[InvoiceController::class, 'myInvoice'])->name('invoices');
     Route::get('all-invoices',[InvoiceController::class, 'allInvoice'])->name('allInvoice');
     Route::get('refund',[InvoiceController::class, 'refund'])->name('refund');

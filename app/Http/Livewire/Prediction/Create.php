@@ -23,6 +23,8 @@ class Create extends Component
     }
 
     protected $listeners = ['refreshComponent' => '$refresh'];
+
+    //le lit le fichier excel et j'extrais les données
     public function preview()
     {
         $this->predictions = Excel::toArray(new PredictionImport, $this->file_excel->store('temp'));
@@ -38,13 +40,15 @@ class Create extends Component
     {
         $this->reset('existingItems', 'newItems');
     }
+
+    // je store les données en BD
     public function import()
     {
         $this->existingItems = collect([]);
         $this->newItems = collect([]);
         try {
         foreach ($this->predictions as $i => $prediction) {
-            // rechercher si le contenaire existe, la colonne peut parfois être null
+            // rechercher si le contenaire existe
             $item = Prediction::where('partenaire', str_replace(" ", '', strtoupper($this->predictions[$i]['partenaires'])))
                 ->where('container_number', str_replace(" ", '', strtoupper($this->predictions[$i]['n_conteneur'])))
                 ->where('loader', strtoupper($this->predictions[$i]['chargeur']))

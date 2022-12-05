@@ -10,7 +10,7 @@ class Image extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'path', 'report_id'];
+    protected $fillable = ['name', 'path', 'report_id','mime_type'];
 
     public function report()
     {
