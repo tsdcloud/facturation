@@ -66,9 +66,8 @@ Route::middleware(['auth'])->group(function(){
     // Téléchargement pièces jointes rapport
     Route::get('/download/{id}', function ($id) {
       $attachment = EmailAttachment::where('id',$id)->first();
-    
       $headers = ['Content-Type: '.$attachment->mime_type];
-     dd($headers);
+    // dd($headers);
      // return Storage::download($url, $attachment->name,$headers);
     })->name('download');
     
